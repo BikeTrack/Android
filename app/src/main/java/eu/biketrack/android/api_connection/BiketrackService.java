@@ -1,5 +1,6 @@
 package eu.biketrack.android.api_connection;
 
+import eu.biketrack.android.models.data_reception.UserConnection;
 import eu.biketrack.android.models.data_reception.UserInscription;
 import eu.biketrack.android.models.data_send.User;
 import retrofit2.http.Body;
@@ -12,4 +13,7 @@ import rx.Observable;
 public interface BiketrackService {
     @POST("users")
     Observable<UserInscription> createUser(@Body User user);
+
+    @POST("users/login")
+    Observable<UserConnection> connectUser(@Body User user);
 }
