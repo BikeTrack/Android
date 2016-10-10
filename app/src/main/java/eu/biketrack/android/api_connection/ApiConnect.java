@@ -7,6 +7,7 @@ import eu.biketrack.android.models.data_reception.UserInscription;
 import eu.biketrack.android.models.data_send.User;
 import retrofit2.Call;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.HttpException;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
@@ -21,6 +22,8 @@ import rx.schedulers.Schedulers;
  * Created by adrienschricke on 17/09/2016 for Android.
  */
 public class ApiConnect {
+
+    private static String TAG = "BikeTrack";
 
     private Retrofit buildRetrofit(){
         return new Retrofit.Builder()
@@ -46,23 +49,32 @@ public class ApiConnect {
     public void signIn(User user){
         BiketrackService biketrackService = buildService(BiketrackService.class);
         Observable<UserConnection> userObservable = biketrackService.connectUser(user);
-        userObservable.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<UserConnection>() {
-                    @Override
-                    public void onCompleted() {
-                        Log.d("TAG", "onCompleted()");
-                    }
+        userObservable.subscribeOn(Schedulers.newThread());
+        userObservable.observeOn(AndroidSchedulers.mainThread());
+        Subscriber<UserConnection> userConnectionSubscriber = new Subscriber<UserConnection>() {
+            @Override
+            public void onCompleted() {
+                Log.d(TAG, "onCompleted()");
+            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.e("TAG", "onError()", e);
-                    }
+            @Override
+            public void onError(Throwable e) {
+                if (e instanceof HttpException) {
+                    HttpException response = (HttpException)e;
+                    int code = response.code();
+                    Log.e(TAG, "Http error code : " + code + " : " + response.message() , response);
+                }
+            }
 
-                    @Override
-                    public void onNext(UserConnection uc) {
-                        Log.d("TAG", "userInscription : " + uc.isSuccess() + " " + uc.getToken());
-                    }
-                });
+            @Override
+            public void onNext(UserConnection uc) {
+                Log.d(TAG, "userInscription : " + uc.isSuccess() + " " + uc.getToken());
+
+            }
+        };
+
+        userObservable.subscribe(userConnectionSubscriber);
+        if (userConnectionSubscriber.isUnsubscribed())
+            userConnectionSubscriber.unsubscribe();
     }
 }

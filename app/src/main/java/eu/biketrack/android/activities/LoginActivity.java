@@ -86,7 +86,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
         });
-
+        mEmailView.setText("didi");
+        mPasswordView.setText("azerty");
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -101,7 +102,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onDestroy(){
-
+        super.onDestroy();
     }
 
 //    private void populateAutoComplete() {
