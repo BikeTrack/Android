@@ -52,4 +52,11 @@ public class UserInscription {
         this.message = message;
     }
 
+    @Override
+    public String toString() {
+        return "UserInscription{" +
+                "sucess=" + sucess +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

@@ -50,4 +50,12 @@ public class UserConnection {
         this.token = token;
     }
 
+
+    @Override
+    public String toString() {
+        return "UserConnection{" +
+                "success=" + success +
+                ", token='" + token + '\'' +
+                '}';
+    }
 }

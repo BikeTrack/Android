@@ -23,7 +23,9 @@ import rx.schedulers.Schedulers;
  */
 public class ApiConnect {
 
-    private static String TAG = "BikeTrack";
+    private static String TAG = "BikeTrack - ApiConnect";
+    private UserConnection uCo;
+    private UserInscription uIn;
 
     private Retrofit buildRetrofit(){
         return new Retrofit.Builder()
@@ -40,10 +42,35 @@ public class ApiConnect {
     public void signUp(User user){
         BiketrackService biketrackService = buildService(BiketrackService.class);
         Observable<UserInscription> userObservable = biketrackService.createUser(user);
-        userObservable.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(userInscription -> userInscription.isSucess() + " and " + userInscription.getMessage())
-                .subscribe(userInfo -> Log.d("Output", userInfo));
+        userObservable.subscribeOn(Schedulers.newThread());
+        userObservable.observeOn(AndroidSchedulers.mainThread());
+        Subscriber<UserInscription> userInscriptionSubscriber = new Subscriber<UserInscription>() {
+            @Override
+            public void onCompleted() {
+                Log.d(TAG, "onCompleted()");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if (e instanceof HttpException) {
+                    HttpException response = (HttpException)e;
+                    int code = response.code();
+                    Log.e(TAG, "Http error code : " + code + " : " + response.message() , response);
+                }
+            }
+
+            @Override
+            public void onNext(UserInscription ui) {
+                uIn = ui;
+                Log.d(TAG, "userInscription : " + ui.isSucess() + " " + ui.getMessage());
+
+            }
+        };
+
+        userObservable.subscribe(userInscriptionSubscriber);
+        if (userInscriptionSubscriber.isUnsubscribed())
+            userInscriptionSubscriber.unsubscribe();
+
     }
 
     public void signIn(User user){
@@ -68,7 +95,8 @@ public class ApiConnect {
 
             @Override
             public void onNext(UserConnection uc) {
-                Log.d(TAG, "userInscription : " + uc.isSuccess() + " " + uc.getToken());
+                uCo = uc;
+                Log.d(TAG, "userConnection : " + uc.isSuccess() + " " + uc.getToken());
 
             }
         };
@@ -76,5 +104,21 @@ public class ApiConnect {
         userObservable.subscribe(userConnectionSubscriber);
         if (userConnectionSubscriber.isUnsubscribed())
             userConnectionSubscriber.unsubscribe();
+    }
+
+    public UserConnection getuCo() {
+        return uCo;
+    }
+
+    public void setuCo(UserConnection uCo) {
+        this.uCo = uCo;
+    }
+
+    public UserInscription getuIn() {
+        return uIn;
+    }
+
+    public void setuIn(UserInscription uIn) {
+        this.uIn = uIn;
     }
 }
