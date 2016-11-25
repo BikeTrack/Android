@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Biketrack for Android</string>
+    <string name="app_name">Biketrack</string>
     <string name="title_activity_login">Inscription/Connection</string>
 
     <!-- Strings related to login -->
