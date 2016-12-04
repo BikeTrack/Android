@@ -69,6 +69,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+
+    private ApiConnect api = new ApiConnect();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -333,7 +336,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-            ApiConnect api = new ApiConnect();
+
             User user = new User(mEmail, mPassword);
 
             try {
@@ -382,6 +385,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     public void openBikesActivity(){
         Intent intent = new Intent(this , BikesActivity.class);
+        intent.putExtra("API", api);
         startActivity(intent);
     }
 }

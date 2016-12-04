@@ -3,11 +3,13 @@ package eu.biketrack.android.models.data_reception;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by adrienschricke on 17/09/2016 for Android.
  */
 
-public class UserInscription {
+public class UserInscription implements Serializable{
 
     @SerializedName("sucess")
     @Expose
