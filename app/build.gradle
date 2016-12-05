@@ -59,4 +59,8 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:10.0.0'
     androidTestCompile 'com.android.support:support-annotations:25.0.1'
     androidTestCompile 'com.android.support.test:runner:0.5'
+
+    // https://mvnrepository.com/artifact/com.facebook.android/facebook-android-sdk
+    compile group: 'com.facebook.android', name: 'facebook-android-sdk', version: '4.18.0'
+
 }
