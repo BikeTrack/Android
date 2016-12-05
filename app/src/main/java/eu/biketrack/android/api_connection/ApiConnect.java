@@ -130,7 +130,9 @@ public class ApiConnect implements Serializable {
     }
 
 
-    public void getBikes(){
+    public void getBikes() throws NullPointerException{
+        if (token == null)
+            throw new NullPointerException("Token is null");
         BiketrackService biketrackService = buildService(BiketrackService.class);
         Observable<List<Bike>> bikeObservable = biketrackService.getBikes(this.token);
         bikeObservable.subscribeOn(Schedulers.newThread());
@@ -171,22 +173,22 @@ public class ApiConnect implements Serializable {
         if (token == null)
             throw new NullPointerException("Token is null");
         BiketrackService biketrackService = buildService(BiketrackService.class);
-        Observable<eu.biketrack.android.models.data_send.Bike> bikeObservable = biketrackService.addBike(uCo.getToken(), newbike);
+        Observable<eu.biketrack.android.models.data_send.Bike> bikeObservable = biketrackService.addBike(this.token, newbike);
         bikeObservable.subscribeOn(Schedulers.newThread());
         bikeObservable.observeOn(AndroidSchedulers.mainThread());
         Subscriber<eu.biketrack.android.models.data_send.Bike> bikeSubscriber = new Subscriber<eu.biketrack.android.models.data_send.Bike>() {
             @Override
             public void onCompleted() {
-                Log.d(TAG, "onCompleted() bikes");
+                Log.d(TAG, "onCompleted() addBike");
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.e(TAG, "ERROR ", e);
+                Log.e(TAG, "Add Bike ERROR ", e);
                 if (e instanceof HttpException) {
                     HttpException response = (HttpException)e;
                     int code = response.code();
-                    Log.e(TAG, "Http error code : " + code + " : " + response.message() , response);
+                    Log.e(TAG, "Http error code : " + code + " : " + response.message() + " // " +response.getMessage() , response);
                 }
             }
 

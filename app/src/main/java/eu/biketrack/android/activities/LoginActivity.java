@@ -344,9 +344,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             try {
                 if (mConnexion) {
                     api.signIn(user);
+                    System.out.println(api.getuCo());
                 } else {
                     api.signUp(user);
+                    System.out.println(api.getuIn());
                     api.signIn(user);
+                    System.out.println(api.getuCo());
                 }
             } catch (Exception e) {
 //                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);

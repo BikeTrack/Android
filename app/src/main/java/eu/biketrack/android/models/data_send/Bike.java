@@ -7,18 +7,17 @@ import com.google.gson.annotations.SerializedName;
  * Created by 42900 on 04/12/2016 for BikeTrack_Android.
  */
 
-
 public class Bike {
 
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("long")
+    @SerializedName("longitude")
     @Expose
-    private String _long;
-    @SerializedName("lat")
+    private Integer longitude;
+    @SerializedName("latitude")
     @Expose
-    private String lat;
+    private Integer latitude;
 
     /**
      *
@@ -41,45 +40,37 @@ public class Bike {
     /**
      *
      * @return
-     * The _long
+     * The longitude
      */
-    public String getLong() {
-        return _long;
+    public Integer getLongitude() {
+        return longitude;
     }
 
     /**
      *
-     * @param _long
-     * The long
+     * @param longitude
+     * The longitude
      */
-    public void setLong(String _long) {
-        this._long = _long;
+    public void setLongitude(Integer longitude) {
+        this.longitude = longitude;
     }
 
     /**
      *
      * @return
-     * The lat
+     * The latitude
      */
-    public String getLat() {
-        return lat;
+    public Integer getLatitude() {
+        return latitude;
     }
 
     /**
      *
-     * @param lat
-     * The lat
+     * @param latitude
+     * The latitude
      */
-    public void setLat(String lat) {
-        this.lat = lat;
+    public void setLatitude(Integer latitude) {
+        this.latitude = latitude;
     }
 
-    @Override
-    public String toString() {
-        return "Bike{" +
-                "name='" + name + '\'' +
-                ", _long='" + _long + '\'' +
-                ", lat='" + lat + '\'' +
-                '}';
-    }
 }

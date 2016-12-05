@@ -26,6 +26,6 @@ public interface BiketrackService {
     @GET("bikes")
     Observable<List<Bike>> getBikes(@Header("Authorization") String token);
 
-    @GET("bikes")
+    @POST("bikes")
     Observable<eu.biketrack.android.models.data_send.Bike> addBike(@Header("Authorization") String token, @Body eu.biketrack.android.models.data_send.Bike bike);
 }
