@@ -1,8 +1,11 @@
 package eu.biketrack.android.activities;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -32,7 +35,14 @@ public class BikesActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        api = (ApiConnect) getIntent().getSerializableExtra("API");
+        //api = (ApiConnect) getIntent().getSerializableExtra("API");
+        api = new ApiConnect();
+
+        SharedPreferences settings = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+        String auth_token_string = settings.getString("API_TOKEN", null);
+        api.setToken(auth_token_string);
+
         abt = new AsyncBikesTask(this, api);
         abt.execute((Void) null);
 
@@ -54,15 +64,20 @@ public class BikesActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
 
+                openBikeEdit();
                 //list.setAdapter(adapterb);
             }
         });
     }
 
-
+    private void openBikeEdit(){
+        Intent intent = new Intent(this , BikeEdit.class);
+//        intent.putExtra("API", api);
+        startActivity(intent);
+    }
 
     public class AsyncBikesTask extends AsyncTask<Void, Void, Boolean> {
         private ApiConnect api;
@@ -81,6 +96,7 @@ public class BikesActivity extends AppCompatActivity {
                 api.getBikes();
             } catch (Exception e) {
 //                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
+                Log.e("BIKETRACK NETWORK", "Get Bike error", e);
                 return false;
             }
 

@@ -27,6 +27,15 @@
             android:name=".activities.BikesActivity"
             android:label="@string/title_activity_bikes"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.BikeEdit"
+            android:label="@string/title_activity_bike_edit"
+            android:parentActivityName=".activities.BikesActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="eu.biketrack.android.activities.BikesActivity" />
+        </activity>
     </application>
 
 </manifest>

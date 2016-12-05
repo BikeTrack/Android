@@ -4,7 +4,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -340,23 +342,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             User user = new User(mEmail, mPassword);
 
             try {
-                // Simulate network access.
                 if (mConnexion) {
                     api.signIn(user);
-                    System.out.println(api.getuCo().toString());
                 } else {
                     api.signUp(user);
-                    System.out.println(api.getuIn().toString());
                     api.signIn(user);
-                    System.out.println(api.getuCo().toString());
                 }
             } catch (Exception e) {
 //                Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG);
                 return false;
             }
 
-
-            // TODO: register the new account here.
             return true;
         }
 
@@ -384,8 +380,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     public void openBikesActivity(){
+        SharedPreferences settings = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("API_TOKEN", api.getuCo().getToken());
+        editor.apply();
+        editor.commit();
+
         Intent intent = new Intent(this , BikesActivity.class);
-        intent.putExtra("API", api);
         startActivity(intent);
     }
 }

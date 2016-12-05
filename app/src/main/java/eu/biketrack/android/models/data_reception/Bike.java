@@ -3,13 +3,14 @@ package eu.biketrack.android.models.data_reception;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 /**
  * Created by 42900 on 04/12/2016 for BikeTrack_Android.
  */
 
-public class Bike {
+public class Bike implements Serializable{
 
     @SerializedName("name")
     @Expose

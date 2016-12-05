@@ -28,6 +28,7 @@ import rx.schedulers.Schedulers;
 public class ApiConnect implements Serializable {
 
     private static String TAG = "BikeTrack - ApiConnect";
+    private String token;
     private UserConnection uCo;
     private UserInscription uIn;
     private List<Bike> bikes;
@@ -101,6 +102,7 @@ public class ApiConnect implements Serializable {
             @Override
             public void onNext(UserConnection uc) {
                 uCo = uc;
+                token = uc.getToken();
                 Log.d(TAG, "userConnection : " + uc.isSuccess() + " " + uc.getToken());
 
             }
@@ -130,7 +132,7 @@ public class ApiConnect implements Serializable {
 
     public void getBikes(){
         BiketrackService biketrackService = buildService(BiketrackService.class);
-        Observable<List<Bike>> bikeObservable = biketrackService.getBikes(uCo.getToken());
+        Observable<List<Bike>> bikeObservable = biketrackService.getBikes(this.token);
         bikeObservable.subscribeOn(Schedulers.newThread());
         bikeObservable.observeOn(AndroidSchedulers.mainThread());
         Subscriber<List<Bike>> bikeSubscriber = new Subscriber<List<Bike>>() {
@@ -165,7 +167,9 @@ public class ApiConnect implements Serializable {
         return bikes;
     }
 
-    public void addBike(eu.biketrack.android.models.data_send.Bike newbike){
+    public void addBike(eu.biketrack.android.models.data_send.Bike newbike) throws NullPointerException{
+        if (token == null)
+            throw new NullPointerException("Token is null");
         BiketrackService biketrackService = buildService(BiketrackService.class);
         Observable<eu.biketrack.android.models.data_send.Bike> bikeObservable = biketrackService.addBike(uCo.getToken(), newbike);
         bikeObservable.subscribeOn(Schedulers.newThread());
@@ -195,5 +199,13 @@ public class ApiConnect implements Serializable {
         bikeObservable.subscribe(bikeSubscriber);
         if (bikeSubscriber.isUnsubscribed())
             bikeSubscriber.unsubscribe();
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

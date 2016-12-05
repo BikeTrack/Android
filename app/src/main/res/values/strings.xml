@@ -19,4 +19,5 @@
 
     <!-- Strings related to BikesActivity -->
     <string name="title_activity_bikes">Mes vélos</string>
+    <string name="title_activity_bike_edit">Modifier ce Velo</string>
 </resources>
