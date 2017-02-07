@@ -20,4 +20,7 @@
     <!-- Strings related to BikesActivity -->
     <string name="title_activity_bikes">Mes vélos</string>
     <string name="title_activity_bike_edit">Modifier ce Velo</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
