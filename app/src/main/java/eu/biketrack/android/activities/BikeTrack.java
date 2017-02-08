@@ -2,9 +2,6 @@ package eu.biketrack.android.activities;
 
 import android.app.Application;
 
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
-
 import timber.log.Timber;
 
 /**
@@ -15,22 +12,12 @@ public class BikeTrack
         extends Application {
 
     private static BikeTrack _instance;
-    private RefWatcher _refWatcher;
-
-    public static BikeTrack get() {
-        return _instance;
-    }
-
-    public static RefWatcher getRefWatcher() {
-        return BikeTrack.get()._refWatcher;
-    }
 
     @Override
     public void onCreate() {
         super.onCreate();
 
         _instance = (BikeTrack) getApplicationContext();
-        _refWatcher = LeakCanary.install(this);
 
         // for better RxJava debugging
         //RxJavaHooks.enableAssemblyTracking();

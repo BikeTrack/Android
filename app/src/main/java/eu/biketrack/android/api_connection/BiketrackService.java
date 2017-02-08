@@ -9,9 +9,8 @@ import eu.biketrack.android.models.data_send.User;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
-import rx.Observable;
+import io.reactivex.Observable;
 
 /**
  * Created by adrienschricke on 17/09/2016 for Android.

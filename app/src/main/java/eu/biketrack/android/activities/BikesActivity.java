@@ -22,7 +22,7 @@ import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_send.User;
 
 public class BikesActivity extends AppCompatActivity {
-
+/*
     ListView list;
 
     private AsyncBikesTask abt;
@@ -117,6 +117,6 @@ public class BikesActivity extends AppCompatActivity {
 
         }
     }
-
+*/
 }
 
