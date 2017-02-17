@@ -29,7 +29,7 @@ public class ApiConnect implements Serializable {
     private UserInscription uIn;
     private List<Bike> bikes;
 
-    public Retrofit buildRetrofit(){
+    private Retrofit buildRetrofit(){
         return new Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -37,9 +37,15 @@ public class ApiConnect implements Serializable {
                 .build();
     }
 
-    public <T> T buildService(final Class<T> service){
+    private <T> T buildService(final Class<T> service){
         return buildRetrofit().create(service);
     }
+
+    public static BiketrackService createService(){
+        ApiConnect apiConnect = new ApiConnect();
+        return apiConnect.buildService(BiketrackService.class);
+    }
+
 /*
     public void signUp(User user){
         BiketrackService biketrackService = buildService(BiketrackService.class);
