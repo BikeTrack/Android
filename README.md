@@ -2,6 +2,11 @@
 
 Application Android of our EIP (Epitech Innovative Project).
 
+## Current state
+Refactor all code to use Fragment and use Rx everywhere.
+
+Currently working on Login on branch ReMake_App
+
 ## Features
     
 ## TODO List
