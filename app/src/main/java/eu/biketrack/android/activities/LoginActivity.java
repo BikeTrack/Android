@@ -39,7 +39,7 @@ import java.util.List;
 
 import eu.biketrack.android.R;
 import eu.biketrack.android.api_connection.ApiConnect;
-import eu.biketrack.android.models.data_send.User;
+
 
 import static android.Manifest.permission.READ_CONTACTS;
 

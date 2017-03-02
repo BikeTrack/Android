@@ -19,7 +19,6 @@ import android.widget.Toast;
 import eu.biketrack.android.R;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.models.data_reception.Bike;
-import eu.biketrack.android.models.data_send.User;
 
 public class BikesActivity extends AppCompatActivity {
 /*

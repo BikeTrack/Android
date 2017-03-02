@@ -1,22 +1,13 @@
 package eu.biketrack.android.api_connection;
 
-import android.util.Log;
-
 import java.io.Serializable;
 import java.util.List;
 
 import eu.biketrack.android.models.data_reception.Bike;
-import eu.biketrack.android.models.data_reception.UserConnection;
-import eu.biketrack.android.models.data_reception.UserInscription;
-import eu.biketrack.android.models.data_send.User;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.HttpException;
+
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import io.reactivex.Observable;
 
 /**
  * Created by adrienschricke on 17/09/2016 for Android.
@@ -25,8 +16,6 @@ public class ApiConnect implements Serializable {
 
     private static String TAG = "BikeTrack - ApiConnect";
     private String token;
-    private UserConnection uCo;
-    private UserInscription uIn;
     private List<Bike> bikes;
 
     private Retrofit buildRetrofit(){

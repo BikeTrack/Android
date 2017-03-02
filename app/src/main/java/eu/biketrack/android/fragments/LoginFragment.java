@@ -24,8 +24,9 @@ import butterknife.Unbinder;
 import eu.biketrack.android.R;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
-import eu.biketrack.android.models.data_reception.UserConnection;
-import eu.biketrack.android.models.data_send.User;
+import eu.biketrack.android.api_connection.Statics;
+import eu.biketrack.android.models.data_reception.AuthenticateReception;
+import eu.biketrack.android.models.data_send.AuthUser;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
@@ -64,7 +65,10 @@ public class LoginFragment extends Fragment {
             public void onSuccess(LoginResult loginResult) {
                 // App code
                 Log.d(TAG, "Facebook success ");
-                Log.d(TAG, loginResult.getAccessToken().getApplicationId() + "\n" + loginResult.getAccessToken().getToken() + "\n" + loginResult.getAccessToken().getLastRefresh() + "\n" + loginResult.getAccessToken().getExpires());
+                Log.d(TAG, loginResult.getAccessToken().getApplicationId() + "\n"
+                        + loginResult.getAccessToken().getToken() + "\n"
+                        + loginResult.getAccessToken().getLastRefresh() + "\n"
+                        + loginResult.getAccessToken().getExpires());
             }
 
             @Override
@@ -98,10 +102,10 @@ public class LoginFragment extends Fragment {
     @OnClick(R.id.login_login_button)
     public void login(){
         _disposables.add(
-                biketrackService.connectUser(new User(_email.getText().toString(), _password.getText().toString()))
+                biketrackService.connectUser(Statics.TOKEN_API, new AuthUser(_email.getText().toString(), _password.getText().toString()))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(new DisposableObserver<UserConnection>(){
+                        .subscribeWith(new DisposableObserver<AuthenticateReception>(){
 
                             @Override
                             public void onComplete() {
@@ -115,8 +119,8 @@ public class LoginFragment extends Fragment {
                             }
 
                             @Override
-                            public void onNext(UserConnection userConnection) {
-                                Log.d(TAG, userConnection.toString());
+                            public void onNext(AuthenticateReception authenticateReception) {
+                                Log.d(TAG, authenticateReception.toString());
                             }
                         })
         );
