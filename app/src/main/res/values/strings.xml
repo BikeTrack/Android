@@ -11,11 +11,13 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
     <string name="action_subscribe">S\'inscrire</string>
     <string name="action_subscribe_short">S\'inscrire</string>
+    <string name="error_check_password_and_repeat">Les deux mots de passe doivent être identiques</string>
+    <string name="error_check_password_secure">Le mot de passe doit comporter au moins 6 caractères</string>
+    <string name="error_check_email">Email invalide</string>
+    <string name="error_subscribe_fields">Au moins un des champs n\'est pas valide</string>
+
 
     <!-- Strings related to BikesActivity -->
     <string name="title_activity_bikes">Mes vélos</string>
@@ -23,4 +25,6 @@
 
     <!-- Strings related to Facebook -->
     <string name="facebook_app_id">580553822151900</string>
+
+
 </resources>

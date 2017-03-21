@@ -128,6 +128,13 @@ public class LoginFragment extends Fragment {
 
     @OnClick(R.id.login_subscribe_button)
     public void subscribe(){
-        Log.i(TAG, "Click on subcribe");
+        Fragment fragment = new SubscriptionFragment();
+        final String tag = fragment.getClass().toString();
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .addToBackStack(tag)
+                .replace(android.R.id.content, fragment, tag)
+                .commit();
+
     }
 }
