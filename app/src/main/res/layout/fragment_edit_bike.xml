@@ -4,10 +4,32 @@
     android:layout_height="match_parent"
     tools:context="eu.biketrack.android.fragments.EditBikeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="59dp"
+            android:id="@+id/bike_name_edit"
+            android:inputType="text"
+            android:hint="Nom du vélo" />
+
+        <Button
+            android:text="Valider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bike_name_edit"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="78dp"
+            android:id="@+id/button_valid_change_bike"
+            android:elevation="0dp"
+            android:textAlignment="center" />
+    </LinearLayout>
 
 </FrameLayout>
