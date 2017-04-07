@@ -45,5 +45,5 @@ public class CustomListAdapter extends ArrayAdapter<Bike> {
         //imageView.setImageResource(imgid[position]);
         extratxt.setText("Latitude : " + bikes.get(position).getLat() + " Longitude : " + bikes.get(position).getLong());
         return rowView;
-    };
+    }
 }
