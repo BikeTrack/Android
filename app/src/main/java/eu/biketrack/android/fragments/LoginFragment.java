@@ -1,6 +1,7 @@
 package eu.biketrack.android.fragments;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -50,6 +52,8 @@ public class LoginFragment extends Fragment {
         biketrackService = ApiConnect.createService();
         _disposables = new CompositeDisposable();
         callbackManager = CallbackManager.Factory.create();
+
+
     }
 
     @Override
@@ -83,7 +87,8 @@ public class LoginFragment extends Fragment {
                 Log.e(TAG, "Facebook error", exception);
             }
         });
-
+        _email.setText("thisisatest@test.com");
+        _password.setText("azerty");
         return layout;
     }
 
@@ -116,11 +121,24 @@ public class LoginFragment extends Fragment {
                             public void onError(Throwable e) {
                                 Log.e(TAG, "Error has occurred during login", e);
                                 //check error type and raise toast
+                                if (e.getMessage().equals("HTTP 401 Unauthorized"))
+                                    Toast.makeText(getActivity(), "Wrong password ?", Toast.LENGTH_SHORT).show();
+                                else if (e.getMessage().equals("HTTP 404 Not Found"))
+                                    Toast.makeText(getActivity(),"You are not in our database, you should create an account", Toast.LENGTH_SHORT).show();
+                                else
+                                    Toast.makeText(getActivity(), "Maybe an error somewhere : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
                             public void onNext(AuthenticateReception authenticateReception) {
                                 Log.d(TAG, authenticateReception.toString());
+                                Fragment fragment = new BikesFragment();
+                                final String tag = fragment.getClass().toString();
+                                getActivity().getSupportFragmentManager()
+                                        .beginTransaction()
+                                        .addToBackStack(tag)
+                                        .replace(android.R.id.content, fragment, tag)
+                                        .commit();
                             }
                         })
         );
@@ -130,6 +148,7 @@ public class LoginFragment extends Fragment {
     public void subscribe(){
         Fragment fragment = new SubscriptionFragment();
         final String tag = fragment.getClass().toString();
+        Log.d(TAG, tag);
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .addToBackStack(tag)
@@ -137,4 +156,5 @@ public class LoginFragment extends Fragment {
                 .commit();
 
     }
+
 }

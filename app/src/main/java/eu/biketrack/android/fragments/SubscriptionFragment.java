@@ -183,8 +183,9 @@ public class SubscriptionFragment extends Fragment {
             Toast.makeText(getActivity(), R.string.error_subscribe_fields, Toast.LENGTH_SHORT).show();
             return;
         }
+        AuthUser authUser = new AuthUser(_email.getText().toString(), _password.getText().toString());
         _disposables.add(
-                biketrackService.createUser(Statics.TOKEN_API, new AuthUser(_email.getText().toString(), _password.getText().toString()))
+                biketrackService.createUser(Statics.TOKEN_API, authUser)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<SignupReception>(){
@@ -196,7 +197,7 @@ public class SubscriptionFragment extends Fragment {
 
                             @Override
                             public void onError(Throwable e) {
-                                Log.e(TAG, "Error has occurred during login", e);
+                                Log.e(TAG, "Error has occurred during subscription", e);
                                 Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
 
@@ -206,10 +207,39 @@ public class SubscriptionFragment extends Fragment {
                             }
                         })
         );
+        _disposables.add(biketrackService.connectUser(Statics.TOKEN_API, authUser)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableObserver<AuthenticateReception>(){
+
+                    @Override
+                    public void onComplete() {
+                        Log.d(TAG, "Login completed");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "Error has occurred during login", e);
+                        Toast.makeText(getActivity(), "Something's wrong, you should try to connect manually...", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNext(AuthenticateReception authenticateReception) {
+                        Log.d(TAG, authenticateReception.toString());
+                        Fragment fragment = new BikesFragment();
+                        final String tag = fragment.getClass().toString();
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .addToBackStack(tag)
+                                .replace(android.R.id.content, fragment, tag)
+                                .commit();
+                    }
+                }));
     }
 
     @OnClick(R.id.subscribtion_login_button)
     public void login(){
         getActivity().getSupportFragmentManager().popBackStack();
     }
+
 }

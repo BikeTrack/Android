@@ -8,8 +8,7 @@ import timber.log.Timber;
  * Created by 42900 on 07/02/2017 for BikeTrack_Android.
  */
 
-public class BikeTrack
-        extends Application {
+public class BikeTrack extends Application {
 
     private static BikeTrack _instance;
 
