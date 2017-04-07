@@ -26,8 +26,6 @@ public class CustomListAdapter extends ArrayAdapter<Bike> {
 
     public CustomListAdapter(Activity context, ArrayList<Bike> bikes) {
         super(context, R.layout.listbike, bikes);
-        // TODO Auto-generated constructor stub
-
         this.context = context;
         this.bikes = bikes;
     }
