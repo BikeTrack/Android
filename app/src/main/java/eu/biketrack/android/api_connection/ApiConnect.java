@@ -126,10 +126,10 @@ public class ApiConnect implements Serializable {
         if (token == null)
             throw new NullPointerException("Token is null");
         BiketrackService biketrackService = buildService(BiketrackService.class);
-        Observable<List<Bike>> bikeObservable = biketrackService.getBikes(this.token);
+        Observable<List<SendBikeInfo>> bikeObservable = biketrackService.getBikes(this.token);
         bikeObservable.subscribeOn(Schedulers.newThread());
         bikeObservable.observeOn(AndroidSchedulers.mainThread());
-        Subscriber<List<Bike>> bikeSubscriber = new Subscriber<List<Bike>>() {
+        Subscriber<List<SendBikeInfo>> bikeSubscriber = new Subscriber<List<SendBikeInfo>>() {
             @Override
             public void onCompleted() {
                 Log.d(TAG, "onCompleted() bikes");
@@ -146,7 +146,7 @@ public class ApiConnect implements Serializable {
             }
 
             @Override
-            public void onNext(List<Bike> bike) {
+            public void onNext(List<SendBikeInfo> bike) {
                 bikes = bike;
                 Log.d(TAG, "bikes" + bike.toString());
 
@@ -157,18 +157,18 @@ public class ApiConnect implements Serializable {
             bikeSubscriber.unsubscribe();
     }
 
-    public List<Bike> getBike(){
+    public List<SendBikeInfo> getBike(){
         return bikes;
     }
 
-    public void addBike(eu.biketrack.android.models.data_send.Bike newbike) throws NullPointerException{
+    public void addBike(eu.biketrack.android.models.data_send.SendBikeInfo newbike) throws NullPointerException{
         if (token == null)
             throw new NullPointerException("Token is null");
         BiketrackService biketrackService = buildService(BiketrackService.class);
-        Observable<eu.biketrack.android.models.data_send.Bike> bikeObservable = biketrackService.addBike(this.token, newbike);
+        Observable<eu.biketrack.android.models.data_send.SendBikeInfo> bikeObservable = biketrackService.addBike(this.token, newbike);
         bikeObservable.subscribeOn(Schedulers.newThread());
         bikeObservable.observeOn(AndroidSchedulers.mainThread());
-        Subscriber<eu.biketrack.android.models.data_send.Bike> bikeSubscriber = new Subscriber<eu.biketrack.android.models.data_send.Bike>() {
+        Subscriber<eu.biketrack.android.models.data_send.SendBikeInfo> bikeSubscriber = new Subscriber<eu.biketrack.android.models.data_send.SendBikeInfo>() {
             @Override
             public void onCompleted() {
                 Log.d(TAG, "onCompleted() addBike");
@@ -176,7 +176,7 @@ public class ApiConnect implements Serializable {
 
             @Override
             public void onError(Throwable e) {
-                Log.e(TAG, "Add Bike ERROR ", e);
+                Log.e(TAG, "Add SendBikeInfo ERROR ", e);
                 if (e instanceof HttpException) {
                     HttpException response = (HttpException)e;
                     int code = response.code();
@@ -185,7 +185,7 @@ public class ApiConnect implements Serializable {
             }
 
             @Override
-            public void onNext(eu.biketrack.android.models.data_send.Bike bike) {
+            public void onNext(eu.biketrack.android.models.data_send.SendBikeInfo bike) {
                 Log.d(TAG, "newbike" + bike.toString());
 
             }

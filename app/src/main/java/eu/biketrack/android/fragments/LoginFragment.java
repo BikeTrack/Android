@@ -1,7 +1,6 @@
 package eu.biketrack.android.fragments;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -42,9 +41,12 @@ public class LoginFragment extends Fragment {
     private Unbinder unbinder;
     CallbackManager callbackManager;
 
-    @BindView(R.id.login_email_textview) EditText _email;
-    @BindView(R.id.login_password_textview) EditText _password;
-    @BindView(R.id.login_facebook_button) LoginButton _facebook_button;
+    @BindView(R.id.login_email_textview)
+    EditText _email;
+    @BindView(R.id.login_password_textview)
+    EditText _password;
+    @BindView(R.id.login_facebook_button)
+    LoginButton _facebook_button;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,12 +107,12 @@ public class LoginFragment extends Fragment {
     }
 
     @OnClick(R.id.login_login_button)
-    public void login(){
+    public void login() {
         _disposables.add(
                 biketrackService.connectUser(Statics.TOKEN_API, new AuthUser(_email.getText().toString(), _password.getText().toString()))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(new DisposableObserver<AuthenticateReception>(){
+                        .subscribeWith(new DisposableObserver<AuthenticateReception>() {
 
                             @Override
                             public void onComplete() {
@@ -124,7 +126,7 @@ public class LoginFragment extends Fragment {
                                 if (e.getMessage().equals("HTTP 401 Unauthorized"))
                                     Toast.makeText(getActivity(), "Wrong password ?", Toast.LENGTH_SHORT).show();
                                 else if (e.getMessage().equals("HTTP 404 Not Found"))
-                                    Toast.makeText(getActivity(),"You are not in our database, you should create an account", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "You are not in our database, you should create an account", Toast.LENGTH_SHORT).show();
                                 else
                                     Toast.makeText(getActivity(), "Maybe an error somewhere : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -132,7 +134,10 @@ public class LoginFragment extends Fragment {
                             @Override
                             public void onNext(AuthenticateReception authenticateReception) {
                                 Log.d(TAG, authenticateReception.toString());
+                                Bundle bundle = new Bundle();
+                                bundle.putParcelable("AUTH", authenticateReception);
                                 Fragment fragment = new BikesFragment();
+                                fragment.setArguments(bundle);
                                 final String tag = fragment.getClass().toString();
                                 getActivity().getSupportFragmentManager()
                                         .beginTransaction()
@@ -145,7 +150,7 @@ public class LoginFragment extends Fragment {
     }
 
     @OnClick(R.id.login_subscribe_button)
-    public void subscribe(){
+    public void subscribe() {
         Fragment fragment = new SubscriptionFragment();
         final String tag = fragment.getClass().toString();
         Log.d(TAG, tag);

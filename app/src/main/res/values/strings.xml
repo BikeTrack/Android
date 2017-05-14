@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Biketrack</string>
-    <string name="title_activity_login">Inscription/Connection</string>
+    <string name="app_name">Bike Track</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -19,9 +18,13 @@
     <string name="error_subscribe_fields">Au moins un des champs n\'est pas valide</string>
 
 
-    <!-- Strings related to BikesActivity -->
-    <string name="title_activity_bikes">Mes vélos</string>
-    <string name="title_activity_bike_edit">Modifier ce Velo</string>
+    <string name="empty_list">There is no bike here…</string>
+
+    <!-- Strings related to BikeEdit -->
+    <string name="bike_name_txt">Name</string>
+    <string name="bike_color_txt">Colour</string>
+    <string name="bike_brand_txt">Brand</string>
+    <string name="bike_save_button_txt">Save</string>
 
     <!-- Strings related to Facebook -->
     <string name="facebook_app_id">580553822151900</string>
@@ -30,6 +33,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_test">TEST</string>
 
 
 </resources>

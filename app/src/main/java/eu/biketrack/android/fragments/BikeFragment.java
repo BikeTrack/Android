@@ -14,7 +14,7 @@ import eu.biketrack.android.R;
 
 
 public class BikeFragment extends Fragment {
-    private static String TAG = "BIKETRACK - Bike";
+    private static String TAG = "BIKETRACK - SendBikeInfo";
     private Unbinder unbinder;
 
     @Override
