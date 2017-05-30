@@ -43,7 +43,7 @@ public class BikesFragment extends Fragment {
     private CompositeDisposable _disposables;
     private AuthenticateReception auth;
     private Unbinder unbinder;
-    private ArrayList<Bike> arrayList = new ArrayList<>();
+    private ArrayList<Bike> bikeArrayList = new ArrayList<>();
     private User user;
     private CustomListAdapter adapter;
 
@@ -63,7 +63,7 @@ public class BikesFragment extends Fragment {
 
         biketrackService = ApiConnect.createService();
         _disposables = new CompositeDisposable();
-        adapter = new CustomListAdapter(this.getActivity(), arrayList);
+        adapter = new CustomListAdapter(this.getActivity(), bikeArrayList);
     }
 
     @Override
@@ -97,6 +97,17 @@ public class BikesFragment extends Fragment {
     @OnItemClick(R.id.listView_bikes)
     public void selectBike(int position) {
         Log.d(TAG, "select bike position = " + position);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("AUTH", auth);
+        bundle.putParcelable("BIKE", bikeArrayList.get(position));
+        Fragment fragment = new BikeFragment();
+        fragment.setArguments(bundle);
+        final String tag = fragment.getClass().toString();
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .addToBackStack(tag)
+                .replace(android.R.id.content, fragment, tag)
+                .commit();
     }
 
 
@@ -143,7 +154,7 @@ public class BikesFragment extends Fragment {
                             public void onNext(ReceptUser receptUser) {
                                 Log.d(TAG, receptUser.toString());
                                 user = receptUser.getUser();
-                                arrayList.clear();
+                                bikeArrayList.clear();
                                 int i = 0;
                                 int listsize = user.getBikes().size();
                                 for (String s : user.getBikes()) {
@@ -181,7 +192,7 @@ public class BikesFragment extends Fragment {
 
                             @Override
                             public void onNext(ReceiveBike receiveBike) {
-                                arrayList.add(receiveBike.getBike());
+                                bikeArrayList.add(receiveBike.getBike());
                                 list.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
                                 if (last)

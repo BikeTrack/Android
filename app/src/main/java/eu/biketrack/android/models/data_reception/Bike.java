@@ -1,10 +1,13 @@
 package eu.biketrack.android.models.data_reception;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Bike {
+public class Bike implements Parcelable {
 
     @SerializedName("_id")
     @Expose
@@ -30,6 +33,29 @@ public class Bike {
     @SerializedName("created")
     @Expose
     private String created;
+
+
+    public static final Parcelable.Creator<Bike> CREATOR = new Parcelable.Creator<Bike>() {
+        public Bike createFromParcel(Parcel in) {
+            return new Bike(in);
+        }
+
+        public Bike[] newArray(int size) {
+            return new Bike[size];
+        }
+    };
+
+    private Bike(Parcel in){
+        id = in.readString();
+        brand = in.readString();
+        color = in.readString();
+        name = in.readString();
+        color = in.readString();
+        tracker = in.readString();
+        v = in.readInt();
+        updated = in.readString();
+        created = in.readString();
+    }
 
     public String getId() {
         return id;
@@ -107,5 +133,23 @@ public class Bike {
                 ", updated='" + updated + '\'' +
                 ", created='" + created + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(brand);
+        dest.writeString(color);
+        dest.writeString(name);
+        dest.writeString(tracker);
+        dest.writeInt(v);
+        dest.writeString(updated);
+        dest.writeString(created);
+
     }
 }

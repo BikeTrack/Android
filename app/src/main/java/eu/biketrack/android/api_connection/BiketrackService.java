@@ -11,6 +11,7 @@ import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import io.reactivex.Observable;
 import retrofit2.http.Path;
@@ -30,6 +31,9 @@ public interface BiketrackService {
 
     @POST("bike")
     Observable<Response<ReceptAddBike>> addBike(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Body SendBike bike);
+
+    @PATCH("bike")
+    Observable<Response<ReceptAddBike>> updateBike(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Body SendBike bike);
 
     @GET("bike/{bikeID}")
     Observable<ReceiveBike> getBike(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Path("bikeID") String bikeId);

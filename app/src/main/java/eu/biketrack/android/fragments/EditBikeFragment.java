@@ -38,7 +38,7 @@ public class EditBikeFragment extends Fragment {
     private AuthenticateReception auth;
     private BiketrackService biketrackService;
     private CompositeDisposable _disposables;
-    private String bikeId = null;
+    //private String bikeId = null;
 
     @BindView(R.id.bike_name_edit) EditText _name;
     @BindView(R.id.bike_colour_edit) EditText _colour;
@@ -64,9 +64,6 @@ public class EditBikeFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_edit_bike, container, false);
         unbinder = ButterKnife.bind(this, layout);
 
-        _name.setText("Bike test");
-        _colour.setText("Red");
-        _brand.setText("Une marque");
         return layout;
     }
 

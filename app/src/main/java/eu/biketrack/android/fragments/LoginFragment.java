@@ -54,8 +54,6 @@ public class LoginFragment extends Fragment {
         biketrackService = ApiConnect.createService();
         _disposables = new CompositeDisposable();
         callbackManager = CallbackManager.Factory.create();
-
-
     }
 
     @Override
