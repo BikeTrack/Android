@@ -29,6 +29,9 @@
     <!-- Strings related to Facebook -->
     <string name="facebook_app_id">580553822151900</string>
 
+    <!-- Strings related to Google -->
+    <string name="google_android_map_api_key">AIzaSyCWaWLfc9VShCwMhz1yj689mxZc5sL57dk</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>

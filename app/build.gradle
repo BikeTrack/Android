@@ -82,8 +82,12 @@ dependencies {
     compile group: 'com.google.code.gson', name: 'gson', version: '2.2.4'
 
     /* AUTHENTIFICATION / LOGIN */
-    //compile group: 'com.google.android.gms', name: 'play-services-auth', version: '10.2.1'
+    compile group: 'com.google.android.gms', name: 'play-services-auth', version: '10.2.1'
     compile group: 'com.facebook.android', name: 'facebook-android-sdk', version: '4.21.1'
+
+    /* GOOGLE MAP*/
+    compile group:'com.google.firebase', name: 'firebase-ads', version: '10.2.1'
+    compile group:'com.google.android.gms', name:'play-services-maps', version:'10.2.1'
 
     /* OTHER LIBS */
     compile group: 'com.jakewharton', name: 'butterknife', version: '8.4.0'

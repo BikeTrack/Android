@@ -6,6 +6,7 @@
     tools:context="eu.biketrack.android.fragments.BikeFragment">
 
 
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,6 +71,11 @@
         android:textSize="20sp"
         android:textStyle="bold" />
     <!-- End Temporary -->
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
     <!--<Button-->
