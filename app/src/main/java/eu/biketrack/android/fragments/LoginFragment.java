@@ -15,8 +15,12 @@ import android.widget.Toast;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,7 +67,9 @@ public class LoginFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_login, container, false);
         unbinder = ButterKnife.bind(this, layout);
 
+        _facebook_button.setReadPermissions("email");
         _facebook_button.setFragment(this);
+
         _facebook_button.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -73,6 +79,25 @@ public class LoginFragment extends Fragment {
                         + loginResult.getAccessToken().getToken() + "\n"
                         + loginResult.getAccessToken().getLastRefresh() + "\n"
                         + loginResult.getAccessToken().getExpires());
+                Log.d(TAG, loginResult.getRecentlyDeniedPermissions().toString());
+                Log.d(TAG, loginResult.getRecentlyGrantedPermissions().toString());
+                Log.d(TAG, loginResult.getAccessToken().getUserId());
+                Log.d(TAG, loginResult.getAccessToken().getSource().toString());
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(
+                                    JSONObject object,
+                                    GraphResponse response) {
+                                Log.d(TAG, object.toString());
+                                Log.d(TAG, response.toString());
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,link,birthday,first_name,gender,last_name,location,email");
+                request.setParameters(parameters);
+                request.executeAsync();
             }
 
             @Override
