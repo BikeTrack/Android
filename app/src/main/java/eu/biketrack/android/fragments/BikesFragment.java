@@ -1,13 +1,17 @@
 package eu.biketrack.android.fragments;
 
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -80,6 +84,7 @@ public class BikesFragment extends Fragment {
         unbinder = ButterKnife.bind(this, layout);
         list.setEmptyView(emptyText);
         pg_bar.setVisibility(View.GONE);
+        registerForContextMenu(list);
         return layout;
     }
 
@@ -203,5 +208,38 @@ public class BikesFragment extends Fragment {
         );
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle(R.string.title_context_menu);
+        menu.add(0, 0, 0, R.string.edit_context_menu);
+        menu.add(0, 1, 1, R.string.delete_context_menu);
+    }
 
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int selected_item = (int) info.id;
+        int selected_option= item.getItemId();
+
+        if (selected_option == 0){
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("AUTH", auth);
+            bundle.putParcelable("BIKE", bikeArrayList.get(selected_item));
+            Fragment fragment = new EditBikeFragment();
+            fragment.setArguments(bundle);
+            final String tag = fragment.getClass().toString();
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(tag)
+                    .replace(android.R.id.content, fragment, tag)
+                    .commit();
+        } else if (selected_option == 1){
+            //delete
+            // TODO: 02/06/2017  supprimer le velo
+            Log.d(TAG, "delete => " + bikeArrayList.get(selected_item).toString());
+        }
+        return true;
+    }
 }

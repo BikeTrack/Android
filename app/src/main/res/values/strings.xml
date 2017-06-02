@@ -39,4 +39,9 @@
     <string name="title_activity_test">TEST</string>
 
 
+    <string name="title_context_menu">Options du vélo</string>
+    <string name="edit_context_menu">Editer</string>
+    <string name="delete_context_menu">Supprimer</string>
+
+
 </resources>

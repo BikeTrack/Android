@@ -22,6 +22,7 @@ import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.api_connection.Statics;
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
+import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.ReceptAddBike;
 import eu.biketrack.android.models.data_send.AuthUser;
 import eu.biketrack.android.models.data_send.SendBike;
@@ -38,7 +39,7 @@ public class EditBikeFragment extends Fragment {
     private AuthenticateReception auth;
     private BiketrackService biketrackService;
     private CompositeDisposable _disposables;
-    //private String bikeId = null;
+    private Bike _bike;
 
     @BindView(R.id.bike_name_edit) EditText _name;
     @BindView(R.id.bike_colour_edit) EditText _colour;
@@ -55,6 +56,7 @@ public class EditBikeFragment extends Fragment {
 
         Bundle bundle = getArguments();
         auth = bundle.getParcelable("AUTH");
+        _bike = bundle.getParcelable("BIKE");
     }
 
     @Override
@@ -64,6 +66,12 @@ public class EditBikeFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_edit_bike, container, false);
         unbinder = ButterKnife.bind(this, layout);
 
+        if (_bike != null){
+            _name.setText(_bike.getName());
+            _colour.setText(_bike.getColor());
+            _brand.setText(_bike.getBrand());
+            _trackerid.setText(_bike.getTracker());
+        }
         return layout;
     }
 
@@ -80,38 +88,63 @@ public class EditBikeFragment extends Fragment {
 
     @OnClick(R.id.bike_save_button)
     public void save_bike(){
-        SendBike sb = new SendBike(auth.getUserId(), new SendBikeInfo(_name.getText().toString(), _colour.getText().toString(), _brand.getText().toString(), _trackerid.getText().toString()));
-        Log.d(TAG, auth.toString());
-        Log.d(TAG, sb.toString());
-        _disposables.add(
-                biketrackService.addBike(Statics.TOKEN_API, auth.getToken(), sb)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(new DisposableObserver<Response<ReceptAddBike>>(){
+        if (_bike == null) {
+            SendBike sb = new SendBike(auth.getUserId(), new SendBikeInfo(_name.getText().toString(), _colour.getText().toString(), _brand.getText().toString(), _trackerid.getText().toString()));
+            Log.d(TAG, auth.toString());
+            Log.d(TAG, sb.toString());
 
-                            @Override
-                            public void onComplete() {
-                                Log.d(TAG, "Add Bike completed");
-                            }
+            _disposables.add(
+                    biketrackService.addBike(Statics.TOKEN_API, auth.getToken(), sb)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribeWith(new DisposableObserver<Response<ReceptAddBike>>() {
 
-                            @Override
-                            public void onError(Throwable e) {
-                                Log.e(TAG, "Error has occurred while creating bike", e);
-//                                //check error type and raise toast
-//                                if (e.getMessage().equals("HTTP 401 Unauthorized"))
-//                                    Toast.makeText(getActivity(), "Wrong password ?", Toast.LENGTH_SHORT).show();
-//                                else if (e.getMessage().equals("HTTP 404 Not Found"))
-//                                    Toast.makeText(getActivity(),"You are not in our database, you should create an account", Toast.LENGTH_SHORT).show();
-//                                else
-//                                    Toast.makeText(getActivity(), "Maybe an error somewhere : " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
+                                @Override
+                                public void onComplete() {
+                                    Log.d(TAG, "Add Bike completed");
+                                }
 
-                            @Override
-                            public void onNext(Response<ReceptAddBike> repreceptAddBike) {
-                                Toast.makeText(getActivity(), "Response : " + repreceptAddBike.toString(), Toast.LENGTH_SHORT).show();
-                                Log.d(TAG, repreceptAddBike.toString());
-                            }
-                        })
-        );
+                                @Override
+                                public void onError(Throwable e) {
+                                    Log.e(TAG, "Error has occurred while creating bike", e);
+                                }
+
+                                @Override
+                                public void onNext(Response<ReceptAddBike> repreceptAddBike) {
+                                    Toast.makeText(getActivity(), "Response : " + repreceptAddBike.toString(), Toast.LENGTH_SHORT).show();
+                                    Log.d(TAG, repreceptAddBike.toString());
+                                }
+                            })
+            );
+        } else {
+            // TODO: 02/06/2017
+            // créer les classe pour update
+//            SendBike sb = new SendBike(auth.getUserId(), new SendBikeInfo(_name.getText().toString(), _colour.getText().toString(), _brand.getText().toString(), _trackerid.getText().toString()));
+//            Log.d(TAG, auth.toString());
+//            Log.d(TAG, sb.toString());
+//            _disposables.add(
+//                    biketrackService.updateBike(Statics.TOKEN_API, auth.getToken(), sb)
+//                            .subscribeOn(Schedulers.io())
+//                            .observeOn(AndroidSchedulers.mainThread())
+//                            .subscribeWith(new DisposableObserver<Response<ReceptAddBike>>() {
+//
+//                                @Override
+//                                public void onComplete() {
+//                                    Log.d(TAG, "Add Bike completed");
+//                                }
+//
+//                                @Override
+//                                public void onError(Throwable e) {
+//                                    Log.e(TAG, "Error has occurred while creating bike", e);
+//                                }
+//
+//                                @Override
+//                                public void onNext(Response<ReceptAddBike> repreceptAddBike) {
+//                                    Toast.makeText(getActivity(), "Response : " + repreceptAddBike.toString(), Toast.LENGTH_SHORT).show();
+//                                    Log.d(TAG, repreceptAddBike.toString());
+//                                }
+//                            })
+//            );
+        }
     }
 }
