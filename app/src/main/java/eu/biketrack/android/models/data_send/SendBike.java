@@ -12,12 +12,17 @@ public class SendBike {
     @Expose
     private String userId;
 
+    @SerializedName("bikeId")
+    @Expose
+    private String bikeId;
+
     @SerializedName("bikeInfo")
     @Expose
     private SendBikeInfo bikeInfo;
 
-    public SendBike(String userId, SendBikeInfo bikeInfo) {
+    public SendBike(String userId, String bikeId, SendBikeInfo bikeInfo) {
         this.userId = userId;
+        this.bikeId = bikeId;
         this.bikeInfo = bikeInfo;
     }
 
@@ -27,6 +32,14 @@ public class SendBike {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getBikeId() {
+        return bikeId;
+    }
+
+    public void setBikeId(String bikeId) {
+        this.bikeId = bikeId;
     }
 
     public SendBikeInfo getBikeInfo() {
@@ -41,6 +54,7 @@ public class SendBike {
     public String toString() {
         return "SendBike{" +
                 "userId='" + userId + '\'' +
+                ", bikeId='" + bikeId + '\'' +
                 ", bikeInfo=" + bikeInfo +
                 '}';
     }

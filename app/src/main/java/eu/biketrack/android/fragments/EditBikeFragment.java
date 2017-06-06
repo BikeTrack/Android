@@ -89,7 +89,7 @@ public class EditBikeFragment extends Fragment {
     @OnClick(R.id.bike_save_button)
     public void save_bike(){
         if (_bike == null) {
-            SendBike sb = new SendBike(auth.getUserId(), new SendBikeInfo(_name.getText().toString(), _colour.getText().toString(), _brand.getText().toString(), _trackerid.getText().toString()));
+            SendBike sb = new SendBike(auth.getUserId(), null, new SendBikeInfo(_name.getText().toString(), _colour.getText().toString(), _brand.getText().toString(), _trackerid.getText().toString()));
             Log.d(TAG, auth.toString());
             Log.d(TAG, sb.toString());
 
@@ -119,7 +119,7 @@ public class EditBikeFragment extends Fragment {
         } else {
             // TODO: 02/06/2017
             // créer les classe pour update
-//            SendBike sb = new SendBike(auth.getUserId(), new SendBikeInfo(_name.getText().toString(), _colour.getText().toString(), _brand.getText().toString(), _trackerid.getText().toString()));
+//            SendBike sb = new SendBike(auth.getUserId(), _bike.getId(), new SendBikeInfo(_name.getText().toString(), _colour.getText().toString(), _brand.getText().toString(), _trackerid.getText().toString()));
 //            Log.d(TAG, auth.toString());
 //            Log.d(TAG, sb.toString());
 //            _disposables.add(

@@ -44,4 +44,10 @@
     <string name="delete_context_menu">Supprimer</string>
 
 
+    <string name="alert_confirmation_delete_title">Voulez vous vraiment supprimer ce vélo ?</string>
+    <string name="alert_confirmation_delete_message">La suppression est définitive.</string>
+    <string name="alert_confirmation_delete_yes">Confirmer</string>
+    <string name="alert_confirmation_delete_no">Annuler</string>
+
+
 </resources>

@@ -1,10 +1,12 @@
 package eu.biketrack.android.fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -26,6 +28,7 @@ import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
 import eu.biketrack.android.activities.CustomListAdapter;
+import eu.biketrack.android.activities.MainActivity;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.api_connection.Statics;
@@ -33,11 +36,15 @@ import eu.biketrack.android.models.User;
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.ReceiveBike;
+import eu.biketrack.android.models.data_reception.ReceptAddBike;
 import eu.biketrack.android.models.data_reception.ReceptUser;
+import eu.biketrack.android.models.data_send.SendBike;
+import eu.biketrack.android.models.data_send.SendBikeInfo;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 public class BikesFragment extends Fragment {
 
@@ -236,9 +243,41 @@ public class BikesFragment extends Fragment {
                     .replace(android.R.id.content, fragment, tag)
                     .commit();
         } else if (selected_option == 1){
-            //delete
-            // TODO: 02/06/2017  supprimer le velo
-            Log.d(TAG, "delete => " + bikeArrayList.get(selected_item).toString());
+            new AlertDialog.Builder(this.getContext())
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(R.string.alert_confirmation_delete_title)
+                    .setMessage(R.string.alert_confirmation_delete_message)
+                    .setPositiveButton(R.string.alert_confirmation_delete_yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SendBike sb = new SendBike(auth.getUserId(), bikeArrayList.get(selected_item).getId(), null);
+                            _disposables.add(
+                                    biketrackService.deleteBike(Statics.TOKEN_API, auth.getToken(), sb)
+                                            .subscribeOn(Schedulers.io())
+                                            .observeOn(AndroidSchedulers.mainThread())
+                                            .subscribeWith(new DisposableObserver<Response<ReceptAddBike>>() {
+
+                                                @Override
+                                                public void onComplete() {
+                                                    Log.d(TAG, "DeleteBike completed");
+                                                }
+
+                                                @Override
+                                                public void onError(Throwable e) {
+                                                    Log.e(TAG, "Error has occurred while deleting bike", e);
+                                                }
+
+                                                @Override
+                                                public void onNext(Response<ReceptAddBike> response) {
+                                                    Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                    getUser();
+                                                }
+                                            })
+                            );
+                        }
+                    })
+                    .setNegativeButton(R.string.alert_confirmation_delete_no, null)
+                    .show();
         }
         return true;
     }
