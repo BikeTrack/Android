@@ -186,7 +186,7 @@ public class SubscriptionFragment extends Fragment {
         AuthUser authUser = new AuthUser(_email.getText().toString(), _password.getText().toString());
         _disposables.add(
                 biketrackService.createUser(Statics.TOKEN_API, authUser)
-                        .subscribeOn(Schedulers.io())
+                        .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<SignupReception>(){
 
@@ -208,7 +208,7 @@ public class SubscriptionFragment extends Fragment {
                         })
         );
         _disposables.add(biketrackService.connectUser(Statics.TOKEN_API, authUser)
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableObserver<AuthenticateReception>(){
 

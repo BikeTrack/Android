@@ -141,7 +141,7 @@ public class BikesFragment extends Fragment {
         pg_bar.setVisibility(View.VISIBLE);
         _disposables.add(
                 biketrackService.getUser(Statics.TOKEN_API, auth.getToken(), auth.getUserId())
-                        .subscribeOn(Schedulers.io())
+                        .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<ReceptUser>() {
 
@@ -181,7 +181,7 @@ public class BikesFragment extends Fragment {
     private void getBike(String bikeid, Boolean last) {
         _disposables.add(
                 biketrackService.getBike(Statics.TOKEN_API, auth.getToken(), bikeid)
-                        .subscribeOn(Schedulers.io())
+                        .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<ReceiveBike>() {
 
@@ -253,7 +253,7 @@ public class BikesFragment extends Fragment {
                             SendBike sb = new SendBike(auth.getUserId(), bikeArrayList.get(selected_item).getId(), null);
                             _disposables.add(
                                     biketrackService.deleteBike(Statics.TOKEN_API, auth.getToken(), sb)
-                                            .subscribeOn(Schedulers.io())
+                                            .subscribeOn(Schedulers.newThread())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribeWith(new DisposableObserver<Response<ReceptAddBike>>() {
 

@@ -133,7 +133,7 @@ public class LoginFragment extends Fragment {
     public void login() {
         _disposables.add(
                 biketrackService.connectUser(Statics.TOKEN_API, new AuthUser(_email.getText().toString(), _password.getText().toString()))
-                        .subscribeOn(Schedulers.io())
+                        .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<AuthenticateReception>() {
 

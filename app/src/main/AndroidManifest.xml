@@ -3,9 +3,17 @@
     package="eu.biketrack.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/biketrack"
@@ -19,18 +27,12 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_android_map_api_key" />
 
-
-        <!--android:label="@string/title_activity_main"-->
+        <!-- android:label="@string/title_activity_main" -->
         <activity
             android:name=".activities.MainActivity"
-
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
+        </activity>
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -39,6 +41,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="@string/facebook_app_id" />
+            </intent-filter>
+        </activity>
+        <!--android:label="@string/title_activity_auto_login"-->
+        <activity
+            android:name=".activities.AutoLogin"
+
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>

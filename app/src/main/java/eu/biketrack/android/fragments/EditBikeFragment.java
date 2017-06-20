@@ -27,6 +27,7 @@ import eu.biketrack.android.models.data_reception.ReceptAddBike;
 import eu.biketrack.android.models.data_send.AuthUser;
 import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.models.data_send.SendBikeInfo;
+import eu.biketrack.android.models.data_send.SendBikeUpdate;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
@@ -95,7 +96,7 @@ public class EditBikeFragment extends Fragment {
 
             _disposables.add(
                     biketrackService.addBike(Statics.TOKEN_API, auth.getToken(), sb)
-                            .subscribeOn(Schedulers.io())
+                            .subscribeOn(Schedulers.newThread())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeWith(new DisposableObserver<Response<ReceptAddBike>>() {
 
@@ -117,34 +118,32 @@ public class EditBikeFragment extends Fragment {
                             })
             );
         } else {
-            // TODO: 02/06/2017
-            // créer les classe pour update
-//            SendBike sb = new SendBike(auth.getUserId(), _bike.getId(), new SendBikeInfo(_name.getText().toString(), _colour.getText().toString(), _brand.getText().toString(), _trackerid.getText().toString()));
-//            Log.d(TAG, auth.toString());
-//            Log.d(TAG, sb.toString());
-//            _disposables.add(
-//                    biketrackService.updateBike(Statics.TOKEN_API, auth.getToken(), sb)
-//                            .subscribeOn(Schedulers.io())
-//                            .observeOn(AndroidSchedulers.mainThread())
-//                            .subscribeWith(new DisposableObserver<Response<ReceptAddBike>>() {
-//
-//                                @Override
-//                                public void onComplete() {
-//                                    Log.d(TAG, "Add Bike completed");
-//                                }
-//
-//                                @Override
-//                                public void onError(Throwable e) {
-//                                    Log.e(TAG, "Error has occurred while creating bike", e);
-//                                }
-//
-//                                @Override
-//                                public void onNext(Response<ReceptAddBike> repreceptAddBike) {
-//                                    Toast.makeText(getActivity(), "Response : " + repreceptAddBike.toString(), Toast.LENGTH_SHORT).show();
-//                                    Log.d(TAG, repreceptAddBike.toString());
-//                                }
-//                            })
-//            );
+            SendBikeUpdate sb = new SendBikeUpdate(auth.getUserId(), _bike.getId(), new SendBikeInfo(_name.getText().toString(), _colour.getText().toString(), _brand.getText().toString(), _trackerid.getText().toString()));
+            Log.d(TAG, auth.toString());
+            Log.d(TAG, sb.toString());
+            _disposables.add(
+                    biketrackService.updateBike(Statics.TOKEN_API, auth.getToken(), sb)
+                            .subscribeOn(Schedulers.newThread())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribeWith(new DisposableObserver<Response<ReceptAddBike>>() {
+
+                                @Override
+                                public void onComplete() {
+                                    Log.d(TAG, "Update Bike completed");
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    Log.e(TAG, "Error has occurred while creating bike", e);
+                                }
+
+                                @Override
+                                public void onNext(Response<ReceptAddBike> repreceptAddBike) {
+                                    Toast.makeText(getActivity(), "Response : " + repreceptAddBike.toString(), Toast.LENGTH_SHORT).show();
+                                    Log.d(TAG, repreceptAddBike.toString());
+                                }
+                            })
+            );
         }
     }
 }
