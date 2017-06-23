@@ -2,7 +2,6 @@ package eu.biketrack.android.fragments;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,19 +26,17 @@ import butterknife.OnClick;
 import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
+import eu.biketrack.android.Session.Session;
 import eu.biketrack.android.activities.CustomListAdapter;
-import eu.biketrack.android.activities.MainActivity;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.api_connection.Statics;
 import eu.biketrack.android.models.User;
-import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.ReceiveBike;
 import eu.biketrack.android.models.data_reception.ReceptAddBike;
 import eu.biketrack.android.models.data_reception.ReceptUser;
 import eu.biketrack.android.models.data_send.SendBike;
-import eu.biketrack.android.models.data_send.SendBikeInfo;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
@@ -52,11 +49,11 @@ public class BikesFragment extends Fragment {
 
     private BiketrackService biketrackService;
     private CompositeDisposable _disposables;
-    private AuthenticateReception auth;
     private Unbinder unbinder;
     private ArrayList<Bike> bikeArrayList = new ArrayList<>();
     private User user;
     private CustomListAdapter adapter;
+    private Session session;
 
     @BindView(R.id.listView_bikes)
     ListView list;
@@ -69,8 +66,7 @@ public class BikesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
-        Bundle bundle = getArguments();
-        auth = bundle.getParcelable("AUTH");
+        session = Session.getInstance();
 
         biketrackService = ApiConnect.createService();
         _disposables = new CompositeDisposable();
@@ -110,7 +106,6 @@ public class BikesFragment extends Fragment {
     public void selectBike(int position) {
         Log.d(TAG, "select bike position = " + position);
         Bundle bundle = new Bundle();
-        bundle.putParcelable("AUTH", auth);
         bundle.putParcelable("BIKE", bikeArrayList.get(position));
         Fragment fragment = new BikeFragment();
         fragment.setArguments(bundle);
@@ -125,10 +120,7 @@ public class BikesFragment extends Fragment {
 
     @OnClick(R.id.floatin_add_bike)
     public void addBike() {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("AUTH", auth);
         Fragment fragment = new EditBikeFragment();
-        fragment.setArguments(bundle);
         final String tag = fragment.getClass().toString();
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
@@ -140,7 +132,7 @@ public class BikesFragment extends Fragment {
     private void getUser() {
         pg_bar.setVisibility(View.VISIBLE);
         _disposables.add(
-                biketrackService.getUser(Statics.TOKEN_API, auth.getToken(), auth.getUserId())
+                biketrackService.getUser(Statics.TOKEN_API, session.getToken(), session.getUserId())
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<ReceptUser>() {
@@ -169,6 +161,8 @@ public class BikesFragment extends Fragment {
                                 bikeArrayList.clear();
                                 int i = 0;
                                 int listsize = user.getBikes().size();
+                                if (listsize == 0)
+                                    pg_bar.setVisibility(View.GONE);
                                 for (String s : user.getBikes()) {
                                     getBike(s, i >= listsize - 1);
                                     ++i;
@@ -180,7 +174,7 @@ public class BikesFragment extends Fragment {
 
     private void getBike(String bikeid, Boolean last) {
         _disposables.add(
-                biketrackService.getBike(Statics.TOKEN_API, auth.getToken(), bikeid)
+                biketrackService.getBike(Statics.TOKEN_API, session.getToken(), bikeid)
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableObserver<ReceiveBike>() {
@@ -232,7 +226,6 @@ public class BikesFragment extends Fragment {
 
         if (selected_option == 0){
             Bundle bundle = new Bundle();
-            bundle.putParcelable("AUTH", auth);
             bundle.putParcelable("BIKE", bikeArrayList.get(selected_item));
             Fragment fragment = new EditBikeFragment();
             fragment.setArguments(bundle);
@@ -250,9 +243,9 @@ public class BikesFragment extends Fragment {
                     .setPositiveButton(R.string.alert_confirmation_delete_yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            SendBike sb = new SendBike(auth.getUserId(), bikeArrayList.get(selected_item).getId(), null);
+                            SendBike sb = new SendBike(session.getUserId(), bikeArrayList.get(selected_item).getId(), null);
                             _disposables.add(
-                                    biketrackService.deleteBike(Statics.TOKEN_API, auth.getToken(), sb)
+                                    biketrackService.deleteBike(Statics.TOKEN_API, session.getToken(), sb)
                                             .subscribeOn(Schedulers.newThread())
                                             .observeOn(AndroidSchedulers.mainThread())
                                             .subscribeWith(new DisposableObserver<Response<ReceptAddBike>>() {

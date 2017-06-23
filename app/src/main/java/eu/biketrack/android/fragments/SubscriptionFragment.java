@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
+import eu.biketrack.android.Session.LoginManager;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.api_connection.Statics;
@@ -46,6 +47,7 @@ public class SubscriptionFragment extends Fragment {
     private Disposable _disposable_password_repeat;
     private Unbinder unbinder;
     private CallbackManager callbackManager;
+    private LoginManager loginManager;
 
     private Boolean error_password_email = true;
 
@@ -61,6 +63,7 @@ public class SubscriptionFragment extends Fragment {
         biketrackService = ApiConnect.createService();
         _disposables = new CompositeDisposable();
         callbackManager = CallbackManager.Factory.create();
+        loginManager = LoginManager.getInstance();
     }
 
     @Override
@@ -204,9 +207,14 @@ public class SubscriptionFragment extends Fragment {
                             @Override
                             public void onNext(SignupReception signupReception) {
                                 Log.d(TAG, signupReception.toString());
+                                login(authUser);
                             }
                         })
         );
+    }
+
+
+    private void login(AuthUser authUser){
         _disposables.add(biketrackService.connectUser(Statics.TOKEN_API, authUser)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -225,21 +233,24 @@ public class SubscriptionFragment extends Fragment {
 
                     @Override
                     public void onNext(AuthenticateReception authenticateReception) {
-                        Log.d(TAG, authenticateReception.toString());
-                        Fragment fragment = new BikesFragment();
-                        final String tag = fragment.getClass().toString();
-                        getActivity().getSupportFragmentManager()
-                                .beginTransaction()
-                                .addToBackStack(tag)
-                                .replace(android.R.id.content, fragment, tag)
-                                .commit();
+                        loginManager.storeEmail(_email.getText().toString());
+                        loginManager.storeUserId(authenticateReception.getUserId());
+                        loginManager.storeToken(authenticateReception.getToken());
+                        closeFragment();
                     }
                 }));
     }
 
+
     @OnClick(R.id.subscribtion_login_button)
-    public void login(){
+    public void backTologin(){
         getActivity().getSupportFragmentManager().popBackStack();
+    }
+
+    private void closeFragment(){
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(android.R.id.content, new AutoLoginFragment(), this.toString())
+                .commit();
     }
 
 }

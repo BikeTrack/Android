@@ -1,6 +1,7 @@
 package eu.biketrack.android.fragments;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,6 +28,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
+import eu.biketrack.android.Session.LoginManager;
+import eu.biketrack.android.activities.AutoLogin;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.api_connection.Statics;
@@ -42,6 +45,7 @@ public class LoginFragment extends Fragment {
     private static String TAG = "BIKETRACK - Login";
     private BiketrackService biketrackService;
     private CompositeDisposable _disposables;
+    private LoginManager loginManager;
     private Unbinder unbinder;
     CallbackManager callbackManager;
 
@@ -57,6 +61,7 @@ public class LoginFragment extends Fragment {
         super.onCreate(savedInstanceState);
         biketrackService = ApiConnect.createService();
         _disposables = new CompositeDisposable();
+        loginManager = LoginManager.getInstance();
         callbackManager = CallbackManager.Factory.create();
     }
 
@@ -157,16 +162,21 @@ public class LoginFragment extends Fragment {
                             @Override
                             public void onNext(AuthenticateReception authenticateReception) {
                                 Log.d(TAG, authenticateReception.toString());
-                                Bundle bundle = new Bundle();
-                                bundle.putParcelable("AUTH", authenticateReception);
-                                Fragment fragment = new BikesFragment();
-                                fragment.setArguments(bundle);
-                                final String tag = fragment.getClass().toString();
-                                getActivity().getSupportFragmentManager()
-                                        .beginTransaction()
-                                        .addToBackStack(tag)
-                                        .replace(android.R.id.content, fragment, tag)
-                                        .commit();
+//                                Bundle bundle = new Bundle();
+//                                bundle.putParcelable("AUTH", authenticateReception);
+//                                Fragment fragment = new BikesFragment();
+//                                fragment.setArguments(bundle);
+//                                final String tag = fragment.getClass().toString();
+//                                getActivity().getSupportFragmentManager()
+//                                        .beginTransaction()
+//                                        .addToBackStack(tag)
+//                                        .replace(android.R.id.content, fragment, tag)
+//                                        .commit();
+
+                                loginManager.storeEmail(_email.getText().toString());
+                                loginManager.storeUserId(authenticateReception.getUserId());
+                                loginManager.storeToken(authenticateReception.getToken());
+                                closeFragment();
                             }
                         })
         );
@@ -184,5 +194,12 @@ public class LoginFragment extends Fragment {
                 .commit();
 
     }
+
+    private void closeFragment(){
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(android.R.id.content, new AutoLoginFragment(), this.toString())
+                .commit();
+    }
+
 
 }

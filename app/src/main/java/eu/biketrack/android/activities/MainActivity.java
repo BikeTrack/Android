@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import eu.biketrack.android.fragments.BikesFragment;
 import eu.biketrack.android.fragments.LoginFragment;
 
 public class MainActivity extends FragmentActivity {
@@ -16,7 +17,7 @@ public class MainActivity extends FragmentActivity {
 //            autolog_activity_intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 //            startActivity(autolog_activity_intent);
             getSupportFragmentManager().beginTransaction()
-                    .replace(android.R.id.content, new LoginFragment(), this.toString())
+                    .replace(android.R.id.content, new BikesFragment(), this.toString())
                     .commit();
         }
     }

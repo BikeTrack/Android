@@ -13,6 +13,9 @@ public class ReceptUser {
     @SerializedName("user")
     @Expose
     private User user;
+    @SerializedName("message")
+    @Expose
+    private Message message;
 
     public Boolean getSuccess() {
         return success;
@@ -30,11 +33,20 @@ public class ReceptUser {
         this.user = user;
     }
 
+    public Message getMessage() {
+        return message;
+    }
+
+    public void setMessage(Message message) {
+        this.message = message;
+    }
+
     @Override
     public String toString() {
         return "ReceptUser{" +
                 "success=" + success +
                 ", user=" + user +
+                ", message=" + message +
                 '}';
     }
 }
