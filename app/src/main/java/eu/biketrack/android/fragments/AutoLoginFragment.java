@@ -89,6 +89,7 @@ public class AutoLoginFragment extends Fragment {
                                     fillSession(userId, token);
                                     openBikes();
                                 } else {
+                                    loginManager.clear();
                                     askForLogin();
                                 }
                             }

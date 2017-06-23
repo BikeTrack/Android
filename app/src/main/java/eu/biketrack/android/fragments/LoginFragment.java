@@ -162,17 +162,6 @@ public class LoginFragment extends Fragment {
                             @Override
                             public void onNext(AuthenticateReception authenticateReception) {
                                 Log.d(TAG, authenticateReception.toString());
-//                                Bundle bundle = new Bundle();
-//                                bundle.putParcelable("AUTH", authenticateReception);
-//                                Fragment fragment = new BikesFragment();
-//                                fragment.setArguments(bundle);
-//                                final String tag = fragment.getClass().toString();
-//                                getActivity().getSupportFragmentManager()
-//                                        .beginTransaction()
-//                                        .addToBackStack(tag)
-//                                        .replace(android.R.id.content, fragment, tag)
-//                                        .commit();
-
                                 loginManager.storeEmail(_email.getText().toString());
                                 loginManager.storeUserId(authenticateReception.getUserId());
                                 loginManager.storeToken(authenticateReception.getToken());
