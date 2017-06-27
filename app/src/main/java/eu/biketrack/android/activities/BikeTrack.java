@@ -1,27 +1,20 @@
 package eu.biketrack.android.activities;
 
-import android.app.Application;
-
-import timber.log.Timber;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 
 /**
  * Created by 42900 on 07/02/2017 for BikeTrack_Android.
  */
 
-public class BikeTrack extends Application {
-
-    private static BikeTrack _instance;
+public class BikeTrack extends Activity {
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-
-        _instance = (BikeTrack) getApplicationContext();
-
-        // for better RxJava debugging
-        //RxJavaHooks.enableAssemblyTracking();
-
-
-        Timber.plant(new Timber.DebugTree());
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Intent autologin_intent = new Intent(this, AutoLogin.class);
+        startActivity(autologin_intent);
+        finish();
     }
 }

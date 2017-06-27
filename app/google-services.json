@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "404480628647",
+    "firebase_url": "https://biketracktest.firebaseio.com",
+    "project_id": "biketracktest",
+    "storage_bucket": "biketracktest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:404480628647:android:cf2b61ba59236401",
+        "android_client_info": {
+          "package_name": "eu.biketrack.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "404480628647-8a0tnth63geffg5ejs82h3t8jt1139u3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAouPGCQkLwwgxIhfJcsHBanrGOXeKgpVs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

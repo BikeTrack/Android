@@ -6,10 +6,6 @@
     android:layout_height="match_parent"
     tools:context="eu.biketrack.android.activities.AutoLogin">
 
+    <include layout="@layout/fragment_auto_login" />
 
-    <ImageView
-        android:id="@+id/background_img"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srcCompat="@mipmap/biketrack" />
 </RelativeLayout>

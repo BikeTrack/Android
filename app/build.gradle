@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 
+
 android {
     signingConfigs {
         config {
@@ -19,7 +20,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         Tests {
@@ -43,6 +44,8 @@ android {
     packagingOptions {
         pickFirst 'META-INF/rxjava.properties'
     }
+
+
 }
 
 
@@ -89,6 +92,8 @@ dependencies {
     compile group: 'com.google.firebase', name: 'firebase-ads', version: '10.2.1'
     compile group: 'com.google.android.gms', name: 'play-services-maps', version: '10.2.1'
 
+    compile group: 'com.google.android.gms', name: 'play-services-gcm', version: '10.2.1'
+
     /* OTHER LIBS */
     compile group: 'com.jakewharton', name: 'butterknife', version: '8.4.0'
     annotationProcessor group: 'com.jakewharton', name: 'butterknife-compiler', version: '8.4.0'
@@ -96,7 +101,8 @@ dependencies {
     compile group: 'com.jakewharton.timber', name: 'timber', version: '4.5.1'
 
     compile 'com.android.support:support-v4:25.0.1'
-    compile 'com.google.android.gms:play-services-maps:10.2.1'
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
 }
+apply plugin: 'com.google.gms.google-services'

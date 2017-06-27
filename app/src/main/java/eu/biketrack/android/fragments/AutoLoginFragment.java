@@ -14,8 +14,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.Session.LoginManager;
-import eu.biketrack.android.Session.Session;
+import eu.biketrack.android.session.LoginManager;
+import eu.biketrack.android.session.Session;
 import eu.biketrack.android.activities.MainActivity;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
@@ -56,12 +56,17 @@ public class AutoLoginFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_auto_login, container, false);
         unbinder = ButterKnife.bind(this, layout);
         pg_bar.setVisibility(View.VISIBLE);
+        return layout;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         if (loginManager.getToken() != null && loginManager.getUserId() != null){
             getUser(loginManager.getUserId(), loginManager.getToken());
         } else {
             askForLogin();
         }
-        return layout;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package eu.biketrack.android.Session;
+package eu.biketrack.android.session;
 
 /**
  * Created by 42900 on 21/06/2017 for BikeTrack_Android.

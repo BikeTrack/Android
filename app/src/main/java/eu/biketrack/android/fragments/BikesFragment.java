@@ -26,7 +26,7 @@ import butterknife.OnClick;
 import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.Session.Session;
+import eu.biketrack.android.session.Session;
 import eu.biketrack.android.activities.CustomListAdapter;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;

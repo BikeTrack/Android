@@ -51,4 +51,9 @@
     <string name="title_activity_auto_login">AutoLogin</string>
 
 
+
+
+    <string name="action_settings">Settings</string>
+
+
 </resources>

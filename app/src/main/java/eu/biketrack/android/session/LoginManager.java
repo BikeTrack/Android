@@ -1,4 +1,4 @@
-package eu.biketrack.android.Session;
+package eu.biketrack.android.session;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -13,6 +13,9 @@ public class LoginManager {
     private static final String KEY_EMAIL = "eu.biketrack.android.email";
     private static final String KEY_USERID = "eu.biketrack.android.userid";
     private static final String KEY_TOKEN = "eu.biketrack.android.token";
+
+    public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
+    public static final String REGISTRATION_COMPLETE = "registrationComplete";
 
     public static LoginManager getInstance() {
         return ourInstance;
