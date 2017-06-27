@@ -12,9 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,14 +20,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.Collection;
 import java.util.Collections;
-import java.util.DoubleSummaryStatistics;
 import java.util.List;
 
 import butterknife.BindView;
@@ -39,11 +34,9 @@ import eu.biketrack.android.R;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.api_connection.LobwickService;
-import eu.biketrack.android.api_connection.Statics;
 import eu.biketrack.android.models.SigfoxData;
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_reception.Bike;
-import eu.biketrack.android.models.data_reception.ReceptUser;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
@@ -100,11 +93,6 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
     public void onDestroyView() {
         mapView.onDestroy();
         super.onDestroyView();
@@ -142,7 +130,9 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                             target = new LatLng(Double.parseDouble(sigfoxData.getLatitude()), Double.parseDouble(sigfoxData.getLongitude()));
                         i++;
                     }
-                } catch (java.lang.NumberFormatException nfe){}
+                } catch (java.lang.NumberFormatException nfe){
+                    Log.i(TAG, "Error ", nfe);
+                }
             if (i > 10)
                 break;
         }

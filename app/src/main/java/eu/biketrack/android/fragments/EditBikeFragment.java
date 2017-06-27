@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.facebook.login.widget.LoginButton;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -24,7 +22,6 @@ import eu.biketrack.android.api_connection.Statics;
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.ReceptAddBike;
-import eu.biketrack.android.models.data_send.AuthUser;
 import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.models.data_send.SendBikeInfo;
 import eu.biketrack.android.models.data_send.SendBikeUpdate;
@@ -74,11 +71,6 @@ public class EditBikeFragment extends Fragment {
             _trackerid.setText(_bike.getTracker());
         }
         return layout;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

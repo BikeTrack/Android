@@ -6,7 +6,6 @@
     tools:context="eu.biketrack.android.fragments.BikeFragment">
 
 
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,7 +1,6 @@
 package eu.biketrack.android.notifications;
 
 import android.app.IntentService;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -9,15 +8,10 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Message;
-import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-
-import java.util.Date;
 
 import eu.biketrack.android.R;
 import eu.biketrack.android.activities.MainActivity;
@@ -54,16 +48,16 @@ public class NotificationService extends GcmListenerService {
         }
 
         // [START_EXCLUDE]
-        /**
-         * Production applications would usually process the message here.
-         * Eg: - Syncing with server.
-         *     - Store message in local database.
-         *     - Update UI.
+        /*
+          Production applications would usually process the message here.
+          Eg: - Syncing with server.
+              - Store message in local database.
+              - Update UI.
          */
 
-        /**
-         * In some cases it may be useful to show a notification indicating to the user
-         * that a message was received.
+        /*
+          In some cases it may be useful to show a notification indicating to the user
+          that a message was received.
          */
         sendNotification(message);
         // [END_EXCLUDE]

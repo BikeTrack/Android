@@ -1,9 +1,7 @@
 package eu.biketrack.android.api_connection;
 
 import java.io.Serializable;
-import java.util.List;
 
-import eu.biketrack.android.models.data_reception.Bike;
 import retrofit2.Retrofit;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;

@@ -1,23 +1,15 @@
 package eu.biketrack.android.activities;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
 import eu.biketrack.android.fragments.BikesFragment;
-import eu.biketrack.android.fragments.LoginFragment;
 import eu.biketrack.android.notifications.RegistrationIntentService;
-import eu.biketrack.android.session.LoginManager;
 
 public class MainActivity extends FragmentActivity {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;

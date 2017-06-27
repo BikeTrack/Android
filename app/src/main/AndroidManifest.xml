@@ -53,8 +53,7 @@
         <!-- android:label="@string/title_activity_auto_login" -->
         <activity
             android:name=".activities.AutoLogin"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.BikeTrack"
             android:theme="@style/SplashTheme">

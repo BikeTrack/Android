@@ -2,7 +2,6 @@ package eu.biketrack.android;
 
 import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -15,16 +14,11 @@ import java.util.concurrent.Callable;
 
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
-import eu.biketrack.android.models.data_send.AuthUser;
 import io.reactivex.Scheduler;
 import io.reactivex.android.plugins.RxAndroidPlugins;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Function;
-import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by 42900 on 20/02/2017 for BikeTrack_Android.
@@ -32,28 +26,34 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 @SmallTest
-public class LoginTest{
+public class LoginTest {
     private static String TAG = "Biketrack [TEST] Login";
     private BiketrackService biketrackService;
     private CompositeDisposable _disposables;
 
     @BeforeClass
     public static void setUp() throws Exception {
-            RxAndroidPlugins.setInitMainThreadSchedulerHandler(new Function<Callable<Scheduler>, Scheduler>() {
-                @Override public Scheduler apply(Callable<Scheduler> schedulerCallable) throws Exception {
-                    return Schedulers.trampoline();
-                }
-            });
+        RxAndroidPlugins.setInitMainThreadSchedulerHandler(new Function<Callable<Scheduler>, Scheduler>() {
+            @Override
+            public Scheduler apply(Callable<Scheduler> schedulerCallable) throws Exception {
+                return Schedulers.trampoline();
+            }
+        });
+    }
+
+    @AfterClass
+    public static void tearDown() {
+        RxAndroidPlugins.reset();
     }
 
     @Before
-    public void init(){
+    public void init() {
         biketrackService = ApiConnect.createService();
         _disposables = new CompositeDisposable();
     }
 
     @Test
-    public void testLogin(){
+    public void testLogin() {
 //        User user = new User("didi", "azerty");
 //
 //        _disposables.add(
@@ -84,13 +84,8 @@ public class LoginTest{
     }
 
     @After
-    public void end(){
+    public void end() {
         _disposables.dispose();
 
-    }
-
-    @AfterClass
-    public static void tearDown(){
-        RxAndroidPlugins.reset();
     }
 }

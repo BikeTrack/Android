@@ -1,16 +1,14 @@
 package eu.biketrack.android.activities;
 
 import android.app.Activity;
-import android.util.Log;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import eu.biketrack.android.R;
 import eu.biketrack.android.models.data_reception.Bike;
@@ -30,7 +28,8 @@ public class CustomListAdapter extends ArrayAdapter<Bike> {
         this.bikes = bikes;
     }
 
-    public View getView(int position, View view, ViewGroup parent) {
+    @NonNull
+    public View getView(int position, View view, @NonNull ViewGroup parent) {
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.listbike, null, true);
 

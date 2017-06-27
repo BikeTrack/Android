@@ -75,7 +75,7 @@
         android:id="@+id/bike_save_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/bike_save_button_txt"/>
+        android:text="@string/bike_save_button_txt" />
 
 
 </LinearLayout>
