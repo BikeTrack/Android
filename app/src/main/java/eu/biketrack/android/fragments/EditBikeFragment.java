@@ -1,6 +1,5 @@
 package eu.biketrack.android.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,12 +18,12 @@ import eu.biketrack.android.R;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.api_connection.Statics;
-import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.ReceptAddBike;
 import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.models.data_send.SendBikeInfo;
 import eu.biketrack.android.models.data_send.SendBikeUpdate;
+import eu.biketrack.android.session.Session;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
@@ -34,7 +33,7 @@ import retrofit2.Response;
 public class EditBikeFragment extends Fragment {
     private static String TAG = "BIKETRACK - EditBike";
     private Unbinder unbinder;
-    private AuthenticateReception auth;
+    private Session session;
     private BiketrackService biketrackService;
     private CompositeDisposable _disposables;
     private Bike _bike;
@@ -42,7 +41,7 @@ public class EditBikeFragment extends Fragment {
     @BindView(R.id.bike_name_edit) EditText _name;
     @BindView(R.id.bike_colour_edit) EditText _colour;
     @BindView(R.id.bike_brand_edit) EditText _brand;
-    @BindView(R.id.bike_trackerid_edit) EditText _trackerid;
+//    @BindView(R.id.bike_trackerid_edit) EditText _trackerid;
 
 
     @Override
@@ -51,10 +50,13 @@ public class EditBikeFragment extends Fragment {
 
         biketrackService = ApiConnect.createService();
         _disposables = new CompositeDisposable();
+        session = Session.getInstance();
 
         Bundle bundle = getArguments();
-        auth = bundle.getParcelable("AUTH");
-        _bike = bundle.getParcelable("BIKE");
+        if (bundle != null)
+            _bike = bundle.getParcelable("BIKE");
+        else
+            _bike = null;
     }
 
     @Override
@@ -68,7 +70,7 @@ public class EditBikeFragment extends Fragment {
             _name.setText(_bike.getName());
             _colour.setText(_bike.getColor());
             _brand.setText(_bike.getBrand());
-            _trackerid.setText(_bike.getTracker());
+//            _trackerid.setText(_bike.getTracker());
         }
         return layout;
     }
@@ -82,12 +84,9 @@ public class EditBikeFragment extends Fragment {
     @OnClick(R.id.bike_save_button)
     public void save_bike(){
         if (_bike == null) {
-            SendBike sb = new SendBike(auth.getUserId(), null, new SendBikeInfo(_name.getText().toString(), _colour.getText().toString(), _brand.getText().toString(), _trackerid.getText().toString()));
-            Log.d(TAG, auth.toString());
-            Log.d(TAG, sb.toString());
-
+            SendBike sb = new SendBike(session.getUserId(), null, new SendBikeInfo(_name.getText().toString(), _colour.getText().toString(), _brand.getText().toString(), "0000"));
             _disposables.add(
-                    biketrackService.addBike(Statics.TOKEN_API, auth.getToken(), sb)
+                    biketrackService.addBike(Statics.TOKEN_API, session.getToken(), sb)
                             .subscribeOn(Schedulers.newThread())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeWith(new DisposableObserver<Response<ReceptAddBike>>() {
@@ -106,15 +105,16 @@ public class EditBikeFragment extends Fragment {
                                 public void onNext(Response<ReceptAddBike> repreceptAddBike) {
                                     Toast.makeText(getActivity(), "Response : " + repreceptAddBike.toString(), Toast.LENGTH_SHORT).show();
                                     Log.d(TAG, repreceptAddBike.toString());
+                                    if (repreceptAddBike.code() == 200){
+                                        closeFragment();
+                                    }
                                 }
                             })
             );
         } else {
-            SendBikeUpdate sb = new SendBikeUpdate(auth.getUserId(), _bike.getId(), new SendBikeInfo(_name.getText().toString(), _colour.getText().toString(), _brand.getText().toString(), _trackerid.getText().toString()));
-            Log.d(TAG, auth.toString());
-            Log.d(TAG, sb.toString());
+            SendBikeUpdate sb = new SendBikeUpdate(session.getUserId(), _bike.getId(), new SendBikeInfo(_name.getText().toString(), _colour.getText().toString(), _brand.getText().toString(), _bike.getTracker()));
             _disposables.add(
-                    biketrackService.updateBike(Statics.TOKEN_API, auth.getToken(), sb)
+                    biketrackService.updateBike(Statics.TOKEN_API, session.getToken(), sb)
                             .subscribeOn(Schedulers.newThread())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribeWith(new DisposableObserver<Response<ReceptAddBike>>() {
@@ -133,9 +133,17 @@ public class EditBikeFragment extends Fragment {
                                 public void onNext(Response<ReceptAddBike> repreceptAddBike) {
                                     Toast.makeText(getActivity(), "Response : " + repreceptAddBike.toString(), Toast.LENGTH_SHORT).show();
                                     Log.d(TAG, repreceptAddBike.toString());
+                                    if (repreceptAddBike.code() == 200){
+                                        closeFragment();
+                                    }
                                 }
                             })
             );
         }
+    }
+
+    @OnClick(R.id.back_view_pager)
+    public void closeFragment(){
+        getActivity().getSupportFragmentManager().popBackStack();
     }
 }

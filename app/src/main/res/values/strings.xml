@@ -32,7 +32,7 @@
     <!-- Strings related to Google -->
     <string name="google_android_map_api_key">AIzaSyCWaWLfc9VShCwMhz1yj689mxZc5sL57dk</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_main">MainActivity</string>
@@ -45,13 +45,446 @@
 
 
     <string name="alert_confirmation_delete_title">Voulez vous vraiment supprimer ce vélo ?</string>
-    <string name="alert_confirmation_delete_message">La suppression est définitive.</string>
+    <string name="alert_confirmation_delete_message">La suppression est définitive</string>
     <string name="alert_confirmation_delete_yes">Confirmer</string>
     <string name="alert_confirmation_delete_no">Annuler</string>
     <string name="title_activity_auto_login">AutoLogin</string>
 
 
     <string name="action_settings">Settings</string>
+    <string name="profile_email_txt">Email</string>
 
+
+    <!-- menu bottom -->
+    <string name="menu_text_settings">Paramètres</string>
+    <string name="menu_text_bikes">Vélos</string>
+    <string name="menu_text_profile">Profil</string>
+
+    <string-array name="brands_bike_array">
+        <item>Aarios</item>
+        <item>Accell Group</item>
+        <item>Addictiv Cycles</item>
+        <item>Adeline</item>
+        <item>AdlerwerkeAhearne</item>
+        <item>Aiglon</item>
+        <item>Alan</item>
+        <item>Alcyon</item>
+        <item>Etablissements des Cycles Allegro Arnold Grandjean S.A.Alleluia</item>
+        <item>Aluminium</item>
+        <item>Alpha</item>
+        <item>American Bicycle Company</item>
+        <item>American Cycle Manufacturing Company</item>
+        <item>American Ormonde Cycle Company</item>
+        <item>Arcade</item>
+        <item>Argon </item>
+        <item>Armor</item>
+        <item>Arrow</item>
+        <item>Arligute</item>
+        <item>ATAG Cycle Group</item>
+        <item>Atena</item>
+        <item>Attila</item>
+        <item>Atlas</item>
+        <item>Automoto</item>
+        <item>Austral</item>
+        <item>Bamboo bicycleJ.B. Barbier</item>
+        <item>Barroux</item>
+        <item>Basso</item>
+        <item>Bastaërt</item>
+        <item>Batavus</item>
+        <item>Beistegui Hermanos </item>
+        <item>Berg</item>
+        <item>Gilles Berthoud</item>
+        <item>Blanc &amp; Gautard</item>
+        <item>Blanchard-GrangeBianchi</item>
+        <item>S. Bingham &amp; CoBingham Cyclery</item>
+        <item>BismarckwerkBottechia</item>
+        <item>BMC</item>
+        <item>Emilio BozziBritania</item>
+        <item>Bronto Bikes</item>
+        <item>Brompton</item>
+        <item>Birmingham Small Arms CompanyBrilliant</item>
+        <item>Buffalo Bicycles</item>
+        <item>Bulls</item>
+        <item>The Buffalo Cycle Co</item>
+        <item>Burgers-ENR  à Deventer</item>
+        <item>Campagnolo</item>
+        <item>CCM</item>
+        <item>Caminade</item>
+        <item>Cannondale</item>
+        <item>Canyon</item>
+        <item>Canyon</item>
+        <item>Capelle</item>
+        <item>Carlton CyclesCarmen</item>
+        <item>Carvin</item>
+        <item>cycles Cattin</item>
+        <item>Cervélo</item>
+        <item>Chain Bike Corporation</item>
+        <item>CIOCC</item>
+        <item>Cilo</item>
+        <item>CinelliCizeron</item>
+        <item>Cycles Clément</item>
+        <item>Fernand Clément et Cie</item>
+        <item>Cless &amp; PlessingCleveland</item>
+        <item>CMT</item>
+        <item>Colnago</item>
+        <item>Columbia</item>
+        <item>Commencal</item>
+        <item>Confiance</item>
+        <item>Condor</item>
+        <item>Conqueror Cycles</item>
+        <item>Continental</item>
+        <item>Construction Générale des Cycles</item>
+        <item>Consul</item>
+        <item>Cosmopolis</item>
+        <item>Cottereau</item>
+        <item>Crescent</item>
+        <item>American Cycle Manufacturing Company</item>
+        <item>American Bicycle Company</item>
+        <item>Edward K. Tryon &amp; Company</item>
+        <item>MonarkPope Manufacturing Company</item>
+        <item>Rouse</item>
+        <item>Stein &amp; Brothers</item>
+        <item>Western Wheel Works</item>
+        <item>Corsica</item>
+        <item>Cycles Coutrot</item>
+        <item>Crawford</item>
+        <item>Crossot</item>
+        <item>Cube</item>
+        <item>CWS</item>
+        <item>Cycleurope</item>
+        <item>Cyclelec</item>
+        <item>Cyfac</item>
+        <item>Da Silva</item>
+        <item>Dahon</item>
+        <item>Dainty</item>
+        <item>Dangre-Starnord</item>
+        <item>Daring</item>
+        <item>Davis Sewing Machine CompanyDawes Cycles</item>
+        <item>Dayton</item>
+        <item>Debaralle— Argenteuil</item>
+        <item>Decauville</item>
+        <item>De Dion-Bouton</item>
+        <item>De Groote LeeuwDei</item>
+        <item>Delcroix</item>
+        <item>Delizy &amp; Poiret</item>
+        <item>Doublettrack</item>
+        <item>Devinci</item>
+        <item>Diamond</item>
+        <item>Di Blasi</item>
+        <item>Dilecta</item>
+        <item>Drössiger</item>
+        <item>Douze Cycles</item>
+        <item>Dürkopp</item>
+        <item>Duteil-Berincolin</item>
+        <item>L.Duterme</item>
+        <item>Duval-Pihet</item>
+        <item>Edelbikes</item>
+        <item>Egobike</item>
+        <item>Electra</item>
+        <item>Ellsworth</item>
+        <item>Elswick HopperEddy Merckx Cycles</item>
+        <item>Emery</item>
+        <item>L\'Étendard Français</item>
+        <item>Eyllé</item>
+        <item>Excelsior</item>
+        <item>Fachleitner</item>
+        <item>Falcon</item>
+        <item>Fahrradmanufaktur</item>
+        <item>Felt</item>
+        <item>Favor</item>
+        <item>Fenwick frères </item>
+        <item>Felix Fournier &amp; Knopf</item>
+        <item>Ferraci</item>
+        <item>Fiat</item>
+        <item>Flaig</item>
+        <item>FlandriaFlying Pigeon</item>
+        <item>Focus</item>
+        <item>Follis</item>
+        <item>Fondriest</item>
+        <item>FongersFonlupt</item>
+        <item>Fourmentin</item>
+        <item>France-Loire</item>
+        <item>France-Sport</item>
+        <item>La Française</item>
+        <item>La Française Diamant</item>
+        <item>Frejus— Turin</item>
+        <item>FreraFuji</item>
+        <item>Gazelle</item>
+        <item>Royal Dutch GazelleGendron Bicycles</item>
+        <item>Ghost</item>
+        <item>Gios</item>
+        <item>Giant</item>
+        <item>GIRS</item>
+        <item>Gitane ou Micmo</item>
+        <item>La compagnie des Cycles Gladiator</item>
+        <item>Gnome et Rhône</item>
+        <item>Gottfried</item>
+        <item>Gormully &amp; JefferyGouirand</item>
+        <item>Grade</item>
+        <item>Grandeur</item>
+        <item>Granville</item>
+        <item>Griffon</item>
+        <item>John Griffiths</item>
+        <item>S. Griffiths &amp; Sons</item>
+        <item>Grosjean frères</item>
+        <item>F. H. Grubb</item>
+        <item>GrunoGT</item>
+        <item>Gudereit</item>
+        <item>Guerciotti</item>
+        <item>La Guêpe</item>
+        <item>D. Guédon</item>
+        <item>Guiller</item>
+        <item>Gurtner</item>
+        <item>Guyot</item>
+        <item>Hardy Cycle Company</item>
+        <item>Harmon</item>
+        <item>Harris</item>
+        <item>Hase Spezialräder</item>
+        <item>Helios</item>
+        <item>Hélium sous-marque de Peugeot</item>
+        <item>Helkama</item>
+        <item>Hercules Cycle and Motor CompanyHercules</item>
+        <item>Helyett</item>
+        <item>Hermes</item>
+        <item>René Herse</item>
+        <item>Fabrique nationale de Herstal</item>
+        <item>HetchinsHindeHirondelle</item>
+        <item>Histoire</item>
+        <item>Holdsworth— Londres</item>
+        <item>Holley Hardy</item>
+        <item>Humber</item>
+        <item>Horer</item>
+        <item>Howe Machine Company</item>
+        <item>Huffman Manufacturing CompanyJordan Hufnagel</item>
+        <item>Humber CyclesCompagnie des Automobiles et Cycles Hurtu</item>
+        <item>Husqvarna</item>
+        <item>Ibis BicyclesIntense</item>
+        <item>Intercycle</item>
+        <item>Independant FabricationIver JohnsonJean Thomann</item>
+        <item>Jeep Bicycles</item>
+        <item>Jeep</item>
+        <item>Jeunet</item>
+        <item>Jussy &amp; Co Saint-Étienne</item>
+        <item>Jurassia</item>
+        <item>Jurax</item>
+        <item>Keating Cycles</item>
+        <item>Kenwood Manufacturing Company</item>
+        <item>Kinfolk Bicycle Company</item>
+        <item>KTM</item>
+        <item>Klein BikesKross</item>
+        <item>Kona</item>
+        <item>Koxx</item>
+        <item>Kymris</item>
+        <item>KynochKroon</item>
+        <item>Labor</item>
+        <item>Lamy</item>
+        <item>Lapierre</item>
+        <item>Lavigne</item>
+        <item>Laurin &amp; KlementLéa et Norma</item>
+        <item>Leclerc</item>
+        <item>Cycles et automobiles LegiaLe Goff</item>
+        <item>René Le Grevès</item>
+        <item>Legnano</item>
+        <item>Lejeune</item>
+        <item>Leleu</item>
+        <item>Lepeigneux</item>
+        <item>Levacon</item>
+        <item>E. Lévy</item>
+        <item>Liberator</item>
+        <item>Libéria</item>
+        <item>Litespeed</item>
+        <item>LocomotiefLombardo</item>
+        <item>Look Cycle</item>
+        <item>Louis Garneau Sports</item>
+        <item>Louvet frères et Cie</item>
+        <item>J.B. Louvet</item>
+        <item>Lorette</item>
+        <item>Lorraine</item>
+        <item>LRC La Merveilleuse</item>
+        <item>Lucifer</item>
+        <item>Lutetia</item>
+        <item>Luthy</item>
+        <item>Lyiang</item>
+        <item>ManufranceMagnat-Debon</item>
+        <item>Manufacture de Vélocipèdie L. Debon constructeur</item>
+        <item>Manufacture Française de Bicyclettes</item>
+        <item>Maison Tamboite Paris</item>
+        <item>Marin</item>
+        <item>Mario Schiano</item>
+        <item>Manufacture Française du Cycle</item>
+        <item>Marin BikesMarche</item>
+        <item>Marinoni</item>
+        <item>Mars-WerkeMatador</item>
+        <item>Maxim</item>
+        <item>Mead Cycle Company</item>
+        <item>Médinger</item>
+        <item>Mercier</item>
+        <item>Merida</item>
+        <item>Météore</item>
+        <item>La Metropole</item>
+        <item>Michaux et Cie</item>
+        <item>Micmo « Manufacture Industrielle de Cycles et Motocycles »</item>
+        <item>Milder</item>
+        <item>Milders &amp; fils</item>
+        <item>Felix Minette</item>
+        <item>Minerva</item>
+        <item>MonarkMondia</item>
+        <item>Monet-Goyon</item>
+        <item>Moots CyclesMotobécane-Motoconfort</item>
+        <item>Messina</item>
+        <item>Naumann</item>
+        <item>Nancia</item>
+        <item>La New-York</item>
+        <item>NinerNorco</item>
+        <item>Nordstjernan</item>
+        <item>Norta</item>
+        <item>Norman</item>
+        <item>Northampton Cycle Co</item>
+        <item>Neckarsulm Strickmaschinen Union</item>
+        <item>Nymans</item>
+        <item>Olivier</item>
+        <item>Olympique Cycles</item>
+        <item>Omega</item>
+        <item>Omnium</item>
+        <item>Onoto</item>
+        <item>Onyx</item>
+        <item>Opel</item>
+        <item>OpusOrbea</item>
+        <item>Orbita</item>
+        <item>Origan</item>
+        <item>Ormonde</item>
+        <item>Ots</item>
+        <item>Oxford Bikes</item>
+        <item>Oyama</item>
+        <item>Panasonic CycleParis</item>
+        <item>Patria</item>
+        <item>Peerless</item>
+        <item>Petitjean</item>
+        <item>Peugeot</item>
+        <item>Phébus</item>
+        <item>Phoenix BicyclesCycles Philippe</item>
+        <item>Cycles PhillipsPinarello</item>
+        <item>Pinarello</item>
+        <item>Établissements PieperPlanet Fun</item>
+        <item>Planet X LimitedPlasson</item>
+        <item>Pope Manufacturing CompanyPotier</item>
+        <item>Puch</item>
+        <item>Poulain</item>
+        <item>Poulet</item>
+        <item>Raymond Poulidor</item>
+        <item>PrestoPsycho</item>
+        <item>Puch</item>
+        <item>Pure cycling</item>
+        <item>Quadrant CyclesQuantum ou Qbikes</item>
+        <item>Radon</item>
+        <item>Raleigh</item>
+        <item>Raleigh</item>
+        <item>Rando-Cycles</item>
+        <item>Rapid-Triumph</item>
+        <item>Ravat</item>
+        <item>E. Ravasse</item>
+        <item>Regent Fahrrad WerkeRegina</item>
+        <item>Rexor</item>
+        <item>Rich</item>
+        <item>Georges Richard</item>
+        <item>Richardson</item>
+        <item>Ridley</item>
+        <item>RitcheyRivolier Père &amp; Fils</item>
+        <item>Rochambeau</item>
+        <item>Rochet</item>
+        <item>Rocky Mountain</item>
+        <item>Rolley</item>
+        <item>Roques</item>
+        <item>Rose</item>
+        <item>Rouse</item>
+        <item>Roussel</item>
+        <item>Rouxel &amp; Dubois</item>
+        <item>Rover</item>
+        <item>Royal Enfield</item>
+        <item>Royal-Fabric</item>
+        <item>Royal NordRoyce-Union</item>
+        <item>Rudge Whitworth Cycles </item>
+        <item>Saint-Étienne Cycles</item>
+        <item>Sanpene</item>
+        <item>Santa Cruz</item>
+        <item>Saroléa</item>
+        <item>Saving</item>
+        <item>Fabrique des Cycles et Motos Scaldis S.ASchauff</item>
+        <item>SchauffSchwinn Bicycle Company</item>
+        <item>Scott</item>
+        <item>Scott Bicycle Works</item>
+        <item>Seidel &amp; NaumannSibilia</item>
+        <item>Simpel</item>
+        <item>Simplex Machine en Rijwielfarben</item>
+        <item>Alex Singer</item>
+        <item>George SingerSirius</item>
+        <item>Skyde</item>
+        <item>Sparta</item>
+        <item>Specialized Bicycle Components</item>
+        <item>Speed Unlimited WayneSpeedwell Bicycle Manufacturing Company</item>
+        <item>La Souplette</item>
+        <item>Standard Cycle Company— Fort Smith</item>
+        <item>E. C. Stearns Bicycle AgencyStjernvelocipeder</item>
+        <item>Stella</item>
+        <item>Sterling Bicycle Co.  ou Sterling Cycle Works</item>
+        <item>Stevens</item>
+        <item>R.S. Stokvis &amp; ZonenStollenwerk</item>
+        <item>Zim Strock &amp; Cie</item>
+        <item>Stucchi</item>
+        <item>Prinetti &amp; StucchiSunn</item>
+        <item>Surly BikesSvelte</item>
+        <item>Swift</item>
+        <item>Tandem GroupTDS Rad </item>
+        <item>Tern</item>
+        <item>Terrot</item>
+        <item>ThirtyOne</item>
+        <item>Thompson</item>
+        <item>Cycles Alphonse Thomann</item>
+        <item>Tigra</item>
+        <item>Time Sport</item>
+        <item>Turner Suspension BicyclesTourist</item>
+        <item>Townsend’s Limited Cycles</item>
+        <item>Trenga</item>
+        <item>Trek</item>
+        <item>Tridon</item>
+        <item>Triumph</item>
+        <item>Edward K. Tryon &amp; Company</item>
+        <item>Union</item>
+        <item>Union Star</item>
+        <item>United Cruiser</item>
+        <item>Urago</item>
+        <item>Utopia velo</item>
+        <item>Vagabonde</item>
+        <item>Vanilla Bicycles</item>
+        <item>Van Eschtel</item>
+        <item>Varna</item>
+        <item>Compagnie parisienne des vélocipèdes</item>
+        <item>VéloSoleX</item>
+        <item>Vicini</item>
+        <item>Victoire Cycle</item>
+        <item>Volkscycle</item>
+        <item>Victoria-WerkeH. Vigneron</item>
+        <item>Vigor</item>
+        <item>Viking Cycle CompanyVilliger</item>
+        <item>Viper</item>
+        <item>Vitus</item>
+        <item>Volkscycle</item>
+        <item>Waltham Manufacturing CompanyWanderer Verke AG</item>
+        <item>Wawerley</item>
+        <item>WearwellWerner</item>
+        <item>F &amp; J van Werven</item>
+        <item>Western Wheel Works</item>
+        <item>Westfield Manufacturing Company</item>
+        <item>Victoria</item>
+        <item>Wilhelmina Cycle &amp; CoWhitworth Cycle Co</item>
+        <item>Wilier</item>
+        <item>Winora</item>
+        <item>Wolff-American</item>
+        <item>Wolseley Motors</item>
+        <item>WolsitWonder</item>
+        <item>Yamaha</item>
+        <item>Yeti CyclesYoung Talent IndustriesZirvès</item>
+        <item>Zullo</item>
+    </string-array>
 
 </resources>

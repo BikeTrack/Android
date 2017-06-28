@@ -29,6 +29,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
 import eu.biketrack.android.api_connection.ApiConnect;
@@ -37,6 +38,7 @@ import eu.biketrack.android.api_connection.LobwickService;
 import eu.biketrack.android.models.SigfoxData;
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_reception.Bike;
+import eu.biketrack.android.session.Session;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
@@ -46,7 +48,7 @@ import io.reactivex.schedulers.Schedulers;
 public class BikeFragment extends Fragment implements OnMapReadyCallback {
     private static String TAG = "BIKETRACK - Bike";
     private Unbinder unbinder;
-    private AuthenticateReception auth;
+    private Session session;
     private Bike bike;
     private BiketrackService biketrackService;
     private CompositeDisposable _disposables;
@@ -58,7 +60,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
     @BindView(R.id.bike_name_tv) TextView _name;
     @BindView(R.id.bike_colour_tv) TextView _colour;
     @BindView(R.id.bike_brand_tv) TextView _brand;
-    @BindView(R.id.bike_trackerid_tv) TextView _trackerid;
+//    @BindView(R.id.bike_trackerid_tv) TextView _trackerid;
     @BindView(R.id.map) MapView mapView;
 
     @Override
@@ -69,7 +71,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         _disposables = new CompositeDisposable();
 
         Bundle bundle = getArguments();
-        auth = bundle.getParcelable("AUTH");
+        session = Session.getInstance();
         bike = bundle.getParcelable("BIKE");
         getCoordinates();
     }
@@ -84,9 +86,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         _name.setText(bike.getName());
         _colour.setText(bike.getColor());
         _brand.setText(bike.getBrand());
-        _trackerid.setText(bike.getTracker());
-
-
+//        _trackerid.setText(bike.getTracker());
         mapView.onCreate(savedInstanceState);
 
         return layout;
@@ -200,4 +200,9 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         );
     }
 
+
+    @OnClick(R.id.back_view_pager)
+    public void closeFragment(){
+        getActivity().getSupportFragmentManager().popBackStack();
+    }
 }

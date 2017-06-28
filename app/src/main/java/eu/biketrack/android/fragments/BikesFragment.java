@@ -3,7 +3,9 @@ package eu.biketrack.android.fragments;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -62,12 +64,13 @@ public class BikesFragment extends Fragment {
     @BindView(R.id.progressBarBikes)
     ProgressBar pg_bar;
 
+    @BindView(R.id.bottom_navigation)
+    BottomNavigationView bottomNavigationView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate");
         session = Session.getInstance();
-
         biketrackService = ApiConnect.createService();
         _disposables = new CompositeDisposable();
         adapter = new CustomListAdapter(this.getActivity(), bikeArrayList);
@@ -76,19 +79,50 @@ public class BikesFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume");
         getUser();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView");
         View layout = inflater.inflate(R.layout.fragment_bikes, container, false);
         unbinder = ButterKnife.bind(this, layout);
         list.setEmptyView(emptyText);
         pg_bar.setVisibility(View.GONE);
         registerForContextMenu(list);
         return layout;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        bottomNavigationView.getMenu().getItem(0).setEnabled(false);
+        bottomNavigationView.getMenu().getItem(0).setChecked(false);
+        bottomNavigationView.getMenu().getItem(1).setChecked(true);
+        bottomNavigationView.getMenu().getItem(2).setChecked(false);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        bottomNavigationView.getMenu().getItem(0).setChecked(false);
+                        bottomNavigationView.getMenu().getItem(1).setChecked(false);
+                        bottomNavigationView.getMenu().getItem(2).setChecked(false);
+                        switch (item.getItemId()) {
+                            case R.id.action_settings:
+
+                                break;
+                            case R.id.action_bikes:
+
+                                break;
+                            case R.id.action_profile:
+                                getActivity().getSupportFragmentManager().beginTransaction()
+                                        .replace(android.R.id.content, new ProfileFragment(), this.toString())
+                                        .commit();
+                                break;
+                        }
+                        return true;
+                    }
+                });
     }
 
     @Override
@@ -99,7 +133,6 @@ public class BikesFragment extends Fragment {
 
     @OnItemClick(R.id.listView_bikes)
     public void selectBike(int position) {
-        Log.d(TAG, "select bike position = " + position);
         Bundle bundle = new Bundle();
         bundle.putParcelable("BIKE", bikeArrayList.get(position));
         Fragment fragment = new BikeFragment();
