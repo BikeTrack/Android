@@ -45,7 +45,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="40sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:maxLines="1"/>
 
 
         <TextView
@@ -59,6 +60,7 @@
             android:id="@+id/bike_colour_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="40sp"
             android:textStyle="bold" />
@@ -70,14 +72,33 @@
             android:text="@string/bike_brand_txt"
             android:textAllCaps="true"
             android:textStyle="italic" />
+        <RelativeLayout
+            android:id="@+id/RelativeLayout01" android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/bike_brand_edit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="40sp"
-            android:textStyle="bold" />
+            <Button
+                android:id="@+id/search_brand_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:text="Search" />
+
+            <EditText
+                android:id="@+id/bike_brand_edit"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/search_brand_button"
+                android:layout_toStartOf="@id/search_brand_button"
+                android:inputType="none"
+                android:maxLines="1"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
 
         <!-- Temporary -->
         <!--<TextView-->

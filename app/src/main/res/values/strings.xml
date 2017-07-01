@@ -60,6 +60,12 @@
     <string name="menu_text_bikes">Vélos</string>
     <string name="menu_text_profile">Profil</string>
 
+
+    <string name="alert_confirmation_brand_title">Voulez vous selectionner cette marque ?</string>
+    <!--<string name="alert_confirmation_brand_message">La suppression est définitive</string>-->
+    <string name="alert_confirmation_brand_yes">Confirmer</string>
+    <string name="alert_confirmation_brand_no">Annuler</string>
+
     <string-array name="brands_bike_array">
         <item>Aarios</item>
         <item>Accell Group</item>

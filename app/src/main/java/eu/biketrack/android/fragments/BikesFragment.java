@@ -189,8 +189,10 @@ public class BikesFragment extends Fragment {
                                 bikeArrayList.clear();
                                 int i = 0;
                                 int listsize = user.getBikes().size();
-                                if (listsize == 0)
+                                if (listsize == 0) {
                                     pg_bar.setVisibility(View.GONE);
+                                    adapter.notifyDataSetChanged();
+                                }
                                 for (String s : user.getBikes()) {
                                     getBike(s, i >= listsize - 1);
                                     ++i;

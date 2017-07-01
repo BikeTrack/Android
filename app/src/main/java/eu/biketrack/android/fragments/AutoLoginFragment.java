@@ -28,6 +28,7 @@ import io.reactivex.schedulers.Schedulers;
 
 
 public class AutoLoginFragment extends Fragment {
+    private static String TAG = "BIKETRACK - AutoLog";
     private LoginManager loginManager;
     private Session session;
     private Unbinder unbinder;
@@ -41,6 +42,7 @@ public class AutoLoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "oncreate");
         biketrackService = ApiConnect.createService();
         _disposables = new CompositeDisposable();
 
@@ -56,15 +58,19 @@ public class AutoLoginFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_auto_login, container, false);
         unbinder = ButterKnife.bind(this, layout);
         pg_bar.setVisibility(View.VISIBLE);
+        Log.d(TAG, "oncreate view");
         return layout;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG, "onviewcreated");
         if (loginManager.getToken() != null && loginManager.getUserId() != null){
+            Log.d(TAG, "getuser");
             getUser(loginManager.getUserId(), loginManager.getToken());
         } else {
+            Log.d(TAG, "ask for login");
             askForLogin();
         }
     }
@@ -72,10 +78,12 @@ public class AutoLoginFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Log.d(TAG, "ondestroyview");
         unbinder.unbind();
     }
 
     private void getUser(String userId, String token) {
+        Log.d(TAG, "getUser");
         _disposables.add(
                 biketrackService.getUser(Statics.TOKEN_API, token, userId)
                         .subscribeOn(Schedulers.newThread())
@@ -83,13 +91,16 @@ public class AutoLoginFragment extends Fragment {
                         .subscribeWith(new DisposableObserver<ReceptUser>() {
 
                             @Override
-                            public void onComplete() {}
+                            public void onComplete() {Log.d(TAG, "onComplete");}
 
                             @Override
-                            public void onError(Throwable e) {}
+                            public void onError(Throwable e) {
+                                loginManager.clear();
+                                askForLogin();}
 
                             @Override
                             public void onNext(ReceptUser receptUser) {
+                                Log.d(TAG, receptUser.toString());
                                 if (receptUser.getSuccess()){
                                     fillSession(userId, token);
                                     openBikes();
@@ -103,20 +114,23 @@ public class AutoLoginFragment extends Fragment {
     }
 
     public void fillSession(String userId, String token){
+        Log.d(TAG, "fillSession");
         session.setToken(token);
         session.setUserId(userId);
     }
 
     private void askForLogin(){
+        Log.d(TAG, "askForLogin");
         pg_bar.setVisibility(View.INVISIBLE);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new LoginFragment(), this.toString())
                 .commit();
         pg_bar.setVisibility(View.VISIBLE);
-        Log.d("autologin", loginManager.getUserId() + "  //  " +  loginManager.getToken());
+        Log.d(TAG, loginManager.getUserId() + "  //  " +  loginManager.getToken());
     }
 
     private void openBikes(){
+        Log.d(TAG, "openBikes");
         pg_bar.setVisibility(View.INVISIBLE);
         Intent mainactivity_intent = new Intent(getActivity(), MainActivity.class);
         startActivity(mainactivity_intent);

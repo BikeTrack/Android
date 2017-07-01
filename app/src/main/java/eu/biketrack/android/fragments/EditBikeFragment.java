@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import eu.biketrack.android.R;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.api_connection.Statics;
+import eu.biketrack.android.models.BrandSelected;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.ReceptAddBike;
 import eu.biketrack.android.models.data_send.SendBike;
@@ -37,21 +39,25 @@ public class EditBikeFragment extends Fragment {
     private BiketrackService biketrackService;
     private CompositeDisposable _disposables;
     private Bike _bike;
+    private BrandSelected brandSelected;
 
     @BindView(R.id.bike_name_edit) EditText _name;
     @BindView(R.id.bike_colour_edit) EditText _colour;
     @BindView(R.id.bike_brand_edit) EditText _brand;
+    @BindView(R.id.search_brand_button)
+    Button _button_search_brand;
+
 //    @BindView(R.id.bike_trackerid_edit) EditText _trackerid;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         biketrackService = ApiConnect.createService();
         _disposables = new CompositeDisposable();
         session = Session.getInstance();
-
+        brandSelected = BrandSelected.getOurInstance();
+        brandSelected.clear();
         Bundle bundle = getArguments();
         if (bundle != null)
             _bike = bundle.getParcelable("BIKE");
@@ -79,6 +85,13 @@ public class EditBikeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (brandSelected.getBrand() != null)
+            _brand.setText(brandSelected.getBrand());
     }
 
     @OnClick(R.id.bike_save_button)
@@ -145,5 +158,16 @@ public class EditBikeFragment extends Fragment {
     @OnClick(R.id.back_view_pager)
     public void closeFragment(){
         getActivity().getSupportFragmentManager().popBackStack();
+    }
+
+    @OnClick(R.id.search_brand_button)
+    public void openSearchBrand(){
+        Fragment fragment = new BrandFragment();
+        final String tag = fragment.getClass().toString();
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .addToBackStack(tag)
+                .replace(android.R.id.content, fragment, tag)
+                .commit();
     }
 }
