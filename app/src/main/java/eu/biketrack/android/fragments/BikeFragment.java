@@ -215,15 +215,15 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                 break;
         }
         googleMap.getUiSettings().setMyLocationButtonEnabled(false);
-        if (ActivityCompat.checkSelfPermission(
-                getActivity(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getActivity(),
-                        android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-            return ;
-        }
-        googleMap.setMyLocationEnabled(true);
+//        if (ActivityCompat.checkSelfPermission(
+//                getActivity(),
+//                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+//                ActivityCompat.checkSelfPermission(getActivity(),
+//                        android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+//
+//        }
+//        googleMap.setMyLocationEnabled(true);
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         MapsInitializer.initialize(this.getActivity());
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
@@ -232,7 +232,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         builder.include(target);
         LatLngBounds bounds = builder.build();
         int padding = 0;
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(target, 15.0f);
         googleMap.moveCamera(cameraUpdate);
     }
 
