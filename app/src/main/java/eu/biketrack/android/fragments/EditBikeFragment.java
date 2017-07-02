@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -42,17 +43,20 @@ public class EditBikeFragment extends Fragment {
     private BrandSelected brandSelected;
 
     @BindView(R.id.bike_name_edit) EditText _name;
-    @BindView(R.id.bike_colour_edit) EditText _colour;
+    @BindView(R.id.bike_trackerid_edit) EditText _trackerid;
     @BindView(R.id.bike_brand_edit) EditText _brand;
     @BindView(R.id.search_brand_button)
     Button _button_search_brand;
 
-//    @BindView(R.id.bike_trackerid_edit) EditText _trackerid;
+//
+//@BindView(R.id.bike_colour_edit) EditText _colour;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         biketrackService = ApiConnect.createService();
         _disposables = new CompositeDisposable();
         session = Session.getInstance();
@@ -74,9 +78,9 @@ public class EditBikeFragment extends Fragment {
 
         if (_bike != null){
             _name.setText(_bike.getName());
-            _colour.setText(_bike.getColor());
+//            _colour.setText(_bike.getColor());
             _brand.setText(_bike.getBrand());
-//            _trackerid.setText(_bike.getTracker());
+            _trackerid.setText(_bike.getTracker());
         }
         return layout;
     }
@@ -97,7 +101,7 @@ public class EditBikeFragment extends Fragment {
     @OnClick(R.id.bike_save_button)
     public void save_bike(){
         if (_bike == null) {
-            SendBike sb = new SendBike(session.getUserId(), null, new SendBikeInfo(_name.getText().toString(), _colour.getText().toString(), _brand.getText().toString(), "0000"));
+            SendBike sb = new SendBike(session.getUserId(), null, new SendBikeInfo(_name.getText().toString(), null, _brand.getText().toString(), _trackerid.getText().toString()));
             _disposables.add(
                     biketrackService.addBike(Statics.TOKEN_API, session.getToken(), sb)
                             .subscribeOn(Schedulers.newThread())
@@ -125,7 +129,7 @@ public class EditBikeFragment extends Fragment {
                             })
             );
         } else {
-            SendBikeUpdate sb = new SendBikeUpdate(session.getUserId(), _bike.getId(), new SendBikeInfo(_name.getText().toString(), _colour.getText().toString(), _brand.getText().toString(), _bike.getTracker()));
+            SendBikeUpdate sb = new SendBikeUpdate(session.getUserId(), _bike.getId(), new SendBikeInfo(_name.getText().toString(), null, _brand.getText().toString(), _bike.getTracker()));
             _disposables.add(
                     biketrackService.updateBike(Statics.TOKEN_API, session.getToken(), sb)
                             .subscribeOn(Schedulers.newThread())

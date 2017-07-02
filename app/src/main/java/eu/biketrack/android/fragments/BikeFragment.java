@@ -58,8 +58,8 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
     private static final int REQUEST_LOCATION = 1;
 
     @BindView(R.id.bike_name_tv) TextView _name;
-    @BindView(R.id.bike_colour_tv) TextView _colour;
-    @BindView(R.id.bike_brand_tv) TextView _brand;
+//    @BindView(R.id.bike_colour_tv) TextView _colour;
+//    @BindView(R.id.bike_brand_tv) TextView _brand;
 //    @BindView(R.id.bike_trackerid_tv) TextView _trackerid;
     @BindView(R.id.map) MapView mapView;
 
@@ -83,9 +83,9 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         View layout = inflater.inflate(R.layout.fragment_bike, container, false);
         unbinder = ButterKnife.bind(this, layout);
 
-        _name.setText(bike.getName());
-        _colour.setText(bike.getColor());
-        _brand.setText(bike.getBrand());
+        _name.setText(bike.getBrand() + " " + bike.getName());
+//        _colour.setText(bike.getColor());
+//        _brand.setText(bike.getBrand());
 //        _trackerid.setText(bike.getTracker());
         mapView.onCreate(savedInstanceState);
 

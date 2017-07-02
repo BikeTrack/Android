@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="eu.biketrack.android.fragments.BikesFragment">
+    tools:context="eu.biketrack.android.fragments.BikesFragment"
+    android:background="@color/background">
 
     <TextView
         android:id="@+id/emptylist_txt"
@@ -22,7 +23,8 @@
         android:layout_marginBottom="72dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:src="@drawable/ic_add_white_24px" />
+        android:src="@drawable/ic_add_white_24px"
+        app:backgroundTint="@color/interact_background" />
 
     <ListView
         android:id="@+id/listView_bikes"
@@ -43,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:itemBackground="@color/colorPrimary"
+        app:itemBackground="@color/interact_background"
         app:itemIconTint="@drawable/nav_item_color_state"
         app:itemTextColor="@drawable/nav_item_color_state"
         app:menu="@menu/main_menu" />

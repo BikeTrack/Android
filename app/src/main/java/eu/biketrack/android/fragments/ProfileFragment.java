@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -89,7 +88,6 @@ public class ProfileFragment extends Fragment {
                         return true;
                     }
                 });
-
         getUser();
     }
 
@@ -125,7 +123,8 @@ public class ProfileFragment extends Fragment {
 
                             @Override
                             public void onNext(ReceptUser receptUser) {
-                                _email.setText(receptUser.getUser().getMail());
+                                if (_email != null)
+                                    _email.setText(receptUser.getUser().getMail());
                             }
                         })
         );

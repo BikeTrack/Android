@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="eu.biketrack.android.fragments.LoginFragment">
+    tools:context="eu.biketrack.android.fragments.LoginFragment"
+    android:background="@color/background">
 
     <EditText
         android:id="@+id/login_email_textview"
@@ -30,7 +31,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/action_sign_in"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:background="@color/interact_background"
+        android:textColor="@color/inside"/>
 
     <Button
         android:id="@+id/login_subscribe_button"
@@ -39,7 +42,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/action_subscribe"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:background="@color/interact_background"
+        android:textColor="@color/inside"/>
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_facebook_button"

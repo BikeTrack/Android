@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="eu.biketrack.android.fragments.BikeFragment">
+    tools:context="eu.biketrack.android.fragments.BikeFragment"
+    android:background="@color/background">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/interact_background"
             app:theme="@style/AppTheme"
             app:popupTheme="@style/Theme.AppCompat">
 
@@ -23,7 +24,7 @@
             android:layout_marginRight="2dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="2dp"
-            android:background="@color/colorPrimaryDark" />
+            android:background="@color/interact_background" />
         </android.support.v7.widget.Toolbar>
 
 
@@ -40,52 +41,52 @@
                 android:scaleType="center"
                 android:src="@drawable/ic_bike_no_picture" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/bike_name_txt"
-                android:textAllCaps="true"
-                android:textStyle="italic" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/bike_name_txt"-->
+                <!--android:textAllCaps="true"-->
+                <!--android:textStyle="italic" />-->
 
             <TextView
                 android:id="@+id/bike_name_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/interact_background"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/bike_color_txt"
-                android:textAllCaps="true"
-                android:textStyle="italic" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/bike_color_txt"-->
+                <!--android:textAllCaps="true"-->
+                <!--android:textStyle="italic" />-->
 
-            <TextView
-                android:id="@+id/bike_colour_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+            <!--<TextView-->
+                <!--android:id="@+id/bike_colour_tv"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="@color/colorPrimaryDark"-->
+                <!--android:textSize="20sp"-->
+                <!--android:textStyle="bold" />-->
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/bike_brand_txt"
-                android:textAllCaps="true"
-                android:textStyle="italic" />
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/bike_brand_txt"-->
+                <!--android:textAllCaps="true"-->
+                <!--android:textStyle="italic" />-->
 
-            <TextView
-                android:id="@+id/bike_brand_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+            <!--<TextView-->
+                <!--android:id="@+id/bike_brand_tv"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="@color/colorPrimaryDark"-->
+                <!--android:textSize="20sp"-->
+                <!--android:textStyle="bold" />-->
         </LinearLayout>
 
         <com.google.android.gms.maps.MapView

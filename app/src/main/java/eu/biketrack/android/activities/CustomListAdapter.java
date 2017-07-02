@@ -33,12 +33,11 @@ public class CustomListAdapter extends ArrayAdapter<Bike> {
         LayoutInflater inflater=context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.listbike, null, true);
 
-        //Log.d("YOLO", "position = " + position);
         TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
         //ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
-        TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
+//        TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
 
-        txtTitle.setText(bikes.get(position).getName());
+        txtTitle.setText(bikes.get(position).getBrand() + " " + bikes.get(position).getName());
         //imageView.setImageResource(imgid[position]);
         //extratxt.setText("Latitude : " + bikes.get(position).getLat() + " Longitude : " + bikes.get(position).getLong());
         return rowView;

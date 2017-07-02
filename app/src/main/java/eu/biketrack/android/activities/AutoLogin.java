@@ -19,7 +19,7 @@ public class AutoLogin extends FragmentActivity {
 
         LoginManager loginManager = LoginManager.getInstance();
         loginManager.init(this);
-        //loginManager.clear();
+//        loginManager.clear();
     }
 
     @Override
