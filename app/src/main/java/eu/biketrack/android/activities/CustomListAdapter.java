@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -34,11 +35,11 @@ public class CustomListAdapter extends ArrayAdapter<Bike> {
         View rowView = inflater.inflate(R.layout.listbike, null, true);
 
         TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
-        //ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
+        ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
 //        TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
 
         txtTitle.setText(bikes.get(position).getBrand() + " " + bikes.get(position).getName());
-        //imageView.setImageResource(imgid[position]);
+        imageView.setImageResource(R.drawable.ic_logo_black);
         //extratxt.setText("Latitude : " + bikes.get(position).getLat() + " Longitude : " + bikes.get(position).getLong());
         return rowView;
     }

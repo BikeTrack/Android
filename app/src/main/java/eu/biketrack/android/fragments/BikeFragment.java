@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -57,6 +58,8 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 
     private static final int REQUEST_LOCATION = 1;
 
+    @BindView(R.id.bike_picture)
+    ImageView _bike_picture;
     @BindView(R.id.bike_name_tv) TextView _name;
 //    @BindView(R.id.bike_colour_tv) TextView _colour;
 //    @BindView(R.id.bike_brand_tv) TextView _brand;
@@ -88,7 +91,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 //        _brand.setText(bike.getBrand());
 //        _trackerid.setText(bike.getTracker());
         mapView.onCreate(savedInstanceState);
-
+        _bike_picture.setImageResource(R.drawable.ic_logo_black);
         return layout;
     }
 

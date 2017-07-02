@@ -36,10 +36,12 @@
             android:layout_below="@id/toolbar">
 
             <ImageView
+                android:id="@+id/bike_picture"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:scaleType="center"
-                android:src="@drawable/ic_bike_no_picture" />
+                android:layout_height="100sp"
+                android:src="@drawable/ic_logo_black"
+                android:scaleType="fitCenter"
+                />
 
             <!--<TextView-->
                 <!--android:layout_width="match_parent"-->
@@ -53,8 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/interact_background"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textSize="20sp" />
 
 
             <!--<TextView-->
