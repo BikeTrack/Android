@@ -1,10 +1,13 @@
 package eu.biketrack.android.fragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -20,12 +23,15 @@ import eu.biketrack.android.R;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.api_connection.Statics;
+import eu.biketrack.android.models.data_reception.ReceptAddBike;
 import eu.biketrack.android.models.data_reception.ReceptUser;
+import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.session.Session;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
     private static String TAG = "BIKETRACK - Profile";
@@ -33,6 +39,9 @@ public class ProfileFragment extends Fragment {
     private Unbinder unbinder;
     private Session session;
     private BiketrackService biketrackService;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @BindView(R.id.profile_email_tv)
     TextView _email;
@@ -55,6 +64,26 @@ public class ProfileFragment extends Fragment {
         unbinder = ButterKnife.bind(this, layout);
         biketrackService = ApiConnect.createService();
         _disposables = new CompositeDisposable();
+
+        toolbar.inflateMenu(R.menu.profile_menu);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Log.d(TAG, item.toString());
+                int selected_option = item.getItemId();
+
+                if (selected_option == R.id.action_edit_profile){
+                    Fragment fragment = new EditProfileFragment();
+                    final String tag = fragment.getClass().toString();
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .addToBackStack(tag)
+                            .replace(android.R.id.content, fragment, tag)
+                            .commit();
+                }
+                return true;
+            }
+        });
         return layout;
     }
 
