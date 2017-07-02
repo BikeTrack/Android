@@ -1,12 +1,11 @@
 package eu.biketrack.android.fragments;
 
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,20 +17,20 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
+import eu.biketrack.android.activities.AutoLogin;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.api_connection.Statics;
-import eu.biketrack.android.models.data_reception.ReceptAddBike;
 import eu.biketrack.android.models.data_reception.ReceptUser;
-import eu.biketrack.android.models.data_send.SendBike;
+import eu.biketrack.android.session.LoginManager;
 import eu.biketrack.android.session.Session;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
     private static String TAG = "BIKETRACK - Profile";
@@ -157,5 +156,15 @@ public class ProfileFragment extends Fragment {
                             }
                         })
         );
+    }
+
+    @OnClick(R.id.log_off_button)
+    public void logoff(){
+        session.clear();
+        LoginManager loginManager = LoginManager.getInstance();
+        loginManager.clear();
+        Intent autologin_intent = new Intent(getActivity(), AutoLogin.class);
+        startActivity(autologin_intent);
+        getActivity().finish();
     }
 }

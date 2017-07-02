@@ -64,6 +64,9 @@
     <string name="alert_confirmation_brand_yes">Confirmer</string>
     <string name="alert_confirmation_brand_no">Annuler</string>
 
+
+    <string name="log_off_button_txt">Déconnexion</string>
+
     <string-array name="brands_bike_array">
         <item>Aarios</item>
         <item>Accell Group</item>

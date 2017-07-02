@@ -35,6 +35,14 @@
             android:textColor="@color/interact_background"
             android:textSize="20sp"
             android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/log_off_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log_off_button_txt"
+            android:background="@color/interact_background"
+            android:textColor="@color/inside" />
     </LinearLayout>
 
     <android.support.design.widget.BottomNavigationView

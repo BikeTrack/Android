@@ -33,7 +33,7 @@ public class Session {
         this.token = token;
     }
 
-    private void clear(){
+    public void clear(){
         this.userId = null;
         this.token = null;
     }
