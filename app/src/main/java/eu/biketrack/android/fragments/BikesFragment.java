@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -243,9 +244,9 @@ public class BikesFragment extends Fragment {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
     {
         super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = this.getActivity().getMenuInflater();
+        inflater.inflate(R.menu.bike_menu, menu);
         menu.setHeaderTitle(R.string.title_context_menu);
-        menu.add(0, 0, 0, R.string.edit_context_menu);
-        menu.add(0, 1, 1, R.string.delete_context_menu);
     }
 
     @Override

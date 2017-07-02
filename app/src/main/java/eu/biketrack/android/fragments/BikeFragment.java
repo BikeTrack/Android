@@ -1,6 +1,7 @@
 package eu.biketrack.android.fragments;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -8,12 +9,19 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -36,14 +44,18 @@ import eu.biketrack.android.R;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.api_connection.LobwickService;
+import eu.biketrack.android.api_connection.Statics;
 import eu.biketrack.android.models.SigfoxData;
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_reception.Bike;
+import eu.biketrack.android.models.data_reception.ReceptAddBike;
+import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.session.Session;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 
 public class BikeFragment extends Fragment implements OnMapReadyCallback {
@@ -58,6 +70,8 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 
     private static final int REQUEST_LOCATION = 1;
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.bike_picture)
     ImageView _bike_picture;
     @BindView(R.id.bike_name_tv) TextView _name;
@@ -73,6 +87,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         lobwickService = ApiConnect.createServiceLobwick();
         _disposables = new CompositeDisposable();
 
+
         Bundle bundle = getArguments();
         session = Session.getInstance();
         bike = bundle.getParcelable("BIKE");
@@ -85,6 +100,65 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_bike, container, false);
         unbinder = ButterKnife.bind(this, layout);
+        toolbar.inflateMenu(R.menu.bike_menu);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Log.d(TAG, item.toString());
+                int selected_option = item.getItemId();
+
+                if (selected_option == R.id.action_edit_bike){
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("BIKE", bike);
+                    Fragment fragment = new EditBikeFragment();
+                    fragment.setArguments(bundle);
+                    final String tag = fragment.getClass().toString();
+                    getActivity().getSupportFragmentManager()
+                            .beginTransaction()
+                            .addToBackStack(tag)
+                            .replace(android.R.id.content, fragment, tag)
+                            .commit();
+                } else if (selected_option == R.id.action_delete_bike){
+                    new AlertDialog.Builder(getContext())
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle(R.string.alert_confirmation_delete_title)
+                            .setMessage(R.string.alert_confirmation_delete_message)
+                            .setPositiveButton(R.string.alert_confirmation_delete_yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    SendBike sb = new SendBike(session.getUserId(), bike.getId(), null);
+                                    _disposables.add(
+                                            biketrackService.deleteBike(Statics.TOKEN_API, session.getToken(), sb)
+                                                    .subscribeOn(Schedulers.newThread())
+                                                    .observeOn(AndroidSchedulers.mainThread())
+                                                    .subscribeWith(new DisposableObserver<Response<ReceptAddBike>>() {
+
+                                                        @Override
+                                                        public void onComplete() {
+                                                            Log.d(TAG, "DeleteBike completed");
+                                                        }
+
+                                                        @Override
+                                                        public void onError(Throwable e) {
+                                                            Log.e(TAG, "Error has occurred while deleting bike", e);
+                                                        }
+
+                                                        @Override
+                                                        public void onNext(Response<ReceptAddBike> response) {
+                                                            Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                            closeFragment();
+                                                        }
+                                                    })
+                                    );
+                                }
+                            })
+                            .setNegativeButton(R.string.alert_confirmation_delete_no, null)
+                            .show();
+                }
+                return true;
+            }
+        });
+
 
         _name.setText(bike.getBrand() + " " + bike.getName());
 //        _colour.setText(bike.getColor());
@@ -105,6 +179,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onResume() {
         mapView.onResume();
+        getCoordinates();
         super.onResume();
     }
 
