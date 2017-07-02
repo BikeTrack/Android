@@ -65,7 +65,16 @@
     <string name="alert_confirmation_brand_no">Annuler</string>
 
 
+    <string name="alert_confirmation_delete_account_title">Supprimer votre compte ?</string>
+    <string name="alert_confirmation_delete_account_message">La suppression est définitive</string>
+    <string name="alert_confirmation_delete_account_yes">Confirmer</string>
+    <string name="alert_confirmation_delete_account_no">Annuler</string>
+
+
     <string name="log_off_button_txt">Déconnexion</string>
+    <string name="delete_account_button_txt">Supprimer le compte</string>
+    <string name="save_account_button_txt">Sauvegarder</string>
+
 
     <string-array name="brands_bike_array">
         <item>Aarios</item>

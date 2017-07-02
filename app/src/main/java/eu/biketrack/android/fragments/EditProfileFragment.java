@@ -1,27 +1,42 @@
 package eu.biketrack.android.fragments;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
+import eu.biketrack.android.activities.AutoLogin;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.api_connection.Statics;
+import eu.biketrack.android.models.User;
+import eu.biketrack.android.models.data_reception.ReceptDeleteUser;
 import eu.biketrack.android.models.data_reception.ReceptUser;
+import eu.biketrack.android.models.data_reception.ReceptUserUpdate;
+import eu.biketrack.android.models.data_send.DeleteUser;
+import eu.biketrack.android.models.data_send.SendUserUpdate;
+import eu.biketrack.android.models.data_send.UserUpdate;
+import eu.biketrack.android.session.LoginManager;
 import eu.biketrack.android.session.Session;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 
 
 public class EditProfileFragment extends Fragment {
@@ -30,6 +45,10 @@ public class EditProfileFragment extends Fragment {
     private Session session;
     private BiketrackService biketrackService;
     private CompositeDisposable _disposables;
+    private User user;
+
+    @BindView(R.id.profile_email_edit)
+    EditText _email;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,6 +58,7 @@ public class EditProfileFragment extends Fragment {
         biketrackService = ApiConnect.createService();
         _disposables = new CompositeDisposable();
         session = Session.getInstance();
+        getUser();
     }
 
     @Override
@@ -65,26 +85,109 @@ public class EditProfileFragment extends Fragment {
 
                             @Override
                             public void onComplete() {
-                                Log.d(TAG, "Login completed");
                             }
 
                             @Override
                             public void onError(Throwable e) {
                                 Log.e(TAG, "Error has occurred while getting user info", e);
-                                //check error type and raise toast
-                                if (e.getMessage().equals("HTTP 401 Unauthorized"))
-                                    Toast.makeText(getActivity(), "Wrong user ?", Toast.LENGTH_SHORT).show();
-                                else if (e.getMessage().equals("HTTP 404 Not Found"))
-                                    Toast.makeText(getActivity(), "You are not in our database, you should create an account", Toast.LENGTH_SHORT).show();
-                                else
-                                    Toast.makeText(getActivity(), "Maybe an error somewhere : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                                //check error type and raise toast
+//                                if (e.getMessage().equals("HTTP 401 Unauthorized"))
+//                                    Toast.makeText(getActivity(), "Wrong user ?", Toast.LENGTH_SHORT).show();
+//                                else if (e.getMessage().equals("HTTP 404 Not Found"))
+//                                    Toast.makeText(getActivity(), "You are not in our database, you should create an account", Toast.LENGTH_SHORT).show();
+//                                else
+//                                    Toast.makeText(getActivity(), "Maybe an error somewhere : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
                             public void onNext(ReceptUser receptUser) {
-
+                                user = receptUser.getUser();
+                                setDatas();
                             }
                         })
         );
+    }
+
+    private void setDatas(){
+        _email.setText(user.getMail());
+    }
+
+    @OnClick(R.id.delete_account_button)
+    public void deleteAccount() {
+        new AlertDialog.Builder(this.getContext())
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(R.string.alert_confirmation_delete_account_title)
+                .setMessage(R.string.alert_confirmation_delete_account_message)
+                .setPositiveButton(R.string.alert_confirmation_delete_account_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DeleteUser deleteUser = new DeleteUser(session.getUserId());
+                        _disposables.add(
+                                biketrackService.deleteUser(Statics.TOKEN_API, session.getToken(), deleteUser)
+                                        .subscribeOn(Schedulers.newThread())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribeWith(new DisposableObserver<Response<ReceptDeleteUser>>() {
+
+                                            @Override
+                                            public void onComplete() {
+                                                Log.d(TAG, "DeleteBike completed");
+                                            }
+
+                                            @Override
+                                            public void onError(Throwable e) {
+                                                Log.e(TAG, "Error has occurred while deleting bike", e);
+                                            }
+
+                                            @Override
+                                            public void onNext(Response<ReceptDeleteUser> response) {
+                                                Log.d(TAG, "ACCOUNT DELETED");
+                                                session.clear();
+                                                LoginManager loginManager = LoginManager.getInstance();
+                                                loginManager.clear();
+                                                Intent autologin_intent = new Intent(getActivity(), AutoLogin.class);
+                                                startActivity(autologin_intent);
+                                                getActivity().finish();
+                                            }
+                                        })
+                        );
+                    }
+                })
+                .setNegativeButton(R.string.alert_confirmation_delete_account_no, null)
+                .show();
+    }
+
+    @OnClick(R.id.save_account_button)
+    public void saveAccount() {
+        SendUserUpdate sendUserUpdate = new SendUserUpdate(session.getUserId(), new UserUpdate(user));
+        sendUserUpdate.getUser().setMail(_email.getText().toString());
+        _disposables.add(
+                biketrackService.updateUser(Statics.TOKEN_API, session.getToken(), sendUserUpdate)
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableObserver<Response<ReceptUserUpdate>>() {
+
+                                           @Override
+                                           public void onComplete() {
+                                           }
+
+                                           @Override
+                                           public void onError(Throwable e) {
+                                               Log.e(TAG, "Error has occurred while modifying your profile", e);
+                                           }
+
+                                           @Override
+                                           public void onNext(Response<ReceptUserUpdate> response) {
+                                               user = response.body().getUser();
+                                               LoginManager loginManager = LoginManager.getInstance();
+                                               loginManager.storeEmail(user.getMail());
+                                               setDatas();
+                                           }
+                                       }
+                        )
+        );
+    }
+
+    public void closeFragment(){
+        getActivity().getSupportFragmentManager().popBackStack();
     }
 }
