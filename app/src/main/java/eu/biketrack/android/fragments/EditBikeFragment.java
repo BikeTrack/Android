@@ -48,8 +48,7 @@ public class EditBikeFragment extends Fragment {
     @BindView(R.id.bike_name_edit) EditText _name;
     @BindView(R.id.bike_trackerid_edit) EditText _trackerid;
     @BindView(R.id.bike_brand_edit) EditText _brand;
-    @BindView(R.id.search_brand_button)
-    Button _button_search_brand;
+    @BindView(R.id.search_brand_button) Button _button_search_brand;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

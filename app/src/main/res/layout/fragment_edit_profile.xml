@@ -29,8 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/interact_background"
-        android:textSize="40sp"
-        android:textStyle="bold" />
+        android:ellipsize="start" />
 
     <TextView
         android:layout_width="match_parent"
@@ -45,8 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/interact_background"
-        android:textSize="40sp"
-        android:textStyle="bold" />
+        android:ellipsize="start"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -61,8 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/interact_background"
-        android:textSize="40sp"
-        android:textStyle="bold" />
+        android:ellipsize="start" />
 
     <Button
         android:id="@+id/save_account_button"
