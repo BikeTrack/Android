@@ -226,12 +226,8 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 //        googleMap.setMyLocationEnabled(true);
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         MapsInitializer.initialize(this.getActivity());
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
         if (target == null)
             target = new LatLng(0.0,0.0);
-        builder.include(target);
-        LatLngBounds bounds = builder.build();
-        int padding = 0;
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(target, 15.0f);
         googleMap.moveCamera(cameraUpdate);
     }
