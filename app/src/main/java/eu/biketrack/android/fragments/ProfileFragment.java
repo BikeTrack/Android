@@ -45,6 +45,12 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.profile_email_tv)
     TextView _email;
 
+    @BindView(R.id.profile_lastname_tv)
+    TextView _lastname;
+
+    @BindView(R.id.profile_firstname_tv)
+    TextView _firstname;
+
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
 
@@ -153,6 +159,10 @@ public class ProfileFragment extends Fragment {
                             public void onNext(ReceptUser receptUser) {
                                 if (_email != null)
                                     _email.setText(receptUser.getUser().getMail());
+                                if (_lastname != null)
+                                    _lastname.setText(receptUser.getUser().getLastname());
+                                if (_firstname != null)
+                                    _firstname.setText(receptUser.getUser().getName());
                             }
                         })
         );

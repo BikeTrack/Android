@@ -9,21 +9,47 @@ public class User {
     @SerializedName("_id")
     @Expose
     private String id;
-    @SerializedName("mail")
-    @Expose
-    private String mail;
+
     @SerializedName("__v")
     @Expose
     private Integer v;
+
     @SerializedName("bikes")
     @Expose
     private List<String> bikes = null;
+
     @SerializedName("updated")
     @Expose
     private String updated;
+
     @SerializedName("created")
     @Expose
     private String created;
+
+//    @SerializedName("dob")
+//    @Expose
+//    private String dob;
+
+    @SerializedName("facebook")
+    @Expose
+    private String facebook;
+
+    @SerializedName("google")
+    @Expose
+    private String google;
+
+
+    @SerializedName("mail")
+    @Expose
+    private String mail;
+
+    @SerializedName("name")
+    @Expose
+    private String name;
+
+    @SerializedName("lastname")
+    @Expose
+    private String lastname;
 
     public String getId() {
         return id;
@@ -31,14 +57,6 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
     }
 
     public Integer getV() {
@@ -73,15 +91,59 @@ public class User {
         this.created = created;
     }
 
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook;
+    }
+
+    public String getGoogle() {
+        return google;
+    }
+
+    public void setGoogle(String google) {
+        this.google = google;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
-                ", mail='" + mail + '\'' +
                 ", v=" + v +
                 ", bikes=" + bikes +
                 ", updated='" + updated + '\'' +
                 ", created='" + created + '\'' +
+                ", facebook='" + facebook + '\'' +
+                ", google='" + google + '\'' +
+                ", mail='" + mail + '\'' +
+                ", name='" + name + '\'' +
+                ", lastname='" + lastname + '\'' +
                 '}';
     }
 }

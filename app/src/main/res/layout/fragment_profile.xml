@@ -33,8 +33,37 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/interact_background"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_lastname_txt"
+            android:textAllCaps="true"
+            android:textStyle="italic"
+            android:textColor="@color/titles"/>
+
+        <TextView
+            android:id="@+id/profile_lastname_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/interact_background"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_firstname_txt"
+            android:textAllCaps="true"
+            android:textStyle="italic"
+            android:textColor="@color/titles"/>
+
+        <TextView
+            android:id="@+id/profile_firstname_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/interact_background"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/log_off_button"

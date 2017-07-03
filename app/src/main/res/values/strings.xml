@@ -51,6 +51,8 @@
 
 
     <string name="profile_email_txt">Email</string>
+    <string name="profile_lastname_txt">Nom de famille</string>
+    <string name="profile_firstname_txt">Prénom</string>
 
 
     <!-- menu bottom -->

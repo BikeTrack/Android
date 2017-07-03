@@ -27,6 +27,38 @@
             android:textSize="40sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_lastname_txt"
+            android:textAllCaps="true"
+            android:textStyle="italic"
+            android:textColor="@color/titles"/>
+
+        <EditText
+            android:id="@+id/profile_lastname_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/interact_background"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/profile_firstname_txt"
+            android:textAllCaps="true"
+            android:textStyle="italic"
+            android:textColor="@color/titles"/>
+
+        <EditText
+            android:id="@+id/profile_firstname_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/interact_background"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
         <Button
             android:id="@+id/save_account_button"
             android:layout_width="match_parent"
@@ -34,7 +66,7 @@
             android:text="@string/save_account_button_txt"
             android:background="@color/interact_background"
             android:textColor="@color/inside"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="20dp"/>
 
         <Button
             android:id="@+id/delete_account_button"
@@ -43,6 +75,6 @@
             android:text="@string/delete_account_button_txt"
             android:background="@color/interact_background"
             android:textColor="@color/inside"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="20dp"/>
     </LinearLayout>
 </ScrollView>

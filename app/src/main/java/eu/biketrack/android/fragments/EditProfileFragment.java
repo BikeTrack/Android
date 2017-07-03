@@ -49,7 +49,10 @@ public class EditProfileFragment extends Fragment {
 
     @BindView(R.id.profile_email_edit)
     EditText _email;
-
+    @BindView(R.id.profile_lastname_edit)
+    EditText _lastname;
+    @BindView(R.id.profile_firstname_edit)
+    EditText _firstname;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +113,8 @@ public class EditProfileFragment extends Fragment {
 
     private void setDatas(){
         _email.setText(user.getMail());
+        _lastname.setText(user.getLastname());
+        _firstname.setText(user.getName());
     }
 
     @OnClick(R.id.delete_account_button)
@@ -160,6 +165,8 @@ public class EditProfileFragment extends Fragment {
     public void saveAccount() {
         SendUserUpdate sendUserUpdate = new SendUserUpdate(session.getUserId(), new UserUpdate(user));
         sendUserUpdate.getUser().setMail(_email.getText().toString());
+        sendUserUpdate.getUser().setLastname(_lastname.getText().toString());
+        sendUserUpdate.getUser().setName(_firstname.getText().toString());
         _disposables.add(
                 biketrackService.updateUser(Statics.TOKEN_API, session.getToken(), sendUserUpdate)
                         .subscribeOn(Schedulers.newThread())
