@@ -46,7 +46,9 @@ android {
         pickFirst 'META-INF/rxjava.properties'
     }
 
-
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
 }
 
 

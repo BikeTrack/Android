@@ -121,8 +121,8 @@ public class LoginFragment extends Fragment {
                 Log.e(TAG, "Facebook error", exception);
             }
         });
-        _email.setText("thisisatest@test.com");
-        _password.setText("azerty");
+//        _email.setText("thisisatest@test.com");
+//        _password.setText("azerty");
         return layout;
     }
 
