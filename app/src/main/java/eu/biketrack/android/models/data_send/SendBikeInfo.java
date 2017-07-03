@@ -13,10 +13,6 @@ public class SendBikeInfo {
     @Expose
     private String name;
 
-    @SerializedName("color")
-    @Expose
-    private String color;
-
     @SerializedName("brand")
     @Expose
     private String brand;
@@ -25,9 +21,8 @@ public class SendBikeInfo {
     @Expose
     private String tracker;
 
-    public SendBikeInfo(String name, String color, String brand, String tracker) {
+    public SendBikeInfo(String name, String brand, String tracker) {
         this.name = name;
-        this.color = color;
         this.brand = brand;
         this.tracker = tracker;
     }
@@ -38,14 +33,6 @@ public class SendBikeInfo {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
 
     public String getBrand() {
@@ -68,7 +55,6 @@ public class SendBikeInfo {
     public String toString() {
         return "SendBikeInfo{" +
                 "name='" + name + '\'' +
-                ", color='" + color + '\'' +
                 ", brand='" + brand + '\'' +
                 ", tracker='" + tracker + '\'' +
                 '}';

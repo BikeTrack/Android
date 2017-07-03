@@ -15,9 +15,6 @@ public class Bike implements Parcelable {
     @SerializedName("brand")
     @Expose
     private String brand;
-    @SerializedName("color")
-    @Expose
-    private String color;
     @SerializedName("name")
     @Expose
     private String name;
@@ -33,6 +30,9 @@ public class Bike implements Parcelable {
     @SerializedName("created")
     @Expose
     private String created;
+    @SerializedName("picture")
+    @Expose
+    private String picture;
 
 
     public static final Parcelable.Creator<Bike> CREATOR = new Parcelable.Creator<Bike>() {
@@ -48,13 +48,12 @@ public class Bike implements Parcelable {
     private Bike(Parcel in){
         id = in.readString();
         brand = in.readString();
-        color = in.readString();
         name = in.readString();
-        color = in.readString();
         tracker = in.readString();
         v = in.readInt();
         updated = in.readString();
         created = in.readString();
+        picture = in.readString();
     }
 
     public String getId() {
@@ -71,14 +70,6 @@ public class Bike implements Parcelable {
 
     public void setBrand(String brand) {
         this.brand = brand;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
 
     public String getName() {
@@ -126,12 +117,12 @@ public class Bike implements Parcelable {
         return "Bike{" +
                 "id='" + id + '\'' +
                 ", brand='" + brand + '\'' +
-                ", color='" + color + '\'' +
                 ", name='" + name + '\'' +
                 ", tracker='" + tracker + '\'' +
                 ", v=" + v +
                 ", updated='" + updated + '\'' +
                 ", created='" + created + '\'' +
+                ", picture='" + picture + '\'' +
                 '}';
     }
 
@@ -144,12 +135,11 @@ public class Bike implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(brand);
-        dest.writeString(color);
         dest.writeString(name);
         dest.writeString(tracker);
         dest.writeInt(v);
         dest.writeString(updated);
         dest.writeString(created);
-
+        dest.writeString(picture);
     }
 }

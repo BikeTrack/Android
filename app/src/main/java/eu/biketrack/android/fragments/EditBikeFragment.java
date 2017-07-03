@@ -101,7 +101,7 @@ public class EditBikeFragment extends Fragment {
     @OnClick(R.id.bike_save_button)
     public void save_bike(){
         if (_bike == null) {
-            SendBike sb = new SendBike(session.getUserId(), null, new SendBikeInfo(_name.getText().toString(), null, _brand.getText().toString(), _trackerid.getText().toString()));
+            SendBike sb = new SendBike(session.getUserId(), null, new SendBikeInfo(_name.getText().toString(), _brand.getText().toString(), _trackerid.getText().toString()));
             _disposables.add(
                     biketrackService.addBike(Statics.TOKEN_API, session.getToken(), sb)
                             .subscribeOn(Schedulers.newThread())
@@ -129,7 +129,7 @@ public class EditBikeFragment extends Fragment {
                             })
             );
         } else {
-            SendBikeUpdate sb = new SendBikeUpdate(session.getUserId(), _bike.getId(), new SendBikeInfo(_name.getText().toString(), null, _brand.getText().toString(), _bike.getTracker()));
+            SendBikeUpdate sb = new SendBikeUpdate(session.getUserId(), _bike.getId(), new SendBikeInfo(_name.getText().toString(), _brand.getText().toString(), _bike.getTracker()));
             _disposables.add(
                     biketrackService.updateBike(Statics.TOKEN_API, session.getToken(), sb)
                             .subscribeOn(Schedulers.newThread())
