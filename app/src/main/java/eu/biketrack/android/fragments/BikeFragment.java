@@ -1,24 +1,18 @@
 package eu.biketrack.android.fragments;
 
-import android.Manifest;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,8 +23,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Collections;
@@ -46,7 +40,6 @@ import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.api_connection.LobwickService;
 import eu.biketrack.android.api_connection.Statics;
 import eu.biketrack.android.models.SigfoxData;
-import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.ReceptAddBike;
 import eu.biketrack.android.models.data_send.SendBike;
@@ -75,10 +68,8 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
     @BindView(R.id.bike_picture)
     ImageView _bike_picture;
     @BindView(R.id.bike_name_tv) TextView _name;
-//    @BindView(R.id.bike_colour_tv) TextView _colour;
-//    @BindView(R.id.bike_brand_tv) TextView _brand;
-//    @BindView(R.id.bike_trackerid_tv) TextView _trackerid;
     @BindView(R.id.map) MapView mapView;
+    @BindView(R.id.date_last_point) TextView _date_last_point;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -161,9 +152,6 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 
 
         _name.setText(bike.getBrand() + " " + bike.getName());
-//        _colour.setText(bike.getColor());
-//        _brand.setText(bike.getBrand());
-//        _trackerid.setText(bike.getTracker());
         mapView.onCreate(savedInstanceState);
         _bike_picture.setImageResource(R.drawable.ic_logo_black);
         return layout;
@@ -203,9 +191,17 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                 try {
                     if (!sigfoxData.getLatitude().equals("80.0") && !sigfoxData.getLongitude().equals("-150.0") || !sigfoxData.getLatitude().equals("-62.0") && !sigfoxData.getLongitude().equals("-150.0") ) {
                         Log.d(TAG, sigfoxData.getLatitude() + sigfoxData.getLongitude());
-                        googleMap.addMarker(new MarkerOptions().position(new LatLng(Double.parseDouble(sigfoxData.getLatitude()), Double.parseDouble(sigfoxData.getLongitude()))));
-                        if (i == 0)
+                        if (i == 0){
+                            googleMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(Double.parseDouble(sigfoxData.getLatitude()), Double.parseDouble(sigfoxData.getLongitude())))
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
                             target = new LatLng(Double.parseDouble(sigfoxData.getLatitude()), Double.parseDouble(sigfoxData.getLongitude()));
+                            _date_last_point.setText(sigfoxData.getTime());
+                        } else {
+                            googleMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(Double.parseDouble(sigfoxData.getLatitude()), Double.parseDouble(sigfoxData.getLongitude()))));
+                        }
+
                         i++;
                     }
                 } catch (java.lang.NumberFormatException nfe){
