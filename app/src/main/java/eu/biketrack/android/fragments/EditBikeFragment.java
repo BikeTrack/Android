@@ -143,7 +143,7 @@ public class EditBikeFragment extends Fragment {
                             })
             );
         } else {
-            SendBikeUpdate sb = new SendBikeUpdate(session.getUserId(), _bike.getId(), new SendBikeInfo(_name.getText().toString(), _brand.getText().toString(), _bike.getTracker()));
+            SendBikeUpdate sb = new SendBikeUpdate(session.getUserId(), _bike.getId(), new SendBikeInfo(_name.getText().toString(), _brand.getText().toString(), _trackerid.getText().toString()));
             _disposables.add(
                     biketrackService.updateBike(Statics.TOKEN_API, session.getToken(), sb)
                             .subscribeOn(Schedulers.newThread())
