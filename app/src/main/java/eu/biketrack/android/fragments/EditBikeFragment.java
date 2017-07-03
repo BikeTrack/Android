@@ -74,21 +74,26 @@ public class EditBikeFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_edit_bike, container, false);
         unbinder = ButterKnife.bind(this, layout);
-        if (_bike == null)
-            toolbar.setTitle(R.string.title_bike_new);
-        else
-            toolbar.setTitle(R.string.title_bike_edit);
-        toolbar.setNavigationIcon(R.drawable.ic_close_white_24px);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                closeFragment();
-            }
-        });
+        if (toolbar != null) {
+            if (_bike == null)
+                toolbar.setTitle(R.string.title_bike_new);
+            else
+                toolbar.setTitle(R.string.title_bike_edit);
+            toolbar.setNavigationIcon(R.drawable.ic_close_white_24px);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    closeFragment();
+                }
+            });
+        }
         if (_bike != null){
-            _name.setText(_bike.getName());
-            _brand.setText(_bike.getBrand());
-            _trackerid.setText(_bike.getTracker());
+            if (_name != null)
+                _name.setText(_bike.getName());
+            if (_brand != null)
+                _brand.setText(_bike.getBrand());
+            if (_trackerid != null)
+                _trackerid.setText(_bike.getTracker());
         }
         return layout;
     }
@@ -102,8 +107,10 @@ public class EditBikeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (brandSelected.getBrand() != null)
-            _brand.setText(brandSelected.getBrand());
+        if (brandSelected.getBrand() != null){
+            if (_brand != null)
+                _brand.setText(brandSelected.getBrand());
+        }
     }
 
     @OnClick(R.id.bike_save_button)
