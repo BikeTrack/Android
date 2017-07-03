@@ -52,4 +52,7 @@ public interface BiketrackService {
 
     @GET("bike/{bikeID}")
     Observable<ReceiveBike> getBike(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Path("bikeID") String bikeId);
+
+//    @GET("tracker/{trackerId}")
+//    Observable<ReceiveTracker> getTracker(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Path("trackerId") String trackerId);
 }

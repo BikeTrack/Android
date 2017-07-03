@@ -43,6 +43,7 @@ import eu.biketrack.android.api_connection.LobwickService;
 import eu.biketrack.android.api_connection.Statics;
 import eu.biketrack.android.models.SigfoxData;
 import eu.biketrack.android.models.data_reception.Bike;
+import eu.biketrack.android.models.data_reception.ReceiveBike;
 import eu.biketrack.android.models.data_reception.ReceptAddBike;
 import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.session.Session;
@@ -82,7 +83,6 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         Bundle bundle = getArguments();
         session = Session.getInstance();
         bike = bundle.getParcelable("BIKE");
-        getCoordinates();
     }
 
     @Override
@@ -158,14 +158,51 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                 }
             });
         }
-
-        if (_name != null)
-            _name.setText(bike.getBrand() + " " + bike.getName());
         if (mapView != null)
             mapView.onCreate(savedInstanceState);
+        getBike();
+        return layout;
+    }
+
+    private void setDatas(){
+        if (_name != null)
+            _name.setText(bike.getBrand() + " " + bike.getName());
         if (_bike_picture != null)
             _bike_picture.setImageResource(R.drawable.ic_logo_black);
-        return layout;
+    }
+
+    private void getBike() {
+        _disposables.add(
+                biketrackService.getBike(Statics.TOKEN_API, session.getToken(), bike.getId())
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableObserver<ReceiveBike>() {
+
+                            @Override
+                            public void onComplete() {
+                                Log.d(TAG, "Bike completed");
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.e(TAG, "Error has occurred while getting bike info", e);
+                                //check error type and raise toast
+                                if (e.getMessage().equals("HTTP 401 Unauthorized"))
+                                    Toast.makeText(getActivity(), "Wrong user ?", Toast.LENGTH_SHORT).show();
+                                else if (e.getMessage().equals("HTTP 404 Not Found"))
+                                    Toast.makeText(getActivity(), "You are not in our database, you should create an account", Toast.LENGTH_SHORT).show();
+                                else
+                                    Toast.makeText(getActivity(), "Maybe an error somewhere : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onNext(ReceiveBike receiveBike) {
+                                bike = receiveBike.getBike();
+                                setDatas();
+                                getCoordinates();
+                            }
+                        })
+        );
     }
 
     @Override
