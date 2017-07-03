@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,6 +55,8 @@ public class SubscriptionFragment extends Fragment {
 
     private static String REGEXP_EMAIL = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]+)\\])";
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.subscribtion_email_textview) EditText _email;
     @BindView(R.id.subscribtion_password_textview) EditText _password;
     @BindView(R.id.subscribtion_password_textview_repeat) EditText _password_repeat;
@@ -167,7 +170,7 @@ public class SubscriptionFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_subscribtion, container, false);
         unbinder = ButterKnife.bind(this, layout);
-
+        toolbar.setTitle(R.string.title_subscribe);
         return layout;
     }
 

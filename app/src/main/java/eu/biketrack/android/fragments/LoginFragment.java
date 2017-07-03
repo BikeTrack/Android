@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,8 @@ public class LoginFragment extends Fragment {
     private Unbinder unbinder;
     CallbackManager callbackManager;
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.login_email_textview)
     EditText _email;
     @BindView(R.id.login_password_textview)
@@ -72,6 +75,8 @@ public class LoginFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_login, container, false);
         unbinder = ButterKnife.bind(this, layout);
+
+        toolbar.setTitle(R.string.title_login);
 
         _facebook_button.setReadPermissions("email");
         _facebook_button.setFragment(this);

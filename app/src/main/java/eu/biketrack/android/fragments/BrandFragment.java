@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -48,7 +49,8 @@ public class BrandFragment extends Fragment {
     private Disposable _disposable_search;
     private BrandSelected brandSelected;
 
-
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.listView_brands)
     ListView brands_lv;
     @BindView(R.id.search_bar_brand)
@@ -68,6 +70,14 @@ public class BrandFragment extends Fragment {
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_brand, container, false);
         unbinder = ButterKnife.bind(this, layout);
+        toolbar.setTitle(R.string.title_brand);
+        toolbar.setNavigationIcon(R.drawable.ic_close_white_24px);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeFragment();
+            }
+        });
         return layout;
     }
 
@@ -79,7 +89,6 @@ public class BrandFragment extends Fragment {
 
         _disposable_search = RxJavaInterop.toV2Observable(RxTextView.textChangeEvents(search))
                 .debounce(200, TimeUnit.MILLISECONDS)
-                //.filter(changes -> !TextUtils.isEmpty(changes.text().toString()))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(updateList());
     }
@@ -127,6 +136,10 @@ public class BrandFragment extends Fragment {
     private void returnValue(String value){
         brandSelected.setBrand(value);
         this.getFragmentManager().popBackStack();
+    }
+
+    public void closeFragment(){
+        getActivity().getSupportFragmentManager().popBackStack();
     }
 
 }

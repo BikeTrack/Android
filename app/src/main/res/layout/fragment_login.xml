@@ -2,10 +2,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="eu.biketrack.android.fragments.LoginFragment"
     android:background="@color/background">
-
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/interact_background"
+        app:theme="@style/AppTheme"
+        app:popupTheme="@style/Theme.AppCompat"/>
     <EditText
         android:id="@+id/login_email_textview"
         android:layout_width="match_parent"

@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -58,6 +59,8 @@ public class BikesFragment extends Fragment {
     private CustomListAdapter adapter;
     private Session session;
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.listView_bikes)
     ListView list;
     @BindView(R.id.emptylist_txt)
@@ -90,6 +93,7 @@ public class BikesFragment extends Fragment {
         list.setEmptyView(emptyText);
         pg_bar.setVisibility(View.GONE);
         registerForContextMenu(list);
+        toolbar.setTitle(R.string.title_bikes);
         return layout;
     }
 
@@ -255,7 +259,7 @@ public class BikesFragment extends Fragment {
         int selected_item = (int) info.id;
         int selected_option= item.getItemId();
 
-        if (selected_option == 0){
+        if (selected_option == R.id.action_edit_bike){
             Bundle bundle = new Bundle();
             bundle.putParcelable("BIKE", bikeArrayList.get(selected_item));
             Fragment fragment = new EditBikeFragment();
@@ -266,7 +270,7 @@ public class BikesFragment extends Fragment {
                     .addToBackStack(tag)
                     .replace(android.R.id.content, fragment, tag)
                     .commit();
-        } else if (selected_option == 1){
+        } else if (selected_option == R.id.action_delete_bike){
             new AlertDialog.Builder(this.getContext())
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle(R.string.alert_confirmation_delete_title)

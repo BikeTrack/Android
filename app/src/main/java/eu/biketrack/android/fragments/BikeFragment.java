@@ -77,8 +77,6 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         biketrackService = ApiConnect.createService();
         lobwickService = ApiConnect.createServiceLobwick();
         _disposables = new CompositeDisposable();
-
-
         Bundle bundle = getArguments();
         session = Session.getInstance();
         bike = bundle.getParcelable("BIKE");
@@ -92,6 +90,14 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         View layout = inflater.inflate(R.layout.fragment_bike, container, false);
         unbinder = ButterKnife.bind(this, layout);
         toolbar.inflateMenu(R.menu.bike_menu);
+        toolbar.setTitle(R.string.title_bike);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24px);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeFragment();
+            }
+        });
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -270,8 +276,6 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         );
     }
 
-
-    @OnClick(R.id.back_view_pager)
     public void closeFragment(){
         getActivity().getSupportFragmentManager().popBackStack();
     }

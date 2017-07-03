@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,8 @@ public class EditProfileFragment extends Fragment {
     private CompositeDisposable _disposables;
     private User user;
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.profile_email_edit)
     EditText _email;
     @BindView(R.id.profile_lastname_edit)
@@ -70,6 +73,14 @@ public class EditProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_edit_profile, container, false);
         unbinder = ButterKnife.bind(this, layout);
+        toolbar.setTitle(R.string.title_profile_edit);
+        toolbar.setNavigationIcon(R.drawable.ic_close_white_24px);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeFragment();
+            }
+        });
         return layout;
     }
 

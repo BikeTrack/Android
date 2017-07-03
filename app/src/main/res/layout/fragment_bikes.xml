@@ -6,14 +6,26 @@
     tools:context="eu.biketrack.android.fragments.BikesFragment"
     android:background="@color/background">
 
-    <TextView
-        android:id="@+id/emptylist_txt"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/empty_list"
-        android:textAlignment="center" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/interact_background"
+            app:theme="@style/AppTheme"
+            app:popupTheme="@style/Theme.AppCompat"/>
+
+        <ListView
+            android:id="@+id/listView_bikes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="2dp"/>
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatin_add_bike"
@@ -26,11 +38,14 @@
         android:src="@drawable/ic_add_white_24px"
         app:backgroundTint="@color/interact_background" />
 
-    <ListView
-        android:id="@+id/listView_bikes"
+    <TextView
+        android:id="@+id/emptylist_txt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="2dp"/>
+        android:gravity="center"
+        android:text="@string/empty_list"
+        android:textAlignment="center" />
+
 
     <ProgressBar
         android:id="@+id/progressBarBikes"

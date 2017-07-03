@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">Bike Track</string>
 
+    <!-- Titles -->
+    <string name="title_bikes">Vélos</string>
+    <string name="title_bike">Vélo</string>
+    <string name="title_bike_edit">Vélo</string>
+    <string name="title_bike_new">Nouveau Vélo</string>
+    <string name="title_brand">Sélectionnez une marque</string>
+    <string name="title_profile_edit">Modifier votre profil</string>
+    <string name="title_profile">Profil</string>
+    <string name="title_subscribe">Inscription</string>
+    <string name="title_login">Connexion</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Mot de passe</string>

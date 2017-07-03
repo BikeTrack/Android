@@ -71,6 +71,7 @@ public class ProfileFragment extends Fragment {
         _disposables = new CompositeDisposable();
 
         toolbar.inflateMenu(R.menu.profile_menu);
+        toolbar.setTitle(R.string.title_profile);
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
