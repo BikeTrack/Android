@@ -57,7 +57,8 @@ public class AutoLoginFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_auto_login, container, false);
         unbinder = ButterKnife.bind(this, layout);
-        pg_bar.setVisibility(View.VISIBLE);
+        if (pg_bar != null)
+            pg_bar.setVisibility(View.VISIBLE);
         Log.d(TAG, "oncreate view");
         return layout;
     }
@@ -121,17 +122,20 @@ public class AutoLoginFragment extends Fragment {
 
     private void askForLogin(){
         Log.d(TAG, "askForLogin");
-        pg_bar.setVisibility(View.INVISIBLE);
+        if (pg_bar != null)
+            pg_bar.setVisibility(View.INVISIBLE);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new LoginFragment(), this.toString())
                 .commit();
-        pg_bar.setVisibility(View.VISIBLE);
+        if (pg_bar != null)
+            pg_bar.setVisibility(View.VISIBLE);
         Log.d(TAG, loginManager.getUserId() + "  //  " +  loginManager.getToken());
     }
 
     private void openBikes(){
         Log.d(TAG, "openBikes");
-        pg_bar.setVisibility(View.INVISIBLE);
+        if (pg_bar != null)
+            pg_bar.setVisibility(View.INVISIBLE);
         Intent mainactivity_intent = new Intent(getActivity(), MainActivity.class);
         startActivity(mainactivity_intent);
         getActivity().finish();

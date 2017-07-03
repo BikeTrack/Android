@@ -91,89 +91,95 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_bike, container, false);
         unbinder = ButterKnife.bind(this, layout);
-        toolbar.inflateMenu(R.menu.bike_menu);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24px);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                closeFragment();
-            }
-        });
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Log.d(TAG, item.toString());
-                int selected_option = item.getItemId();
-
-                if (selected_option == R.id.action_edit_bike){
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("BIKE", bike);
-                    Fragment fragment = new EditBikeFragment();
-                    fragment.setArguments(bundle);
-                    final String tag = fragment.getClass().toString();
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction()
-                            .addToBackStack(tag)
-                            .replace(android.R.id.content, fragment, tag)
-                            .commit();
-                } else if (selected_option == R.id.action_delete_bike){
-                    new AlertDialog.Builder(getContext())
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setTitle(R.string.alert_confirmation_delete_title)
-                            .setMessage(R.string.alert_confirmation_delete_message)
-                            .setPositiveButton(R.string.alert_confirmation_delete_yes, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    SendBike sb = new SendBike(session.getUserId(), bike.getId(), null);
-                                    _disposables.add(
-                                            biketrackService.deleteBike(Statics.TOKEN_API, session.getToken(), sb)
-                                                    .subscribeOn(Schedulers.newThread())
-                                                    .observeOn(AndroidSchedulers.mainThread())
-                                                    .subscribeWith(new DisposableObserver<Response<ReceptAddBike>>() {
-
-                                                        @Override
-                                                        public void onComplete() {
-                                                            Log.d(TAG, "DeleteBike completed");
-                                                        }
-
-                                                        @Override
-                                                        public void onError(Throwable e) {
-                                                            Log.e(TAG, "Error has occurred while deleting bike", e);
-                                                        }
-
-                                                        @Override
-                                                        public void onNext(Response<ReceptAddBike> response) {
-                                                            Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                            closeFragment();
-                                                        }
-                                                    })
-                                    );
-                                }
-                            })
-                            .setNegativeButton(R.string.alert_confirmation_delete_no, null)
-                            .show();
+        if (toolbar != null) {
+            toolbar.inflateMenu(R.menu.bike_menu);
+            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24px);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    closeFragment();
                 }
-                return true;
-            }
-        });
+            });
+            toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    Log.d(TAG, item.toString());
+                    int selected_option = item.getItemId();
 
+                    if (selected_option == R.id.action_edit_bike) {
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("BIKE", bike);
+                        Fragment fragment = new EditBikeFragment();
+                        fragment.setArguments(bundle);
+                        final String tag = fragment.getClass().toString();
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .addToBackStack(tag)
+                                .replace(android.R.id.content, fragment, tag)
+                                .commit();
+                    } else if (selected_option == R.id.action_delete_bike) {
+                        new AlertDialog.Builder(getContext())
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setTitle(R.string.alert_confirmation_delete_title)
+                                .setMessage(R.string.alert_confirmation_delete_message)
+                                .setPositiveButton(R.string.alert_confirmation_delete_yes, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        SendBike sb = new SendBike(session.getUserId(), bike.getId(), null);
+                                        _disposables.add(
+                                                biketrackService.deleteBike(Statics.TOKEN_API, session.getToken(), sb)
+                                                        .subscribeOn(Schedulers.newThread())
+                                                        .observeOn(AndroidSchedulers.mainThread())
+                                                        .subscribeWith(new DisposableObserver<Response<ReceptAddBike>>() {
 
-        _name.setText(bike.getBrand() + " " + bike.getName());
-        mapView.onCreate(savedInstanceState);
-        _bike_picture.setImageResource(R.drawable.ic_logo_black);
+                                                            @Override
+                                                            public void onComplete() {
+                                                                Log.d(TAG, "DeleteBike completed");
+                                                            }
+
+                                                            @Override
+                                                            public void onError(Throwable e) {
+                                                                Log.e(TAG, "Error has occurred while deleting bike", e);
+                                                            }
+
+                                                            @Override
+                                                            public void onNext(Response<ReceptAddBike> response) {
+                                                                Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                                                                closeFragment();
+                                                            }
+                                                        })
+                                        );
+                                    }
+                                })
+                                .setNegativeButton(R.string.alert_confirmation_delete_no, null)
+                                .show();
+                    }
+                    return true;
+                }
+            });
+        }
+
+        if (_name != null)
+            _name.setText(bike.getBrand() + " " + bike.getName());
+        if (mapView != null)
+            mapView.onCreate(savedInstanceState);
+        if (_bike_picture != null)
+            _bike_picture.setImageResource(R.drawable.ic_logo_black);
         return layout;
     }
 
     @Override
     public void onDestroyView() {
-        mapView.onDestroy();
+        if (mapView != null)
+            mapView.onDestroy();
         super.onDestroyView();
         unbinder.unbind();
     }
 
     @Override
     public void onResume() {
-        mapView.onResume();
+        if (mapView != null)
+            mapView.onResume();
         getCoordinates();
         super.onResume();
     }
@@ -181,12 +187,14 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onPause() {
         super.onPause();
-        mapView.onPause();
+        if (mapView != null)
+            mapView.onPause();
     }
 
     @Override
     public void onLowMemory() {
-        mapView.onLowMemory();
+        if (mapView != null)
+            mapView.onLowMemory();
         super.onLowMemory();
     }
 
@@ -195,25 +203,26 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         int i = 0;
         LatLng target = null;
         for (SigfoxData sigfoxData : sigfoxDataList) {
-                try {
-                    if (!sigfoxData.getLatitude().equals("80.0") && !sigfoxData.getLongitude().equals("-150.0") || !sigfoxData.getLatitude().equals("-62.0") && !sigfoxData.getLongitude().equals("-150.0") ) {
-                        Log.d(TAG, sigfoxData.getLatitude() + sigfoxData.getLongitude());
-                        if (i == 0){
-                            googleMap.addMarker(new MarkerOptions()
-                                    .position(new LatLng(Double.parseDouble(sigfoxData.getLatitude()), Double.parseDouble(sigfoxData.getLongitude())))
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-                            target = new LatLng(Double.parseDouble(sigfoxData.getLatitude()), Double.parseDouble(sigfoxData.getLongitude()));
+            try {
+                if (!sigfoxData.getLatitude().equals("80.0") && !sigfoxData.getLongitude().equals("-150.0") || !sigfoxData.getLatitude().equals("-62.0") && !sigfoxData.getLongitude().equals("-150.0") ) {
+                    Log.d(TAG, sigfoxData.getLatitude() + sigfoxData.getLongitude());
+                    if (i == 0){
+                        googleMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(Double.parseDouble(sigfoxData.getLatitude()), Double.parseDouble(sigfoxData.getLongitude())))
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                        target = new LatLng(Double.parseDouble(sigfoxData.getLatitude()), Double.parseDouble(sigfoxData.getLongitude()));
+                        if (_date_last_point != null)
                             _date_last_point.setText(sigfoxData.getTime());
-                        } else {
-                            googleMap.addMarker(new MarkerOptions()
-                                    .position(new LatLng(Double.parseDouble(sigfoxData.getLatitude()), Double.parseDouble(sigfoxData.getLongitude()))));
-                        }
-
-                        i++;
+                    } else {
+                        googleMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(Double.parseDouble(sigfoxData.getLatitude()), Double.parseDouble(sigfoxData.getLongitude()))));
                     }
-                } catch (java.lang.NumberFormatException nfe){
-                    Log.i(TAG, "Error ", nfe);
+
+                    i++;
                 }
+            } catch (java.lang.NumberFormatException nfe){
+                Log.i(TAG, "Error ", nfe);
+            }
             if (i > 10)
                 break;
         }
@@ -271,7 +280,8 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 //                                }
                                 Collections.reverse(sigfoxDatas);
                                 sigfoxDataList = sigfoxDatas;
-                                mapView.getMapAsync(BikeFragment.this);
+                                if (mapView != null)
+                                    mapView.getMapAsync(BikeFragment.this);
                             }
                         })
         );

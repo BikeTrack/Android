@@ -123,9 +123,12 @@ public class EditProfileFragment extends Fragment {
     }
 
     private void setDatas(){
-        _email.setText(user.getMail());
-        _lastname.setText(user.getLastname());
-        _firstname.setText(user.getName());
+        if (_email != null)
+            _email.setText(user.getMail());
+        if (_lastname != null)
+            _lastname.setText(user.getLastname());
+        if (_firstname != null)
+            _firstname.setText(user.getName());
     }
 
     @OnClick(R.id.delete_account_button)

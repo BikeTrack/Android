@@ -60,8 +60,6 @@ public class BikesFragment extends Fragment {
     private CustomListAdapter adapter;
     private Session session;
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
     @BindView(R.id.listView_bikes)
     ListView list;
     @BindView(R.id.emptylist_txt)
@@ -91,8 +89,10 @@ public class BikesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_bikes, container, false);
         unbinder = ButterKnife.bind(this, layout);
-        list.setEmptyView(emptyText);
-        pg_bar.setVisibility(View.GONE);
+        if (list != null)
+            list.setEmptyView(emptyText);
+        if (pg_bar != null)
+            pg_bar.setVisibility(View.GONE);
         registerForContextMenu(list);
         return layout;
     }
@@ -163,7 +163,8 @@ public class BikesFragment extends Fragment {
     }
 
     private void getUser() {
-        pg_bar.setVisibility(View.VISIBLE);
+        if (pg_bar != null)
+            pg_bar.setVisibility(View.VISIBLE);
         _disposables.add(
                 biketrackService.getUser(Statics.TOKEN_API, session.getToken(), session.getUserId())
                         .subscribeOn(Schedulers.newThread())
@@ -234,12 +235,14 @@ public class BikesFragment extends Fragment {
                             @Override
                             public void onNext(ReceiveBike receiveBike) {
                                 bikeArrayList.add(receiveBike.getBike());
-                                list.setAdapter(adapter);
+                                if (list != null)
+                                    list.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
-                                if (last)
-                                    pg_bar.setVisibility(View.GONE);
+                                if (last){
+                                    if (pg_bar != null)
+                                        pg_bar.setVisibility(View.GONE);
+                                }
                             }
-
                         })
         );
     }
