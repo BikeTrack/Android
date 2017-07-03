@@ -43,8 +43,11 @@ import eu.biketrack.android.api_connection.LobwickService;
 import eu.biketrack.android.api_connection.Statics;
 import eu.biketrack.android.models.SigfoxData;
 import eu.biketrack.android.models.data_reception.Bike;
+import eu.biketrack.android.models.data_reception.Location;
 import eu.biketrack.android.models.data_reception.ReceiveBike;
+import eu.biketrack.android.models.data_reception.ReceiveTracker;
 import eu.biketrack.android.models.data_reception.ReceptAddBike;
+import eu.biketrack.android.models.data_reception.Tracker;
 import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.session.Session;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -61,8 +64,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
     private Bike bike;
     private BiketrackService biketrackService;
     private CompositeDisposable _disposables;
-    private LobwickService lobwickService;
-    private List<SigfoxData> sigfoxDataList;
+    private Tracker tracker;
 
     private static final int REQUEST_LOCATION = 1;
 
@@ -78,7 +80,6 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         biketrackService = ApiConnect.createService();
-        lobwickService = ApiConnect.createServiceLobwick();
         _disposables = new CompositeDisposable();
         Bundle bundle = getArguments();
         session = Session.getInstance();
@@ -237,31 +238,21 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        int i = 0;
         LatLng target = null;
-        for (SigfoxData sigfoxData : sigfoxDataList) {
-            try {
-                if (!sigfoxData.getLatitude().equals("80.0") && !sigfoxData.getLongitude().equals("-150.0") || !sigfoxData.getLatitude().equals("-62.0") && !sigfoxData.getLongitude().equals("-150.0") ) {
-                    Log.d(TAG, sigfoxData.getLatitude() + sigfoxData.getLongitude());
-                    if (i == 0){
-                        googleMap.addMarker(new MarkerOptions()
-                                .position(new LatLng(Double.parseDouble(sigfoxData.getLatitude()), Double.parseDouble(sigfoxData.getLongitude())))
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-                        target = new LatLng(Double.parseDouble(sigfoxData.getLatitude()), Double.parseDouble(sigfoxData.getLongitude()));
-                        if (_date_last_point != null)
-                            _date_last_point.setText(sigfoxData.getTime());
-                    } else {
-                        googleMap.addMarker(new MarkerOptions()
-                                .position(new LatLng(Double.parseDouble(sigfoxData.getLatitude()), Double.parseDouble(sigfoxData.getLongitude()))));
-                    }
-
-                    i++;
-                }
-            } catch (java.lang.NumberFormatException nfe){
-                Log.i(TAG, "Error ", nfe);
+        int i = 0;
+        for (Location l : tracker.getLocations()){
+            if (i == 0) {
+                googleMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0)))
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                target = new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0));
+                if (_date_last_point != null)
+                    _date_last_point.setText(l.getTimestamp());
+            } else {
+                googleMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0))));
             }
-            if (i > 10)
-                break;
+            ++i;
         }
         googleMap.getUiSettings().setMyLocationButtonEnabled(false);
 //        if (ActivityCompat.checkSelfPermission(
@@ -294,10 +285,10 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 
     public void getCoordinates(){
         _disposables.add(
-                lobwickService.getSigfoxDatas()
+                biketrackService.getTracker(Statics.TOKEN_API, session.getToken(), bike.getTracker())
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(new DisposableObserver<List<SigfoxData>>() {
+                        .subscribeWith(new DisposableObserver<ReceiveTracker>() {
 
                             @Override
                             public void onComplete() {
@@ -310,13 +301,8 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                             }
 
                             @Override
-                            public void onNext(List<SigfoxData> sigfoxDatas) {
-//                                Log.d(TAG, sigfoxDatas.toString());
-//                                for(SigfoxData sigfoxData : sigfoxDatas){
-//                                    Log.d(TAG, sigfoxData.toString());
-//                                }
-                                Collections.reverse(sigfoxDatas);
-                                sigfoxDataList = sigfoxDatas;
+                            public void onNext(ReceiveTracker receiveTracker) {
+                                tracker = receiveTracker.getTracker();
                                 if (mapView != null)
                                     mapView.getMapAsync(BikeFragment.this);
                             }

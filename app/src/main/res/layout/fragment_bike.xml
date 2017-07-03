@@ -31,6 +31,13 @@
                 android:src="@drawable/ic_logo_black"
                 android:scaleType="fitCenter" />
 
+            <ImageView
+                android:id="@+id/battery"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="2dp"
+                android:src="@drawable/ic_battery_full" />
+
             <TextView
                 android:id="@+id/bike_name_tv"
                 android:layout_width="match_parent"
