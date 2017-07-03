@@ -14,13 +14,37 @@
         android:background="@color/interact_background"
         app:theme="@style/AppTheme"
         app:popupTheme="@style/Theme.AppCompat"/>
-    <EditText
-        android:id="@+id/search_bar_brand"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/interact_background"
-        android:inputType="text"
-        android:background="@color/background"/>
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout01" android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/search_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/ic_search_black_24px"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"/>
+
+        <EditText
+            android:id="@+id/search_bar_brand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/interact_background"
+            android:layout_toLeftOf="@id/search_img"
+            android:layout_toStartOf="@id/search_img"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginLeft="50dp"
+            android:inputType="text" />
+    </RelativeLayout>
+
 
     <ListView
         android:id="@+id/listView_brands"

@@ -3,6 +3,7 @@ package eu.biketrack.android.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -77,6 +78,7 @@ public class EditBikeFragment extends Fragment {
             toolbar.setTitle(R.string.title_bike_new);
         else
             toolbar.setTitle(R.string.title_bike_edit);
+        toolbar.setTitleTextColor(ResourcesCompat.getColor(getResources(), R.color.background, null));
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24px);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

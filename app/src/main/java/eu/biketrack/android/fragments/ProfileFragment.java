@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -72,6 +73,8 @@ public class ProfileFragment extends Fragment {
 
         toolbar.inflateMenu(R.menu.profile_menu);
         toolbar.setTitle(R.string.title_profile);
+        toolbar.setTitleTextColor(ResourcesCompat.getColor(getResources(), R.color.background, null));
+
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {

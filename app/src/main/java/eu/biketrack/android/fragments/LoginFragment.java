@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -77,6 +78,7 @@ public class LoginFragment extends Fragment {
         unbinder = ButterKnife.bind(this, layout);
 
         toolbar.setTitle(R.string.title_login);
+        toolbar.setTitleTextColor(ResourcesCompat.getColor(getResources(), R.color.background, null));
 
         _facebook_button.setReadPermissions("email");
         _facebook_button.setFragment(this);

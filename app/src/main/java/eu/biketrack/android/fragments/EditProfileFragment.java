@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -74,6 +75,7 @@ public class EditProfileFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_edit_profile, container, false);
         unbinder = ButterKnife.bind(this, layout);
         toolbar.setTitle(R.string.title_profile_edit);
+        toolbar.setTitleTextColor(ResourcesCompat.getColor(getResources(), R.color.background, null));
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24px);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

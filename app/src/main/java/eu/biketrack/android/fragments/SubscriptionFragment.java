@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -171,6 +172,7 @@ public class SubscriptionFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_subscribtion, container, false);
         unbinder = ButterKnife.bind(this, layout);
         toolbar.setTitle(R.string.title_subscribe);
+        toolbar.setTitleTextColor(ResourcesCompat.getColor(getResources(), R.color.background, null));
         return layout;
     }
 
