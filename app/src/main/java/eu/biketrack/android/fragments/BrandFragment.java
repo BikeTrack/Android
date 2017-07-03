@@ -71,8 +71,6 @@ public class BrandFragment extends Fragment {
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_brand, container, false);
         unbinder = ButterKnife.bind(this, layout);
-        toolbar.setTitle(R.string.title_brand);
-        toolbar.setTitleTextColor(ResourcesCompat.getColor(getResources(), R.color.background, null));
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24px);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

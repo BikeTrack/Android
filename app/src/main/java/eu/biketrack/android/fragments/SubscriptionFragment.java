@@ -171,8 +171,6 @@ public class SubscriptionFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_subscribtion, container, false);
         unbinder = ButterKnife.bind(this, layout);
-        toolbar.setTitle(R.string.title_subscribe);
-        toolbar.setTitleTextColor(ResourcesCompat.getColor(getResources(), R.color.background, null));
         return layout;
     }
 

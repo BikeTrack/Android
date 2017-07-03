@@ -94,8 +94,6 @@ public class BikesFragment extends Fragment {
         list.setEmptyView(emptyText);
         pg_bar.setVisibility(View.GONE);
         registerForContextMenu(list);
-        toolbar.setTitle(R.string.title_bikes);
-        toolbar.setTitleTextColor(ResourcesCompat.getColor(getResources(), R.color.background, null));
         return layout;
     }
 

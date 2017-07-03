@@ -72,8 +72,6 @@ public class ProfileFragment extends Fragment {
         _disposables = new CompositeDisposable();
 
         toolbar.inflateMenu(R.menu.profile_menu);
-        toolbar.setTitle(R.string.title_profile);
-        toolbar.setTitleTextColor(ResourcesCompat.getColor(getResources(), R.color.background, null));
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override

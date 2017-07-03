@@ -74,8 +74,6 @@ public class EditProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_edit_profile, container, false);
         unbinder = ButterKnife.bind(this, layout);
-        toolbar.setTitle(R.string.title_profile_edit);
-        toolbar.setTitleTextColor(ResourcesCompat.getColor(getResources(), R.color.background, null));
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24px);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

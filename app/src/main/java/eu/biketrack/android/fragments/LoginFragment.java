@@ -76,10 +76,6 @@ public class LoginFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_login, container, false);
         unbinder = ButterKnife.bind(this, layout);
-
-        toolbar.setTitle(R.string.title_login);
-        toolbar.setTitleTextColor(ResourcesCompat.getColor(getResources(), R.color.background, null));
-
         _facebook_button.setReadPermissions("email");
         _facebook_button.setFragment(this);
 

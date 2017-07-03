@@ -16,6 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/interact_background"
+            app:titleTextColor="@color/background"
+            app:title="@string/title_bikes"
             app:theme="@style/AppTheme"
             app:popupTheme="@style/Theme.AppCompat"/>
 

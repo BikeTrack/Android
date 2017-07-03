@@ -92,8 +92,6 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         View layout = inflater.inflate(R.layout.fragment_bike, container, false);
         unbinder = ButterKnife.bind(this, layout);
         toolbar.inflateMenu(R.menu.bike_menu);
-        toolbar.setTitle(R.string.title_bike);
-        toolbar.setTitleTextColor(ResourcesCompat.getColor(getResources(), R.color.background, null));
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24px);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
