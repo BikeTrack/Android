@@ -1,8 +1,12 @@
 package eu.biketrack.android.fragments;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
@@ -14,7 +18,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +39,7 @@ import eu.biketrack.android.models.data_reception.ReceptDeleteUser;
 import eu.biketrack.android.models.data_reception.ReceptUser;
 import eu.biketrack.android.models.data_reception.ReceptUserUpdate;
 import eu.biketrack.android.models.data_send.DeleteUser;
+import eu.biketrack.android.models.data_send.Img;
 import eu.biketrack.android.models.data_send.SendUserUpdate;
 import eu.biketrack.android.models.data_send.UserUpdate;
 import eu.biketrack.android.session.LoginManager;
@@ -38,25 +48,34 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Response;
 
 
 public class EditProfileFragment extends Fragment {
+    public static final int GET_FROM_GALLERY = 3;
     private static String TAG = "BIKETRACK - EditProfile";
     private Unbinder unbinder;
     private Session session;
     private BiketrackService biketrackService;
     private CompositeDisposable _disposables;
     private User user;
+    Bitmap bitmap = null;
+    File photo;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.tmp_img)
+    ImageView image_tmp;
     @BindView(R.id.profile_email_edit)
     EditText _email;
     @BindView(R.id.profile_lastname_edit)
     EditText _lastname;
     @BindView(R.id.profile_firstname_edit)
     EditText _firstname;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +101,27 @@ public class EditProfileFragment extends Fragment {
             }
         });
         return layout;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //Detects request codes
+        if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
+            Uri selectedImage = data.getData();
+            photo = new File(selectedImage.getPath());
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+                image_tmp.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -207,6 +247,12 @@ public class EditProfileFragment extends Fragment {
                         )
         );
     }
+
+    @OnClick(R.id.upload_picture)
+    public void openGallery(){
+        startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+    }
+
 
     public void closeFragment(){
         getActivity().getSupportFragmentManager().popBackStack();

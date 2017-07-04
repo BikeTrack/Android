@@ -34,26 +34,4 @@ public class ApiConnect implements Serializable {
         ApiConnect apiConnect = new ApiConnect();
         return apiConnect.buildService(BiketrackService.class);
     }
-
-
-    /*
-        For temporary API (Lobwick's server)
-     */
-
-    private Retrofit buildRetrofitLobwick(){
-        return new Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(Statics.LOBWICK_API)
-                .build();
-    }
-
-    private <T> T buildServiceLobwick(final Class<T> service){
-        return buildRetrofitLobwick().create(service);
-    }
-
-    public static LobwickService createServiceLobwick(){
-        ApiConnect apiConnect = new ApiConnect();
-        return apiConnect.buildServiceLobwick(LobwickService.class);
-    }
 }

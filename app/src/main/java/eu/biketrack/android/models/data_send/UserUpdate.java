@@ -22,6 +22,10 @@ public class UserUpdate {
     @Expose
     private String lastname;
 
+//    @SerializedName("img")
+//    @Expose
+//    private Img img;
+
     public UserUpdate(User user) {
         this.mail = user.getMail();
         this.name = user.getName();
@@ -52,12 +56,21 @@ public class UserUpdate {
         this.lastname = lastname;
     }
 
-    @Override
-    public String toString() {
-        return "UserUpdate{" +
-                "mail='" + mail + '\'' +
-                ", name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
-                '}';
-    }
+//    public Img getImg() {
+//        return img;
+//    }
+//
+//    public void setImg(Img img) {
+//        this.img = img;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "UserUpdate{" +
+//                "mail='" + mail + '\'' +
+//                ", name='" + name + '\'' +
+//                ", lastname='" + lastname + '\'' +
+//                ", img=" + img +
+//                '}';
+//    }
 }

@@ -16,6 +16,20 @@
         app:theme="@style/AppTheme"
         app:popupTheme="@style/Theme.AppCompat"/>
 
+    <!--<ImageView-->
+        <!--android:id="@+id/tmp_img"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="100sp" />-->
+
+    <!--<Button-->
+        <!--android:id="@+id/upload_picture"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Selectionner une photo"-->
+        <!--android:background="@color/interact_background"-->
+        <!--android:textColor="@color/inside"-->
+        <!--android:layout_marginTop="20dp"/>-->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

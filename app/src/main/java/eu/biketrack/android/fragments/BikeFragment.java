@@ -2,12 +2,10 @@ package eu.biketrack.android.fragments;
 
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -29,19 +27,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.Collections;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
-import eu.biketrack.android.api_connection.LobwickService;
 import eu.biketrack.android.api_connection.Statics;
-import eu.biketrack.android.models.SigfoxData;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.Location;
 import eu.biketrack.android.models.data_reception.ReceiveBike;
