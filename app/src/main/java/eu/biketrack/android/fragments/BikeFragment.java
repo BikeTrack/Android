@@ -238,7 +238,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         LatLng target = null;
         int i = 0;
         for (Location l : tracker.getLocations()){
-            if (i == 0) {
+            if (i == tracker.getLocations().size() - 1 ) {
                 googleMap.addMarker(new MarkerOptions()
                         .position(new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0)))
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
@@ -303,18 +303,33 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                             @Override
                             public void onNext(ReceiveTracker receiveTracker) {
                                 tracker = receiveTracker.getTracker();
-                                if (_battery != null){
-                                    if (tracker != null){
-                                        if (tracker.getBattery().get(tracker.getBattery().size() - 1).getPourcentage() < BATTERY_CRITICAL){
-                                            _battery.setImageResource(R.drawable.ic_battery_critical);
-                                        } else if (tracker.getBattery().get(tracker.getBattery().size() - 1).getPourcentage() < BATTERY_LOW){
-                                            _battery.setImageResource(R.drawable.ic_battery_low);
-                                        } else {
-                                            _battery.setImageResource(R.drawable.ic_battery_full);
-                                        }
-                                        Log.d(TAG, tracker.getBattery().get(tracker.getBattery().size() - 1).getPourcentage().toString());
-                                    }
+
+                                if (_battery == null){
+                                    return;
+                                } else if (tracker == null){
+                                    _battery.setImageResource(R.drawable.ic_broken_link);
+                                    return;
+                                } else if (tracker.getBattery() == null){
+                                    _battery.setImageResource(R.drawable.ic_broken_link);
+                                    return ;
+                                } else if (tracker.getBattery().size() == 0){
+                                    _battery.setImageResource(R.drawable.ic_broken_link);
+                                    return ;
+                                }else if (tracker.getBattery().get(tracker.getBattery().size() - 1) == null){
+                                    _battery.setImageResource(R.drawable.ic_broken_link);
+                                    return ;
                                 }
+
+                                if (tracker.getBattery().get(tracker.getBattery().size() - 1).getPourcentage() < BATTERY_CRITICAL){
+                                    _battery.setImageResource(R.drawable.ic_battery_critical);
+                                } else if (tracker.getBattery().get(tracker.getBattery().size() - 1).getPourcentage() < BATTERY_LOW){
+                                    _battery.setImageResource(R.drawable.ic_battery_low);
+                                } else {
+                                    _battery.setImageResource(R.drawable.ic_battery_full);
+                                }
+
+                                Log.d(TAG, tracker.getBattery().get(tracker.getBattery().size() - 1).getPourcentage().toString());
+
                                 if (mapView != null)
                                     mapView.getMapAsync(BikeFragment.this);
                             }

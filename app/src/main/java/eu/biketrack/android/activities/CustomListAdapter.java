@@ -46,19 +46,26 @@ public class CustomListAdapter extends ArrayAdapter<Pair<Bike, Tracker>> {
 //        TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
 
         txtTitle.setText(bikes.get(position).first.getBrand() + " " + bikes.get(position).first.getName());
+
+
         imageView.setImageResource(R.drawable.ic_logo_black);
-        if (battery != null){
-            if (bikes.get(position).second != null){
-                if (bikes.get(position).second.getBattery().get(bikes.get(position).second.getBattery().size() - 1).getPourcentage() < BATTERY_CRITICAL){
-                    battery.setImageResource(R.drawable.ic_battery_critical);
-                } else if (bikes.get(position).second.getBattery().get(bikes.get(position).second.getBattery().size() - 1).getPourcentage() < BATTERY_LOW){
-                    battery.setImageResource(R.drawable.ic_battery_low);
-                } else {
-                    battery.setImageResource(R.drawable.ic_battery_full);
-                }
-            } else {
-                battery.setImageResource(R.drawable.ic_broken_link);
-            }
+        if (battery == null){
+            return rowView;
+        } else if (bikes.get(position).second != null){
+            battery.setImageResource(R.drawable.ic_broken_link);
+            return rowView;
+        } else if (bikes.get(position).second.getBattery().get(bikes.get(position).second.getBattery().size() - 1) != null){
+            battery.setImageResource(R.drawable.ic_broken_link);
+            return rowView;
+        }
+
+
+        if (bikes.get(position).second.getBattery().get(bikes.get(position).second.getBattery().size() - 1).getPourcentage() < BATTERY_CRITICAL){
+            battery.setImageResource(R.drawable.ic_battery_critical);
+        } else if (bikes.get(position).second.getBattery().get(bikes.get(position).second.getBattery().size() - 1).getPourcentage() < BATTERY_LOW){
+            battery.setImageResource(R.drawable.ic_battery_low);
+        } else {
+            battery.setImageResource(R.drawable.ic_battery_full);
         }
         //extratxt.setText("Latitude : " + bikes.get(position).getLat() + " Longitude : " + bikes.get(position).getLong());
         return rowView;
