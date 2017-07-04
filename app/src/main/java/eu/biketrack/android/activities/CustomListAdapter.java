@@ -49,9 +49,9 @@ public class CustomListAdapter extends ArrayAdapter<Pair<Bike, Tracker>> {
         imageView.setImageResource(R.drawable.ic_logo_black);
         if (battery != null){
             if (bikes.get(position).second != null){
-                if (bikes.get(position).second.getBattery().get(0).getPourcentage() < BATTERY_CRITICAL){
+                if (bikes.get(position).second.getBattery().get(bikes.get(position).second.getBattery().size() - 1).getPourcentage() < BATTERY_CRITICAL){
                     battery.setImageResource(R.drawable.ic_battery_critical);
-                } else if (bikes.get(position).second.getBattery().get(0).getPourcentage() < BATTERY_LOW){
+                } else if (bikes.get(position).second.getBattery().get(bikes.get(position).second.getBattery().size() - 1).getPourcentage() < BATTERY_LOW){
                     battery.setImageResource(R.drawable.ic_battery_low);
                 } else {
                     battery.setImageResource(R.drawable.ic_battery_full);

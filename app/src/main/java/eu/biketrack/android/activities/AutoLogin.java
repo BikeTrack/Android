@@ -4,9 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 
+import java.util.Locale;
+
 import eu.biketrack.android.R;
 import eu.biketrack.android.fragments.AutoLoginFragment;
 import eu.biketrack.android.session.LoginManager;
+import eu.biketrack.android.settings.Language;
 
 public class AutoLogin extends FragmentActivity {
     private static final String TAG = "Biketrack - AutoLogin";

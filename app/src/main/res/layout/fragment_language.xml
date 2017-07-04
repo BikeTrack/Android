@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="eu.biketrack.android.fragments.LanguageFragment">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/interact_background"
+        app:titleTextColor="@color/background"
+        app:title="@string/title_brand"
+        app:theme="@style/AppTheme"
+        app:popupTheme="@style/Theme.AppCompat"/>
+
+    <ListView
+        android:id="@+id/listView_languages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"/>
+
+</LinearLayout>

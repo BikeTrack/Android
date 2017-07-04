@@ -67,8 +67,8 @@ public class EditProfileFragment extends Fragment {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.tmp_img)
-    ImageView image_tmp;
+//    @BindView(R.id.tmp_img)
+//    ImageView image_tmp;
     @BindView(R.id.profile_email_edit)
     EditText _email;
     @BindView(R.id.profile_lastname_edit)
@@ -113,7 +113,7 @@ public class EditProfileFragment extends Fragment {
             photo = new File(selectedImage.getPath());
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-                image_tmp.setImageBitmap(bitmap);
+//                image_tmp.setImageBitmap(bitmap);
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -248,10 +248,10 @@ public class EditProfileFragment extends Fragment {
         );
     }
 
-    @OnClick(R.id.upload_picture)
-    public void openGallery(){
-        startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
-    }
+//    @OnClick(R.id.upload_picture)
+//    public void openGallery(){
+//        startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+//    }
 
 
     public void closeFragment(){

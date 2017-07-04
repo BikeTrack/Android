@@ -96,8 +96,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        bottomNavigationView.getMenu().getItem(0).setEnabled(false);
         bottomNavigationView.getMenu().getItem(0).setChecked(false);
         bottomNavigationView.getMenu().getItem(1).setChecked(false);
         bottomNavigationView.getMenu().getItem(2).setChecked(true);
@@ -110,7 +108,9 @@ public class ProfileFragment extends Fragment {
                         bottomNavigationView.getMenu().getItem(2).setChecked(false);
                         switch (item.getItemId()) {
                             case R.id.action_settings:
-
+                                getActivity().getSupportFragmentManager().beginTransaction()
+                                        .replace(android.R.id.content, new SettingsFragment(), this.toString())
+                                        .commit();
                                 break;
                             case R.id.action_bikes:
                                 getActivity().getSupportFragmentManager().beginTransaction()

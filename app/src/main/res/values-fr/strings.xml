@@ -1,2 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <!-- Titles -->
+    <string name="title_bikes">Vélos</string>
+    <string name="title_bike">Vélo</string>
+    <string name="title_bike_edit">Vélo</string>
+    <string name="title_bike_new">Nouveau Vélo</string>
+    <string name="title_brand">Sélectionnez une marque</string>
+    <string name="title_profile_edit">Modifier votre profil</string>
+    <string name="title_profile">Profil</string>
+    <string name="title_subscribe">Inscription</string>
+    <string name="title_login">Connexion</string>
+    <string name="title_settings">Paramètres</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Mot de passe</string>
+    <string name="action_sign_in">Connexion</string>
+    <string name="action_sign_in_short">Connexion</string>
+    <string name="error_invalid_email">Cette adresse email est invalide</string>
+    <string name="error_invalid_password">Mot de passe trop court</string>
+    <string name="error_incorrect_password">Mot de passe incorrect</string>
+    <string name="error_field_required">Requis</string>
+    <string name="action_subscribe">S\'inscrire</string>
+    <string name="action_subscribe_short">S\'inscrire</string>
+    <string name="error_check_password_and_repeat">Les deux mots de passe doivent être identiques</string>
+    <string name="error_check_password_secure">Le mot de passe doit comporter au moins 6 caractères</string>
+    <string name="error_check_email">Email invalide</string>
+    <string name="error_subscribe_fields">Au moins un des champs n\'est pas valide</string>
+
+
+    <string name="empty_list">Il n\'y a pas de vélo</string>
+
+    <!-- Strings related to BikeEdit -->
+    <string name="bike_name_txt">Nom</string>
+    <string name="bike_color_txt">Couleur</string>
+    <string name="bike_brand_txt">Marque</string>
+    <string name="bike_tracker_txt">Identifiant du traqueur</string>
+    <string name="bike_save_button_txt">Sauvegarder</string>
+
+
+
+
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_main">MainActivity</string>
+
+
+    <string name="title_context_menu">Options du vélo</string>
+    <string name="edit_context_menu">Editer</string>
+    <string name="delete_context_menu">Supprimer</string>
+
+
+    <string name="alert_confirmation_delete_title">Voulez vous vraiment supprimer ce vélo ?</string>
+    <string name="alert_confirmation_delete_message">La suppression est définitive</string>
+    <string name="alert_confirmation_delete_yes">Confirmer</string>
+    <string name="alert_confirmation_delete_no">Annuler</string>
+    <string name="title_activity_auto_login">AutoLogin</string>
+
+
+    <string name="profile_email_txt">Email</string>
+    <string name="profile_lastname_txt">Nom de famille</string>
+    <string name="profile_firstname_txt">Prénom</string>
+
+
+    <!-- menu bottom -->
+    <string name="menu_text_settings">Paramètres</string>
+    <string name="menu_text_bikes">Vélos</string>
+    <string name="menu_text_profile">Profil</string>
+
+
+    <string name="alert_confirmation_brand_title">Voulez vous selectionner cette marque ?</string>
+    <!--<string name="alert_confirmation_brand_message">La suppression est définitive</string>-->
+    <string name="alert_confirmation_brand_yes">Confirmer</string>
+    <string name="alert_confirmation_brand_no">Annuler</string>
+
+
+    <string name="alert_confirmation_delete_account_title">Supprimer votre compte ?</string>
+    <string name="alert_confirmation_delete_account_message">La suppression est définitive</string>
+    <string name="alert_confirmation_delete_account_yes">Confirmer</string>
+    <string name="alert_confirmation_delete_account_no">Annuler</string>
+
+
+    <string name="log_off_button_txt">Déconnexion</string>
+    <string name="delete_account_button_txt">Supprimer le compte</string>
+    <string name="save_account_button_txt">Sauvegarder</string>
+
+    <string-array name="language_arrays">
+        <item>Anglais</item>
+        <item>Francais</item>
+    </string-array>
+</resources>

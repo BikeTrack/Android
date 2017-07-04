@@ -1,15 +1,12 @@
 package eu.biketrack.android.fragments;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.Pair;
 import android.view.ContextMenu;
@@ -25,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,9 +47,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
-
-import static eu.biketrack.android.api_connection.Statics.BATTERY_CRITICAL;
-import static eu.biketrack.android.api_connection.Statics.BATTERY_LOW;
 
 public class BikesFragment extends Fragment {
 
@@ -107,8 +100,6 @@ public class BikesFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        bottomNavigationView.getMenu().getItem(0).setEnabled(false);
         bottomNavigationView.getMenu().getItem(0).setChecked(false);
         bottomNavigationView.getMenu().getItem(1).setChecked(true);
         bottomNavigationView.getMenu().getItem(2).setChecked(false);
@@ -121,7 +112,9 @@ public class BikesFragment extends Fragment {
                         bottomNavigationView.getMenu().getItem(2).setChecked(false);
                         switch (item.getItemId()) {
                             case R.id.action_settings:
-
+                                getActivity().getSupportFragmentManager().beginTransaction()
+                                        .replace(android.R.id.content, new SettingsFragment(), this.toString())
+                                        .commit();
                                 break;
                             case R.id.action_bikes:
 

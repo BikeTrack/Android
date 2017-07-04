@@ -305,14 +305,14 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                                 tracker = receiveTracker.getTracker();
                                 if (_battery != null){
                                     if (tracker != null){
-                                        if (tracker.getBattery().get(0).getPourcentage() < BATTERY_CRITICAL){
+                                        if (tracker.getBattery().get(tracker.getBattery().size() - 1).getPourcentage() < BATTERY_CRITICAL){
                                             _battery.setImageResource(R.drawable.ic_battery_critical);
-                                        } else if (tracker.getBattery().get(0).getPourcentage() < BATTERY_LOW){
+                                        } else if (tracker.getBattery().get(tracker.getBattery().size() - 1).getPourcentage() < BATTERY_LOW){
                                             _battery.setImageResource(R.drawable.ic_battery_low);
                                         } else {
                                             _battery.setImageResource(R.drawable.ic_battery_full);
                                         }
-                                        Log.d(TAG, tracker.getBattery().get(0).getPourcentage().toString());
+                                        Log.d(TAG, tracker.getBattery().get(tracker.getBattery().size() - 1).getPourcentage().toString());
                                     }
                                 }
                                 if (mapView != null)
