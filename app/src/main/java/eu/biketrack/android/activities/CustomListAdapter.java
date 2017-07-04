@@ -2,6 +2,8 @@ package eu.biketrack.android.activities;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +15,21 @@ import java.util.ArrayList;
 
 import eu.biketrack.android.R;
 import eu.biketrack.android.models.data_reception.Bike;
+import eu.biketrack.android.models.data_reception.Tracker;
+
+import static eu.biketrack.android.api_connection.Statics.BATTERY_CRITICAL;
+import static eu.biketrack.android.api_connection.Statics.BATTERY_LOW;
 
 /**
  * Created by 42900 on 04/12/2016 for BikeTrack_Android.
  */
 
-public class CustomListAdapter extends ArrayAdapter<Bike> {
+public class CustomListAdapter extends ArrayAdapter<Pair<Bike, Tracker>> {
 
     private final Activity context;
-    private final ArrayList<Bike> bikes;
+    private final ArrayList<Pair<Bike, Tracker>> bikes;
 
-    public CustomListAdapter(Activity context, ArrayList<Bike> bikes) {
+    public CustomListAdapter(Activity context, ArrayList<Pair<Bike, Tracker>> bikes) {
         super(context, R.layout.listbike, bikes);
         this.context = context;
         this.bikes = bikes;
@@ -36,10 +42,24 @@ public class CustomListAdapter extends ArrayAdapter<Bike> {
 
         TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
+        ImageView battery = (ImageView) rowView.findViewById(R.id.battery);
 //        TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
 
-        txtTitle.setText(bikes.get(position).getBrand() + " " + bikes.get(position).getName());
+        txtTitle.setText(bikes.get(position).first.getBrand() + " " + bikes.get(position).first.getName());
         imageView.setImageResource(R.drawable.ic_logo_black);
+        if (battery != null){
+            if (bikes.get(position).second != null){
+                if (bikes.get(position).second.getBattery().get(0).getPourcentage() < BATTERY_CRITICAL){
+                    battery.setImageResource(R.drawable.ic_battery_critical);
+                } else if (bikes.get(position).second.getBattery().get(0).getPourcentage() < BATTERY_LOW){
+                    battery.setImageResource(R.drawable.ic_battery_low);
+                } else {
+                    battery.setImageResource(R.drawable.ic_battery_full);
+                }
+            } else {
+                battery.setImageResource(R.drawable.ic_broken_link);
+            }
+        }
         //extratxt.setText("Latitude : " + bikes.get(position).getLat() + " Longitude : " + bikes.get(position).getLong());
         return rowView;
     }

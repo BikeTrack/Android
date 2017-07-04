@@ -28,4 +28,11 @@ public class ReceiveTracker {
         this.tracker = tracker;
     }
 
+    @Override
+    public String toString() {
+        return "ReceiveTracker{" +
+                "success=" + success +
+                ", tracker=" + tracker +
+                '}';
+    }
 }

@@ -17,10 +17,10 @@ public class Tracker {
     private List<Location> locations = null;
     @SerializedName("choc")
     @Expose
-    private List<Object> choc = null;
+    private List<Choc> choc = null;
     @SerializedName("battery")
     @Expose
-    private List<Object> battery = null;
+    private List<Battery> battery = null;
     @SerializedName("updated")
     @Expose
     private String updated;
@@ -52,19 +52,19 @@ public class Tracker {
         this.locations = locations;
     }
 
-    public List<Object> getChoc() {
+    public List<Choc> getChoc() {
         return choc;
     }
 
-    public void setChoc(List<Object> choc) {
+    public void setChoc(List<Choc> choc) {
         this.choc = choc;
     }
 
-    public List<Object> getBattery() {
+    public List<Battery> getBattery() {
         return battery;
     }
 
-    public void setBattery(List<Object> battery) {
+    public void setBattery(List<Battery> battery) {
         this.battery = battery;
     }
 
@@ -84,4 +84,16 @@ public class Tracker {
         this.created = created;
     }
 
+    @Override
+    public String toString() {
+        return "Tracker{" +
+                "id='" + id + '\'' +
+                ", v=" + v +
+                ", locations=" + locations +
+                ", choc=" + choc +
+                ", battery=" + battery +
+                ", updated='" + updated + '\'' +
+                ", created='" + created + '\'' +
+                '}';
+    }
 }

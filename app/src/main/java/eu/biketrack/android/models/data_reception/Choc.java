@@ -1,20 +1,16 @@
 package eu.biketrack.android.models.data_reception;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Location {
+public class Choc {
 
-    @SerializedName("timestamp")
+    @SerializedName("checked")
     @Expose
-    private String timestamp;
+    private Boolean checked;
     @SerializedName("_id")
     @Expose
     private String id;
-    @SerializedName("coordinates")
-    @Expose
-    private List<Double> coordinates = null;
     @SerializedName("snr")
     @Expose
     private String snr;
@@ -34,12 +30,12 @@ public class Location {
     @Expose
     private String seqNumber;
 
-    public String getTimestamp() {
-        return timestamp;
+    public Boolean getChecked() {
+        return checked;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
     }
 
     public String getId() {
@@ -48,14 +44,6 @@ public class Location {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public List<Double> getCoordinates() {
-        return coordinates;
-    }
-
-    public void setCoordinates(List<Double> coordinates) {
-        this.coordinates = coordinates;
     }
 
     public String getSnr() {
@@ -108,10 +96,9 @@ public class Location {
 
     @Override
     public String toString() {
-        return "Location{" +
-                "timestamp='" + timestamp + '\'' +
+        return "Choc{" +
+                "checked=" + checked +
                 ", id='" + id + '\'' +
-                ", coordinates=" + coordinates +
                 ", snr='" + snr + '\'' +
                 ", station='" + station + '\'' +
                 ", data='" + data + '\'' +

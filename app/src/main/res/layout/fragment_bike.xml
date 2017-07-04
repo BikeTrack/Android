@@ -35,8 +35,7 @@
                 android:id="@+id/battery"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:padding="2dp"
-                android:src="@drawable/ic_battery_full" />
+                android:padding="2dp"/>
 
             <TextView
                 android:id="@+id/bike_name_tv"

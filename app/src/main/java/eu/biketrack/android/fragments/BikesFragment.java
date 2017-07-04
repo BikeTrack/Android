@@ -11,6 +11,7 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.Pair;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -24,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +33,8 @@ import butterknife.OnClick;
 import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
+import eu.biketrack.android.models.data_reception.ReceiveTracker;
+import eu.biketrack.android.models.data_reception.Tracker;
 import eu.biketrack.android.session.Session;
 import eu.biketrack.android.activities.CustomListAdapter;
 import eu.biketrack.android.api_connection.ApiConnect;
@@ -48,6 +52,9 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
+import static eu.biketrack.android.api_connection.Statics.BATTERY_CRITICAL;
+import static eu.biketrack.android.api_connection.Statics.BATTERY_LOW;
+
 public class BikesFragment extends Fragment {
 
     private static String TAG = "BIKETRACK - Bikes";
@@ -55,7 +62,7 @@ public class BikesFragment extends Fragment {
     private BiketrackService biketrackService;
     private CompositeDisposable _disposables;
     private Unbinder unbinder;
-    private ArrayList<Bike> bikeArrayList = new ArrayList<>();
+    private ArrayList<Pair<Bike, Tracker>> bikeArrayList = new ArrayList<>();
     private User user;
     private CustomListAdapter adapter;
     private Session session;
@@ -139,7 +146,7 @@ public class BikesFragment extends Fragment {
     @OnItemClick(R.id.listView_bikes)
     public void selectBike(int position) {
         Bundle bundle = new Bundle();
-        bundle.putParcelable("BIKE", bikeArrayList.get(position));
+        bundle.putParcelable("BIKE", bikeArrayList.get(position).first);
         Fragment fragment = new BikeFragment();
         fragment.setArguments(bundle);
         final String tag = fragment.getClass().toString();
@@ -231,11 +238,48 @@ public class BikesFragment extends Fragment {
                                     Toast.makeText(getActivity(), "You are not in our database, you should create an account", Toast.LENGTH_SHORT).show();
                                 else
                                     Toast.makeText(getActivity(), "Maybe an error somewhere : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+
+                                if (last) {
+                                    if (pg_bar != null)
+                                        pg_bar.setVisibility(View.GONE);
+                                }
                             }
 
                             @Override
                             public void onNext(ReceiveBike receiveBike) {
-                                bikeArrayList.add(receiveBike.getBike());
+                                //bikeArrayList.add(receiveBike.getBike());
+                                getTracker(receiveBike.getBike(), last);
+                            }
+                        })
+        );
+    }
+
+    public void getTracker(Bike bike, Boolean last){
+        _disposables.add(
+                biketrackService.getTracker(Statics.TOKEN_API, session.getToken(), bike.getTracker())
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableObserver<ReceiveTracker>() {
+
+                            @Override
+                            public void onComplete() {
+                                Log.d(TAG, "Login completed");
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                Log.e(TAG, "Error has occurred while getting coordinates ", e);
+                                bikeArrayList.add( new Pair<Bike, Tracker>(bike, null));
+                                adapter.notifyDataSetChanged();
+                                if (last){
+                                    if (pg_bar != null)
+                                        pg_bar.setVisibility(View.GONE);
+                                }
+                            }
+
+                            @Override
+                            public void onNext(ReceiveTracker receiveTracker) {
+                                bikeArrayList.add( new Pair<Bike, Tracker>(bike, receiveTracker.getTracker()));
                                 if (list != null)
                                     list.setAdapter(adapter);
                                 adapter.notifyDataSetChanged();
@@ -265,7 +309,7 @@ public class BikesFragment extends Fragment {
 
         if (selected_option == R.id.action_edit_bike){
             Bundle bundle = new Bundle();
-            bundle.putParcelable("BIKE", bikeArrayList.get(selected_item));
+            bundle.putParcelable("BIKE", bikeArrayList.get(selected_item).first);
             Fragment fragment = new EditBikeFragment();
             fragment.setArguments(bundle);
             final String tag = fragment.getClass().toString();
@@ -282,7 +326,7 @@ public class BikesFragment extends Fragment {
                     .setPositiveButton(R.string.alert_confirmation_delete_yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            SendBike sb = new SendBike(session.getUserId(), bikeArrayList.get(selected_item).getId(), null);
+                            SendBike sb = new SendBike(session.getUserId(), bikeArrayList.get(selected_item).first.getId(), null);
                             _disposables.add(
                                     biketrackService.deleteBike(Statics.TOKEN_API, session.getToken(), sb)
                                             .subscribeOn(Schedulers.newThread())

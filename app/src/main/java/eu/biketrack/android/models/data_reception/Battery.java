@@ -1,20 +1,12 @@
 package eu.biketrack.android.models.data_reception;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Location {
-
-    @SerializedName("timestamp")
+public class Battery {
+    @SerializedName("pourcentage")
     @Expose
-    private String timestamp;
-    @SerializedName("_id")
-    @Expose
-    private String id;
-    @SerializedName("coordinates")
-    @Expose
-    private List<Double> coordinates = null;
+    private Double pourcentage;
     @SerializedName("snr")
     @Expose
     private String snr;
@@ -33,29 +25,19 @@ public class Location {
     @SerializedName("seqNumber")
     @Expose
     private String seqNumber;
+    @SerializedName("_id")
+    @Expose
+    private String id;
+    @SerializedName("timestamp")
+    @Expose
+    private String timestamp;
 
-    public String getTimestamp() {
-        return timestamp;
+    public Double getPourcentage() {
+        return pourcentage;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public List<Double> getCoordinates() {
-        return coordinates;
-    }
-
-    public void setCoordinates(List<Double> coordinates) {
-        this.coordinates = coordinates;
+    public void setPourcentage(Double pourcentage) {
+        this.pourcentage = pourcentage;
     }
 
     public String getSnr() {
@@ -106,18 +88,34 @@ public class Location {
         this.seqNumber = seqNumber;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+
     @Override
     public String toString() {
-        return "Location{" +
-                "timestamp='" + timestamp + '\'' +
-                ", id='" + id + '\'' +
-                ", coordinates=" + coordinates +
+        return "Battery{" +
+                "pourcentage=" + pourcentage +
                 ", snr='" + snr + '\'' +
                 ", station='" + station + '\'' +
                 ", data='" + data + '\'' +
                 ", avgSnr='" + avgSnr + '\'' +
                 ", rssi='" + rssi + '\'' +
                 ", seqNumber='" + seqNumber + '\'' +
+                ", id='" + id + '\'' +
+                ", timestamp='" + timestamp + '\'' +
                 '}';
     }
 }

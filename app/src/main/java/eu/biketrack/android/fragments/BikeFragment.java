@@ -56,6 +56,9 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
+import static eu.biketrack.android.api_connection.Statics.BATTERY_CRITICAL;
+import static eu.biketrack.android.api_connection.Statics.BATTERY_LOW;
+
 
 public class BikeFragment extends Fragment implements OnMapReadyCallback {
     private static String TAG = "BIKETRACK - Bike";
@@ -75,6 +78,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
     @BindView(R.id.bike_name_tv) TextView _name;
     @BindView(R.id.map) MapView mapView;
     @BindView(R.id.date_last_point) TextView _date_last_point;
+    @BindView(R.id.battery) ImageView _battery;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -170,6 +174,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
             _name.setText(bike.getBrand() + " " + bike.getName());
         if (_bike_picture != null)
             _bike_picture.setImageResource(R.drawable.ic_logo_black);
+
     }
 
     private void getBike() {
@@ -298,11 +303,26 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                             @Override
                             public void onError(Throwable e) {
                                 Log.e(TAG, "Error has occurred while getting coordinates ", e);
+                                if (_battery != null){
+                                    _battery.setImageResource(R.drawable.ic_broken_link);
+                                }
                             }
 
                             @Override
                             public void onNext(ReceiveTracker receiveTracker) {
                                 tracker = receiveTracker.getTracker();
+                                if (_battery != null){
+                                    if (tracker != null){
+                                        if (tracker.getBattery().get(0).getPourcentage() < BATTERY_CRITICAL){
+                                            _battery.setImageResource(R.drawable.ic_battery_critical);
+                                        } else if (tracker.getBattery().get(0).getPourcentage() < BATTERY_LOW){
+                                            _battery.setImageResource(R.drawable.ic_battery_low);
+                                        } else {
+                                            _battery.setImageResource(R.drawable.ic_battery_full);
+                                        }
+                                        Log.d(TAG, tracker.getBattery().get(0).getPourcentage().toString());
+                                    }
+                                }
                                 if (mapView != null)
                                     mapView.getMapAsync(BikeFragment.this);
                             }
