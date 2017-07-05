@@ -140,20 +140,12 @@ public class ProfileFragment extends Fragment {
                         .subscribeWith(new DisposableObserver<ReceptUser>() {
 
                             @Override
-                            public void onComplete() {
-                                Log.d(TAG, "Login completed");
+                            public void onComplete(){
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                Log.e(TAG, "Error has occurred while getting user info", e);
-                                //check error type and raise toast
-                                if (e.getMessage().equals("HTTP 401 Unauthorized"))
-                                    Toast.makeText(getActivity(), "Wrong user ?", Toast.LENGTH_SHORT).show();
-                                else if (e.getMessage().equals("HTTP 404 Not Found"))
-                                    Toast.makeText(getActivity(), "You are not in our database, you should create an account", Toast.LENGTH_SHORT).show();
-                                else
-                                    Toast.makeText(getActivity(), "Maybe an error somewhere : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
                             }
 
                             @Override

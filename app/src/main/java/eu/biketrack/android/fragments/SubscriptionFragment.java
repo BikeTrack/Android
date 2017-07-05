@@ -198,8 +198,9 @@ public class SubscriptionFragment extends Fragment {
 
                             @Override
                             public void onError(Throwable e) {
-                                Log.e(TAG, "Error has occurred during subscription", e);
-                                Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                //check error type and raise toast
+                                Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
+
                             }
 
                             @Override
@@ -225,8 +226,14 @@ public class SubscriptionFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "Error has occurred during login", e);
-                        Toast.makeText(getActivity(), "Something's wrong, you should try to connect manually...", Toast.LENGTH_SHORT).show();
+                        //check error type and raise toast
+                        if (e.getMessage().equals("HTTP 401 Unauthorized"))
+                            Toast.makeText(getActivity(), R.string.user_unauthorized, Toast.LENGTH_SHORT).show();
+                        else if (e.getMessage().equals("HTTP 404 Not Found"))
+                            Toast.makeText(getActivity(), R.string.user_not_found, Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
+
                     }
 
                     @Override

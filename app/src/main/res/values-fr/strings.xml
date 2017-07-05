@@ -92,9 +92,17 @@
     <string name="bike_error_trackerid_empty">L\'identifiant du tracker ne peut pas être vide</string>
 
     <string name="user_error_lastname_empty">Le nom de famille ne peut pas être vide</string>
-    <string name="user_error_firstname_empty">Le prenom ne peut pas être vide</string>
+    <string name="user_error_firstname_empty">Le prénom ne peut pas être vide</string>
 
     <string name="user_saved">Compte sauvegardé</string>
+
+    <string name="network_error">Outch, il y a un problème</string>
+
+    <string name="user_unauthorized">Connexion non authorisée. Verifiez votre email et votre mot de passe.</string>
+    <string name="user_not_found">Vous n\'ètes pas inscris. Inscrivez-vous maintenant !</string>
+
+    <string name="bike_created">Votre vélo est maintenant créé</string>
+    <string name="bike_updated">Votre vélo à été mis à jour.</string>
 
     <string-array name="language_arrays">
         <item>Anglais</item>

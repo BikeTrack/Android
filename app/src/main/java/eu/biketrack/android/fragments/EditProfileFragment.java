@@ -71,7 +71,7 @@ public class EditProfileFragment extends Fragment {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-//    @BindView(R.id.tmp_img)
+    //    @BindView(R.id.tmp_img)
 //    ImageView image_tmp;
     @BindView(R.id.profile_email_edit)
     EditText _email;
@@ -188,6 +188,7 @@ public class EditProfileFragment extends Fragment {
 //                                    Toast.makeText(getActivity(), "You are not in our database, you should create an account", Toast.LENGTH_SHORT).show();
 //                                else
 //                                    Toast.makeText(getActivity(), "Maybe an error somewhere : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -284,6 +285,7 @@ public class EditProfileFragment extends Fragment {
                                            @Override
                                            public void onError(Throwable e) {
                                                Log.e(TAG, "Error has occurred while modifying your profile", e);
+                                               Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
                                            }
 
                                            @Override

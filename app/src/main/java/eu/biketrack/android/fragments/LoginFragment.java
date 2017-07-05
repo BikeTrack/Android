@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 
@@ -145,12 +146,13 @@ public class LoginFragment extends Fragment {
                             public void onError(Throwable e) {
                                 Log.e(TAG, "Error has occurred during login", e);
                                 //check error type and raise toast
-//                                if (e.getMessage().equals("HTTP 401 Unauthorized"))
-//                                    Toast.makeText(getActivity(), "Wrong password ?", Toast.LENGTH_SHORT).show();
-//                                else if (e.getMessage().equals("HTTP 404 Not Found"))
-//                                    Toast.makeText(getActivity(), "You are not in our database, you should create an account", Toast.LENGTH_SHORT).show();
-//                                else
-//                                    Toast.makeText(getActivity(), "Maybe an error somewhere : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                if (e.getMessage().equals("HTTP 401 Unauthorized"))
+                                    Toast.makeText(getActivity(), R.string.user_unauthorized, Toast.LENGTH_SHORT).show();
+                                else if (e.getMessage().equals("HTTP 404 Not Found"))
+                                    Toast.makeText(getActivity(), R.string.user_not_found, Toast.LENGTH_SHORT).show();
+                                else
+                                    Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
+
                             }
 
                             @Override

@@ -139,14 +139,17 @@ public class EditBikeFragment extends Fragment {
                                 @Override
                                 public void onError(Throwable e) {
                                     Log.e(TAG, "Error has occurred while creating bike", e);
+                                    Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
                                 public void onNext(Response<ReceptAddBike> repreceptAddBike) {
-                                    Toast.makeText(getActivity(), "Response : " + repreceptAddBike.toString(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), R.string.bike_created, Toast.LENGTH_SHORT).show();
                                     Log.d(TAG, repreceptAddBike.toString());
                                     if (repreceptAddBike.code() == 200){
                                         closeFragment();
+                                    } else {
+                                        Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             })
@@ -171,10 +174,12 @@ public class EditBikeFragment extends Fragment {
 
                                 @Override
                                 public void onNext(Response<ReceptAddBike> repreceptAddBike) {
-                                    Toast.makeText(getActivity(), "Response : " + repreceptAddBike.toString(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), R.string.bike_updated, Toast.LENGTH_SHORT).show();
                                     Log.d(TAG, repreceptAddBike.toString());
                                     if (repreceptAddBike.code() == 200){
                                         closeFragment();
+                                    } else {
+                                        Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             })

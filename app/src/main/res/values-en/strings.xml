@@ -91,6 +91,14 @@
 
     <string name="user_saved">Account saved</string>
 
+    <string name="network_error">A network error as occurred.</string>
+
+    <string name="user_unauthorized">Connection unauthorized. Verify your email and password.</string>
+    <string name="user_not_found">You are not in our database, you should create an account</string>
+
+    <string name="bike_created">Your bike is now created</string>
+    <string name="bike_updated">Your bike is updated</string>
+
     <string-array name="language_arrays">
         <item>English</item>
         <item>French</item>
