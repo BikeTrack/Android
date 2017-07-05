@@ -54,7 +54,7 @@ public class SubscriptionFragment extends Fragment {
 
     private Boolean error_password_email = true;
 
-    private static String REGEXP_EMAIL = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]+)\\])";
+
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -112,7 +112,7 @@ public class SubscriptionFragment extends Fragment {
 
             @Override
             public void onNext(TextViewTextChangeEvent onTextChangeEvent) {
-                if (!onTextChangeEvent.text().toString().matches(REGEXP_EMAIL)) {
+                if (!onTextChangeEvent.text().toString().matches(Statics.REGEXP_EMAIL)) {
                     _email.setError(getActivity().getString(R.string.error_check_email));
                     error_password_email = true;
                 } else

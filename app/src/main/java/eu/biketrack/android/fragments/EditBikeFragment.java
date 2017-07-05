@@ -125,7 +125,6 @@ public class EditBikeFragment extends Fragment {
             return;
         }
 
-
         if (_bike == null) {
             SendBike sb = new SendBike(session.getUserId(), null, new SendBikeInfo(_name.getText().toString(), _brand.getText().toString(), _trackerid.getText().toString()));
             _disposables.add(

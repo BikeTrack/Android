@@ -94,6 +94,9 @@
     <string name="bike_error_name_or_brand_empty">Name and brand cannot be both empty</string>
     <string name="bike_error_trackerid_empty">Tracker cannot empty</string>
 
+    <string name="user_error_lastname_empty">Lastname cannot empty</string>
+    <string name="user_error_firstname_empty">Firstname cannot empty</string>
+
 
     <string-array name="language_arrays">
         <item>English</item>

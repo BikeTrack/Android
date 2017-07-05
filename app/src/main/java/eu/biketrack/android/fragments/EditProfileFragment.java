@@ -9,21 +9,24 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.jakewharton.rxbinding.widget.RxTextView;
+import com.jakewharton.rxbinding.widget.TextViewTextChangeEvent;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,18 +42,17 @@ import eu.biketrack.android.models.data_reception.ReceptDeleteUser;
 import eu.biketrack.android.models.data_reception.ReceptUser;
 import eu.biketrack.android.models.data_reception.ReceptUserUpdate;
 import eu.biketrack.android.models.data_send.DeleteUser;
-import eu.biketrack.android.models.data_send.Img;
 import eu.biketrack.android.models.data_send.SendUserUpdate;
 import eu.biketrack.android.models.data_send.UserUpdate;
 import eu.biketrack.android.session.LoginManager;
 import eu.biketrack.android.session.Session;
+import eu.biketrack.android.utils.StringUtils;
+import hu.akarnokd.rxjava.interop.RxJavaInterop;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Response;
 
 
@@ -61,7 +63,9 @@ public class EditProfileFragment extends Fragment {
     private Session session;
     private BiketrackService biketrackService;
     private CompositeDisposable _disposables;
+    private Disposable _disposable_email;
     private User user;
+    private Boolean error_password_email = true;
     Bitmap bitmap = null;
     File photo;
 
@@ -102,6 +106,39 @@ public class EditProfileFragment extends Fragment {
         });
         return layout;
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        _disposable_email = RxJavaInterop.toV2Observable(RxTextView.textChangeEvents(_email))
+                .debounce(400, TimeUnit.MILLISECONDS)
+                .filter(changes -> !TextUtils.isEmpty(changes.text().toString()))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(_getCheckEmailObserver());
+    }
+
+    private DisposableObserver<TextViewTextChangeEvent> _getCheckEmailObserver() {
+        return new DisposableObserver<TextViewTextChangeEvent>() {
+            @Override
+            public void onComplete() {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG, "Error while checking email", e);
+            }
+
+            @Override
+            public void onNext(TextViewTextChangeEvent onTextChangeEvent) {
+                if (!onTextChangeEvent.text().toString().matches(Statics.REGEXP_EMAIL)) {
+                    _email.setError(getActivity().getString(R.string.error_check_email));
+                    error_password_email = true;
+                } else
+                    error_password_email = false;
+            }
+        };
+    }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -217,10 +254,23 @@ public class EditProfileFragment extends Fragment {
 
     @OnClick(R.id.save_account_button)
     public void saveAccount() {
+
+        if (error_password_email){
+            Toast.makeText(getContext(), R.string.error_check_email, Toast.LENGTH_SHORT).show();
+            return;
+        } else if (_lastname.getText().length() == 0 && !StringUtils.isEmpty(user.getLastname())){
+            Toast.makeText(getContext(), R.string.user_error_lastname_empty, Toast.LENGTH_SHORT).show();
+            return;
+        } else if (_firstname.getText().length() == 0 && !StringUtils.isEmpty(user.getName())){
+            Toast.makeText(getContext(), R.string.user_error_firstname_empty, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         SendUserUpdate sendUserUpdate = new SendUserUpdate(session.getUserId(), new UserUpdate(user));
         sendUserUpdate.getUser().setMail(_email.getText().toString());
         sendUserUpdate.getUser().setLastname(_lastname.getText().toString());
         sendUserUpdate.getUser().setName(_firstname.getText().toString());
+
         _disposables.add(
                 biketrackService.updateUser(Statics.TOKEN_API, session.getToken(), sendUserUpdate)
                         .subscribeOn(Schedulers.newThread())
