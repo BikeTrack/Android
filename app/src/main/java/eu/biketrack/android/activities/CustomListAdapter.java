@@ -51,10 +51,11 @@ public class CustomListAdapter extends ArrayAdapter<Pair<Bike, Tracker>> {
         imageView.setImageResource(R.drawable.ic_logo_black);
         if (battery == null){
             return rowView;
-        } else if (bikes.get(position).second != null){
+        } else if (bikes.get(position).second == null){
             battery.setImageResource(R.drawable.ic_broken_link);
             return rowView;
-        } else if (bikes.get(position).second.getBattery().get(bikes.get(position).second.getBattery().size() - 1) != null){
+        }
+        else if (bikes.get(position).second.getBattery().get(bikes.get(position).second.getBattery().size() - 1) == null){
             battery.setImageResource(R.drawable.ic_broken_link);
             return rowView;
         }

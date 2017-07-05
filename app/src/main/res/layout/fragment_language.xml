@@ -1,25 +1,40 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="eu.biketrack.android.fragments.LanguageFragment">
+    tools:context="eu.biketrack.android.fragments.LanguageFragment"
+    android:background="@color/background">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/interact_background"
-        app:titleTextColor="@color/background"
-        app:title="@string/title_brand"
-        app:theme="@style/AppTheme"
-        app:popupTheme="@style/Theme.AppCompat"/>
+        android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/listView_languages"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/interact_background"
+            app:titleTextColor="@color/background"
+            app:title="@string/title_language"
+            app:theme="@style/AppTheme"
+            app:popupTheme="@style/Theme.AppCompat"/>
+
+        <ListView
+            android:id="@+id/listView_languages"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/background"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_language_clear"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/background"/>
+        android:layout_height="wrap_content"
+        android:text="@string/button_language_clear_txt"
+        android:layout_gravity="bottom"/>
 
-</LinearLayout>
+
+</FrameLayout>

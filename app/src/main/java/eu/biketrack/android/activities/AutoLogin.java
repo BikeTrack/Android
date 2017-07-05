@@ -23,6 +23,7 @@ public class AutoLogin extends FragmentActivity {
         LoginManager loginManager = LoginManager.getInstance();
         loginManager.init(this);
 //        loginManager.clear();
+        language();
     }
 
     @Override
@@ -32,5 +33,11 @@ public class AutoLogin extends FragmentActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new AutoLoginFragment(), this.toString())
                 .commit();
+    }
+
+    private void language(){
+        if (Language.getCurrentLanguage(getApplicationContext()) != null)
+            Language.changeLanguage(getApplicationContext(), new Locale(Language.getCurrentLanguage(getApplicationContext())));
+
     }
 }

@@ -56,8 +56,8 @@ public class LoginFragment extends Fragment {
     EditText _email;
     @BindView(R.id.login_password_textview)
     EditText _password;
-    @BindView(R.id.login_facebook_button)
-    LoginButton _facebook_button;
+//    @BindView(R.id.login_facebook_button)
+//    LoginButton _facebook_button;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,51 +76,51 @@ public class LoginFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_login, container, false);
         unbinder = ButterKnife.bind(this, layout);
-        _facebook_button.setReadPermissions("email");
-        _facebook_button.setFragment(this);
-
-        _facebook_button.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-                Log.d(TAG, "Facebook success ");
-                Log.d(TAG, loginResult.getAccessToken().getApplicationId() + "\n"
-                        + loginResult.getAccessToken().getToken() + "\n"
-                        + loginResult.getAccessToken().getLastRefresh() + "\n"
-                        + loginResult.getAccessToken().getExpires());
-                Log.d(TAG, loginResult.getRecentlyDeniedPermissions().toString());
-                Log.d(TAG, loginResult.getRecentlyGrantedPermissions().toString());
-                Log.d(TAG, loginResult.getAccessToken().getUserId());
-                Log.d(TAG, loginResult.getAccessToken().getSource().toString());
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(
-                                    JSONObject object,
-                                    GraphResponse response) {
-                                Log.d(TAG, object.toString());
-                                Log.d(TAG, response.toString());
-                            }
-                        });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,link,birthday,first_name,gender,last_name,location,email");
-                request.setParameters(parameters);
-                request.executeAsync();
-            }
-
-            @Override
-            public void onCancel() {
-                // App code
-                Log.d(TAG, "Facebook cancel");
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                // App code
-                Log.e(TAG, "Facebook error", exception);
-            }
-        });
+//        _facebook_button.setReadPermissions("email");
+//        _facebook_button.setFragment(this);
+//
+//        _facebook_button.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                // App code
+//                Log.d(TAG, "Facebook success ");
+//                Log.d(TAG, loginResult.getAccessToken().getApplicationId() + "\n"
+//                        + loginResult.getAccessToken().getToken() + "\n"
+//                        + loginResult.getAccessToken().getLastRefresh() + "\n"
+//                        + loginResult.getAccessToken().getExpires());
+//                Log.d(TAG, loginResult.getRecentlyDeniedPermissions().toString());
+//                Log.d(TAG, loginResult.getRecentlyGrantedPermissions().toString());
+//                Log.d(TAG, loginResult.getAccessToken().getUserId());
+//                Log.d(TAG, loginResult.getAccessToken().getSource().toString());
+//                GraphRequest request = GraphRequest.newMeRequest(
+//                        loginResult.getAccessToken(),
+//                        new GraphRequest.GraphJSONObjectCallback() {
+//                            @Override
+//                            public void onCompleted(
+//                                    JSONObject object,
+//                                    GraphResponse response) {
+//                                Log.d(TAG, object.toString());
+//                                Log.d(TAG, response.toString());
+//                            }
+//                        });
+//                Bundle parameters = new Bundle();
+//                parameters.putString("fields", "id,name,link,birthday,first_name,gender,last_name,location,email");
+//                request.setParameters(parameters);
+//                request.executeAsync();
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                // App code
+//                Log.d(TAG, "Facebook cancel");
+//            }
+//
+//            @Override
+//            public void onError(FacebookException exception) {
+//                // App code
+//                Log.e(TAG, "Facebook error", exception);
+//            }
+//        });
 //        _email.setText("thisisatest@test.com");
 //        _password.setText("azerty");
         return layout;
@@ -155,20 +155,22 @@ public class LoginFragment extends Fragment {
                             public void onError(Throwable e) {
                                 Log.e(TAG, "Error has occurred during login", e);
                                 //check error type and raise toast
-                                if (e.getMessage().equals("HTTP 401 Unauthorized"))
-                                    Toast.makeText(getActivity(), "Wrong password ?", Toast.LENGTH_SHORT).show();
-                                else if (e.getMessage().equals("HTTP 404 Not Found"))
-                                    Toast.makeText(getActivity(), "You are not in our database, you should create an account", Toast.LENGTH_SHORT).show();
-                                else
-                                    Toast.makeText(getActivity(), "Maybe an error somewhere : " + e.getMessage(), Toast.LENGTH_SHORT).show();
+//                                if (e.getMessage().equals("HTTP 401 Unauthorized"))
+//                                    Toast.makeText(getActivity(), "Wrong password ?", Toast.LENGTH_SHORT).show();
+//                                else if (e.getMessage().equals("HTTP 404 Not Found"))
+//                                    Toast.makeText(getActivity(), "You are not in our database, you should create an account", Toast.LENGTH_SHORT).show();
+//                                else
+//                                    Toast.makeText(getActivity(), "Maybe an error somewhere : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
                             public void onNext(AuthenticateReception authenticateReception) {
-                                Log.d(TAG, authenticateReception.toString());
-                                loginManager.storeEmail(_email.getText().toString());
-                                loginManager.storeUserId(authenticateReception.getUserId());
-                                loginManager.storeToken(authenticateReception.getToken());
+                                //Log.d(TAG, authenticateReception.toString());
+                                if (loginManager != null) {
+                                    loginManager.storeEmail(_email.getText().toString());
+                                    loginManager.storeUserId(authenticateReception.getUserId());
+                                    loginManager.storeToken(authenticateReception.getToken());
+                                }
                                 closeFragment();
                             }
                         })

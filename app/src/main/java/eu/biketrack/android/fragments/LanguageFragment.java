@@ -17,6 +17,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
@@ -77,11 +78,16 @@ public class LanguageFragment extends Fragment {
 
     @OnItemClick(R.id.listView_languages)
     public void itemClicked(int position){
-        String item = listAdapter.getItem(position);
         if (position == 0)
             Language.changeLanguage(getActivity().getApplicationContext(), new Locale("en"));
         else if (position == 1)
             Language.changeLanguage(getActivity().getApplicationContext(), new Locale("fr"));
+        closeFragment();
+    }
+
+    @OnClick(R.id.button_language_clear)
+    public void resetLanguage(){
+        Language.clearLanguage(getActivity().getApplicationContext());
         closeFragment();
     }
 

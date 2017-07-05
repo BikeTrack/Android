@@ -233,9 +233,11 @@ public class SubscriptionFragment extends Fragment {
 
                     @Override
                     public void onNext(AuthenticateReception authenticateReception) {
-                        loginManager.storeEmail(_email.getText().toString());
-                        loginManager.storeUserId(authenticateReception.getUserId());
-                        loginManager.storeToken(authenticateReception.getToken());
+                        if (loginManager != null) {
+                            loginManager.storeEmail(_email.getText().toString());
+                            loginManager.storeUserId(authenticateReception.getUserId());
+                            loginManager.storeToken(authenticateReception.getToken());
+                        }
                         closeFragment();
                     }
                 }));

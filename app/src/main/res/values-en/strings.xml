@@ -11,6 +11,7 @@
     <string name="title_subscribe">Sign up</string>
     <string name="title_login">Sign in</string>
     <string name="title_settings">Settings</string>
+    <string name="title_language">Language</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -78,6 +79,9 @@
     <string name="log_off_button_txt">Sign out</string>
     <string name="delete_account_button_txt">Delete the account</string>
     <string name="save_account_button_txt">Save</string>
+
+    <string name="button_open_language_txt">Languages</string>
+    <string name="button_language_clear_txt">Reset Language</string>
 
     <string-array name="language_arrays">
         <item>English</item>
