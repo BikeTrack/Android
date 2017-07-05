@@ -1,10 +1,8 @@
 package eu.biketrack.android.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -26,13 +24,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.session.LoginManager;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.api_connection.Statics;
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_reception.SignupReception;
 import eu.biketrack.android.models.data_send.AuthUser;
+import eu.biketrack.android.session.LoginManager;
 import hu.akarnokd.rxjava.interop.RxJavaInterop;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

@@ -3,8 +3,6 @@ package eu.biketrack.android.models.data_reception;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import eu.biketrack.android.models.User;
-
 /**
  * Created by 42900 on 02/07/2017 for BikeTrack_Android.
  */

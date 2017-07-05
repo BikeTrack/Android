@@ -2,7 +2,6 @@ package eu.biketrack.android.activities;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;

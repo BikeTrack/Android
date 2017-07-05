@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,29 +12,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-
-import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.session.LoginManager;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.api_connection.Statics;
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_send.AuthUser;
+import eu.biketrack.android.session.LoginManager;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;

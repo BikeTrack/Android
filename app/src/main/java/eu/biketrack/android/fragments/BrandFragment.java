@@ -5,18 +5,14 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
 import com.jakewharton.rxbinding.widget.TextViewTextChangeEvent;
@@ -30,16 +26,11 @@ import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.api_connection.Statics;
 import eu.biketrack.android.models.BrandSelected;
-import eu.biketrack.android.models.data_reception.ReceptAddBike;
-import eu.biketrack.android.models.data_send.SendBike;
 import hu.akarnokd.rxjava.interop.RxJavaInterop;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Response;
 
 public class BrandFragment extends Fragment {
     private static String TAG = "BIKETRACK - Brand";

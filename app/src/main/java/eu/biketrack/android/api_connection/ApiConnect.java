@@ -1,10 +1,10 @@
 package eu.biketrack.android.api_connection;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 import java.io.Serializable;
 
 import retrofit2.Retrofit;
-
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
