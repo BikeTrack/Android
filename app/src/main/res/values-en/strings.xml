@@ -6,7 +6,7 @@
     <string name="title_bike_edit">Bike</string>
     <string name="title_bike_new">New Bike</string>
     <string name="title_brand">Select a brand</string>
-    <string name="title_profile_edit">Modify you profile</string>
+    <string name="title_profile_edit">Edit your profile</string>
     <string name="title_profile">Profile</string>
     <string name="title_subscribe">Sign up</string>
     <string name="title_login">Sign in</string>
@@ -77,7 +77,7 @@
 
 
     <string name="log_off_button_txt">Sign out</string>
-    <string name="delete_account_button_txt">Delete the account</string>
+    <string name="delete_account_button_txt">Delete your account</string>
     <string name="save_account_button_txt">Save</string>
 
     <string name="button_open_language_txt">Languages</string>
