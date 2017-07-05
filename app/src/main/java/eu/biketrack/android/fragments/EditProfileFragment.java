@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
@@ -53,6 +54,12 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 
@@ -66,12 +73,12 @@ public class EditProfileFragment extends Fragment {
     private Disposable _disposable_email;
     private User user;
     private Boolean error_password_email = true;
-    Bitmap bitmap = null;
-    File photo;
+//    Bitmap bitmap = null;
+//    File photo;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    //    @BindView(R.id.tmp_img)
+//    @BindView(R.id.tmp_img)
 //    ImageView image_tmp;
     @BindView(R.id.profile_email_edit)
     EditText _email;
@@ -140,26 +147,58 @@ public class EditProfileFragment extends Fragment {
     }
 
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        //Detects request codes
-        if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
-            Uri selectedImage = data.getData();
-            photo = new File(selectedImage.getPath());
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        //Detects request codes
+//        if(requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
+//            Uri selectedImage = data.getData();
+//            photo = new File(selectedImage.getPath());
+//            Log.d(TAG," ---------> " + String.valueOf(selectedImage) + " + " + photo.getAbsolutePath() );
+//            photo.
+//
+//            try {
+//                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
 //                image_tmp.setImageBitmap(bitmap);
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-    }
+//
+//
+//                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), photo);
+//                MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("buffer", photo.getName(), requestFile);
+//
+//
+//                _disposables.add(
+//                        biketrackService.uploadProfilePhoto(Statics.TOKEN_API, session.getToken(), multipartBody, "image/jpeg")
+//                                .subscribeOn(Schedulers.newThread())
+//                                .observeOn(AndroidSchedulers.mainThread())
+//                                .subscribeWith(new DisposableObserver<ReceptUserUpdate>() {
+//
+//                                    @Override
+//                                    public void onComplete() {
+//                                    }
+//
+//                                    @Override
+//                                    public void onError(Throwable e) {
+//                                        Log.e(TAG, "Error has occurred while uploading image", e);
+//                                        Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
+//                                    }
+//
+//                                    @Override
+//                                    public void onNext(ReceptUserUpdate receptUser) {
+//
+//                                    }
+//                                })
+//                );
+//
+//            } catch (FileNotFoundException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     @Override
     public void onDestroyView() {
@@ -181,13 +220,6 @@ public class EditProfileFragment extends Fragment {
                             @Override
                             public void onError(Throwable e) {
                                 Log.e(TAG, "Error has occurred while getting user info", e);
-//                                //check error type and raise toast
-//                                if (e.getMessage().equals("HTTP 401 Unauthorized"))
-//                                    Toast.makeText(getActivity(), "Wrong user ?", Toast.LENGTH_SHORT).show();
-//                                else if (e.getMessage().equals("HTTP 404 Not Found"))
-//                                    Toast.makeText(getActivity(), "You are not in our database, you should create an account", Toast.LENGTH_SHORT).show();
-//                                else
-//                                    Toast.makeText(getActivity(), "Maybe an error somewhere : " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                 Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
                             }
 
@@ -304,7 +336,7 @@ public class EditProfileFragment extends Fragment {
 
 //    @OnClick(R.id.upload_picture)
 //    public void openGallery(){
-//        startActivityForResult(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+//        startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
 //    }
 
 
