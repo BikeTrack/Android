@@ -292,6 +292,8 @@ public class EditProfileFragment extends Fragment {
                                                LoginManager loginManager = LoginManager.getInstance();
                                                loginManager.storeEmail(user.getMail());
                                                setDatas();
+                                               Toast.makeText(getContext(), R.string.user_saved, Toast.LENGTH_SHORT).show();
+                                               closeFragment();
                                            }
                                        }
                         )

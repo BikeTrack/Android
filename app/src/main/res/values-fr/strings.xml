@@ -94,6 +94,8 @@
     <string name="user_error_lastname_empty">Le nom de famille ne peut pas être vide</string>
     <string name="user_error_firstname_empty">Le prenom ne peut pas être vide</string>
 
+    <string name="user_saved">Compte sauvegardé</string>
+
     <string-array name="language_arrays">
         <item>Anglais</item>
         <item>Francais</item>

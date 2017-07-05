@@ -97,6 +97,8 @@
     <string name="user_error_lastname_empty">Lastname cannot empty</string>
     <string name="user_error_firstname_empty">Firstname cannot empty</string>
 
+    <string name="user_saved">Account saved</string>
+
 
     <string-array name="language_arrays">
         <item>English</item>
