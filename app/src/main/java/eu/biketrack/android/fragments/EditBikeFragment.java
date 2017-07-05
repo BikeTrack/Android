@@ -2,6 +2,7 @@ package eu.biketrack.android.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.Toolbar;
@@ -114,6 +115,17 @@ public class EditBikeFragment extends Fragment {
 
     @OnClick(R.id.bike_save_button)
     public void save_bike(){
+        if (_name.getText().length() == 0 && _brand.getText().length() == 0){
+            Toast.makeText(getContext(), R.string.bike_error_name_or_brand_empty, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (_trackerid.getText().length() == 0) {
+            Toast.makeText(getContext(), R.string.bike_error_trackerid_empty, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
         if (_bike == null) {
             SendBike sb = new SendBike(session.getUserId(), null, new SendBikeInfo(_name.getText().toString(), _brand.getText().toString(), _trackerid.getText().toString()));
             _disposables.add(
