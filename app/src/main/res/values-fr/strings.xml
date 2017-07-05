@@ -103,6 +103,7 @@
 
     <string name="bike_created">Votre vélo est maintenant créé</string>
     <string name="bike_updated">Votre vélo à été mis à jour.</string>
+    <string name="bike_deleted">Votre vélo est maintenant supprimé</string>
 
     <string-array name="language_arrays">
         <item>Anglais</item>

@@ -331,8 +331,13 @@ public class BikesFragment extends Fragment {
 
                                                 @Override
                                                 public void onNext(Response<ReceptAddBike> response) {
-                                                    Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                    getUser();
+                                                    if (response.code() == 200){
+                                                        Toast.makeText(getActivity(), R.string.bike_deleted, Toast.LENGTH_SHORT).show();
+                                                        getUser();
+                                                    } else {
+                                                        Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
+                                                    }
+
                                                 }
                                             })
                             );

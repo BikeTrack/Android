@@ -12,4 +12,6 @@ public class Statics {
     public static final double BATTERY_CRITICAL = 10.0;
     public static final double BATTERY_LOW = 30.0;
 
+    public static final int MAX_POINTS_DISPLAYED_ON_MAP = 20;
+
 }

@@ -98,6 +98,7 @@
 
     <string name="bike_created">Your bike is now created</string>
     <string name="bike_updated">Your bike is updated</string>
+    <string name="bike_deleted">Your bike is now deleted</string>
 
     <string-array name="language_arrays">
         <item>English</item>

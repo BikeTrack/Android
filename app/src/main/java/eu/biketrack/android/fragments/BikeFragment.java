@@ -27,6 +27,9 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -141,8 +144,12 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 
                                                             @Override
                                                             public void onNext(Response<ReceptAddBike> response) {
-                                                                Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                                                                closeFragment();
+                                                                if (response.code() == 200){
+                                                                    Toast.makeText(getActivity(), R.string.bike_deleted, Toast.LENGTH_SHORT).show();
+                                                                    closeFragment();
+                                                                } else {
+                                                                    Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
+                                                                }
                                                             }
                                                         })
                                         );
@@ -232,7 +239,13 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         LatLng target = null;
         int i = 0;
+//        int j = 0;
+//        if (tracker.getLocations().size() > Statics.MAX_POINTS_DISPLAYED_ON_MAP){
+//            i = tracker.getLocations().size() - Statics.MAX_POINTS_DISPLAYED_ON_MAP;
+//        }
         for (Location l : tracker.getLocations()){
+//            if (j >= Statics.MAX_POINTS_DISPLAYED_ON_MAP)
+//                break;
             if (i == tracker.getLocations().size() - 1 ) {
                 googleMap.addMarker(new MarkerOptions()
                         .position(new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0)))
@@ -245,6 +258,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                         .position(new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0))));
             }
             ++i;
+//            ++j;
         }
         googleMap.getUiSettings().setMyLocationButtonEnabled(false);
 //        if (ActivityCompat.checkSelfPermission(
