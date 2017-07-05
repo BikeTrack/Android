@@ -199,8 +199,11 @@ public class SubscriptionFragment extends Fragment {
                             @Override
                             public void onError(Throwable e) {
                                 //check error type and raise toast
-                                Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
-
+                                Log.d(TAG, e.getMessage());
+                                if (e.getMessage().equals("HTTP 409 Conflict"))
+                                    Toast.makeText(getActivity(), R.string.user_already_created, Toast.LENGTH_SHORT).show();
+                                else
+                                    Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
                             }
 
                             @Override

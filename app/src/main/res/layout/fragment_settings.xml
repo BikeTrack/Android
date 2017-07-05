@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
     tools:context="eu.biketrack.android.fragments.SettingsFragment">
 
     <LinearLayout
@@ -25,6 +26,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/button_open_language_txt"
+            android:background="@color/interact_background"
+            android:textColor="@color/inside"
+            android:layout_marginTop="10sp"
             />
 
     </LinearLayout>

@@ -119,7 +119,7 @@ public class EditProfileFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         _disposable_email = RxJavaInterop.toV2Observable(RxTextView.textChangeEvents(_email))
                 .debounce(400, TimeUnit.MILLISECONDS)
-                .filter(changes -> !TextUtils.isEmpty(changes.text().toString()))
+                //.filter(changes -> !TextUtils.isEmpty(changes.text().toString()))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(_getCheckEmailObserver());
     }
@@ -138,10 +138,12 @@ public class EditProfileFragment extends Fragment {
             @Override
             public void onNext(TextViewTextChangeEvent onTextChangeEvent) {
                 if (!onTextChangeEvent.text().toString().matches(Statics.REGEXP_EMAIL)) {
-                    _email.setError(getActivity().getString(R.string.error_check_email));
+                    if (!StringUtils.isEmpty(onTextChangeEvent.text().toString()))
+                        _email.setError(getActivity().getString(R.string.error_check_email));
                     error_password_email = true;
                 } else
                     error_password_email = false;
+
             }
         };
     }
@@ -322,12 +324,16 @@ public class EditProfileFragment extends Fragment {
 
                                            @Override
                                            public void onNext(Response<ReceptUserUpdate> response) {
-                                               user = response.body().getUser();
-                                               LoginManager loginManager = LoginManager.getInstance();
-                                               loginManager.storeEmail(user.getMail());
-                                               setDatas();
-                                               Toast.makeText(getContext(), R.string.user_saved, Toast.LENGTH_SHORT).show();
-                                               closeFragment();
+                                               if (response.code() == 200) {
+                                                   user = response.body().getUser();
+                                                   LoginManager loginManager = LoginManager.getInstance();
+                                                   loginManager.storeEmail(user.getMail());
+                                                   setDatas();
+                                                   Toast.makeText(getContext(), R.string.user_saved, Toast.LENGTH_SHORT).show();
+                                                   closeFragment();
+                                               } else {
+                                                   Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
+                                               }
                                            }
                                        }
                         )
