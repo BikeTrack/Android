@@ -246,16 +246,18 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         for (Location l : tracker.getLocations()){
 //            if (j >= Statics.MAX_POINTS_DISPLAYED_ON_MAP)
 //                break;
-            if (i == tracker.getLocations().size() - 1 ) {
-                googleMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0)))
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-                target = new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0));
-                if (_date_last_point != null)
-                    _date_last_point.setText(l.getTimestamp());
-            } else {
-                googleMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0))));
+            if (l.getCoordinates().get(1) != null && l.getCoordinates().get(0) != null) {
+                if (i == tracker.getLocations().size() - 1) {
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0)))
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                    target = new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0));
+                    if (_date_last_point != null)
+                        _date_last_point.setText(l.getTimestamp());
+                } else {
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0))));
+                }
             }
             ++i;
 //            ++j;
