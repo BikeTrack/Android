@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentActivity;
 import java.util.Locale;
 
 import eu.biketrack.android.R;
-import eu.biketrack.android.fragments.AutoLoginFragment;
 import eu.biketrack.android.session.LoginManager;
 import eu.biketrack.android.settings.Language;
 
@@ -30,9 +29,9 @@ public class AutoLogin extends FragmentActivity {
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new AutoLoginFragment(), this.toString())
-                .commit();
+//        getSupportFragmentManager().beginTransaction()
+//                .replace(android.R.id.content, new AutoLoginFragment(), this.toString())
+//                .commit();
     }
 
     private void language(){

@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
-apply plugin: 'com.github.ben-manes.versions'
 
 
 android {
@@ -51,6 +50,10 @@ android {
     }
 }
 
+ext {
+    supportLibraryVersion = '25.3.1'
+    retrofitVersion = '2.3.0'
+}
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -58,55 +61,48 @@ dependencies {
     androidTestCompile(group: 'com.android.support.test.espresso', name: 'espresso-core', version: '2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile 'junit:junit:4.12'
 
-    androidTestCompile group: 'com.android.support', name: 'support-annotations', version: '25.0.1'
-    androidTestCompile group: 'com.android.support.test', name: 'runner', version: '0.5'
-    androidTestCompile group: 'com.android.support.test', name: 'rules', version: '0.5'
-    androidTestCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '1.4-atlassian-1'
+    // Support Libraries
+    compile "com.android.support:appcompat-v7:$supportLibraryVersion"
+    compile "com.android.support:cardview-v7:$supportLibraryVersion"
+    compile "com.android.support:design:$supportLibraryVersion"
+    compile "com.android.support:palette-v7:$supportLibraryVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibraryVersion"
+    compile "com.android.support:support-annotations:$supportLibraryVersion"
+    compile "com.android.support:support-v13:$supportLibraryVersion"
+    compile "com.android.support:support-v4:$supportLibraryVersion"
 
-    /* ANDROID */
-    compile group: 'com.android.support', name: 'appcompat-v7', version: '25.0.1'
-    compile group: 'com.android.support', name: 'design', version: '25.0.1'
+    //rest interactions
+    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
 
-    /* RX */
-    compile group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.0.8'
-    compile group: 'io.reactivex', name: 'rxjava-math', version: '1.0.0'
-    compile group: 'com.jakewharton.rxrelay2', name: 'rxrelay', version: '2.0.0'
-    compile group: 'com.jakewharton.rxbinding', name: 'rxbinding', version: '1.0.1'
-    compile group: 'com.github.akarnokd', name: 'rxjava2-interop', version: '0.9.5'
-    // libs like rxbinding + rxjava-math haven't been ported to RxJava 2.x yet, so this helps
-    compile group: 'io.reactivex.rxjava2', name: 'rxandroid', version: '2.0.1'
-    // Because RxAndroid releases are few and far between, it is recommended you also explicitly depend on RxJava's latest version for bug fixes and new features.
+    //JSON Parsing
+    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    compile 'com.google.code.gson:gson:2.8.1'
 
-    /* RETROFIT */
-    compile group: 'com.jakewharton.retrofit', name: 'retrofit2-rxjava2-adapter', version: '1.0.0'
-    compile group: 'com.squareup.retrofit2', name: 'adapter-rxjava', version: '2.2.0'
-    compile group: 'com.squareup.retrofit2', name: 'retrofit', version: '2.2.0'
-    compile group: 'com.squareup.retrofit2', name: 'converter-gson', version: '2.2.0'
+    //http logging
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.2'
 
-    compile group: 'com.google.code.gson', name: 'gson', version: '2.2.4'
+    //injection
+    compile 'com.google.dagger:dagger:2.9'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    provided 'javax.annotation:jsr250-api:1.0'
+
+    //RxJava
+    compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'io.reactivex:rxjava:1.3.0'
+    compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
+
 
     /* AUTHENTIFICATION / LOGIN */
     compile group: 'com.google.android.gms', name: 'play-services-auth', version: '10.2.1'
-    compile group: 'com.facebook.android', name: 'facebook-android-sdk', version: '4.21.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.24.0'
 
     /* GOOGLE MAP*/
     compile group: 'com.google.firebase', name: 'firebase-ads', version: '10.2.1'
     compile group: 'com.google.android.gms', name: 'play-services-maps', version: '10.2.1'
-
     compile group: 'com.google.android.gms', name: 'play-services-gcm', version: '10.2.1'
-
-    /* OTHER LIBS */
-    compile group: 'com.jakewharton', name: 'butterknife', version: '8.4.0'
-    annotationProcessor group: 'com.jakewharton', name: 'butterknife-compiler', version: '8.4.0'
-
-    compile group: 'com.jakewharton.timber', name: 'timber', version: '4.5.1'
-
-
-    compile 'com.android.support:support-v4:25.0.1'
-    compile 'com.android.support:appcompat-v7:25.0.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.android.support:recyclerview-v7:25.0.1'
 }
 apply plugin: 'com.google.gms.google-services'

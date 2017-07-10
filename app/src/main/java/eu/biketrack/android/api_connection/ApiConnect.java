@@ -1,7 +1,5 @@
 package eu.biketrack.android.api_connection;
 
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-
 import java.io.Serializable;
 
 import retrofit2.Retrofit;
@@ -20,7 +18,7 @@ public class ApiConnect implements Serializable {
      */
     private Retrofit buildRetrofit(){
         return new Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                //.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(Statics.ROOT_API)
                 .build();

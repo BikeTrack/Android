@@ -1,66 +1,18 @@
 package eu.biketrack.android.fragments;
 
-import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.jakewharton.rxbinding.widget.RxTextView;
-import com.jakewharton.rxbinding.widget.TextViewTextChangeEvent;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.activities.AutoLogin;
 import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
-import eu.biketrack.android.api_connection.Statics;
 import eu.biketrack.android.models.User;
-import eu.biketrack.android.models.data_reception.ReceptDeleteUser;
-import eu.biketrack.android.models.data_reception.ReceptUser;
-import eu.biketrack.android.models.data_reception.ReceptUserUpdate;
-import eu.biketrack.android.models.data_send.DeleteUser;
-import eu.biketrack.android.models.data_send.SendUserUpdate;
-import eu.biketrack.android.models.data_send.UserUpdate;
-import eu.biketrack.android.session.LoginManager;
 import eu.biketrack.android.session.Session;
-import eu.biketrack.android.utils.StringUtils;
-import hu.akarnokd.rxjava.interop.RxJavaInterop;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.observers.DisposableObserver;
-import io.reactivex.schedulers.Schedulers;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class EditProfileFragment extends Fragment {
@@ -69,8 +21,8 @@ public class EditProfileFragment extends Fragment {
     private Unbinder unbinder;
     private Session session;
     private BiketrackService biketrackService;
-    private CompositeDisposable _disposables;
-    private Disposable _disposable_email;
+//    private CompositeDisposable _disposables;
+//    private Disposable _disposable_email;
     private User user;
     private Boolean error_password_email = true;
 //    Bitmap bitmap = null;
@@ -93,260 +45,260 @@ public class EditProfileFragment extends Fragment {
         getActivity().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         biketrackService = ApiConnect.createService();
-        _disposables = new CompositeDisposable();
+//        _disposables = new CompositeDisposable();
         session = Session.getInstance();
-        getUser();
+//        getUser();
     }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View layout = inflater.inflate(R.layout.fragment_edit_profile, container, false);
-        unbinder = ButterKnife.bind(this, layout);
-        toolbar.setNavigationIcon(R.drawable.ic_close_white_24px);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                closeFragment();
-            }
-        });
-        return layout;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        _disposable_email = RxJavaInterop.toV2Observable(RxTextView.textChangeEvents(_email))
-                .debounce(400, TimeUnit.MILLISECONDS)
-                //.filter(changes -> !TextUtils.isEmpty(changes.text().toString()))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(_getCheckEmailObserver());
-    }
-
-    private DisposableObserver<TextViewTextChangeEvent> _getCheckEmailObserver() {
-        return new DisposableObserver<TextViewTextChangeEvent>() {
-            @Override
-            public void onComplete() {
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.e(TAG, "Error while checking email", e);
-            }
-
-            @Override
-            public void onNext(TextViewTextChangeEvent onTextChangeEvent) {
-                if (!onTextChangeEvent.text().toString().matches(Statics.REGEXP_EMAIL)) {
-                    if (!StringUtils.isEmpty(onTextChangeEvent.text().toString()))
-                        _email.setError(getActivity().getString(R.string.error_check_email));
-                    error_password_email = true;
-                } else
-                    error_password_email = false;
-
-            }
-        };
-    }
-
 
 //    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        //Detects request codes
-//        if(requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
-//            Uri selectedImage = data.getData();
-//            photo = new File(selectedImage.getPath());
-//            Log.d(TAG," ---------> " + String.valueOf(selectedImage) + " + " + photo.getAbsolutePath() );
-//            photo.
-//
-//            try {
-//                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
-//                image_tmp.setImageBitmap(bitmap);
-//
-//
-//                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), photo);
-//                MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("buffer", photo.getName(), requestFile);
-//
-//
-//                _disposables.add(
-//                        biketrackService.uploadProfilePhoto(Statics.TOKEN_API, session.getToken(), multipartBody, "image/jpeg")
-//                                .subscribeOn(Schedulers.newThread())
-//                                .observeOn(AndroidSchedulers.mainThread())
-//                                .subscribeWith(new DisposableObserver<ReceptUserUpdate>() {
-//
-//                                    @Override
-//                                    public void onComplete() {
-//                                    }
-//
-//                                    @Override
-//                                    public void onError(Throwable e) {
-//                                        Log.e(TAG, "Error has occurred while uploading image", e);
-//                                        Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
-//                                    }
-//
-//                                    @Override
-//                                    public void onNext(ReceptUserUpdate receptUser) {
-//
-//                                    }
-//                                })
-//                );
-//
-//            } catch (FileNotFoundException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
+//    public View onCreateView(LayoutInflater inflater,
+//                             @Nullable ViewGroup container,
+//                             @Nullable Bundle savedInstanceState) {
+//        View layout = inflater.inflate(R.layout.fragment_edit_profile, container, false);
+//        unbinder = ButterKnife.bind(this, layout);
+//        toolbar.setNavigationIcon(R.drawable.ic_close_white_24px);
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                closeFragment();
 //            }
+//        });
+//        return layout;
+//    }
+//
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        _disposable_email = RxJavaInterop.toV2Observable(RxTextView.textChangeEvents(_email))
+//                .debounce(400, TimeUnit.MILLISECONDS)
+//                //.filter(changes -> !TextUtils.isEmpty(changes.text().toString()))
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeWith(_getCheckEmailObserver());
+//    }
+//
+//    private DisposableObserver<TextViewTextChangeEvent> _getCheckEmailObserver() {
+//        return new DisposableObserver<TextViewTextChangeEvent>() {
+//            @Override
+//            public void onComplete() {
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                Log.e(TAG, "Error while checking email", e);
+//            }
+//
+//            @Override
+//            public void onNext(TextViewTextChangeEvent onTextChangeEvent) {
+//                if (!onTextChangeEvent.text().toString().matches(Statics.REGEXP_EMAIL)) {
+//                    if (!StringUtils.isEmpty(onTextChangeEvent.text().toString()))
+//                        _email.setError(getActivity().getString(R.string.error_check_email));
+//                    error_password_email = true;
+//                } else
+//                    error_password_email = false;
+//
+//            }
+//        };
+//    }
+//
+//
+////    @Override
+////    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+////        super.onActivityResult(requestCode, resultCode, data);
+////
+////        //Detects request codes
+////        if(requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
+////            Uri selectedImage = data.getData();
+////            photo = new File(selectedImage.getPath());
+////            Log.d(TAG," ---------> " + String.valueOf(selectedImage) + " + " + photo.getAbsolutePath() );
+////            photo.
+////
+////            try {
+////                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), selectedImage);
+////                image_tmp.setImageBitmap(bitmap);
+////
+////
+////                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), photo);
+////                MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("buffer", photo.getName(), requestFile);
+////
+////
+////                _disposables.add(
+////                        biketrackService.uploadProfilePhoto(Statics.TOKEN_API, session.getToken(), multipartBody, "image/jpeg")
+////                                .subscribeOn(Schedulers.newThread())
+////                                .observeOn(AndroidSchedulers.mainThread())
+////                                .subscribeWith(new DisposableObserver<ReceptUserUpdate>() {
+////
+////                                    @Override
+////                                    public void onComplete() {
+////                                    }
+////
+////                                    @Override
+////                                    public void onError(Throwable e) {
+////                                        Log.e(TAG, "Error has occurred while uploading image", e);
+////                                        Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
+////                                    }
+////
+////                                    @Override
+////                                    public void onNext(ReceptUserUpdate receptUser) {
+////
+////                                    }
+////                                })
+////                );
+////
+////            } catch (FileNotFoundException e) {
+////                // TODO Auto-generated catch block
+////                e.printStackTrace();
+////            } catch (IOException e) {
+////                // TODO Auto-generated catch block
+////                e.printStackTrace();
+////            }
+////        }
+////    }
+//
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        unbinder.unbind();
+//    }
+//
+//    private void getUser() {
+//        _disposables.add(
+//                biketrackService.getUser(Statics.TOKEN_API, session.getToken(), session.getUserId())
+//                        .subscribeOn(Schedulers.newThread())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribeWith(new DisposableObserver<ReceptUser>() {
+//
+//                            @Override
+//                            public void onComplete() {
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//                                Log.e(TAG, "Error has occurred while getting user info", e);
+//                                Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
+//                            }
+//
+//                            @Override
+//                            public void onNext(ReceptUser receptUser) {
+//                                user = receptUser.getUser();
+//                                setDatas();
+//                            }
+//                        })
+//        );
+//    }
+//
+//    private void setDatas(){
+//        if (_email != null)
+//            _email.setText(user.getMail());
+//        if (_lastname != null)
+//            _lastname.setText(user.getLastname());
+//        if (_firstname != null)
+//            _firstname.setText(user.getName());
+//    }
+//
+//    @OnClick(R.id.delete_account_button)
+//    public void deleteAccount() {
+//        new AlertDialog.Builder(this.getContext())
+//                .setIcon(android.R.drawable.ic_dialog_alert)
+//                .setTitle(R.string.alert_confirmation_delete_account_title)
+//                .setMessage(R.string.alert_confirmation_delete_account_message)
+//                .setPositiveButton(R.string.alert_confirmation_delete_account_yes, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        DeleteUser deleteUser = new DeleteUser(session.getUserId());
+//                        _disposables.add(
+//                                biketrackService.deleteUser(Statics.TOKEN_API, session.getToken(), deleteUser)
+//                                        .subscribeOn(Schedulers.newThread())
+//                                        .observeOn(AndroidSchedulers.mainThread())
+//                                        .subscribeWith(new DisposableObserver<Response<ReceptDeleteUser>>() {
+//
+//                                            @Override
+//                                            public void onComplete() {
+//                                                Log.d(TAG, "DeleteBike completed");
+//                                            }
+//
+//                                            @Override
+//                                            public void onError(Throwable e) {
+//                                                Log.e(TAG, "Error has occurred while deleting bike", e);
+//                                            }
+//
+//                                            @Override
+//                                            public void onNext(Response<ReceptDeleteUser> response) {
+//                                                Log.d(TAG, "ACCOUNT DELETED");
+//                                                session.clear();
+//                                                LoginManager loginManager = LoginManager.getInstance();
+//                                                loginManager.clear();
+//                                                Intent autologin_intent = new Intent(getActivity(), AutoLogin.class);
+//                                                startActivity(autologin_intent);
+//                                                getActivity().finish();
+//                                            }
+//                                        })
+//                        );
+//                    }
+//                })
+//                .setNegativeButton(R.string.alert_confirmation_delete_account_no, null)
+//                .show();
+//    }
+//
+//    @OnClick(R.id.save_account_button)
+//    public void saveAccount() {
+//
+//        if (error_password_email){
+//            Toast.makeText(getContext(), R.string.error_check_email, Toast.LENGTH_SHORT).show();
+//            return;
+//        } else if (_lastname.getText().length() == 0 && !StringUtils.isEmpty(user.getLastname())){
+//            Toast.makeText(getContext(), R.string.user_error_lastname_empty, Toast.LENGTH_SHORT).show();
+//            return;
+//        } else if (_firstname.getText().length() == 0 && !StringUtils.isEmpty(user.getName())){
+//            Toast.makeText(getContext(), R.string.user_error_firstname_empty, Toast.LENGTH_SHORT).show();
+//            return;
 //        }
+//
+//        SendUserUpdate sendUserUpdate = new SendUserUpdate(session.getUserId(), new UserUpdate(user));
+//        sendUserUpdate.getUser().setMail(_email.getText().toString());
+//        sendUserUpdate.getUser().setLastname(_lastname.getText().toString());
+//        sendUserUpdate.getUser().setName(_firstname.getText().toString());
+//
+//        _disposables.add(
+//                biketrackService.updateUser(Statics.TOKEN_API, session.getToken(), sendUserUpdate)
+//                        .subscribeOn(Schedulers.newThread())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribeWith(new DisposableObserver<Response<ReceptUserUpdate>>() {
+//
+//                                           @Override
+//                                           public void onComplete() {
+//                                           }
+//
+//                                           @Override
+//                                           public void onError(Throwable e) {
+//                                               Log.e(TAG, "Error has occurred while modifying your profile", e);
+//                                               Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
+//                                           }
+//
+//                                           @Override
+//                                           public void onNext(Response<ReceptUserUpdate> response) {
+//                                               if (response.code() == 200) {
+//                                                   user = response.body().getUser();
+//                                                   LoginManager loginManager = LoginManager.getInstance();
+//                                                   loginManager.storeEmail(user.getMail());
+//                                                   setDatas();
+//                                                   Toast.makeText(getContext(), R.string.user_saved, Toast.LENGTH_SHORT).show();
+//                                                   closeFragment();
+//                                               } else {
+//                                                   Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
+//                                               }
+//                                           }
+//                                       }
+//                        )
+//        );
 //    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
-    private void getUser() {
-        _disposables.add(
-                biketrackService.getUser(Statics.TOKEN_API, session.getToken(), session.getUserId())
-                        .subscribeOn(Schedulers.newThread())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(new DisposableObserver<ReceptUser>() {
-
-                            @Override
-                            public void onComplete() {
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                Log.e(TAG, "Error has occurred while getting user info", e);
-                                Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onNext(ReceptUser receptUser) {
-                                user = receptUser.getUser();
-                                setDatas();
-                            }
-                        })
-        );
-    }
-
-    private void setDatas(){
-        if (_email != null)
-            _email.setText(user.getMail());
-        if (_lastname != null)
-            _lastname.setText(user.getLastname());
-        if (_firstname != null)
-            _firstname.setText(user.getName());
-    }
-
-    @OnClick(R.id.delete_account_button)
-    public void deleteAccount() {
-        new AlertDialog.Builder(this.getContext())
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle(R.string.alert_confirmation_delete_account_title)
-                .setMessage(R.string.alert_confirmation_delete_account_message)
-                .setPositiveButton(R.string.alert_confirmation_delete_account_yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        DeleteUser deleteUser = new DeleteUser(session.getUserId());
-                        _disposables.add(
-                                biketrackService.deleteUser(Statics.TOKEN_API, session.getToken(), deleteUser)
-                                        .subscribeOn(Schedulers.newThread())
-                                        .observeOn(AndroidSchedulers.mainThread())
-                                        .subscribeWith(new DisposableObserver<Response<ReceptDeleteUser>>() {
-
-                                            @Override
-                                            public void onComplete() {
-                                                Log.d(TAG, "DeleteBike completed");
-                                            }
-
-                                            @Override
-                                            public void onError(Throwable e) {
-                                                Log.e(TAG, "Error has occurred while deleting bike", e);
-                                            }
-
-                                            @Override
-                                            public void onNext(Response<ReceptDeleteUser> response) {
-                                                Log.d(TAG, "ACCOUNT DELETED");
-                                                session.clear();
-                                                LoginManager loginManager = LoginManager.getInstance();
-                                                loginManager.clear();
-                                                Intent autologin_intent = new Intent(getActivity(), AutoLogin.class);
-                                                startActivity(autologin_intent);
-                                                getActivity().finish();
-                                            }
-                                        })
-                        );
-                    }
-                })
-                .setNegativeButton(R.string.alert_confirmation_delete_account_no, null)
-                .show();
-    }
-
-    @OnClick(R.id.save_account_button)
-    public void saveAccount() {
-
-        if (error_password_email){
-            Toast.makeText(getContext(), R.string.error_check_email, Toast.LENGTH_SHORT).show();
-            return;
-        } else if (_lastname.getText().length() == 0 && !StringUtils.isEmpty(user.getLastname())){
-            Toast.makeText(getContext(), R.string.user_error_lastname_empty, Toast.LENGTH_SHORT).show();
-            return;
-        } else if (_firstname.getText().length() == 0 && !StringUtils.isEmpty(user.getName())){
-            Toast.makeText(getContext(), R.string.user_error_firstname_empty, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        SendUserUpdate sendUserUpdate = new SendUserUpdate(session.getUserId(), new UserUpdate(user));
-        sendUserUpdate.getUser().setMail(_email.getText().toString());
-        sendUserUpdate.getUser().setLastname(_lastname.getText().toString());
-        sendUserUpdate.getUser().setName(_firstname.getText().toString());
-
-        _disposables.add(
-                biketrackService.updateUser(Statics.TOKEN_API, session.getToken(), sendUserUpdate)
-                        .subscribeOn(Schedulers.newThread())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(new DisposableObserver<Response<ReceptUserUpdate>>() {
-
-                                           @Override
-                                           public void onComplete() {
-                                           }
-
-                                           @Override
-                                           public void onError(Throwable e) {
-                                               Log.e(TAG, "Error has occurred while modifying your profile", e);
-                                               Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
-                                           }
-
-                                           @Override
-                                           public void onNext(Response<ReceptUserUpdate> response) {
-                                               if (response.code() == 200) {
-                                                   user = response.body().getUser();
-                                                   LoginManager loginManager = LoginManager.getInstance();
-                                                   loginManager.storeEmail(user.getMail());
-                                                   setDatas();
-                                                   Toast.makeText(getContext(), R.string.user_saved, Toast.LENGTH_SHORT).show();
-                                                   closeFragment();
-                                               } else {
-                                                   Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
-                                               }
-                                           }
-                                       }
-                        )
-        );
-    }
-
-//    @OnClick(R.id.upload_picture)
-//    public void openGallery(){
-//        startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+//
+////    @OnClick(R.id.upload_picture)
+////    public void openGallery(){
+////        startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+////    }
+//
+//
+//    public void closeFragment(){
+//        getActivity().getSupportFragmentManager().popBackStack();
 //    }
-
-
-    public void closeFragment(){
-        getActivity().getSupportFragmentManager().popBackStack();
-    }
 }
