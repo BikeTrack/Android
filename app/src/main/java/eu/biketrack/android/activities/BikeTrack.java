@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import eu.biketrack.android.autologin.al_activity.AutoLogin;
+
 /**
  * Created by 42900 on 07/02/2017 for BikeTrack_Android.
  */

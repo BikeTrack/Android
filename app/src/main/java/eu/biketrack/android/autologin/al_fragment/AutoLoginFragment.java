@@ -1,4 +1,4 @@
-package eu.biketrack.android.fragments;
+package eu.biketrack.android.autologin.al_fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,7 +13,7 @@ import eu.biketrack.android.session.Session;
 
 
 public class AutoLoginFragment extends Fragment {
-    private static String TAG = "BIKETRACK - AutoLog";
+    private static final String TAG = "AutoLoginFragment";
     private LoginManager loginManager;
     private Session session;
     private Unbinder unbinder;
