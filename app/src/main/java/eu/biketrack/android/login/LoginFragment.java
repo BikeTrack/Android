@@ -1,29 +1,22 @@
-package eu.biketrack.android.fragments;
+package eu.biketrack.android.login;
 
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
-import android.view.WindowManager;
 import android.widget.EditText;
 
-import com.facebook.CallbackManager;
-
 import butterknife.BindView;
-import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.api_connection.ApiConnect;
-import eu.biketrack.android.api_connection.BiketrackService;
-import eu.biketrack.android.session.LoginManager;
 
 
-public class LoginFragment extends Fragment {
-    private static String TAG = "BIKETRACK - Login";
-    private BiketrackService biketrackService;
+public class LoginFragment extends Activity {
+    private static final String TAG = "LoginFragment";
+//    private BiketrackService biketrackService;
 //    private CompositeDisposable _disposables;
-    private LoginManager loginManager;
-    private Unbinder unbinder;
-    CallbackManager callbackManager;
+//    private LoginManagerModule loginManagerModule;
+//    private Unbinder unbinder;
+//    CallbackManager callbackManager;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -37,12 +30,12 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        biketrackService = ApiConnect.createService();
+//        getActivity().getWindow().setSoftInputMode(
+//                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+//        biketrackService = ApiConnectModule.createService();
 //        _disposables = new CompositeDisposable();
-        loginManager = LoginManager.getInstance();
-        callbackManager = CallbackManager.Factory.create();
+//        loginManagerModule = LoginManagerModule.getInstance();
+//        callbackManager = CallbackManager.Factory.create();
     }
 //
 //    @Override
@@ -142,10 +135,10 @@ public class LoginFragment extends Fragment {
 //                            @Override
 //                            public void onNext(AuthenticateReception authenticateReception) {
 //                                //Log.d(TAG, authenticateReception.toString());
-//                                if (loginManager != null) {
-//                                    loginManager.storeEmail(_email.getText().toString());
-//                                    loginManager.storeUserId(authenticateReception.getUserId());
-//                                    loginManager.storeToken(authenticateReception.getToken());
+//                                if (loginManagerModule != null) {
+//                                    loginManagerModule.storeEmail(_email.getText().toString());
+//                                    loginManagerModule.storeUserId(authenticateReception.getUserId());
+//                                    loginManagerModule.storeToken(authenticateReception.getToken());
 //                                }
 //                                closeFragment();
 //                            }
@@ -168,7 +161,7 @@ public class LoginFragment extends Fragment {
 //
 //    private void closeFragment(){
 //        getActivity().getSupportFragmentManager().beginTransaction()
-//                .replace(android.R.id.content, new AutoLoginFragment(), this.toString())
+//                .replace(android.R.id.content, new AutoLogin(), this.toString())
 //                .commit();
 //    }
 

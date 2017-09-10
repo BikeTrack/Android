@@ -1,41 +1,64 @@
-package eu.biketrack.android.autologin.al_fragment;
+package eu.biketrack.android.autologin.AutoLogin;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.api_connection.BiketrackService;
-import eu.biketrack.android.session.LoginManager;
+import eu.biketrack.android.root.App;
+import eu.biketrack.android.session.LoginManagerModule;
 import eu.biketrack.android.session.Session;
 
 
-public class AutoLoginFragment extends Fragment {
-    private static final String TAG = "AutoLoginFragment";
-    private LoginManager loginManager;
-    private Session session;
+public class AutoLogin extends Activity implements AutoLoginMVP.View{
+    private static final String TAG = "AutoLogin";
     private Unbinder unbinder;
+
+    @Inject
+    AutoLoginMVP.Presenter presenter;
+
+    @Inject
+    public Session session;
+    @Inject
+    public LoginManagerModule loginManagerModule;
 
     @BindView(R.id.progressBar_autologin)
     ProgressBar pg_bar;
-    private BiketrackService biketrackService;
-//    private CompositeDisposable _disposables;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_auto_login);
+        ButterKnife.bind(this);
 //        Log.d(TAG, "oncreate");
-//        biketrackService = ApiConnect.createService();
+//        biketrackService = ApiConnectModule.createService();
 //        _disposables = new CompositeDisposable();
 //
-//        loginManager = LoginManager.getInstance();
-//        loginManager.init(this.getContext());
+//        loginManagerModule = LoginManagerModule.getInstance();
+//        loginManagerModule.init(this.getContext());
 //        session = Session.getInstance();
+
+        ((App) getApplication()).getComponent().inject(this);
     }
-//
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.setView(this);
+        presenter.setSession(session);
+        presenter.setLoginManager(loginManagerModule);
+        presenter.tryConnection();
+    }
+
+    //
 //    @Override
 //    public View onCreateView(LayoutInflater inflater,
 //                             @Nullable ViewGroup container,
@@ -52,9 +75,9 @@ public class AutoLoginFragment extends Fragment {
 //    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 //        super.onViewCreated(view, savedInstanceState);
 //        Log.d(TAG, "onviewcreated");
-//        if (loginManager.getToken() != null && loginManager.getUserId() != null){
+//        if (loginManagerModule.getToken() != null && loginManagerModule.getUserId() != null){
 //            Log.d(TAG, "getuser");
-//            getUser(loginManager.getUserId(), loginManager.getToken());
+//            getUser(loginManagerModule.getUserId(), loginManagerModule.getToken());
 //        } else {
 //            Log.d(TAG, "ask for login");
 //            askForLogin();
@@ -81,7 +104,7 @@ public class AutoLoginFragment extends Fragment {
 //
 //                            @Override
 //                            public void onError(Throwable e) {
-//                                loginManager.clear();
+//                                loginManagerModule.clear();
 //                                askForLogin();}
 //
 //                            @Override
@@ -91,7 +114,7 @@ public class AutoLoginFragment extends Fragment {
 //                                    fillSession(userId, token);
 //                                    openBikes();
 //                                } else {
-//                                    loginManager.clear();
+//                                    loginManagerModule.clear();
 //                                    askForLogin();
 //                                }
 //                            }
@@ -114,15 +137,35 @@ public class AutoLoginFragment extends Fragment {
 //                .commit();
 //        if (pg_bar != null)
 //            pg_bar.setVisibility(View.VISIBLE);
-//        Log.d(TAG, loginManager.getUserId() + "  //  " +  loginManager.getToken());
+//        Log.d(TAG, loginManagerModule.getUserId() + "  //  " +  loginManagerModule.getToken());
 //    }
-//
-//    private void openBikes(){
-//        Log.d(TAG, "openBikes");
-//        if (pg_bar != null)
-//            pg_bar.setVisibility(View.INVISIBLE);
+
+
+    @Override
+    public void displayProgressBar(boolean display) {
+        try {
+            if (display)
+                pg_bar.setVisibility(View.VISIBLE);
+            else
+                pg_bar.setVisibility(View.GONE);
+        } catch (Exception e){
+            Log.e(TAG, "displayProgressBar: ", e);
+        }
+    }
+
+    @Override
+    public void openLogin() {
+        Log.d(TAG, "openLogin: ");
+//        getActivity().getSupportFragmentManager().beginTransaction()
+//                .replace(android.R.id.content, new LoginFragment(), this.toString())
+//                .commit();
+    }
+
+    @Override
+    public void openBikes() {
+        Log.d(TAG, "openBikes: ");
 //        Intent mainactivity_intent = new Intent(getActivity(), MainActivity.class);
 //        startActivity(mainactivity_intent);
 //        getActivity().finish();
-//    }
+    }
 }

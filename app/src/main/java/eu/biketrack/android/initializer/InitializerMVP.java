@@ -1,4 +1,4 @@
-package eu.biketrack.android.autologin.al_activity;
+package eu.biketrack.android.initializer;
 
 import android.content.Context;
 
@@ -6,7 +6,7 @@ import android.content.Context;
  * Created by 42900 on 10/07/2017 for BikeTrack_Android.
  */
 
-public interface AutoLoginActMVP {
+public interface InitializerMVP {
 
     interface View {
         void openAutoLoginFragment();
@@ -16,7 +16,7 @@ public interface AutoLoginActMVP {
 
         void initApplication(Context context);
 
-        void setView(AutoLoginActMVP.View view);
+        void setView(InitializerMVP.View view);
     }
 
     interface Model {

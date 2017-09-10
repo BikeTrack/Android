@@ -1,20 +1,18 @@
 package eu.biketrack.android.session;
 
+import javax.inject.Singleton;
+
 /**
  * Created by 42900 on 21/06/2017 for BikeTrack_Android.
  */
 
+@Singleton
 public class Session {
-    private static final Session ourInstance = new Session();
-
-    public static Session getInstance() {
-        return ourInstance;
-    }
 
     private String userId;
     private String token;
 
-    private Session() {
+    public Session() {
     }
 
     public String getUserId() {

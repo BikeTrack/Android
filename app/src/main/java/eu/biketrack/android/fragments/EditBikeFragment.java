@@ -10,7 +10,7 @@ import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.api_connection.ApiConnect;
+import eu.biketrack.android.api_connection.ApiConnectModule;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.models.BrandSelected;
 import eu.biketrack.android.models.data_reception.Bike;
@@ -36,9 +36,9 @@ public class EditBikeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         getActivity().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        biketrackService = ApiConnect.createService();
+       // biketrackService = ApiConnectModule.createService();
 //        _disposables = new CompositeDisposable();
-        session = Session.getInstance();
+//        session = Session.getInstance();
         brandSelected = BrandSelected.getOurInstance();
         brandSelected.clear();
         Bundle bundle = getArguments();

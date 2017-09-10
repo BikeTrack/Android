@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.api_connection.ApiConnect;
+import eu.biketrack.android.api_connection.ApiConnectModule;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.session.Session;
 
@@ -46,7 +46,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        session = Session.getInstance();
+//        session = Session.getInstance();
     }
 
     @Override
@@ -55,7 +55,7 @@ public class ProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_profile, container, false);
         unbinder = ButterKnife.bind(this, layout);
-        biketrackService = ApiConnect.createService();
+//        biketrackService = ApiConnectModule.createService();
 //        _disposables = new CompositeDisposable();
 
         toolbar.inflateMenu(R.menu.profile_menu);
@@ -152,9 +152,9 @@ public class ProfileFragment extends Fragment {
 //    @OnClick(R.id.log_off_button)
 //    public void logoff(){
 //        session.clear();
-//        LoginManager loginManager = LoginManager.getInstance();
+//        LoginManagerModule loginManager = LoginManagerModule.getInstance();
 //        loginManager.clear();
-//        Intent autologin_intent = new Intent(getActivity(), AutoLogin.class);
+//        Intent autologin_intent = new Intent(getActivity(), Initializer.class);
 //        startActivity(autologin_intent);
 //        getActivity().finish();
 //    }

@@ -7,6 +7,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import eu.biketrack.android.session.LoginManagerModule;
+import eu.biketrack.android.session.Session;
 
 /**
  * Created by 42900 on 10/07/2017 for BikeTrack_Android.
@@ -16,14 +18,23 @@ import dagger.Provides;
 public class ApplicationModule {
 
     private Application application;
+    private Session session;
 
     public ApplicationModule(Application application) {
         this.application = application;
+        if (session == null) this.session = new Session();
     }
+
+    public void SessionModule(Session session){this.session = session;}
 
     @Provides
     @Singleton
     public Context provideContext(){
         return application;
     }
+
+    @Provides
+    @Singleton
+    public Session provideSession(){return session;}
+
 }

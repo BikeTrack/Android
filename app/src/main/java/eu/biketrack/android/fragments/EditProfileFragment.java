@@ -9,7 +9,7 @@ import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.api_connection.ApiConnect;
+import eu.biketrack.android.api_connection.ApiConnectModule;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.models.User;
 import eu.biketrack.android.session.Session;
@@ -44,9 +44,9 @@ public class EditProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
         getActivity().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        biketrackService = ApiConnect.createService();
+//        biketrackService = ApiConnectModule.createService();
 //        _disposables = new CompositeDisposable();
-        session = Session.getInstance();
+//        session = Session.getInstance();
 //        getUser();
     }
 
@@ -225,9 +225,9 @@ public class EditProfileFragment extends Fragment {
 //                                            public void onNext(Response<ReceptDeleteUser> response) {
 //                                                Log.d(TAG, "ACCOUNT DELETED");
 //                                                session.clear();
-//                                                LoginManager loginManager = LoginManager.getInstance();
+//                                                LoginManagerModule loginManager = LoginManagerModule.getInstance();
 //                                                loginManager.clear();
-//                                                Intent autologin_intent = new Intent(getActivity(), AutoLogin.class);
+//                                                Intent autologin_intent = new Intent(getActivity(), Initializer.class);
 //                                                startActivity(autologin_intent);
 //                                                getActivity().finish();
 //                                            }
@@ -278,7 +278,7 @@ public class EditProfileFragment extends Fragment {
 //                                           public void onNext(Response<ReceptUserUpdate> response) {
 //                                               if (response.code() == 200) {
 //                                                   user = response.body().getUser();
-//                                                   LoginManager loginManager = LoginManager.getInstance();
+//                                                   LoginManagerModule loginManager = LoginManagerModule.getInstance();
 //                                                   loginManager.storeEmail(user.getMail());
 //                                                   setDatas();
 //                                                   Toast.makeText(getContext(), R.string.user_saved, Toast.LENGTH_SHORT).show();

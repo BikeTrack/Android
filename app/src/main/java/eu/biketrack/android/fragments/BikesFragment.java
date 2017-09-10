@@ -10,11 +10,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
 import eu.biketrack.android.activities.CustomListAdapter;
-import eu.biketrack.android.api_connection.ApiConnect;
+import eu.biketrack.android.api_connection.ApiConnectModule;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.models.User;
 import eu.biketrack.android.models.data_reception.Bike;
@@ -25,13 +27,15 @@ public class BikesFragment extends Fragment {
 
     private static String TAG = "BIKETRACK - Bikes";
 
-    private BiketrackService biketrackService;
+//    private BiketrackService biketrackService;
 //    private CompositeDisposable _disposables;
     private Unbinder unbinder;
     private ArrayList<Pair<Bike, Tracker>> bikeArrayList = new ArrayList<>();
     private User user;
     private CustomListAdapter adapter;
-    private Session session;
+
+    @Inject
+    public Session session;
 
     @BindView(R.id.listView_bikes)
     ListView list;
@@ -46,8 +50,8 @@ public class BikesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        session = Session.getInstance();
-        biketrackService = ApiConnect.createService();
+        //session = Session.getInstance();
+//        biketrackService = ApiConnectModule.createService();
 //        _disposables = new CompositeDisposable();
         adapter = new CustomListAdapter(this.getActivity(), bikeArrayList);
     }

@@ -11,9 +11,8 @@ import com.facebook.CallbackManager;
 import butterknife.BindView;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.api_connection.ApiConnect;
 import eu.biketrack.android.api_connection.BiketrackService;
-import eu.biketrack.android.session.LoginManager;
+import eu.biketrack.android.session.LoginManagerModule;
 
 
 public class SubscriptionFragment extends Fragment {
@@ -25,7 +24,7 @@ public class SubscriptionFragment extends Fragment {
 //    private Disposable _disposable_password_repeat;
     private Unbinder unbinder;
     private CallbackManager callbackManager;
-    private LoginManager loginManager;
+    private LoginManagerModule loginManagerModule;
 
     private Boolean error_password_email = true;
 
@@ -42,10 +41,10 @@ public class SubscriptionFragment extends Fragment {
         super.onCreate(savedInstanceState);
         getActivity().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        biketrackService = ApiConnect.createService();
+//        biketrackService = ApiConnectModule.createService();
 //        _disposables = new CompositeDisposable();
         callbackManager = CallbackManager.Factory.create();
-        loginManager = LoginManager.getInstance();
+//        loginManagerModule = LoginManagerModule.getInstance();
     }
 
 //    @Override
@@ -218,10 +217,10 @@ public class SubscriptionFragment extends Fragment {
 //
 //                    @Override
 //                    public void onNext(AuthenticateReception authenticateReception) {
-//                        if (loginManager != null) {
-//                            loginManager.storeEmail(_email.getText().toString());
-//                            loginManager.storeUserId(authenticateReception.getUserId());
-//                            loginManager.storeToken(authenticateReception.getToken());
+//                        if (loginManagerModule != null) {
+//                            loginManagerModule.storeEmail(_email.getText().toString());
+//                            loginManagerModule.storeUserId(authenticateReception.getUserId());
+//                            loginManagerModule.storeToken(authenticateReception.getToken());
 //                        }
 //                        closeFragment();
 //                    }

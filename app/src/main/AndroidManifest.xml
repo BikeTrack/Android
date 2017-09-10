@@ -58,10 +58,17 @@
         </activity>
 
         <activity
-            android:name=".autologin.al_activity.AutoLogin"
+            android:name=".initializer.Initializer"
             android:windowSoftInputMode="adjustPan|adjustResize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+
+        <activity
+            android:name=".autologin.AutoLogin.AutoLogin"
+            android:windowSoftInputMode="adjustPan|adjustResize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
 
         <activity
             android:name=".activities.BikeTrack"

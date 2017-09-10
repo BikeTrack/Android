@@ -4,8 +4,13 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import eu.biketrack.android.activities.BikeTrack;
-import eu.biketrack.android.autologin.al_activity.AutoLogin;
-import eu.biketrack.android.autologin.al_activity.AutoLoginActModule;
+import eu.biketrack.android.api_connection.ApiConnectModule;
+import eu.biketrack.android.autologin.AutoLogin.AutoLogin;
+import eu.biketrack.android.initializer.Initializer;
+import eu.biketrack.android.initializer.InitializerModule;
+import eu.biketrack.android.autologin.AutoLogin.AutoLoginModule;
+import eu.biketrack.android.session.LoginManagerModule;
+import eu.biketrack.android.session.Session;
 
 /**
  * Created by 42900 on 10/07/2017 for BikeTrack_Android.
@@ -14,10 +19,17 @@ import eu.biketrack.android.autologin.al_activity.AutoLoginActModule;
 @Singleton
 @Component(modules = {
         ApplicationModule.class,
-        AutoLoginActModule.class
+        InitializerModule.class,
+        AutoLoginModule.class,
+        ApiConnectModule.class
 })
 public interface ApplicationComponent {
 
     void inject(BikeTrack target);
+    void inject(Initializer target);
     void inject(AutoLogin target);
+
+    LoginManagerModule getLoginManagerModule();
+
+    Session getSession();
 }

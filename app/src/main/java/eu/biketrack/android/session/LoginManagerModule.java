@@ -3,12 +3,17 @@ package eu.biketrack.android.session;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import dagger.Module;
+
 /**
  * Created by 42900 on 21/06/2017 for BikeTrack_Android.
  */
 
-public class LoginManager {
-    private static final LoginManager ourInstance = new LoginManager();
+@Singleton
+public class LoginManagerModule {
     private SharedPreferences sharedPreferences;
     private static final String KEY_EMAIL = "eu.biketrack.android.email";
     private static final String KEY_USERID = "eu.biketrack.android.userid";
@@ -17,13 +22,8 @@ public class LoginManager {
     public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
     public static final String REGISTRATION_COMPLETE = "registrationComplete";
 
-    public static LoginManager getInstance() {
-        return ourInstance;
-    }
-
-    private LoginManager(){}
-
-    public void init(Context context){
+    @Inject
+    public LoginManagerModule(Context context){
         if (sharedPreferences == null) {
             sharedPreferences = context.getSharedPreferences("eu.biketrack.android", Context.MODE_PRIVATE);
         }

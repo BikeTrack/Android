@@ -24,7 +24,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
     private Unbinder unbinder;
     private Session session;
     private Bike bike;
-    private BiketrackService biketrackService;
+   // private BiketrackService biketrackService;
 //    private CompositeDisposable _disposables;
     private Tracker tracker;
 
@@ -42,7 +42,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        biketrackService = ApiConnect.createService();
+//        biketrackService = ApiConnectModule.createService();
 //        _disposables = new CompositeDisposable();
 //        Bundle bundle = getArguments();
 //        session = Session.getInstance();

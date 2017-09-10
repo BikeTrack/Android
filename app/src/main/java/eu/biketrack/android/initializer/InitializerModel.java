@@ -1,19 +1,28 @@
-package eu.biketrack.android.autologin.al_activity;
+package eu.biketrack.android.initializer;
 
 import android.content.Context;
 import android.util.Log;
 
 import java.util.Locale;
 
-import eu.biketrack.android.session.LoginManager;
+import javax.inject.Inject;
+
+import eu.biketrack.android.session.LoginManagerModule;
 import eu.biketrack.android.settings.Language;
 
 /**
  * Created by 42900 on 10/07/2017 for BikeTrack_Android.
  */
 
-public class AutoLoginActModel implements AutoLoginActMVP.Model {
-    private static final String TAG = "AutoLoginActModel";
+public class InitializerModel implements InitializerMVP.Model {
+    private static final String TAG = "InitializerModel";
+
+    @Inject
+    public LoginManagerModule loginManagerModule;
+
+    public InitializerModel(LoginManagerModule loginManagerModule) {
+        this.loginManagerModule = loginManagerModule;
+    }
 
     @Override
     public void language(Context context){
@@ -24,9 +33,7 @@ public class AutoLoginActModel implements AutoLoginActMVP.Model {
 
     @Override
     public void initLoginManager(Context context){
-        LoginManager loginManager = LoginManager.getInstance();
-        loginManager.init(context);
-//        loginManager.clear();
+//        loginManagerModule.clear();
         Log.d(TAG, "initLoginManager: initialized");
     }
 }

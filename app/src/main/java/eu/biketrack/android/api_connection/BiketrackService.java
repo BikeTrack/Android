@@ -1,5 +1,11 @@
 package eu.biketrack.android.api_connection;
 
+import eu.biketrack.android.models.data_reception.ReceptUser;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Path;
+import rx.Observable;
+
 /**
  * Created by adrienschricke on 17/09/2016 for Android.
  */
@@ -10,8 +16,8 @@ public interface BiketrackService {
 //    @POST("authenticate")
 //    Observable<AuthenticateReception> connectUser(@Header("Authorization") String token, @Body AuthUser user);
 //
-//    @GET("profile/{userID}")
-//    Observable<ReceptUser> getUser(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Path("userID") String userid);
+    @GET("profile/{userID}")
+    Observable<ReceptUser> getUser(@Header("Authorization") String token, @Path("userID") String userid);
 //
 //    @PATCH("profile")
 //    Observable<Response<ReceptUserUpdate>> updateUser(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Body SendUserUpdate sendUserUpdate);
