@@ -1,6 +1,10 @@
 package eu.biketrack.android.api_connection;
 
+import android.util.Log;
+
 import java.io.IOException;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -33,7 +37,7 @@ public class ApiConnectModule {
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
                 HttpUrl url = request.url().newBuilder().addQueryParameter(
-                        "x-access-token",
+                        "Authorization",
                         Statics.TOKEN_API
                 ).build();
                 request = request.newBuilder().url(url).build();
@@ -54,6 +58,7 @@ public class ApiConnectModule {
 
     @Provides
     public BiketrackService provideApiService(){
+        Log.d(TAG, "provideApiService: provideAPIService");
         return provideRetrofit(provideClient()).create(BiketrackService.class);
     }
 }

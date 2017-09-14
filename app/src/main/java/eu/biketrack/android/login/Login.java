@@ -2,21 +2,27 @@ package eu.biketrack.android.login;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.WindowManager;
 import android.widget.EditText;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import eu.biketrack.android.R;
+import eu.biketrack.android.autologin.AutoLogin.AutoLogin;
+import eu.biketrack.android.root.App;
 
 
-public class LoginFragment extends Activity {
-    private static final String TAG = "LoginFragment";
-//    private BiketrackService biketrackService;
-//    private CompositeDisposable _disposables;
-//    private LoginManagerModule loginManagerModule;
-//    private Unbinder unbinder;
-//    CallbackManager callbackManager;
+public class Login extends Activity implements LoginMVP.View {
+    private static final String TAG = "Login";
+
+    @Inject
+    LoginMVP.Presenter presenter;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -30,14 +36,48 @@ public class LoginFragment extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getActivity().getWindow().setSoftInputMode(
-//                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        setContentView(R.layout.fragment_login);
+        ButterKnife.bind(this);
+
+        _email.setText("thisisatest@test.com");
+        _password.setText("azerty");
+
+        ((App) getApplication()).getComponent().inject(this);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 //        biketrackService = ApiConnectModule.createService();
 //        _disposables = new CompositeDisposable();
 //        loginManagerModule = LoginManagerModule.getInstance();
 //        callbackManager = CallbackManager.Factory.create();
     }
-//
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.setView(this);
+    }
+
+    @OnClick(R.id.login_login_button)
+    public void loginButtonOnClick() {
+        presenter.connexionButtonClicked();
+    }
+
+    @Override
+    public String getUserEmail() {
+        return _email.getText().toString();
+    }
+
+    @Override
+    public String getUserPassword() {
+        return _password.getText().toString();
+    }
+
+    @Override
+    public void close() {
+        Intent intent = new Intent(this, AutoLogin.class);
+        startActivity(intent);
+        finish();
+    }
+    //
 //    @Override
 //    public View onCreateView(LayoutInflater inflater,
 //                             @Nullable ViewGroup container,

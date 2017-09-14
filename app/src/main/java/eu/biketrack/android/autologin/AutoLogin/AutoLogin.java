@@ -1,6 +1,7 @@
 package eu.biketrack.android.autologin.AutoLogin;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
+import eu.biketrack.android.login.Login;
 import eu.biketrack.android.root.App;
 import eu.biketrack.android.session.LoginManagerModule;
 import eu.biketrack.android.session.Session;
@@ -19,8 +21,6 @@ import eu.biketrack.android.session.Session;
 
 public class AutoLogin extends Activity implements AutoLoginMVP.View{
     private static final String TAG = "AutoLogin";
-    private Unbinder unbinder;
-
     @Inject
     AutoLoginMVP.Presenter presenter;
 
@@ -133,7 +133,7 @@ public class AutoLogin extends Activity implements AutoLoginMVP.View{
 //        if (pg_bar != null)
 //            pg_bar.setVisibility(View.INVISIBLE);
 //        getActivity().getSupportFragmentManager().beginTransaction()
-//                .replace(android.R.id.content, new LoginFragment(), this.toString())
+//                .replace(android.R.id.content, new Login(), this.toString())
 //                .commit();
 //        if (pg_bar != null)
 //            pg_bar.setVisibility(View.VISIBLE);
@@ -157,8 +157,11 @@ public class AutoLogin extends Activity implements AutoLoginMVP.View{
     public void openLogin() {
         Log.d(TAG, "openLogin: ");
 //        getActivity().getSupportFragmentManager().beginTransaction()
-//                .replace(android.R.id.content, new LoginFragment(), this.toString())
+//                .replace(android.R.id.content, new Login(), this.toString())
 //                .commit();
+        Intent intent = new Intent(this, Login.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
