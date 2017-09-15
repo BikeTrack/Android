@@ -249,7 +249,7 @@ public class BikesFragment extends Fragment {
 
                             @Override
                             public void onComplete() {
-                                Log.d(TAG, "Login completed");
+                                Log.d(TAG, "Tracker completed");
                             }
 
                             @Override

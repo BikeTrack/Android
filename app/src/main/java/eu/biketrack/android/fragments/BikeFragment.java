@@ -198,6 +198,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                             @Override
                             public void onNext(ReceiveBike receiveBike) {
                                 bike = receiveBike.getBike();
+                                Log.d(TAG, "onNext: bike = " +bike);
                                 setDatas();
                                 getCoordinates();
                             }
