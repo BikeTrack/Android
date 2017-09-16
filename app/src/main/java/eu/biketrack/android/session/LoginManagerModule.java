@@ -2,6 +2,7 @@ package eu.biketrack.android.session;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -13,7 +14,8 @@ import dagger.Module;
  */
 
 @Singleton
-public class LoginManagerModule {
+public class LoginManagerModule{
+    private static final String TAG = "LoginManagerModule";
     private SharedPreferences sharedPreferences;
     private static final String KEY_EMAIL = "eu.biketrack.android.email";
     private static final String KEY_USERID = "eu.biketrack.android.userid";
@@ -31,6 +33,7 @@ public class LoginManagerModule {
 
     public void storeEmail(String email){
         sharedPreferences.edit().putString(KEY_EMAIL, email).apply();
+        Log.d(TAG, "storeEmail: " + email);
     }
 
     public String getEmail(){
@@ -39,6 +42,7 @@ public class LoginManagerModule {
 
     public void storeUserId(String userId){
         sharedPreferences.edit().putString(KEY_USERID, userId).apply();
+        Log.d(TAG, "storeUserId: " + userId);
     }
 
     public String getUserId(){
@@ -47,6 +51,7 @@ public class LoginManagerModule {
 
     public void storeToken(String token){
         sharedPreferences.edit().putString(KEY_TOKEN, token).apply();
+        Log.d(TAG, "storeToken: " + token);
     }
 
     public String getToken(){
@@ -55,6 +60,9 @@ public class LoginManagerModule {
 
     public void clear(){
         sharedPreferences.edit().clear().apply();
+        Log.d(TAG, "cleared ");
     }
+
+
 }
 

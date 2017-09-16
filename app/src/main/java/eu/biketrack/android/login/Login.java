@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.EditText;
 
@@ -14,6 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import eu.biketrack.android.R;
+import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.autologin.AutoLogin.AutoLogin;
 import eu.biketrack.android.root.App;
 
@@ -23,6 +25,9 @@ public class Login extends Activity implements LoginMVP.View {
 
     @Inject
     LoginMVP.Presenter presenter;
+
+    @Inject
+    BiketrackService biketrackService;
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -39,8 +44,8 @@ public class Login extends Activity implements LoginMVP.View {
         setContentView(R.layout.fragment_login);
         ButterKnife.bind(this);
 
-        _email.setText("thisisatest@test.com");
-        _password.setText("azerty");
+        _email.setText("gil@felot.com");
+        _password.setText("gilfelot");
 
         ((App) getApplication()).getComponent().inject(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -54,6 +59,7 @@ public class Login extends Activity implements LoginMVP.View {
     protected void onResume() {
         super.onResume();
         presenter.setView(this);
+        presenter.setBiketrackService(biketrackService);
     }
 
     @OnClick(R.id.login_login_button)

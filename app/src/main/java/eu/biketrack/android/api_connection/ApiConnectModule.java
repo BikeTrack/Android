@@ -29,6 +29,7 @@ public class ApiConnectModule {
     @Provides
     public OkHttpClient provideClient(){
 
+        Log.d(TAG, "provideClient");
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
 
@@ -36,11 +37,9 @@ public class ApiConnectModule {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
-                HttpUrl url = request.url().newBuilder().addQueryParameter(
-                        "Authorization",
-                        Statics.TOKEN_API
-                ).build();
-                request = request.newBuilder().url(url).build();
+                Request.Builder requestBuilder = request.newBuilder()
+                        .header("Authorization", Statics.TOKEN_API);
+                request = requestBuilder.build();
                 return chain.proceed(request);
             }
         }).build();
@@ -48,6 +47,7 @@ public class ApiConnectModule {
 
     @Provides
     public Retrofit provideRetrofit(OkHttpClient client){
+        Log.d(TAG, "provideRetrofit");
         return new Retrofit.Builder()
                 .baseUrl(Statics.ROOT_API)
                 .client(client)

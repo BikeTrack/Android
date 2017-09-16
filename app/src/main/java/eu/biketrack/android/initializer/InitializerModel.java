@@ -16,9 +16,7 @@ import eu.biketrack.android.settings.Language;
 
 public class InitializerModel implements InitializerMVP.Model {
     private static final String TAG = "InitializerModel";
-
-    @Inject
-    public LoginManagerModule loginManagerModule;
+    private LoginManagerModule loginManagerModule;
 
     public InitializerModel(LoginManagerModule loginManagerModule) {
         this.loginManagerModule = loginManagerModule;
@@ -33,7 +31,7 @@ public class InitializerModel implements InitializerMVP.Model {
 
     @Override
     public void initLoginManager(Context context){
-//        loginManagerModule.clear();
+        loginManagerModule.clear();
         Log.d(TAG, "initLoginManager: initialized");
     }
 }

@@ -18,4 +18,13 @@ public class AuthUser {
         this.password = password;
         this.facebook = facebook;
     }
+
+    @Override
+    public String toString() {
+        return "AuthUser{" +
+                "mail='" + mail + '\'' +
+                ", password='" + password + '\'' +
+                ", facebook='" + facebook + '\'' +
+                '}';
+    }
 }
