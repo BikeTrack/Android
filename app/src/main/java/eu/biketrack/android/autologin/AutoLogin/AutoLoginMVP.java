@@ -21,11 +21,14 @@ public interface AutoLoginMVP {
         void setSession(Session session);
         void setLoginManager(LoginManagerModule loginManagerModule);
         void tryConnection();
+        void viewAfterGettingUser();
     }
 
     interface Model {
-        void fillSession(User user);
-        void getUserFromNetwork(String userid, String token);
+        void setPresenter(AutoLoginMVP.Presenter presenter);
+        void fillSession(String userId, String token);
+        void getUserFromNetwork(String userId, String token);
+        Throwable getError();
 
     }
 }

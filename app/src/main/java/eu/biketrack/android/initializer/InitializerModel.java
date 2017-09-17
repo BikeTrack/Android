@@ -31,7 +31,7 @@ public class InitializerModel implements InitializerMVP.Model {
 
     @Override
     public void initLoginManager(Context context){
-        loginManagerModule.clear();
+        //loginManagerModule.clear();
         Log.d(TAG, "initLoginManager: initialized");
     }
 }

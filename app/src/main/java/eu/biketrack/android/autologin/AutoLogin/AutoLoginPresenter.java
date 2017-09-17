@@ -15,8 +15,10 @@ public class AutoLoginPresenter implements AutoLoginMVP.Presenter {
     private AutoLoginMVP.Model model;
     private Session session;
     private LoginManagerModule loginManagerModule;
+
     public AutoLoginPresenter(AutoLoginMVP.Model model) {
         this.model = model;
+        this.model.setPresenter(this);
     }
     private static final String TAG = "AutoLoginPresenter";
 
@@ -37,16 +39,26 @@ public class AutoLoginPresenter implements AutoLoginMVP.Presenter {
 
     @Override
     public void tryConnection() {
-        Log.d(TAG, "tryConnection: start");
         view.displayProgressBar(true);
         if (loginManagerModule.getToken() != null && loginManagerModule.getUserId() != null){
-            Log.d(TAG, "tryConnection: token is not null and userid is not null");
             model.getUserFromNetwork(loginManagerModule.getUserId(), loginManagerModule.getToken());
         } else {
-            Log.d(TAG, "tryConnection: ask for login");
+            view.displayProgressBar(false);
             view.openLogin();
         }
         view.displayProgressBar(false);
-        Log.d(TAG, "tryConnection: stop");
+    }
+
+    @Override
+    public void viewAfterGettingUser(){
+        view.displayProgressBar(true);
+        if (model.getError() == null) {
+            view.displayProgressBar(false);
+            view.openBikes();
+        } else {
+            loginManagerModule.clear();
+            view.displayProgressBar(false);
+            view.openLogin();
+        }
     }
 }

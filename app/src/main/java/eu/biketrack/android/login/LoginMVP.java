@@ -18,10 +18,12 @@ public interface LoginMVP {
         void setView(LoginMVP.View view);
         void setBiketrackService(BiketrackService biketrackService);
         void connexionButtonClicked();
+        void viewAfterConnection();
 
     }
 
     interface Model {
+        void setPresenter(LoginMVP.Presenter presenter);
         void setBiketrackService(BiketrackService biketrackService);
         void connection(String email, String password);
         Throwable getError();

@@ -1,5 +1,7 @@
 package eu.biketrack.android.login;
 
+import android.util.Log;
+
 import eu.biketrack.android.api_connection.BiketrackService;
 
 /**
@@ -13,6 +15,7 @@ public class LoginPresenter implements LoginMVP.Presenter {
 
     public LoginPresenter(LoginMVP.Model model) {
         this.model = model;
+        this.model.setPresenter(this);
     }
     private static final String TAG = "LoginPresenter";
 
@@ -29,7 +32,11 @@ public class LoginPresenter implements LoginMVP.Presenter {
     @Override
     public void connexionButtonClicked() {
         model.connection(view.getUserEmail(), view.getUserPassword());
-        if (model.getError() == null)
-            view.close();
+    }
+
+    @Override
+    public void viewAfterConnection(){
+        Log.d(TAG, "viewAfterConnection: ");
+        view.close();
     }
 }

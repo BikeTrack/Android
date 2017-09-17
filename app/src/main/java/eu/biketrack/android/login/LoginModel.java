@@ -2,20 +2,14 @@ package eu.biketrack.android.login;
 
 import android.util.Log;
 
-import com.facebook.login.LoginManager;
-
-import javax.inject.Inject;
-
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_send.AuthUser;
 import eu.biketrack.android.session.LoginManagerModule;
 import rx.Observable;
-import rx.Scheduler;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -29,10 +23,17 @@ public class LoginModel implements LoginMVP.Model {
     private LoginManagerModule loginManagerModule;
     private Throwable error = null;
     private boolean completed = false;
+    private LoginMVP.Presenter presenter;
+    private Subscription s;
 
     public LoginModel(LoginNetworkInterface loginNetworkInterface, LoginManagerModule loginManagerModule) {
         this.loginNetworkInterface = loginNetworkInterface;
         this.loginManagerModule = loginManagerModule;
+    }
+
+    @Override
+    public void setPresenter(LoginMVP.Presenter presenter){
+        this.presenter = presenter;
     }
 
     @Override
@@ -56,6 +57,7 @@ public class LoginModel implements LoginMVP.Model {
                 Log.e(TAG, "onError: ", e);
                 error = e;
                 completed = true;
+                this.unsubscribe();
             }
 
             @Override
@@ -66,16 +68,23 @@ public class LoginModel implements LoginMVP.Model {
                 loginManagerModule.storeUserId(authenticateReception.getUserId());
                 error = null;
                 completed = true;
+                destroyIt();
             }
         };
-        Subscription s = authenticateReceptionObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+         s = authenticateReceptionObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(authenticateReceptionSubscriber);
-        if (completed && s.isUnsubscribed())
-            s.unsubscribe();
     }
 
     @Override
     public Throwable getError() {
         return error;
     }
+
+    private void destroyIt(){
+        if (!s.isUnsubscribed())
+            s.unsubscribe();
+        if (error == null)
+            presenter.viewAfterConnection();
+    }
+
 }
