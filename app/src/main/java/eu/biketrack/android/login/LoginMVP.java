@@ -1,7 +1,5 @@
 package eu.biketrack.android.login;
 
-import eu.biketrack.android.api_connection.BiketrackService;
-
 /**
  * Created by 42900 on 10/09/2017 for BikeTrack_Android.
  */
@@ -12,19 +10,20 @@ public interface LoginMVP {
         String getUserEmail();
         String getUserPassword();
         void close();
+        void openSubscribe();
     }
 
     interface Presenter{
         void setView(LoginMVP.View view);
-        void setBiketrackService(BiketrackService biketrackService);
         void connexionButtonClicked();
         void viewAfterConnection();
+        void goToSubscribe();
 
     }
 
     interface Model {
         void setPresenter(LoginMVP.Presenter presenter);
-        void setBiketrackService(BiketrackService biketrackService);
+//        void setBiketrackService(BiketrackService biketrackService);
         void connection(String email, String password);
         Throwable getError();
     }

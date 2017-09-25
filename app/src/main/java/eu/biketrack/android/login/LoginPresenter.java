@@ -11,7 +11,6 @@ import eu.biketrack.android.api_connection.BiketrackService;
 public class LoginPresenter implements LoginMVP.Presenter {
     private LoginMVP.View view;
     private LoginMVP.Model model;
-    private BiketrackService biketrackService;
 
     public LoginPresenter(LoginMVP.Model model) {
         this.model = model;
@@ -25,11 +24,6 @@ public class LoginPresenter implements LoginMVP.Presenter {
     }
 
     @Override
-    public void setBiketrackService(BiketrackService biketrackService) {
-        this.biketrackService = biketrackService;
-    }
-
-    @Override
     public void connexionButtonClicked() {
         model.connection(view.getUserEmail(), view.getUserPassword());
     }
@@ -38,5 +32,10 @@ public class LoginPresenter implements LoginMVP.Presenter {
     public void viewAfterConnection(){
         Log.d(TAG, "viewAfterConnection: ");
         view.close();
+    }
+
+    @Override
+    public void goToSubscribe() {
+        view.openSubscribe();
     }
 }

@@ -1,37 +1,41 @@
-package eu.biketrack.android.fragments;
+package eu.biketrack.android.subscription;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.facebook.CallbackManager;
+import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.Unbinder;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import eu.biketrack.android.R;
-import eu.biketrack.android.api_connection.BiketrackService;
-import eu.biketrack.android.session.LoginManagerModule;
+import eu.biketrack.android.autologin.AutoLogin.AutoLogin;
+import eu.biketrack.android.login.Login;
+import eu.biketrack.android.root.App;
 
 
-public class SubscriptionFragment extends Fragment {
+public class Subscription extends Activity implements SubscriptionMVP.View{
     private static String TAG = "BIKETRACK - Subs";
-    private BiketrackService biketrackService;
+//    private BiketrackService biketrackService;
 //    private CompositeDisposable _disposables;
 //    private Disposable _disposable_email;
 //    private Disposable _disposable_password;
 //    private Disposable _disposable_password_repeat;
-    private Unbinder unbinder;
-    private CallbackManager callbackManager;
-    private LoginManagerModule loginManagerModule;
+//    private LoginManagerModule loginManagerModule;
+//
+//    private Boolean error_password_email = true;
 
-    private Boolean error_password_email = true;
+    @Inject
+    SubscriptionMVP.Presenter presenter;
 
 
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    //    @BindView(R.id.toolbar)
+//    Toolbar toolbar;
     @BindView(R.id.subscribtion_email_textview) EditText _email;
     @BindView(R.id.subscribtion_password_textview) EditText _password;
     @BindView(R.id.subscribtion_password_textview_repeat) EditText _password_repeat;
@@ -39,15 +43,69 @@ public class SubscriptionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        setContentView(R.layout.fragment_subscribtion);
+        ButterKnife.bind(this);
+
+        ((App) getApplication()).getComponent().inject(this);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 //        biketrackService = ApiConnectModule.createService();
 //        _disposables = new CompositeDisposable();
-        callbackManager = CallbackManager.Factory.create();
+//        callbackManager = CallbackManager.Factory.create();
 //        loginManagerModule = LoginManagerModule.getInstance();
     }
 
-//    @Override
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.setView(this);
+    }
+
+    @OnClick(R.id.subscribtion_subscribe_button)
+    public void subscribeButtonOnClick(){
+        presenter.subscriptionButtonClicked();
+    }
+
+    @OnClick(R.id.subscribtion_login_button)
+    public void loginButtonOnClick(){
+        presenter.loginButtonClicked();
+    }
+
+    @Override
+    public String getUserEmail() {
+        return _email.getText().toString();
+    }
+
+    @Override
+    public String getUserPassword() {
+        return _password.getText().toString();
+    }
+
+    @Override
+    public String getUserRepeatPassword() {
+        return _password_repeat.getText().toString();
+    }
+
+    @Override
+    public void close() {
+        Intent intent = new Intent(this, AutoLogin.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void openLogin() {
+        Intent intent = new Intent(this, Login.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void displayError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    //    @Override
 //    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 //        super.onActivityCreated(savedInstanceState);
 //

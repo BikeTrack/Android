@@ -2,6 +2,7 @@ package eu.biketrack.android.api_connection;
 
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_reception.ReceptUser;
+import eu.biketrack.android.models.data_reception.SignupReception;
 import eu.biketrack.android.models.data_send.AuthUser;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -14,9 +15,9 @@ import rx.Observable;
  * Created by adrienschricke on 17/09/2016 for Android.
  */
 public interface BiketrackService {
-//    @POST("signup")
-//    Observable<SignupReception> createUser(@Header("Authorization") String token, @Body AuthUser user);
-//
+    @POST("signup")
+    Observable<SignupReception> createUser(@Body AuthUser user);
+
     @POST("authenticate")
     Observable<AuthenticateReception> connectUser(@Body AuthUser user);
 

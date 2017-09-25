@@ -19,6 +19,18 @@ public class AuthUser {
         this.facebook = facebook;
     }
 
+    public String getMail() {
+        return mail;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
     @Override
     public String toString() {
         return "AuthUser{" +

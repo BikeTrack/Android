@@ -22,7 +22,7 @@ public class LoginModel implements LoginMVP.Model {
     private LoginNetworkInterface loginNetworkInterface;
     private LoginManagerModule loginManagerModule;
     private Throwable error = null;
-    private boolean completed = false;
+//    private boolean completed = false;
     private LoginMVP.Presenter presenter;
     private Subscription s;
 
@@ -36,10 +36,10 @@ public class LoginModel implements LoginMVP.Model {
         this.presenter = presenter;
     }
 
-    @Override
-    public void setBiketrackService(BiketrackService biketrackService) {
-        this.biketrackService = biketrackService;
-    }
+//    @Override
+//    public void setBiketrackService(BiketrackService biketrackService) {
+//        this.biketrackService = biketrackService;
+//    }
 
     @Override
     public void connection(String email, String password) {
@@ -56,7 +56,7 @@ public class LoginModel implements LoginMVP.Model {
             public void onError(Throwable e) {
                 Log.e(TAG, "onError: ", e);
                 error = e;
-                completed = true;
+//                completed = true;
                 this.unsubscribe();
             }
 
@@ -67,7 +67,7 @@ public class LoginModel implements LoginMVP.Model {
                 loginManagerModule.storeToken(authenticateReception.getToken());
                 loginManagerModule.storeUserId(authenticateReception.getUserId());
                 error = null;
-                completed = true;
+//                completed = true;
                 destroyIt();
             }
         };

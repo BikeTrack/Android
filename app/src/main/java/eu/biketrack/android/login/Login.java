@@ -18,6 +18,7 @@ import eu.biketrack.android.R;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.autologin.AutoLogin.AutoLogin;
 import eu.biketrack.android.root.App;
+import eu.biketrack.android.subscription.Subscription;
 
 
 public class Login extends Activity implements LoginMVP.View {
@@ -26,11 +27,9 @@ public class Login extends Activity implements LoginMVP.View {
     @Inject
     LoginMVP.Presenter presenter;
 
-    @Inject
-    BiketrackService biketrackService;
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+//    @BindView(R.id.toolbar)
+//    Toolbar toolbar;
     @BindView(R.id.login_email_textview)
     EditText _email;
     @BindView(R.id.login_password_textview)
@@ -59,13 +58,15 @@ public class Login extends Activity implements LoginMVP.View {
     protected void onResume() {
         super.onResume();
         presenter.setView(this);
-        presenter.setBiketrackService(biketrackService);
     }
 
     @OnClick(R.id.login_login_button)
     public void loginButtonOnClick() {
         presenter.connexionButtonClicked();
     }
+
+    @OnClick(R.id.login_subscribe_button)
+    public void subscribeButtonOnClick(){presenter.goToSubscribe();}
 
     @Override
     public String getUserEmail() {
@@ -83,6 +84,14 @@ public class Login extends Activity implements LoginMVP.View {
         startActivity(intent);
         finish();
     }
+
+    @Override
+    public void openSubscribe() {
+        Intent intent = new Intent(this, Subscription.class);
+        startActivity(intent);
+        finish();
+    }
+
     //
 //    @Override
 //    public View onCreateView(LayoutInflater inflater,
@@ -194,7 +203,7 @@ public class Login extends Activity implements LoginMVP.View {
 //
 //    @OnClick(R.id.login_subscribe_button)
 //    public void subscribe() {
-//        Fragment fragment = new SubscriptionFragment();
+//        Fragment fragment = new Subscription();
 //        final String tag = fragment.getClass().toString();
 //        Log.d(TAG, tag);
 //        getActivity().getSupportFragmentManager()

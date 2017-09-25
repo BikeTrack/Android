@@ -13,6 +13,8 @@ import eu.biketrack.android.login.Login;
 import eu.biketrack.android.login.LoginModule;
 import eu.biketrack.android.session.LoginManagerModule;
 import eu.biketrack.android.session.Session;
+import eu.biketrack.android.subscription.Subscription;
+import eu.biketrack.android.subscription.SubscriptionModule;
 
 /**
  * Created by 42900 on 10/07/2017 for BikeTrack_Android.
@@ -24,15 +26,19 @@ import eu.biketrack.android.session.Session;
         InitializerModule.class,
         AutoLoginModule.class,
         ApiConnectModule.class,
-        LoginModule.class
+        LoginModule.class,
+        SubscriptionModule.class
 })
 public interface ApplicationComponent {
 
+    void inject(ApiConnectModule target);
     void inject(BikeTrack target);
     void inject(Initializer target);
     void inject(AutoLogin target);
     void inject(Login target);
-    void inject(ApiConnectModule target);
+    void inject(Subscription target);
+
+
 
     LoginManagerModule getLoginManagerModule();
 
