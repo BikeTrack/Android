@@ -1,4 +1,4 @@
-package eu.biketrack.android.autologin.AutoLogin;
+package eu.biketrack.android.autologin;
 
 
 import eu.biketrack.android.models.User;

@@ -13,7 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import eu.biketrack.android.R;
-import eu.biketrack.android.autologin.AutoLogin.AutoLogin;
+import eu.biketrack.android.autologin.AutoLogin;
 import eu.biketrack.android.login.Login;
 import eu.biketrack.android.root.App;
 

@@ -4,8 +4,6 @@ package eu.biketrack.android.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.EditText;
 
@@ -15,8 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import eu.biketrack.android.R;
-import eu.biketrack.android.api_connection.BiketrackService;
-import eu.biketrack.android.autologin.AutoLogin.AutoLogin;
+import eu.biketrack.android.autologin.AutoLogin;
 import eu.biketrack.android.root.App;
 import eu.biketrack.android.subscription.Subscription;
 

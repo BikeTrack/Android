@@ -7,7 +7,7 @@ import android.os.Bundle;
 import javax.inject.Inject;
 
 import eu.biketrack.android.R;
-import eu.biketrack.android.autologin.AutoLogin.AutoLogin;
+import eu.biketrack.android.autologin.AutoLogin;
 import eu.biketrack.android.root.App;
 
 public class Initializer extends Activity implements InitializerMVP.View{

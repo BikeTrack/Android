@@ -1,4 +1,4 @@
-package eu.biketrack.android.autologin.AutoLogin;
+package eu.biketrack.android.autologin;
 
 import dagger.Module;
 import dagger.Provides;

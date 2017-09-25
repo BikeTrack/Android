@@ -1,4 +1,4 @@
-package eu.biketrack.android.autologin.AutoLogin;
+package eu.biketrack.android.autologin;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,7 +11,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import eu.biketrack.android.R;
 import eu.biketrack.android.login.Login;
 import eu.biketrack.android.root.App;

@@ -4,7 +4,7 @@ import android.app.Application;
 
 import eu.biketrack.android.api_connection.ApiConnectModule;
 import eu.biketrack.android.initializer.InitializerModule;
-import eu.biketrack.android.autologin.AutoLogin.AutoLoginModule;
+import eu.biketrack.android.autologin.AutoLoginModule;
 
 /**
  * Created by 42900 on 10/07/2017 for BikeTrack_Android.

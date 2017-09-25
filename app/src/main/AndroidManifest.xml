@@ -64,7 +64,7 @@
             android:theme="@style/AppTheme" />
 
         <activity
-            android:name=".autologin.AutoLogin.AutoLogin"
+            android:name=".autologin.AutoLogin"
             android:windowSoftInputMode="adjustPan|adjustResize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
