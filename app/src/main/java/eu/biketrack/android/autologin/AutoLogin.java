@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import eu.biketrack.android.R;
+import eu.biketrack.android.bikes.Bikes;
 import eu.biketrack.android.login.Login;
 import eu.biketrack.android.root.App;
 import eu.biketrack.android.session.LoginManagerModule;
@@ -166,8 +167,8 @@ public class AutoLogin extends Activity implements AutoLoginMVP.View{
     @Override
     public void openBikes() {
         Log.d(TAG, "openBikes: ");
-//        Intent mainactivity_intent = new Intent(getActivity(), MainActivity.class);
-//        startActivity(mainactivity_intent);
-//        getActivity().finish();
+        Intent mainactivity_intent = new Intent(this, Bikes.class);
+        startActivity(mainactivity_intent);
+        this.finish();
     }
 }

@@ -82,6 +82,12 @@
             android:theme="@style/AppTheme" />
 
         <activity
+            android:name=".bikes.Bikes"
+            android:windowSoftInputMode="adjustPan|adjustResize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <activity
             android:name=".activities.BikeTrack"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">

@@ -15,6 +15,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
+import eu.biketrack.android.bikes.Bikes;
 
 
 public class SettingsFragment extends Fragment {
@@ -60,9 +61,9 @@ public class SettingsFragment extends Fragment {
 
                                 break;
                             case R.id.action_bikes:
-                                getActivity().getSupportFragmentManager().beginTransaction()
-                                        .replace(android.R.id.content, new BikesFragment(), this.toString())
-                                        .commit();
+//                                getActivity().getSupportFragmentManager().beginTransaction()
+//                                        .replace(android.R.id.content, new Bikes(), this.toString())
+//                                        .commit();
                                 break;
                             case R.id.action_profile:
                                 getActivity().getSupportFragmentManager().beginTransaction()

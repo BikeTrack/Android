@@ -1,5 +1,7 @@
-package eu.biketrack.android.fragments;
+package eu.biketrack.android.bikes;
 
+import android.app.Activity;
+import android.app.Application;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
 import eu.biketrack.android.activities.CustomListAdapter;
@@ -21,9 +24,10 @@ import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.models.User;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.Tracker;
+import eu.biketrack.android.root.App;
 import eu.biketrack.android.session.Session;
 
-public class BikesFragment extends Fragment {
+public class Bikes extends Activity implements BikesMVP.View{
 
     private static String TAG = "BIKETRACK - Bikes";
 
@@ -35,7 +39,7 @@ public class BikesFragment extends Fragment {
     private CustomListAdapter adapter;
 
     @Inject
-    public Session session;
+    BikesMVP.Presenter presenter;
 
     @BindView(R.id.listView_bikes)
     ListView list;
@@ -50,13 +54,22 @@ public class BikesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((App) getApplication()).getComponent().inject(this);
+        setContentView(R.layout.fragment_bikes);
+        ButterKnife.bind(this);
+
         //session = Session.getInstance();
 //        biketrackService = ApiConnectModule.createService();
 //        _disposables = new CompositeDisposable();
-        adapter = new CustomListAdapter(this.getActivity(), bikeArrayList);
+
     }
 
-//    @Override
+    @Override
+    public void displayBikes(ArrayList<Pair<Bike, Tracker>> bikeArrayList) {
+        adapter = new CustomListAdapter(this, bikeArrayList);
+    }
+
+    //    @Override
 //    public void onResume() {
 //        super.onResume();
 //        getUser();

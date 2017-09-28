@@ -102,7 +102,7 @@ public class ProfileFragment extends Fragment {
 //                                break;
 //                            case R.id.action_bikes:
 //                                getActivity().getSupportFragmentManager().beginTransaction()
-//                                        .replace(android.R.id.content, new BikesFragment(), this.toString())
+//                                        .replace(android.R.id.content, new Bikes(), this.toString())
 //                                        .commit();
 //                                break;
 //                            case R.id.action_profile:

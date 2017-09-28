@@ -6,6 +6,8 @@ import dagger.Component;
 import eu.biketrack.android.activities.BikeTrack;
 import eu.biketrack.android.api_connection.ApiConnectModule;
 import eu.biketrack.android.autologin.AutoLogin;
+import eu.biketrack.android.bikes.Bikes;
+import eu.biketrack.android.bikes.BikesModule;
 import eu.biketrack.android.initializer.Initializer;
 import eu.biketrack.android.initializer.InitializerModule;
 import eu.biketrack.android.autologin.AutoLoginModule;
@@ -27,7 +29,8 @@ import eu.biketrack.android.subscription.SubscriptionModule;
         AutoLoginModule.class,
         ApiConnectModule.class,
         LoginModule.class,
-        SubscriptionModule.class
+        SubscriptionModule.class,
+        BikesModule.class
 })
 public interface ApplicationComponent {
 
@@ -37,6 +40,7 @@ public interface ApplicationComponent {
     void inject(AutoLogin target);
     void inject(Login target);
     void inject(Subscription target);
+    void inject(Bikes target);
 
 
 
