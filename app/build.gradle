@@ -98,7 +98,7 @@ dependencies {
 
     /* AUTHENTIFICATION / LOGIN */
     compile group: 'com.google.android.gms', name: 'play-services-auth', version: '10.2.1'
-    compile 'com.facebook.android:facebook-android-sdk:4.24.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.27.0'
 
     /* GOOGLE MAP*/
     compile group: 'com.google.firebase', name: 'firebase-ads', version: '10.2.1'

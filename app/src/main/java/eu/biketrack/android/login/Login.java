@@ -4,8 +4,20 @@ package eu.biketrack.android.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.EditText;
+
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+
+import org.json.JSONObject;
 
 import javax.inject.Inject;
 
@@ -20,19 +32,20 @@ import eu.biketrack.android.subscription.Subscription;
 
 public class Login extends Activity implements LoginMVP.View {
     private static final String TAG = "Login";
+    private CallbackManager  callbackManager;
 
     @Inject
     LoginMVP.Presenter presenter;
 
 
-//    @BindView(R.id.toolbar)
+    //    @BindView(R.id.toolbar)
 //    Toolbar toolbar;
     @BindView(R.id.login_email_textview)
     EditText _email;
     @BindView(R.id.login_password_textview)
     EditText _password;
-//    @BindView(R.id.login_facebook_button)
-//    LoginButton _facebook_button;
+    @BindView(R.id.login_facebook_button)
+    LoginButton _facebook_button;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,7 +61,55 @@ public class Login extends Activity implements LoginMVP.View {
 //        biketrackService = ApiConnectModule.createService();
 //        _disposables = new CompositeDisposable();
 //        loginManagerModule = LoginManagerModule.getInstance();
-//        callbackManager = CallbackManager.Factory.create();
+        callbackManager = CallbackManager.Factory.create();
+
+        _facebook_button.setReadPermissions("email");
+//        _facebook_button.setFragment(this);
+
+        _facebook_button.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+                Log.d(TAG, "Facebook success ");
+                Log.d(TAG, loginResult.getAccessToken().getApplicationId() + "\n"
+                        + loginResult.getAccessToken().getToken() + "\n"
+                        + loginResult.getAccessToken().getLastRefresh() + "\n"
+                        + loginResult.getAccessToken().getExpires());
+                Log.d(TAG, loginResult.getRecentlyDeniedPermissions().toString());
+                Log.d(TAG, loginResult.getRecentlyGrantedPermissions().toString());
+                Log.d(TAG, loginResult.getAccessToken().getUserId());
+                Log.d(TAG, loginResult.getAccessToken().getSource().toString());
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(
+                                    JSONObject object,
+                                    GraphResponse response) {
+                                Log.d(TAG, object.toString());
+                                Log.d(TAG, response.toString());
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,link,birthday,first_name,gender,last_name,location,email");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+                Log.d(TAG, "Facebook cancel");
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+                Log.e(TAG, "Facebook error", exception);
+            }
+        });
+
+
     }
 
     @Override
