@@ -15,6 +15,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,8 +55,8 @@ public class LoginFragment extends Fragment {
     EditText _email;
     @BindView(R.id.login_password_textview)
     EditText _password;
-//    @BindView(R.id.login_facebook_button)
-//    LoginButton _facebook_button;
+    @BindView(R.id.login_facebook_button)
+    LoginButton _facebook_button;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,53 +75,53 @@ public class LoginFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_login, container, false);
         unbinder = ButterKnife.bind(this, layout);
-//        _facebook_button.setReadPermissions("email");
-//        _facebook_button.setFragment(this);
-//
-//        _facebook_button.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//            @Override
-//            public void onSuccess(LoginResult loginResult) {
-//                // App code
-//                Log.d(TAG, "Facebook success ");
-//                Log.d(TAG, loginResult.getAccessToken().getApplicationId() + "\n"
-//                        + loginResult.getAccessToken().getToken() + "\n"
-//                        + loginResult.getAccessToken().getLastRefresh() + "\n"
-//                        + loginResult.getAccessToken().getExpires());
-//                Log.d(TAG, loginResult.getRecentlyDeniedPermissions().toString());
-//                Log.d(TAG, loginResult.getRecentlyGrantedPermissions().toString());
-//                Log.d(TAG, loginResult.getAccessToken().getUserId());
-//                Log.d(TAG, loginResult.getAccessToken().getSource().toString());
-//                GraphRequest request = GraphRequest.newMeRequest(
-//                        loginResult.getAccessToken(),
-//                        new GraphRequest.GraphJSONObjectCallback() {
-//                            @Override
-//                            public void onCompleted(
-//                                    JSONObject object,
-//                                    GraphResponse response) {
-//                                Log.d(TAG, object.toString());
-//                                Log.d(TAG, response.toString());
-//                            }
-//                        });
-//                Bundle parameters = new Bundle();
-//                parameters.putString("fields", "id,name,link,birthday,first_name,gender,last_name,location,email");
-//                request.setParameters(parameters);
-//                request.executeAsync();
-//            }
-//
-//            @Override
-//            public void onCancel() {
-//                // App code
-//                Log.d(TAG, "Facebook cancel");
-//            }
-//
-//            @Override
-//            public void onError(FacebookException exception) {
-//                // App code
-//                Log.e(TAG, "Facebook error", exception);
-//            }
-//        });
-//        _email.setText("thisisatest@test.com");
-//        _password.setText("azerty");
+        _facebook_button.setReadPermissions("email");
+        _facebook_button.setFragment(this);
+
+        _facebook_button.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+                Log.d(TAG, "Facebook success ");
+                Log.d(TAG, loginResult.getAccessToken().getApplicationId() + "\n"
+                        + loginResult.getAccessToken().getToken() + "\n"
+                        + loginResult.getAccessToken().getLastRefresh() + "\n"
+                        + loginResult.getAccessToken().getExpires());
+                Log.d(TAG, loginResult.getRecentlyDeniedPermissions().toString());
+                Log.d(TAG, loginResult.getRecentlyGrantedPermissions().toString());
+                Log.d(TAG, loginResult.getAccessToken().getUserId());
+                Log.d(TAG, loginResult.getAccessToken().getSource().toString());
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(
+                                    JSONObject object,
+                                    GraphResponse response) {
+                                Log.d(TAG, object.toString());
+                                Log.d(TAG, response.toString());
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,link,birthday,first_name,gender,last_name,location,email");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+                Log.d(TAG, "Facebook cancel");
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+                Log.e(TAG, "Facebook error", exception);
+            }
+        });
+        _email.setText("thisisatest@test.com");
+        _password.setText("azerty");
         return layout;
     }
 

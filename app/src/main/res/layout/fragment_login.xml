@@ -56,12 +56,12 @@
         android:background="@color/interact_background"
         android:textColor="@color/inside"/>
 
-    <!--<com.facebook.login.widget.LoginButton-->
-        <!--android:id="@+id/login_facebook_button"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center_horizontal"-->
-        <!--android:layout_marginBottom="30dp"-->
-        <!--android:layout_marginTop="30dp" />-->
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_facebook_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp" />
 
 </LinearLayout>
