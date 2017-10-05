@@ -2,6 +2,9 @@ package eu.biketrack.android.root;
 
 import android.app.Application;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 import eu.biketrack.android.api_connection.ApiConnectModule;
 import eu.biketrack.android.initializer.InitializerModule;
 import eu.biketrack.android.autologin.AutoLoginModule;
@@ -24,6 +27,10 @@ public class App extends Application {
                 .autoLoginModule(new AutoLoginModule())
                 .apiConnectModule(new ApiConnectModule())
                 .build();
+
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
     }
 
     public ApplicationComponent getComponent() {

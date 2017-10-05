@@ -2,6 +2,7 @@
     <string name="app_name" translatable="false">BikeTrack</string>
     <!-- Strings related to Facebook -->
     <string name="facebook_app_id" translatable="false">580553822151900</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb580553822151900</string>
     <!-- Strings related to Google -->
     <string name="google_android_map_api_key" translatable="false">AIzaSyCWaWLfc9VShCwMhz1yj689mxZc5sL57dk</string>
 
