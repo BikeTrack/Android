@@ -18,7 +18,12 @@ import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.Tracker;
 import eu.biketrack.android.session.Session;
 
+/*
+@// TODO: 05/10/2017
+Devient un Fragment activity.
+Chaque Bike est un fragment, on navigue entre eux via les swipes
 
+ */
 public class BikeFragment extends Fragment implements OnMapReadyCallback {
     private static String TAG = "BIKETRACK - Bike";
     private Unbinder unbinder;

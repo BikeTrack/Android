@@ -1,6 +1,5 @@
 package eu.biketrack.android.bikes;
 
-import eu.biketrack.android.login.LoginNetworkInterface;
 import eu.biketrack.android.session.LoginManagerModule;
 
 /**
@@ -22,6 +21,10 @@ public class BikesModel implements BikesMVP.Model {
     @Override
     public void setPresenter(BikesMVP.Presenter presenter) {
         this.presenter = presenter;
+    }
+
+    public void getBikes(){
+        bikesNetworkInterface.getBikeArrayList(loginManagerModule.getUserId(), loginManagerModule.getToken());
     }
 
     @Override

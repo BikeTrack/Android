@@ -1,6 +1,5 @@
 package eu.biketrack.android.bikes;
 
-import eu.biketrack.android.login.LoginMVP;
 
 /**
  * Created by 42900 on 28/09/2017 for BikeTrack_Android.
@@ -18,6 +17,11 @@ public class BikesPresenter implements BikesMVP.Presenter {
     @Override
     public void setView(BikesMVP.View view) {
         this.view = view;
+    }
+
+    @Override
+    public void getBikes() {
+        model.getBikes();
     }
 
     @Override

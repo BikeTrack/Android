@@ -1,6 +1,8 @@
 package eu.biketrack.android.api_connection;
 
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
+import eu.biketrack.android.models.data_reception.ReceiveBike;
+import eu.biketrack.android.models.data_reception.ReceiveTracker;
 import eu.biketrack.android.models.data_reception.ReceptUser;
 import eu.biketrack.android.models.data_reception.SignupReception;
 import eu.biketrack.android.models.data_send.AuthUser;
@@ -43,9 +45,9 @@ public interface BiketrackService {
 //    @HTTP(method = "DELETE", path = "bike", hasBody = true)
 //    Observable<Response<ReceptAddBike>> deleteBike(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Body SendBike bike);
 //
-//    @GET("bike/{bikeID}")
-//    Observable<ReceiveBike> getBike(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Path("bikeID") String bikeId);
-//
-//    @GET("tracker/{trackerId}")
-//    Observable<ReceiveTracker> getTracker(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Path("trackerId") String trackerId);
+    @GET("bike/{bikeID}")
+    Observable<ReceiveBike> getBike(@Path("bikeID") String bikeId, @Header("x-access-token") String access_token);
+
+    @GET("tracker/{trackerId}")
+    Observable<ReceiveTracker> getTracker(@Path("trackerId") String trackerId, @Header("x-access-token") String access_token);
 }

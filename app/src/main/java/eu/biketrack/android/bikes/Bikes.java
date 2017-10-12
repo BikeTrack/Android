@@ -1,11 +1,10 @@
 package eu.biketrack.android.bikes;
 
 import android.app.Activity;
-import android.app.Application;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
 import android.util.Pair;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,16 +15,11 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import eu.biketrack.android.R;
 import eu.biketrack.android.activities.CustomListAdapter;
-import eu.biketrack.android.api_connection.ApiConnectModule;
-import eu.biketrack.android.api_connection.BiketrackService;
-import eu.biketrack.android.models.User;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.Tracker;
 import eu.biketrack.android.root.App;
-import eu.biketrack.android.session.Session;
 
 public class Bikes extends Activity implements BikesMVP.View{
 
@@ -33,9 +27,9 @@ public class Bikes extends Activity implements BikesMVP.View{
 
 //    private BiketrackService biketrackService;
 //    private CompositeDisposable _disposables;
-    private Unbinder unbinder;
-    private ArrayList<Pair<Bike, Tracker>> bikeArrayList = new ArrayList<>();
-    private User user;
+//    private Unbinder unbinder;
+//    private ArrayList<Pair<Bike, Tracker>> bikeArrayList = new ArrayList<>();
+//    private User user;
     private CustomListAdapter adapter;
 
     @Inject
@@ -58,10 +52,13 @@ public class Bikes extends Activity implements BikesMVP.View{
         setContentView(R.layout.fragment_bikes);
         ButterKnife.bind(this);
 
-        //session = Session.getInstance();
-//        biketrackService = ApiConnectModule.createService();
-//        _disposables = new CompositeDisposable();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.setView(this);
+        presenter.getBikes();
     }
 
     @Override
@@ -69,13 +66,14 @@ public class Bikes extends Activity implements BikesMVP.View{
         adapter = new CustomListAdapter(this, bikeArrayList);
     }
 
+    public void setProgressBar(boolean visible){
+        if (visible)
+            pg_bar.setVisibility(View.VISIBLE);
+        else
+            pg_bar.setVisibility(View.GONE);
+    }
+
     //    @Override
-//    public void onResume() {
-//        super.onResume();
-//        getUser();
-//    }
-//
-//    @Override
 //    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        View layout = inflater.inflate(R.layout.fragment_bikes, container, false);
 //        unbinder = ButterKnife.bind(this, layout);
