@@ -1,6 +1,6 @@
 package eu.biketrack.android.bikes;
 
-import android.util.Pair;
+import android.support.v4.util.Pair;
 
 import java.util.ArrayList;
 
@@ -20,12 +20,13 @@ public interface BikesMVP {
     interface Presenter {
         void setView(BikesMVP.View view);
         void getBikes();
-        void viewUpdate();
+        void viewUpdate(ArrayList<android.support.v4.util.Pair<Bike, Tracker>> list);
     }
 
     interface Model {
         void setPresenter(BikesMVP.Presenter presenter);
         void getBikes();
+        void setBikeArrayList(ArrayList<android.support.v4.util.Pair<Bike, Tracker>> list);
         Throwable getError();
     }
 }

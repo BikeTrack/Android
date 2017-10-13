@@ -26,6 +26,12 @@ public class BikesNetwork implements BikesNetworkInterface{
     private BiketrackService biketrackService;
     private Observable<User> userObservable;
     private ArrayList<Pair<Bike, Tracker>> tmp = new ArrayList<>();
+    private BikesMVP.Model model;
+
+    @Override
+    public void setModel(BikesMVP.Model model) {
+        this.model = model;
+    }
 
     public BikesNetwork(BiketrackService biketrackService) {
         this.biketrackService = biketrackService;
@@ -45,19 +51,13 @@ public class BikesNetwork implements BikesNetworkInterface{
     public Observable<ReceiveTracker> getTracker(String tracker, String token) {
         return biketrackService.getTracker(tracker, token);
     }
-/*
-    presenter call updateList
-    quand la liste est updated, le model envoie les données au presenter.
 
- */
     @Override
-    public ArrayList<Pair<Bike, Tracker>> getBikeArrayList(String userId, String token) {
-
-
-        return tmp;
+    public void getBikeArrayList(String userId, String token) {
+        updateList(userId, token);
     }
 
-    public void updateList(String userId, String token){
+    private void updateList(String userId, String token){
         Log.d(TAG, "getBikeArrayList: " + userId + " / " + token);
         tmp.clear();
 
@@ -131,6 +131,7 @@ public class BikesNetwork implements BikesNetworkInterface{
                     public void onNext(ReceiveTracker receiveTracker) {
                         Log.d(TAG, "onNext: " + receiveTracker.getTracker().toString());
                         tmp.add(new Pair<>(bike, receiveTracker.getTracker()));
+                        model.setBikeArrayList(tmp);
                     }
                 });
     }

@@ -3,7 +3,8 @@ package eu.biketrack.android.bikes;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
-import android.util.Pair;
+import android.support.v4.util.Pair;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -59,11 +60,15 @@ public class Bikes extends Activity implements BikesMVP.View{
         super.onResume();
         presenter.setView(this);
         presenter.getBikes();
+        if (list != null)
+            list.setEmptyView(emptyText);
     }
 
     @Override
     public void displayBikes(ArrayList<Pair<Bike, Tracker>> bikeArrayList) {
+        Log.d(TAG, " ======================== displayBikes: " + bikeArrayList);
         adapter = new CustomListAdapter(this, bikeArrayList);
+        list.setAdapter(adapter);
     }
 
     public void setProgressBar(boolean visible){

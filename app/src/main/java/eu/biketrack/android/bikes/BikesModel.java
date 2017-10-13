@@ -1,5 +1,12 @@
 package eu.biketrack.android.bikes;
 
+import android.support.v4.util.Pair;
+import android.util.Log;
+
+import java.util.ArrayList;
+
+import eu.biketrack.android.models.data_reception.Bike;
+import eu.biketrack.android.models.data_reception.Tracker;
 import eu.biketrack.android.session.LoginManagerModule;
 
 /**
@@ -16,6 +23,7 @@ public class BikesModel implements BikesMVP.Model {
     public BikesModel(BikesNetworkInterface bikesNetworkInterface, LoginManagerModule loginManagerModule) {
         this.bikesNetworkInterface = bikesNetworkInterface;
         this.loginManagerModule = loginManagerModule;
+        this.bikesNetworkInterface.setModel(this);
     }
 
     @Override
@@ -25,6 +33,11 @@ public class BikesModel implements BikesMVP.Model {
 
     public void getBikes(){
         bikesNetworkInterface.getBikeArrayList(loginManagerModule.getUserId(), loginManagerModule.getToken());
+    }
+
+    @Override
+    public void setBikeArrayList(ArrayList<Pair<Bike, Tracker>> list) {
+        presenter.viewUpdate(list);
     }
 
     @Override
