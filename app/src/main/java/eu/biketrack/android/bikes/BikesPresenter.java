@@ -34,8 +34,9 @@ public class BikesPresenter implements BikesMVP.Presenter {
     }
 
     @Override
-    public void viewUpdate(ArrayList<Pair<Bike, Tracker>> list) {
-        view.displayBikes(list);
+    public void viewUpdate() {
+        view.displayBikes();
         view.setProgressBar(false);
     }
+
 }

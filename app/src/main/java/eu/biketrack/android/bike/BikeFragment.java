@@ -1,8 +1,12 @@
-package eu.biketrack.android.fragments;
+package eu.biketrack.android.bike;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,12 +15,17 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
 import eu.biketrack.android.api_connection.BiketrackService;
+import eu.biketrack.android.models.BikeTrackerList;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.Tracker;
 import eu.biketrack.android.session.Session;
+
+import static eu.biketrack.android.api_connection.Statics.BATTERY_CRITICAL;
+import static eu.biketrack.android.api_connection.Statics.BATTERY_LOW;
 
 /*
 @// TODO: 05/10/2017
@@ -26,9 +35,12 @@ Chaque Bike est un fragment, on navigue entre eux via les swipes
  */
 public class BikeFragment extends Fragment implements OnMapReadyCallback {
     private static String TAG = "BIKETRACK - Bike";
+    public static final String ARG_BIKE = "BIKE";
     private Unbinder unbinder;
     private Session session;
     private Bike bike;
+    private BikeTrackerList bikeTrackerList = BikeTrackerList.getInstance();
+    private int position;
    // private BiketrackService biketrackService;
 //    private CompositeDisposable _disposables;
     private Tracker tracker;
@@ -49,17 +61,42 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
 //        biketrackService = ApiConnectModule.createService();
 //        _disposables = new CompositeDisposable();
-//        Bundle bundle = getArguments();
+        Bundle bundle = getArguments();
 //        session = Session.getInstance();
 //        bike = bundle.getParcelable("BIKE");
+        position = bundle.getInt(ARG_BIKE);
     }
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater,
-//                             @Nullable ViewGroup container,
-//                             @Nullable Bundle savedInstanceState) {
-//        View layout = inflater.inflate(R.layout.fragment_bike, container, false);
-//        unbinder = ButterKnife.bind(this, layout);
+    @Override
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View layout = inflater.inflate(R.layout.fragment_bike, container, false);
+        unbinder = ButterKnife.bind(this, layout);
+
+        _name.setText(bikeTrackerList.getPair(position).first.getName());
+        tracker = bikeTrackerList.getPair(position).second;
+
+        if (_battery == null){
+        } else if (tracker == null){
+            _battery.setImageResource(R.drawable.ic_broken_link);
+        } else if (tracker.getBattery() == null){
+            _battery.setImageResource(R.drawable.ic_broken_link);
+        } else if (tracker.getBattery().size() == 0){
+            _battery.setImageResource(R.drawable.ic_broken_link);
+        } else if (tracker.getBattery().get(tracker.getBattery().size() - 1) == null){
+            _battery.setImageResource(R.drawable.ic_broken_link);
+        } else if (tracker.getBattery().get(tracker.getBattery().size() - 1).getPourcentage() < BATTERY_CRITICAL){
+            _battery.setImageResource(R.drawable.ic_battery_critical);
+        } else if (tracker.getBattery().get(tracker.getBattery().size() - 1).getPourcentage() < BATTERY_LOW){
+            _battery.setImageResource(R.drawable.ic_battery_low);
+        } else {
+            _battery.setImageResource(R.drawable.ic_battery_full);
+        }
+
+
+
+
 //        if (toolbar != null) {
 //            toolbar.inflateMenu(R.menu.bike_menu);
 //            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24px);
@@ -134,8 +171,8 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 //        if (mapView != null)
 //            mapView.onCreate(savedInstanceState);
 //        getBike();
-//        return layout;
-//    }
+        return layout;
+    }
 //
 //    private void setDatas(){
 //        if (_name != null)
@@ -174,13 +211,13 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 //        );
 //    }
 //
-//    @Override
-//    public void onDestroyView() {
+    @Override
+    public void onDestroyView() {
 //        if (mapView != null)
 //            mapView.onDestroy();
-//        super.onDestroyView();
-//        unbinder.unbind();
-//    }
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 //
 //    @Override
 //    public void onResume() {

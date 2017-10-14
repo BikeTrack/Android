@@ -35,9 +35,15 @@ public class BikesModel implements BikesMVP.Model {
         bikesNetworkInterface.getBikeArrayList(loginManagerModule.getUserId(), loginManagerModule.getToken());
     }
 
+//    @Override
+//    public void setBikeArrayList(ArrayList<Pair<Bike, Tracker>> list) {
+//        presenter.viewUpdate(list);
+//    }
+
+
     @Override
-    public void setBikeArrayList(ArrayList<Pair<Bike, Tracker>> list) {
-        presenter.viewUpdate(list);
+    public void updateDone() {
+        presenter.viewUpdate();
     }
 
     @Override

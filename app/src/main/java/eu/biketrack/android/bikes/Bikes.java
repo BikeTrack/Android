@@ -1,10 +1,11 @@
 package eu.biketrack.android.bikes;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -16,8 +17,13 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 import eu.biketrack.android.R;
+import eu.biketrack.android.activities.BikeTrack;
 import eu.biketrack.android.activities.CustomListAdapter;
+import eu.biketrack.android.bike.BikeCollectionActivity;
+import eu.biketrack.android.bike.BikeFragment;
+import eu.biketrack.android.models.BikeTrackerList;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.Tracker;
 import eu.biketrack.android.root.App;
@@ -52,7 +58,7 @@ public class Bikes extends Activity implements BikesMVP.View{
         ((App) getApplication()).getComponent().inject(this);
         setContentView(R.layout.fragment_bikes);
         ButterKnife.bind(this);
-
+        registerForContextMenu(list);
     }
 
     @Override
@@ -60,14 +66,15 @@ public class Bikes extends Activity implements BikesMVP.View{
         super.onResume();
         presenter.setView(this);
         presenter.getBikes();
-        if (list != null)
+        if (list != null) {
             list.setEmptyView(emptyText);
+            registerForContextMenu(list);
+        }
     }
 
     @Override
-    public void displayBikes(ArrayList<Pair<Bike, Tracker>> bikeArrayList) {
-        Log.d(TAG, " ======================== displayBikes: " + bikeArrayList);
-        adapter = new CustomListAdapter(this, bikeArrayList);
+    public void displayBikes() {
+        adapter = new CustomListAdapter(this, BikeTrackerList.getInstance().getBikeArrayList());
         list.setAdapter(adapter);
     }
 
@@ -129,19 +136,11 @@ public class Bikes extends Activity implements BikesMVP.View{
 //        unbinder.unbind();
 //    }
 //
-//    @OnItemClick(R.id.listView_bikes)
-//    public void selectBike(int position) {
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelable("BIKE", bikeArrayList.get(position).first);
-//        Fragment fragment = new BikeFragment();
-//        fragment.setArguments(bundle);
-//        final String tag = fragment.getClass().toString();
-//        getActivity().getSupportFragmentManager()
-//                .beginTransaction()
-//                .addToBackStack(tag)
-//                .replace(android.R.id.content, fragment, tag)
-//                .commit();
-//    }
+    @OnItemClick(R.id.listView_bikes)
+    public void selectBike(int position) {
+        Intent i = new Intent(this, BikeCollectionActivity.class);
+        startActivity(i);
+    }
 //
 //
 //    @OnClick(R.id.floatin_add_bike)

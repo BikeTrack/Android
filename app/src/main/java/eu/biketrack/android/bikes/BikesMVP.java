@@ -14,19 +14,20 @@ import eu.biketrack.android.models.data_reception.Tracker;
 public interface BikesMVP {
     interface View{
         void setProgressBar(boolean visible);
-        void displayBikes(ArrayList<Pair<Bike, Tracker>> bikeArrayList);
+        void displayBikes();
     }
 
     interface Presenter {
         void setView(BikesMVP.View view);
         void getBikes();
-        void viewUpdate(ArrayList<android.support.v4.util.Pair<Bike, Tracker>> list);
+        void viewUpdate();
     }
 
     interface Model {
         void setPresenter(BikesMVP.Presenter presenter);
         void getBikes();
-        void setBikeArrayList(ArrayList<android.support.v4.util.Pair<Bike, Tracker>> list);
+//        void setBikeArrayList(ArrayList<android.support.v4.util.Pair<Bike, Tracker>> list);
         Throwable getError();
+        void updateDone();
     }
 }

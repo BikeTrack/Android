@@ -6,6 +6,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import eu.biketrack.android.api_connection.BiketrackService;
+import eu.biketrack.android.models.BikeTrackerList;
 import eu.biketrack.android.models.User;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.ReceiveBike;
@@ -25,7 +26,7 @@ public class BikesNetwork implements BikesNetworkInterface{
     private static final String TAG = "BikesNetwork";
     private BiketrackService biketrackService;
     private Observable<User> userObservable;
-    private ArrayList<Pair<Bike, Tracker>> tmp = new ArrayList<>();
+    private BikeTrackerList bikeTrackerList;
     private BikesMVP.Model model;
 
     @Override
@@ -35,6 +36,7 @@ public class BikesNetwork implements BikesNetworkInterface{
 
     public BikesNetwork(BiketrackService biketrackService) {
         this.biketrackService = biketrackService;
+        bikeTrackerList = BikeTrackerList.getInstance();
     }
 
     @Override
@@ -59,7 +61,7 @@ public class BikesNetwork implements BikesNetworkInterface{
 
     private void updateList(String userId, String token){
         Log.d(TAG, "getBikeArrayList: " + userId + " / " + token);
-        tmp.clear();
+        bikeTrackerList.clear();
 
 
         getUser(userId ,token)
@@ -130,8 +132,8 @@ public class BikesNetwork implements BikesNetworkInterface{
                     @Override
                     public void onNext(ReceiveTracker receiveTracker) {
                         Log.d(TAG, "onNext: " + receiveTracker.getTracker().toString());
-                        tmp.add(new Pair<>(bike, receiveTracker.getTracker()));
-                        model.setBikeArrayList(tmp);
+                        bikeTrackerList.addPair(bike, receiveTracker.getTracker());
+                        model.updateDone();
                     }
                 });
     }
