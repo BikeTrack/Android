@@ -97,4 +97,8 @@ public class Tracker {
                 ", created='" + created + '\'' +
                 '}';
     }
+
+    public int getCurrentRoundedBatteryPercentage(){
+        return battery.get(battery.size() - 1).getPourcentage().intValue();
+    }
 }

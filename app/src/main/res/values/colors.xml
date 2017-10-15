@@ -7,8 +7,12 @@
 
     <color name="background">#e1eef6</color>
     <color name="titles">#ff5f2e</color>
-    <color name="inside">#fcbe32</color>
+    <color name="inside">#ee3568</color>
     <color name="interact_background">#004e66</color>
     <color name="interact_background_light">#407a94</color>
     <color name="interact_background_dark">#00263b</color>
+
+
+    <color name="text">#ababab</color>
+
 </resources>

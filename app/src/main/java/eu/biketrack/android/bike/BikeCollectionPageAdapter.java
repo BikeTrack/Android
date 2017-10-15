@@ -35,6 +35,6 @@ public class BikeCollectionPageAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return bikeTrackerList.size();
     }
 }

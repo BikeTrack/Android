@@ -3,36 +3,36 @@ package eu.biketrack.android.bike;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.models.BikeTrackerList;
 import eu.biketrack.android.models.data_reception.Bike;
+import eu.biketrack.android.models.data_reception.Location;
 import eu.biketrack.android.models.data_reception.Tracker;
 import eu.biketrack.android.session.Session;
 
 import static eu.biketrack.android.api_connection.Statics.BATTERY_CRITICAL;
 import static eu.biketrack.android.api_connection.Statics.BATTERY_LOW;
 
-/*
-@// TODO: 05/10/2017
-Devient un Fragment activity.
-Chaque Bike est un fragment, on navigue entre eux via les swipes
-
- */
 public class BikeFragment extends Fragment implements OnMapReadyCallback {
     private static String TAG = "BIKETRACK - Bike";
     public static final String ARG_BIKE = "BIKE";
@@ -41,19 +41,20 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
     private Bike bike;
     private BikeTrackerList bikeTrackerList = BikeTrackerList.getInstance();
     private int position;
-   // private BiketrackService biketrackService;
+    // private BiketrackService biketrackService;
 //    private CompositeDisposable _disposables;
     private Tracker tracker;
 
     private static final int REQUEST_LOCATION = 1;
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+//    @BindView(R.id.toolbar)
+//    Toolbar toolbar;
     @BindView(R.id.bike_picture)
     ImageView _bike_picture;
     @BindView(R.id.bike_name_tv) TextView _name;
     @BindView(R.id.map) MapView mapView;
-    @BindView(R.id.date_last_point) TextView _date_last_point;
+//    @BindView(R.id.date_last_point) TextView _date_last_point;
+    @BindView(R.id.battery_percent) TextView _battery_percent;
     @BindView(R.id.battery) ImageView _battery;
 
     @Override
@@ -77,24 +78,28 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         _name.setText(bikeTrackerList.getPair(position).first.getName());
         tracker = bikeTrackerList.getPair(position).second;
 
-        if (_battery == null){
-        } else if (tracker == null){
-            _battery.setImageResource(R.drawable.ic_broken_link);
-        } else if (tracker.getBattery() == null){
-            _battery.setImageResource(R.drawable.ic_broken_link);
-        } else if (tracker.getBattery().size() == 0){
-            _battery.setImageResource(R.drawable.ic_broken_link);
-        } else if (tracker.getBattery().get(tracker.getBattery().size() - 1) == null){
-            _battery.setImageResource(R.drawable.ic_broken_link);
-        } else if (tracker.getBattery().get(tracker.getBattery().size() - 1).getPourcentage() < BATTERY_CRITICAL){
-            _battery.setImageResource(R.drawable.ic_battery_critical);
-        } else if (tracker.getBattery().get(tracker.getBattery().size() - 1).getPourcentage() < BATTERY_LOW){
-            _battery.setImageResource(R.drawable.ic_battery_low);
-        } else {
-            _battery.setImageResource(R.drawable.ic_battery_full);
+        try {
+            if (tracker == null) {
+                _battery.setImageResource(R.drawable.ic_broken_link);
+            } else if (tracker.getBattery() == null) {
+                _battery.setImageResource(R.drawable.ic_broken_link);
+            } else if (tracker.getBattery().size() == 0) {
+                _battery.setImageResource(R.drawable.ic_broken_link);
+            } else if (tracker.getBattery().get(tracker.getBattery().size() - 1) == null) {
+                _battery.setImageResource(R.drawable.ic_broken_link);
+            } else if (tracker.getBattery().get(tracker.getBattery().size() - 1).getPourcentage() < BATTERY_CRITICAL) {
+                _battery.setImageResource(R.drawable.ic_battery_critical);
+            } else if (tracker.getBattery().get(tracker.getBattery().size() - 1).getPourcentage() < BATTERY_LOW) {
+                _battery.setImageResource(R.drawable.ic_battery_low);
+            } else {
+                _battery.setImageResource(R.drawable.ic_battery_full);
+            }
+            _battery_percent.setText(String.valueOf(tracker.getCurrentRoundedBatteryPercentage()));
+        } catch (Exception e){
+            Log.e(TAG, "onCreateView: ", e);
         }
-
-
+        if (mapView != null)
+            mapView.getMapAsync(BikeFragment.this);
 
 
 //        if (toolbar != null) {
@@ -168,12 +173,12 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 //                }
 //            });
 //        }
-//        if (mapView != null)
-//            mapView.onCreate(savedInstanceState);
+        if (mapView != null)
+            mapView.onCreate(savedInstanceState);
 //        getBike();
         return layout;
     }
-//
+    //
 //    private void setDatas(){
 //        if (_name != null)
 //            _name.setText(bike.getBrand() + " " + bike.getName());
@@ -213,77 +218,77 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 //
     @Override
     public void onDestroyView() {
-//        if (mapView != null)
-//            mapView.onDestroy();
+        if (mapView != null)
+            mapView.onDestroy();
         super.onDestroyView();
         unbinder.unbind();
     }
-//
-//    @Override
-//    public void onResume() {
-//        if (mapView != null)
-//            mapView.onResume();
+    //
+    @Override
+    public void onResume() {
+        if (mapView != null)
+            mapView.onResume();
 //        getCoordinates();
-//        super.onResume();
-//    }
-//
-//    @Override
-//    public void onPause() {
-//        super.onPause();
-//        if (mapView != null)
-//            mapView.onPause();
-//    }
-//
-//    @Override
-//    public void onLowMemory() {
-//        if (mapView != null)
-//            mapView.onLowMemory();
-//        super.onLowMemory();
-//    }
-//
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (mapView != null)
+            mapView.onPause();
+    }
+
+    @Override
+    public void onLowMemory() {
+        if (mapView != null)
+            mapView.onLowMemory();
+        super.onLowMemory();
+    }
+    //
     @Override
     public void onMapReady(GoogleMap googleMap) {
-//        LatLng target = null;
-//        int i = 0;
-////        int j = 0;
-////        if (tracker.getLocations().size() > Statics.MAX_POINTS_DISPLAYED_ON_MAP){
-////            i = tracker.getLocations().size() - Statics.MAX_POINTS_DISPLAYED_ON_MAP;
-////        }
-//        for (Location l : tracker.getLocations()){
-////            if (j >= Statics.MAX_POINTS_DISPLAYED_ON_MAP)
-////                break;
-//            if (l.getCoordinates().get(1) != null && l.getCoordinates().get(0) != null) {
-//                if (i == tracker.getLocations().size() - 1) {
-//                    googleMap.addMarker(new MarkerOptions()
-//                            .position(new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0)))
-//                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-//                    target = new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0));
+        LatLng target = null;
+        int i = 0;
+//        int j = 0;
+//        if (tracker.getLocations().size() > Statics.MAX_POINTS_DISPLAYED_ON_MAP){
+//            i = tracker.getLocations().size() - Statics.MAX_POINTS_DISPLAYED_ON_MAP;
+//        }
+        for (Location l : tracker.getLocations()){
+//            if (j >= Statics.MAX_POINTS_DISPLAYED_ON_MAP)
+//                break;
+            if (l.getCoordinates().get(1) != null && l.getCoordinates().get(0) != null) {
+                if (i == tracker.getLocations().size() - 1) {
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0)))
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                    target = new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0));
 //                    if (_date_last_point != null)
 //                        _date_last_point.setText(l.getTimestamp());
-//                } else {
-//                    googleMap.addMarker(new MarkerOptions()
-//                            .position(new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0))));
-//                }
-//            }
-//            ++i;
-////            ++j;
+                } else {
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0))));
+                }
+            }
+            ++i;
+//            ++j;
+        }
+        googleMap.getUiSettings().setMyLocationButtonEnabled(false);
+//        if (ActivityCompat.checkSelfPermission(
+//                getActivity(),
+//                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+//                ActivityCompat.checkSelfPermission(getActivity(),
+//                        android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+//
 //        }
-//        googleMap.getUiSettings().setMyLocationButtonEnabled(false);
-////        if (ActivityCompat.checkSelfPermission(
-////                getActivity(),
-////                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-////                ActivityCompat.checkSelfPermission(getActivity(),
-////                        android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-////            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-////
-////        }
-////        googleMap.setMyLocationEnabled(true);
-//        googleMap.getUiSettings().setZoomControlsEnabled(true);
-//        MapsInitializer.initialize(this.getActivity());
-//        if (target == null)
-//            target = new LatLng(0.0,0.0);
-//        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(target, 15.0f);
-//        googleMap.moveCamera(cameraUpdate);
+//        googleMap.setMyLocationEnabled(true);
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
+        MapsInitializer.initialize(this.getActivity());
+        if (target == null)
+            target = new LatLng(0.0,0.0);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(target, 15.0f);
+        googleMap.moveCamera(cameraUpdate);
     }
 //
 //    @Override

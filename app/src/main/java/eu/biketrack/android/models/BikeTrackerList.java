@@ -44,4 +44,12 @@ public class BikeTrackerList {
     public Pair<Bike, Tracker> getPair(int position){
         return bikeArrayList.get(position);
     }
+
+    public Bike getBike(int position){
+        return bikeArrayList.get(position).first;
+    }
+
+    public Tracker getTracker(int position){
+        return bikeArrayList.get(position).second;
+    }
 }

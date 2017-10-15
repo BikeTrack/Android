@@ -32,6 +32,8 @@
 
     <string name="empty_list">There is no bike here !</string>
 
+    <string name="percent_battery">percent</string>
+
     <!-- Strings related to BikeEdit -->
     <string name="bike_name_txt">Name</string>
     <string name="bike_brand_txt">Brand</string>

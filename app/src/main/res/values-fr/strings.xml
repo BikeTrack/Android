@@ -32,6 +32,8 @@
 
     <string name="empty_list">Il n\'y a pas de vélo</string>
 
+    <string name="percent_battery">pourcent</string>
+
     <!-- Strings related to BikeEdit -->
     <string name="bike_name_txt">Nom</string>
     <string name="bike_color_txt">Couleur</string>
