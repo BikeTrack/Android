@@ -49,8 +49,8 @@ public class Bikes extends Activity implements BikesMVP.View{
     @BindView(R.id.progressBarBikes)
     ProgressBar pg_bar;
 
-    @BindView(R.id.bottom_navigation)
-    BottomNavigationView bottomNavigationView;
+//    @BindView(R.id.bottom_navigation)
+//    BottomNavigationView bottomNavigationView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,6 +83,13 @@ public class Bikes extends Activity implements BikesMVP.View{
             pg_bar.setVisibility(View.VISIBLE);
         else
             pg_bar.setVisibility(View.GONE);
+    }
+
+    @OnItemClick(R.id.listView_bikes)
+    public void selectBike(int position) {
+        Intent i = new Intent(this, BikeCollectionActivity.class);
+        i.putExtra("position", position);
+        startActivity(i);
     }
 
     //    @Override
@@ -136,11 +143,7 @@ public class Bikes extends Activity implements BikesMVP.View{
 //        unbinder.unbind();
 //    }
 //
-    @OnItemClick(R.id.listView_bikes)
-    public void selectBike(int position) {
-        Intent i = new Intent(this, BikeCollectionActivity.class);
-        startActivity(i);
-    }
+
 //
 //
 //    @OnClick(R.id.floatin_add_bike)

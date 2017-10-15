@@ -42,9 +42,8 @@ public class CustomListAdapter extends ArrayAdapter<Pair<Bike, Tracker>> {
         TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
         ImageView battery = (ImageView) rowView.findViewById(R.id.battery);
-//        TextView extratxt = (TextView) rowView.findViewById(R.id.textView1);
 
-        txtTitle.setText(bikes.get(position).first.getBrand() + " " + bikes.get(position).first.getName());
+        txtTitle.setText(bikes.get(position).first.getName());
 
 
         imageView.setImageResource(R.drawable.ic_logo_black);
@@ -67,7 +66,6 @@ public class CustomListAdapter extends ArrayAdapter<Pair<Bike, Tracker>> {
         } else {
             battery.setImageResource(R.drawable.ic_battery_full);
         }
-        //extratxt.setText("Latitude : " + bikes.get(position).getLat() + " Longitude : " + bikes.get(position).getLong());
         return rowView;
     }
 }

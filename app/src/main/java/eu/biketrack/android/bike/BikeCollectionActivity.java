@@ -18,11 +18,21 @@ public class BikeCollectionActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection_bike);
+        int position = 0;
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                position = 0;
+            } else {
+                position = extras.getInt("position");
+            }
+        } else {
+            position = (int) savedInstanceState.getSerializable("position");
+        }
 
-        // ViewPager and its adapters use support library
-        // fragments, so use getSupportFragmentManager.
         mBikeCollectionPagerAdapter = new BikeCollectionPageAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mBikeCollectionPagerAdapter);
+        mViewPager.setCurrentItem(position, true);
     }
 }

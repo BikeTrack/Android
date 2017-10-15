@@ -14,6 +14,7 @@ import eu.biketrack.android.models.data_reception.Tracker;
 public class BikeTrackerList {
     private static BikeTrackerList INSTANCE;
     private ArrayList<Pair<Bike, Tracker>> bikeArrayList;
+    private int currentPosition = 0;
 
     private BikeTrackerList(){
         bikeArrayList = new ArrayList<>();
@@ -52,4 +53,22 @@ public class BikeTrackerList {
     public Tracker getTracker(int position){
         return bikeArrayList.get(position).second;
     }
+
+//    public int getCurrentPosition() {
+//        return currentPosition;
+//    }
+//
+//    public void setCurrentPosition(int currentPosition) {
+//        this.currentPosition = currentPosition;
+//    }
+//
+//    public void nextCurrentPosition(){
+//        if (currentPosition < size())
+//            currentPosition ++;
+//    }
+//
+//    public void previousCurrentPosition(){
+//        if (currentPosition > 0)
+//            currentPosition--;
+//    }
 }
