@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="eu.biketrack.android.activities.AutoLogin"
+    tools:context="eu.biketrack.beta.activities.AutoLogin"
     android:background="@color/background">
 
     <include layout="@layout/fragment_auto_login" />
