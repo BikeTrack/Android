@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">BikeTrack</string>
+    <string name="app_name" translatable="false">BikeTrack Beta</string>
     <!-- Strings related to Facebook -->
     <string name="facebook_app_id" translatable="false">580553822151900</string>
     <!-- Strings related to Google -->
