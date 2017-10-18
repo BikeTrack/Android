@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -37,20 +40,30 @@ public class Bikes extends Activity implements BikesMVP.View{
 //    private Unbinder unbinder;
 //    private ArrayList<Pair<Bike, Tracker>> bikeArrayList = new ArrayList<>();
 //    private User user;
-    private CustomListAdapter adapter;
+//    private CustomListAdapter adapter;
+
+    @BindView(R.id.listView_bikes)
+    public RecyclerView mRecyclerView;
+    public RecyclerView.Adapter mAdapter = null;
+    public RecyclerView.LayoutManager mLayoutManager = null;
 
     @Inject
     BikesMVP.Presenter presenter;
 
-    @BindView(R.id.listView_bikes)
-    ListView list;
-    @BindView(R.id.emptylist_txt)
-    TextView emptyText;
+    //    @BindView(R.id.listView_bikes)
+//    ListView list;
+//    @BindView(R.id.emptylist_txt)
+//    TextView emptyText;
+    @BindView(R.id.bikesSwipeRefresh)
+    SwipeRefreshLayout swipeRefreshLayout;
+
     @BindView(R.id.progressBarBikes)
     ProgressBar pg_bar;
 
 //    @BindView(R.id.bottom_navigation)
 //    BottomNavigationView bottomNavigationView;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +71,36 @@ public class Bikes extends Activity implements BikesMVP.View{
         ((App) getApplication()).getComponent().inject(this);
         setContentView(R.layout.fragment_bikes);
         ButterKnife.bind(this);
-        registerForContextMenu(list);
+        //registerForContextMenu(list);
+
+
+        pg_bar.setVisibility(View.GONE);
+
+
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mRecyclerView.addOnItemTouchListener(
+                new RecyclerViewItemClickListener(this.getApplicationContext(), new RecyclerViewItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        Intent i = new Intent(getApplicationContext(), BikeCollectionActivity.class);
+                        i.putExtra("position", position);
+                        startActivity(i);
+                    }
+                })
+        );
+
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                presenter.getBikes();
+
+            }
+        });
+
     }
 
     @Override
@@ -66,31 +108,40 @@ public class Bikes extends Activity implements BikesMVP.View{
         super.onResume();
         presenter.setView(this);
         presenter.getBikes();
-        if (list != null) {
-            list.setEmptyView(emptyText);
-            registerForContextMenu(list);
-        }
+//        if (list != null) {
+//            list.setEmptyView(emptyText);
+//            registerForContextMenu(list);
+//        }
     }
 
     @Override
     public void displayBikes() {
-        adapter = new CustomListAdapter(this, BikeTrackerList.getInstance().getBikeArrayList());
-        list.setAdapter(adapter);
+//        adapter = new CustomListAdapter(this, BikeTrackerList.getInstance().getBikeArrayList());
+//        list.setAdapter(adapter);
+        if (mAdapter == null) {
+            mAdapter = new RecyclerViewBikesAdapter();
+            mRecyclerView.setAdapter(mAdapter);
+        } else {
+            mAdapter.notifyDataSetChanged();
+        }
+
+        if (swipeRefreshLayout.isRefreshing())
+            swipeRefreshLayout.setRefreshing(false);
     }
 
     public void setProgressBar(boolean visible){
         if (visible)
-            pg_bar.setVisibility(View.VISIBLE);
+            swipeRefreshLayout.setRefreshing(true);
         else
-            pg_bar.setVisibility(View.GONE);
+            swipeRefreshLayout.setRefreshing(false);
     }
 
-    @OnItemClick(R.id.listView_bikes)
-    public void selectBike(int position) {
-        Intent i = new Intent(this, BikeCollectionActivity.class);
-        i.putExtra("position", position);
-        startActivity(i);
-    }
+//    @OnItemClick(R.id.listView_bikes)
+//    public void selectBike(int position) {
+//        Intent i = new Intent(this, BikeCollectionActivity.class);
+//        i.putExtra("position", position);
+//        startActivity(i);
+//    }
 
     //    @Override
 //    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
