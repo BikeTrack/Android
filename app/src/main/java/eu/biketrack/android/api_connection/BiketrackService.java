@@ -3,9 +3,11 @@ package eu.biketrack.android.api_connection;
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_reception.ReceiveBike;
 import eu.biketrack.android.models.data_reception.ReceiveTracker;
+import eu.biketrack.android.models.data_reception.ReceptAddBike;
 import eu.biketrack.android.models.data_reception.ReceptUser;
 import eu.biketrack.android.models.data_reception.SignupReception;
 import eu.biketrack.android.models.data_send.AuthUser;
+import eu.biketrack.android.models.data_send.SendBike;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -36,8 +38,8 @@ public interface BiketrackService {
 //    @HTTP(method = "DELETE", path = "profile", hasBody = true)
 //    Observable<Response<ReceptDeleteUser>> deleteUser(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Body DeleteUser user);
 //
-//    @POST("bike")
-//    Observable<Response<ReceptAddBike>> addBike(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Body SendBike bike);
+    @POST("bike")
+    Observable<ReceptAddBike> addBike(@Header("x-access-token") String access_token, @Body SendBike bike);
 //
 //    @PATCH("bike")
 //    Observable<Response<ReceptAddBike>> updateBike(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Body SendBikeUpdate bike);

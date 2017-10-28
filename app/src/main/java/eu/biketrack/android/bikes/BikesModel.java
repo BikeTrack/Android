@@ -36,6 +36,11 @@ public class BikesModel implements BikesMVP.Model {
             public void listUpdated() {
                 updateDone();
             }
+
+            @Override
+            public void bikeCreated() {
+
+            }
         });
         bikeTrackerNetworkInterface.updateBike();
     }

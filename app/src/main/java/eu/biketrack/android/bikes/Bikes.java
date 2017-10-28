@@ -13,8 +13,10 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import eu.biketrack.android.R;
 import eu.biketrack.android.bike.BikeCollectionActivity;
+import eu.biketrack.android.editbike.EditBike;
 import eu.biketrack.android.models.biketracker.BikeTrackerList;
 import eu.biketrack.android.root.App;
 
@@ -123,6 +125,12 @@ public class Bikes extends Activity implements BikesMVP.View{
             swipeRefreshLayout.setRefreshing(false);
     }
 
+    @OnClick(R.id.floatin_add_bike)
+    public void addBike(){
+        Intent i = new Intent(this, EditBike.class);
+        startActivity(i);
+    }
+
 //    @OnItemClick(R.id.listView_bikes)
 //    public void selectBike(int position) {
 //        Intent i = new Intent(this, BikeCollectionActivity.class);
@@ -186,7 +194,7 @@ public class Bikes extends Activity implements BikesMVP.View{
 //
 //    @OnClick(R.id.floatin_add_bike)
 //    public void addBike() {
-//        Fragment fragment = new EditBikeFragment();
+//        Fragment fragment = new EditBike();
 //        final String tag = fragment.getClass().toString();
 //        getActivity().getSupportFragmentManager()
 //                .beginTransaction()
@@ -329,7 +337,7 @@ public class Bikes extends Activity implements BikesMVP.View{
 //        if (selected_option == R.id.action_edit_bike){
 //            Bundle bundle = new Bundle();
 //            bundle.putParcelable("BIKE", bikeArrayList.get(selected_item).first);
-//            Fragment fragment = new EditBikeFragment();
+//            Fragment fragment = new EditBike();
 //            fragment.setArguments(bundle);
 //            final String tag = fragment.getClass().toString();
 //            getActivity().getSupportFragmentManager()

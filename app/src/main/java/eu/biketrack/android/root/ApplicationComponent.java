@@ -8,6 +8,8 @@ import eu.biketrack.android.api_connection.ApiConnectModule;
 import eu.biketrack.android.autologin.AutoLogin;
 import eu.biketrack.android.bikes.Bikes;
 import eu.biketrack.android.bikes.BikesModule;
+import eu.biketrack.android.editbike.EditBike;
+import eu.biketrack.android.editbike.EditBikeModule;
 import eu.biketrack.android.initializer.Initializer;
 import eu.biketrack.android.initializer.InitializerModule;
 import eu.biketrack.android.autologin.AutoLoginModule;
@@ -34,7 +36,8 @@ import eu.biketrack.android.subscription.SubscriptionModule;
         LoginModule.class,
         SubscriptionModule.class,
         BikesModule.class,
-        BikeTrackerListModule.class
+        BikeTrackerListModule.class,
+        EditBikeModule.class
 })
 public interface ApplicationComponent {
 
@@ -46,6 +49,7 @@ public interface ApplicationComponent {
     void inject(Subscription target);
     void inject(Bikes target);
     void inject(BikeTrackerNetworkInterface bikeTrackerNetworkInterface);
+    void inject(EditBike target);
 
 
 

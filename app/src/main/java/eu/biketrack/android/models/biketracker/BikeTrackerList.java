@@ -24,6 +24,7 @@ public class BikeTrackerList {
 
     public interface BikeTrackerListListener {
         void listUpdated();
+        void bikeCreated();
     }
 
     private static final String TAG = "BikeTrackerList";

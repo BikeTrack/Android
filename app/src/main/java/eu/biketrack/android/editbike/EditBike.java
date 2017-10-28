@@ -1,54 +1,75 @@
-package eu.biketrack.android.fragments;
+package eu.biketrack.android.editbike;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
-import butterknife.Unbinder;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import eu.biketrack.android.R;
-import eu.biketrack.android.api_connection.ApiConnectModule;
-import eu.biketrack.android.api_connection.BiketrackService;
-import eu.biketrack.android.models.BrandSelected;
-import eu.biketrack.android.models.data_reception.Bike;
-import eu.biketrack.android.session.Session;
+import eu.biketrack.android.models.data_send.SendBike;
+import eu.biketrack.android.models.data_send.SendBikeInfo;
+import eu.biketrack.android.root.App;
 
-public class EditBikeFragment extends Fragment {
-    private static String TAG = "BIKETRACK - EditBike";
-    private Unbinder unbinder;
-    private Session session;
-    private BiketrackService biketrackService;
-//    private CompositeDisposable _disposables;
-    private Bike _bike;
-    private BrandSelected brandSelected;
+public class EditBike extends Activity implements EditBikeMVP.View{
+    private static final String TAG = "EditBike";
 
-    @BindView(R.id.toolbar) Toolbar toolbar;
+    @Inject
+    public EditBikeMVP.Presenter presenter;
+
+//    @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.bike_name_edit) EditText _name;
-    @BindView(R.id.bike_trackerid_edit) EditText _trackerid;
-    @BindView(R.id.bike_brand_edit) EditText _brand;
-    @BindView(R.id.search_brand_button) Button _button_search_brand;
+//    @BindView(R.id.bike_trackerid_edit) EditText _trackerid;
+//    @BindView(R.id.bike_brand_edit) EditText _brand;
+//    @BindView(R.id.search_brand_button) Button _button_search_brand;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().getWindow().setSoftInputMode(
+        ((App) getApplication()).getComponent().inject(this);
+        setContentView(R.layout.fragment_edit_bike);
+        ButterKnife.bind(this);
+        getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
+
+
        // biketrackService = ApiConnectModule.createService();
 //        _disposables = new CompositeDisposable();
 //        session = Session.getInstance();
-        brandSelected = BrandSelected.getOurInstance();
-        brandSelected.clear();
-        Bundle bundle = getArguments();
-        if (bundle != null)
-            _bike = bundle.getParcelable("BIKE");
-        else
-            _bike = null;
+//        brandSelected = BrandSelected.getOurInstance();
+//        brandSelected.clear();
+//        Bundle bundle = getArguments();
+//        if (bundle != null)
+//            _bike = bundle.getParcelable("BIKE");
+//        else
+//            _bike = null;
     }
 
-//    @Override
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.setView(this);
+    }
+
+    @OnClick(R.id.bike_save_button)
+    public void saveBike(){
+        SendBikeInfo bike = new SendBikeInfo(_name.getText().toString(), "", "7462C");
+        presenter.createBike(bike);
+    }
+
+    @Override
+    public void close() {
+        this.finish();
+    }
+
+    //    @Override
 //    public View onCreateView(LayoutInflater inflater,
 //                             @Nullable ViewGroup container,
 //                             @Nullable Bundle savedInstanceState) {

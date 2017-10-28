@@ -7,9 +7,13 @@ import eu.biketrack.android.models.User;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.ReceiveBike;
 import eu.biketrack.android.models.data_reception.ReceiveTracker;
+import eu.biketrack.android.models.data_reception.ReceptAddBike;
 import eu.biketrack.android.models.data_reception.ReceptUser;
+import eu.biketrack.android.models.data_send.SendBike;
+import eu.biketrack.android.models.data_send.SendBikeInfo;
 import eu.biketrack.android.session.LoginManagerModule;
 import rx.Observable;
+import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -34,6 +38,35 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
     @Override
     public void updateBike() {
         getUserBikes(loginManagerModule.getUserId(), loginManagerModule.getToken());
+    }
+
+    @Override
+    public void createBike(SendBikeInfo bike) {
+        addBike(new SendBike(loginManagerModule.getUserId(), null, bike));
+    }
+
+    private void addBike(SendBike bike){
+        biketrackService.addBike(loginManagerModule.getToken(), bike)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ReceptAddBike>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(ReceptAddBike receptAddBike) {
+                        Log.d(TAG, "onNext: " + receptAddBike.toString());
+                        if (bikeTrackerList.listener != null)
+                            bikeTrackerList.listener.bikeCreated();
+                    }
+                });
     }
 
     private Observable<ReceptUser> getUser(String userId, String token) {

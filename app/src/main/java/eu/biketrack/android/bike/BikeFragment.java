@@ -120,7 +120,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 //                    if (selected_option == R.id.action_edit_bike) {
 //                        Bundle bundle = new Bundle();
 //                        bundle.putParcelable("BIKE", bike);
-//                        Fragment fragment = new EditBikeFragment();
+//                        Fragment fragment = new EditBike();
 //                        fragment.setArguments(bundle);
 //                        final String tag = fragment.getClass().toString();
 //                        getActivity().getSupportFragmentManager()
