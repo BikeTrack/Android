@@ -13,6 +13,9 @@ import eu.biketrack.android.initializer.InitializerModule;
 import eu.biketrack.android.autologin.AutoLoginModule;
 import eu.biketrack.android.login.Login;
 import eu.biketrack.android.login.LoginModule;
+import eu.biketrack.android.models.biketracker.BikeTrackerList;
+import eu.biketrack.android.models.biketracker.BikeTrackerListModule;
+import eu.biketrack.android.models.biketracker.BikeTrackerNetworkInterface;
 import eu.biketrack.android.session.LoginManagerModule;
 import eu.biketrack.android.session.Session;
 import eu.biketrack.android.subscription.Subscription;
@@ -30,7 +33,8 @@ import eu.biketrack.android.subscription.SubscriptionModule;
         ApiConnectModule.class,
         LoginModule.class,
         SubscriptionModule.class,
-        BikesModule.class
+        BikesModule.class,
+        BikeTrackerListModule.class
 })
 public interface ApplicationComponent {
 
@@ -41,10 +45,12 @@ public interface ApplicationComponent {
     void inject(Login target);
     void inject(Subscription target);
     void inject(Bikes target);
+    void inject(BikeTrackerNetworkInterface bikeTrackerNetworkInterface);
 
 
 
     LoginManagerModule getLoginManagerModule();
+
 
     Session getSession();
 }

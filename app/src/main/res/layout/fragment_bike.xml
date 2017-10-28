@@ -27,11 +27,11 @@
     -->
     <ImageView
         android:id="@+id/bike_picture"
-        android:src="@drawable/ic_logo_black"
+        android:src="@drawable/bike2"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
-        android:scaleType="fitXY"
+
         />
 
     <TextView

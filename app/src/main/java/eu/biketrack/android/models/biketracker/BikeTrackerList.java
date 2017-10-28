@@ -1,22 +1,38 @@
-package eu.biketrack.android.models;
+package eu.biketrack.android.models.biketracker;
 
 import android.support.v4.util.Pair;
+import android.util.Log;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.Tracker;
+import eu.biketrack.android.session.LoginManagerModule;
+
 
 /**
  * Created by 42900 on 14/10/2017 for BikeTrack_Android.
  */
+/*
 
+    Ajouter interface + classe pour update les données.
+
+ */
 public class BikeTrackerList {
-    private static BikeTrackerList INSTANCE;
-    private ArrayList<Pair<Bike, Tracker>> bikeArrayList;
-    private int currentPosition = 0;
 
-    private BikeTrackerList(){
+    public interface BikeTrackerListListener {
+        void listUpdated();
+    }
+
+    private static final String TAG = "BikeTrackerList";
+    private static BikeTrackerList INSTANCE;
+
+    private ArrayList<Pair<Bike, Tracker>> bikeArrayList;
+    protected BikeTrackerListListener listener;
+
+    public BikeTrackerList(){
         bikeArrayList = new ArrayList<>();
     }
 
@@ -24,6 +40,10 @@ public class BikeTrackerList {
         if (INSTANCE == null)
             INSTANCE = new BikeTrackerList();
         return INSTANCE;
+    }
+
+    public void setBikeTrackerListListener(BikeTrackerListListener bikeTrackerListListener){
+        this.listener = bikeTrackerListListener;
     }
 
     public ArrayList<Pair<Bike, Tracker>> getBikeArrayList() {
@@ -54,21 +74,5 @@ public class BikeTrackerList {
         return bikeArrayList.get(position).second;
     }
 
-//    public int getCurrentPosition() {
-//        return currentPosition;
-//    }
-//
-//    public void setCurrentPosition(int currentPosition) {
-//        this.currentPosition = currentPosition;
-//    }
-//
-//    public void nextCurrentPosition(){
-//        if (currentPosition < size())
-//            currentPosition ++;
-//    }
-//
-//    public void previousCurrentPosition(){
-//        if (currentPosition > 0)
-//            currentPosition--;
-//    }
+
 }

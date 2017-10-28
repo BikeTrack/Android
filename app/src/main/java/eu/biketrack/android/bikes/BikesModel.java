@@ -1,12 +1,7 @@
 package eu.biketrack.android.bikes;
 
-import android.support.v4.util.Pair;
-import android.util.Log;
-
-import java.util.ArrayList;
-
-import eu.biketrack.android.models.data_reception.Bike;
-import eu.biketrack.android.models.data_reception.Tracker;
+import eu.biketrack.android.models.biketracker.BikeTrackerList;
+import eu.biketrack.android.models.biketracker.BikeTrackerNetworkInterface;
 import eu.biketrack.android.session.LoginManagerModule;
 
 /**
@@ -19,11 +14,13 @@ public class BikesModel implements BikesMVP.Model {
     private BikesNetworkInterface bikesNetworkInterface;
     private LoginManagerModule loginManagerModule;
     private Throwable error = null;
+    private BikeTrackerNetworkInterface bikeTrackerNetworkInterface;
 
-    public BikesModel(BikesNetworkInterface bikesNetworkInterface, LoginManagerModule loginManagerModule) {
+    public BikesModel(BikesNetworkInterface bikesNetworkInterface, LoginManagerModule loginManagerModule, BikeTrackerNetworkInterface bikeTrackerNetworkInterface) {
         this.bikesNetworkInterface = bikesNetworkInterface;
         this.loginManagerModule = loginManagerModule;
         this.bikesNetworkInterface.setModel(this);
+        this.bikeTrackerNetworkInterface = bikeTrackerNetworkInterface;
     }
 
     @Override
@@ -32,7 +29,15 @@ public class BikesModel implements BikesMVP.Model {
     }
 
     public void getBikes(){
-        bikesNetworkInterface.getBikeArrayList(loginManagerModule.getUserId(), loginManagerModule.getToken());
+        //bikesNetworkInterface.getBikeArrayList(loginManagerModule.getUserId(), loginManagerModule.getToken());
+        BikeTrackerList bikeTrackerList = BikeTrackerList.getInstance();
+        bikeTrackerList.setBikeTrackerListListener(new BikeTrackerList.BikeTrackerListListener() {
+            @Override
+            public void listUpdated() {
+                updateDone();
+            }
+        });
+        bikeTrackerNetworkInterface.updateBike();
     }
 
 //    @Override

@@ -10,7 +10,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import eu.biketrack.android.R;
-import eu.biketrack.android.models.BikeTrackerList;
+import eu.biketrack.android.models.biketracker.BikeTrackerList;
 
 import static eu.biketrack.android.api_connection.Statics.BATTERY_CRITICAL;
 import static eu.biketrack.android.api_connection.Statics.BATTERY_LOW;

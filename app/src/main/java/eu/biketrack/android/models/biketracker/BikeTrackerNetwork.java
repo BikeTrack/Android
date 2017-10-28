@@ -1,61 +1,54 @@
-package eu.biketrack.android.bikes;
+package eu.biketrack.android.models.biketracker;
 
 import android.util.Log;
 
 import eu.biketrack.android.api_connection.BiketrackService;
-import eu.biketrack.android.models.biketracker.BikeTrackerList;
 import eu.biketrack.android.models.User;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.ReceiveBike;
 import eu.biketrack.android.models.data_reception.ReceiveTracker;
 import eu.biketrack.android.models.data_reception.ReceptUser;
+import eu.biketrack.android.session.LoginManagerModule;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by 42900 on 28/09/2017 for BikeTrack_Android.
+ * Created by 42900 on 27/10/2017 for BikeTrack_Android.
  */
 
-public class BikesNetwork implements BikesNetworkInterface{
-    private static final String TAG = "BikesNetwork";
-    private BiketrackService biketrackService;
+public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
+    private static final String TAG = "BikeTrackerNetwork";
+    BiketrackService biketrackService;
+    LoginManagerModule loginManagerModule;
+    BikeTrackerList bikeTrackerList;
     private Observable<User> userObservable;
-    private BikeTrackerList bikeTrackerList;
-    private BikesMVP.Model model;
 
-    @Override
-    public void setModel(BikesMVP.Model model) {
-        this.model = model;
-    }
-
-    public BikesNetwork(BiketrackService biketrackService) {
+    public BikeTrackerNetwork(LoginManagerModule loginManagerModule, BiketrackService biketrackService) {
+        this.loginManagerModule = loginManagerModule;
         this.biketrackService = biketrackService;
         bikeTrackerList = BikeTrackerList.getInstance();
     }
 
     @Override
-    public Observable<ReceptUser> getUser(String userId, String token) {
+    public void updateBike() {
+        getUserBikes(loginManagerModule.getUserId(), loginManagerModule.getToken());
+    }
+
+    private Observable<ReceptUser> getUser(String userId, String token) {
         return biketrackService.getUser(token, userId);
     }
 
-    @Override
-    public Observable<ReceiveBike> getBike(String bike, String token) {
+    private Observable<ReceiveBike> getBike(String bike, String token) {
         return biketrackService.getBike(bike, token);
     }
 
-    @Override
-    public Observable<ReceiveTracker> getTracker(String tracker, String token) {
+    private Observable<ReceiveTracker> getTracker(String tracker, String token) {
         return biketrackService.getTracker(tracker, token);
     }
 
-    @Override
-    public void getBikeArrayList(String userId, String token) {
-        updateList(userId, token);
-    }
-
-    private void updateList(String userId, String token){
+    private void getUserBikes(String userId, String token){
         Log.d(TAG, "getBikeArrayList: " + userId + " / " + token);
         bikeTrackerList.clear();
 
@@ -129,7 +122,8 @@ public class BikesNetwork implements BikesNetworkInterface{
                     public void onNext(ReceiveTracker receiveTracker) {
                         Log.d(TAG, "onNext: " + receiveTracker.getTracker().toString());
                         bikeTrackerList.addPair(bike, receiveTracker.getTracker());
-                        model.updateDone();
+                        if (bikeTrackerList.listener != null)
+                            bikeTrackerList.listener.listUpdated();
                     }
                 });
     }

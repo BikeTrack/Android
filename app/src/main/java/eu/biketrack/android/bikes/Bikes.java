@@ -3,32 +3,19 @@ package eu.biketrack.android.bikes;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnItemClick;
 import eu.biketrack.android.R;
-import eu.biketrack.android.activities.BikeTrack;
-import eu.biketrack.android.activities.CustomListAdapter;
 import eu.biketrack.android.bike.BikeCollectionActivity;
-import eu.biketrack.android.bike.BikeFragment;
-import eu.biketrack.android.models.BikeTrackerList;
-import eu.biketrack.android.models.data_reception.Bike;
-import eu.biketrack.android.models.data_reception.Tracker;
+import eu.biketrack.android.models.biketracker.BikeTrackerList;
 import eu.biketrack.android.root.App;
 
 public class Bikes extends Activity implements BikesMVP.View{
@@ -49,6 +36,7 @@ public class Bikes extends Activity implements BikesMVP.View{
 
     @Inject
     BikesMVP.Presenter presenter;
+
 
     //    @BindView(R.id.listView_bikes)
 //    ListView list;
@@ -95,7 +83,6 @@ public class Bikes extends Activity implements BikesMVP.View{
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
                 presenter.getBikes();
 
             }

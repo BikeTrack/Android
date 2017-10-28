@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import eu.biketrack.android.models.BikeTrackerList;
+import eu.biketrack.android.models.biketracker.BikeTrackerList;
 
 /**
  * Created by 42900 on 13/10/2017 for BikeTrack_Android.

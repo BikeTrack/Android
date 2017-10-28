@@ -3,6 +3,8 @@ package eu.biketrack.android.bikes;
 import dagger.Module;
 import dagger.Provides;
 import eu.biketrack.android.api_connection.BiketrackService;
+import eu.biketrack.android.models.biketracker.BikeTrackerList;
+import eu.biketrack.android.models.biketracker.BikeTrackerNetworkInterface;
 import eu.biketrack.android.session.LoginManagerModule;
 
 /**
@@ -17,8 +19,10 @@ public class BikesModule {
     }
 
     @Provides
-    public BikesMVP.Model provideBikesModel(BikesNetworkInterface bikesNetworkInterface, LoginManagerModule loginManagerModule){
-        return new BikesModel(bikesNetworkInterface, loginManagerModule);
+    public BikesMVP.Model provideBikesModel(BikesNetworkInterface bikesNetworkInterface,
+                                            LoginManagerModule loginManagerModule,
+                                            BikeTrackerNetworkInterface bikeTrackerNetworkInterface){
+        return new BikesModel(bikesNetworkInterface, loginManagerModule, bikeTrackerNetworkInterface);
     }
 
     @Provides
