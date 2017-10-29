@@ -1,15 +1,13 @@
 package eu.biketrack.android.models.biketracker;
 
 import android.support.v4.util.Pair;
-import android.util.Log;
 
 import java.util.ArrayList;
-
-import javax.inject.Inject;
+import java.util.Collections;
+import java.util.Comparator;
 
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.Tracker;
-import eu.biketrack.android.session.LoginManagerModule;
 
 
 /**
@@ -57,6 +55,7 @@ public class BikeTrackerList {
 
     public void addPair(Bike b, Tracker t){
         bikeArrayList.add(new Pair<>(b, t));
+        sortList();
     }
 
     public int size(){
@@ -89,5 +88,15 @@ public class BikeTrackerList {
                 return bikeArrayList.get(i).second;
         }
         return null;
+    }
+
+    private void sortList(){
+        Collections.sort(bikeArrayList, new Comparator<Pair<Bike, Tracker>>() {
+            @Override
+            public int compare(final Pair<Bike, Tracker> o1, final Pair<Bike, Tracker> o2) {
+                return o1.first.getId().compareTo(o2.first.getId());
+            }
+        });
+
     }
 }
