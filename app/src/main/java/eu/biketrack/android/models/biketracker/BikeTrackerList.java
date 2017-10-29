@@ -75,5 +75,19 @@ public class BikeTrackerList {
         return bikeArrayList.get(position).second;
     }
 
+    public Bike getBikeByBikeId(String bikeId){
+        for (int i = 0; i < size(); ++i){
+            if (bikeArrayList.get(i).first.getId().equals(bikeId))
+                return bikeArrayList.get(i).first;
+        }
+        return null;
+    }
 
+    public Tracker getTrackerByBikeId(String bikeId){
+        for (int i = 0; i < size(); ++i){
+            if (bikeArrayList.get(i).first.getId().equals(bikeId))
+                return bikeArrayList.get(i).second;
+        }
+        return null;
+    }
 }

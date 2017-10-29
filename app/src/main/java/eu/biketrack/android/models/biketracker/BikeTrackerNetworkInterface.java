@@ -1,6 +1,5 @@
 package eu.biketrack.android.models.biketracker;
 
-import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.models.data_send.SendBikeInfo;
 
 /**
@@ -8,6 +7,7 @@ import eu.biketrack.android.models.data_send.SendBikeInfo;
  */
 
 public interface BikeTrackerNetworkInterface {
-    void updateBike();
+    void updateBikeList();
     void createBike(SendBikeInfo bike);
+    void updateBike(String bikeId, SendBikeInfo bike);
 }

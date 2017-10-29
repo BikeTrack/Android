@@ -13,13 +13,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import eu.biketrack.android.R;
+import eu.biketrack.android.models.biketracker.BikeTrackerList;
+import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.models.data_send.SendBikeInfo;
 import eu.biketrack.android.root.App;
 
 public class EditBike extends Activity implements EditBikeMVP.View{
     private static final String TAG = "EditBike";
-
+    private Bike tmp = null;
     @Inject
     public EditBikeMVP.Presenter presenter;
 
@@ -37,8 +39,11 @@ public class EditBike extends Activity implements EditBikeMVP.View{
         ButterKnife.bind(this);
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
-
+        String bikeid = getIntent().getStringExtra("BikeId");
+        if (bikeid != null && !bikeid.isEmpty()) {
+            tmp = BikeTrackerList.getInstance().getBikeByBikeId(bikeid);
+            _name.setText(tmp.getName());
+        }
 
        // biketrackService = ApiConnectModule.createService();
 //        _disposables = new CompositeDisposable();
@@ -61,7 +66,10 @@ public class EditBike extends Activity implements EditBikeMVP.View{
     @OnClick(R.id.bike_save_button)
     public void saveBike(){
         SendBikeInfo bike = new SendBikeInfo(_name.getText().toString(), "", "7462C");
-        presenter.createBike(bike);
+        if (tmp == null)
+            presenter.createBike(bike);
+        else
+            presenter.updateBike(tmp.getId(), bike);
     }
 
     @Override
@@ -160,7 +168,7 @@ public class EditBike extends Activity implements EditBikeMVP.View{
 //        } else {
 //            SendBikeUpdate sb = new SendBikeUpdate(session.getUserId(), _bike.getId(), new SendBikeInfo(_name.getText().toString(), _brand.getText().toString(), _trackerid.getText().toString()));
 //            _disposables.add(
-//                    biketrackService.updateBike(Statics.TOKEN_API, session.getToken(), sb)
+//                    biketrackService.updateBikeList(Statics.TOKEN_API, session.getToken(), sb)
 //                            .subscribeOn(Schedulers.newThread())
 //                            .observeOn(AndroidSchedulers.mainThread())
 //                            .subscribeWith(new DisposableObserver<Response<ReceptAddBike>>() {

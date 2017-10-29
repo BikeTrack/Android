@@ -1,5 +1,6 @@
 package eu.biketrack.android.bike;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,8 +23,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
+import eu.biketrack.android.editbike.EditBike;
 import eu.biketrack.android.models.biketracker.BikeTrackerList;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.Location;
@@ -66,6 +69,13 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 //        session = Session.getInstance();
 //        bike = bundle.getParcelable("BIKE");
         position = bundle.getInt(ARG_BIKE);
+    }
+
+    @OnClick(R.id.floatin_update_bike)
+    public void updateBike(){
+        Intent i = new Intent(getActivity(), EditBike.class);
+        i.putExtra("BikeId", bikeTrackerList.getPair(position).first.getId());
+        startActivity(i);
     }
 
     @Override

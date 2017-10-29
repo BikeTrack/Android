@@ -1,7 +1,6 @@
 package eu.biketrack.android.editbike;
 
 import eu.biketrack.android.models.biketracker.BikeTrackerList;
-import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.models.data_send.SendBikeInfo;
 
 /**
@@ -36,6 +35,23 @@ public class EditBikePresenter implements EditBikeMVP.Presenter {
             }
         });
         model.createBike(bike);
+    }
+
+    @Override
+    public void updateBike(String bikeId, SendBikeInfo bike) {
+        BikeTrackerList b = BikeTrackerList.getInstance();
+        b.setBikeTrackerListListener(new BikeTrackerList.BikeTrackerListListener() {
+            @Override
+            public void listUpdated() {
+
+            }
+
+            @Override
+            public void bikeCreated() {
+                closeView();
+            }
+        });
+        model.updateBike(bikeId, bike);
     }
 
     public void closeView(){

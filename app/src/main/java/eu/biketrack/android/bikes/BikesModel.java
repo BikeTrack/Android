@@ -42,7 +42,7 @@ public class BikesModel implements BikesMVP.Model {
 
             }
         });
-        bikeTrackerNetworkInterface.updateBike();
+        bikeTrackerNetworkInterface.updateBikeList();
     }
 
 //    @Override

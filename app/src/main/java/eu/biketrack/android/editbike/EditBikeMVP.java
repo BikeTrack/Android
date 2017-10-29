@@ -15,9 +15,11 @@ public interface EditBikeMVP {
     interface Presenter{
         void setView(EditBikeMVP.View view);
         void createBike(SendBikeInfo bike);
+        void updateBike(String bikeId, SendBikeInfo bike);
     }
 
     interface Model{
         void createBike(SendBikeInfo bike);
+        void updateBike(String bikeId, SendBikeInfo bike);
     }
 }

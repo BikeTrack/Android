@@ -1,7 +1,6 @@
 package eu.biketrack.android.editbike;
 
 import eu.biketrack.android.models.biketracker.BikeTrackerNetworkInterface;
-import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.models.data_send.SendBikeInfo;
 import eu.biketrack.android.session.LoginManagerModule;
 
@@ -21,5 +20,10 @@ public class EditBikeModel implements EditBikeMVP.Model {
     @Override
     public void createBike(SendBikeInfo bike) {
         bikeTrackerNetworkInterface.createBike(bike);
+    }
+
+    @Override
+    public void updateBike(String bikeId, SendBikeInfo bike) {
+        bikeTrackerNetworkInterface.updateBike(bikeId, bike);
     }
 }

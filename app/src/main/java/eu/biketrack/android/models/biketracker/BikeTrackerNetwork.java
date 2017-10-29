@@ -11,9 +11,9 @@ import eu.biketrack.android.models.data_reception.ReceptAddBike;
 import eu.biketrack.android.models.data_reception.ReceptUser;
 import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.models.data_send.SendBikeInfo;
+import eu.biketrack.android.models.data_send.SendBikeUpdate;
 import eu.biketrack.android.session.LoginManagerModule;
 import rx.Observable;
-import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -36,13 +36,42 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
     }
 
     @Override
-    public void updateBike() {
+    public void updateBikeList() {
         getUserBikes(loginManagerModule.getUserId(), loginManagerModule.getToken());
     }
 
     @Override
     public void createBike(SendBikeInfo bike) {
         addBike(new SendBike(loginManagerModule.getUserId(), null, bike));
+    }
+
+    @Override
+    public void updateBike(String bikeId, SendBikeInfo bike) {
+        updateBike(new SendBikeUpdate(loginManagerModule.getUserId(), bikeId, bike));
+    }
+
+    private void updateBike(SendBikeUpdate bike){
+        biketrackService.updateBike(loginManagerModule.getToken(), bike)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ReceptAddBike>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(ReceptAddBike receptAddBike) {
+                        Log.d(TAG, "onNext: " + receptAddBike.toString());
+                        if (bikeTrackerList.listener != null)
+                            bikeTrackerList.listener.bikeCreated();
+                    }
+                });
     }
 
     private void addBike(SendBike bike){
