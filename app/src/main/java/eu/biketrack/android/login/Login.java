@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -46,6 +49,11 @@ public class Login extends Activity implements LoginMVP.View {
     EditText _password;
     @BindView(R.id.login_facebook_button)
     LoginButton _facebook_button;
+    @BindView(R.id.login_progressBar)
+    ProgressBar progressBar;
+    @BindView(R.id.login_login_button)
+    Button loginButton;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -114,6 +122,7 @@ public class Login extends Activity implements LoginMVP.View {
     @Override
     protected void onResume() {
         super.onResume();
+        loading(false);
         presenter.setView(this);
     }
 
@@ -147,5 +156,16 @@ public class Login extends Activity implements LoginMVP.View {
         Intent intent = new Intent(this, Subscription.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void loading(boolean loading) {
+        if (loading){
+            loginButton.setClickable(false);
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            loginButton.setClickable(true);
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }

@@ -83,8 +83,7 @@ public class LoginModel implements LoginMVP.Model {
     private void destroyIt(){
         if (!s.isUnsubscribed())
             s.unsubscribe();
-        if (error == null)
-            presenter.viewAfterConnection();
+        presenter.viewAfterConnection();
     }
 
 }

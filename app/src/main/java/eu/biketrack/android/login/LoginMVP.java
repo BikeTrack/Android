@@ -11,6 +11,7 @@ public interface LoginMVP {
         String getUserPassword();
         void close();
         void openSubscribe();
+        void loading(boolean loading);
     }
 
     interface Presenter{

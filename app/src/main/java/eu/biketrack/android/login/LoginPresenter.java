@@ -26,12 +26,17 @@ public class LoginPresenter implements LoginMVP.Presenter {
     @Override
     public void connexionButtonClicked() {
         model.connection(view.getUserEmail(), view.getUserPassword());
+        view.loading(true);
     }
 
     @Override
     public void viewAfterConnection(){
         Log.d(TAG, "viewAfterConnection: ");
-        view.close();
+        if(model.getError() == null)
+            view.close();
+        else {
+            view.loading(false);
+        }
     }
 
     @Override
