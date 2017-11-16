@@ -17,8 +17,8 @@ import butterknife.OnClick;
 import eu.biketrack.android.R;
 import eu.biketrack.android.bike.BikeCollectionActivity;
 import eu.biketrack.android.editbike.EditBike;
-import eu.biketrack.android.models.biketracker.BikeTrackerList;
 import eu.biketrack.android.root.App;
+import eu.biketrack.android.settings.SettingsTab;
 
 public class Bikes extends Activity implements BikesMVP.View{
 
@@ -62,6 +62,8 @@ public class Bikes extends Activity implements BikesMVP.View{
         setContentView(R.layout.fragment_bikes);
         ButterKnife.bind(this);
         //registerForContextMenu(list);
+
+
 
 
         pg_bar.setVisibility(View.GONE);
@@ -129,6 +131,13 @@ public class Bikes extends Activity implements BikesMVP.View{
     public void addBike(){
         Intent i = new Intent(this, EditBike.class);
         startActivity(i);
+    }
+
+    @OnClick(R.id.bikes_param_button)
+    public void openParams(){
+        Intent i = new Intent(this, SettingsTab.class);
+        startActivity(i);
+//        finish();
     }
 
 //    @OnItemClick(R.id.listView_bikes)

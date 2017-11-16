@@ -1,88 +1,61 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="eu.biketrack.android.fragments.ProfileFragment"
-    android:background="@color/background">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="eu.biketrack.android.settings.profile_tab.ProfileFragment">
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="@string/profile_email_txt"
+        android:textAllCaps="true"
+        android:textStyle="italic"
+        android:textColor="@color/titles"/>
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/interact_background"
-            app:titleTextColor="@color/background"
-            app:title="@string/title_profile"
-            app:theme="@style/AppTheme"
-            app:popupTheme="@style/Theme.AppCompat">
-        </android.support.v7.widget.Toolbar>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/profile_email_txt"
-            android:textAllCaps="true"
-            android:textStyle="italic"
-            android:textColor="@color/titles"/>
-
-        <TextView
-            android:id="@+id/profile_email_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/interact_background"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/profile_lastname_txt"
-            android:textAllCaps="true"
-            android:textStyle="italic"
-            android:textColor="@color/titles"/>
-
-        <TextView
-            android:id="@+id/profile_lastname_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/interact_background"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/profile_firstname_txt"
-            android:textAllCaps="true"
-            android:textStyle="italic"
-            android:textColor="@color/titles"/>
-
-        <TextView
-            android:id="@+id/profile_firstname_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/interact_background"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/log_off_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/log_off_button_txt"
-            android:background="@color/interact_background"
-            android:textColor="@color/inside" />
-    </LinearLayout>
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+    <TextView
+        android:id="@+id/profile_email_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:itemBackground="@color/interact_background"
-        app:itemIconTint="@drawable/nav_item_color_state"
-        app:itemTextColor="@drawable/nav_item_color_state"
-        app:menu="@menu/main_menu" />
-</FrameLayout>
+        android:textColor="@color/interact_background"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_lastname_txt"
+        android:textAllCaps="true"
+        android:textStyle="italic"
+        android:textColor="@color/titles"/>
+
+    <TextView
+        android:id="@+id/profile_lastname_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/interact_background"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/profile_firstname_txt"
+        android:textAllCaps="true"
+        android:textStyle="italic"
+        android:textColor="@color/titles"/>
+
+    <TextView
+        android:id="@+id/profile_firstname_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/interact_background"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/log_off_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/log_off_button_txt"
+        android:background="@color/interact_background"
+        android:textColor="@color/inside" />
+</LinearLayout>
+

@@ -1,4 +1,4 @@
-package eu.biketrack.android.fragments;
+package eu.biketrack.android.settings.profile_tab;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,31 +16,30 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.api_connection.ApiConnectModule;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.session.Session;
 
 public class ProfileFragment extends Fragment {
     private static String TAG = "BIKETRACK - Profile";
 //    private CompositeDisposable _disposables;
-    private Unbinder unbinder;
-    private Session session;
-    private BiketrackService biketrackService;
+//    private Unbinder unbinder;
+//    private Session session;
+//    private BiketrackService biketrackService;
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-
-    @BindView(R.id.profile_email_tv)
-    TextView _email;
-
-    @BindView(R.id.profile_lastname_tv)
-    TextView _lastname;
-
-    @BindView(R.id.profile_firstname_tv)
-    TextView _firstname;
-
-    @BindView(R.id.bottom_navigation)
-    BottomNavigationView bottomNavigationView;
+//    @BindView(R.id.toolbar)
+//    Toolbar toolbar;
+//
+//    @BindView(R.id.profile_email_tv)
+//    TextView _email;
+//
+//    @BindView(R.id.profile_lastname_tv)
+//    TextView _lastname;
+//
+//    @BindView(R.id.profile_firstname_tv)
+//    TextView _firstname;
+//
+//    @BindView(R.id.bottom_navigation)
+//    BottomNavigationView bottomNavigationView;
 
 
     @Override
@@ -54,30 +53,30 @@ public class ProfileFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_profile, container, false);
-        unbinder = ButterKnife.bind(this, layout);
+//        unbinder = ButterKnife.bind(this, layout);
 //        biketrackService = ApiConnectModule.createService();
 //        _disposables = new CompositeDisposable();
 
-        toolbar.inflateMenu(R.menu.profile_menu);
-
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Log.d(TAG, item.toString());
-                int selected_option = item.getItemId();
-
-                if (selected_option == R.id.action_edit_profile){
-                    Fragment fragment = new EditProfileFragment();
-                    final String tag = fragment.getClass().toString();
-                    getActivity().getSupportFragmentManager()
-                            .beginTransaction()
-                            .addToBackStack(tag)
-                            .replace(android.R.id.content, fragment, tag)
-                            .commit();
-                }
-                return true;
-            }
-        });
+//        toolbar.inflateMenu(R.menu.profile_menu);
+//
+//        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                Log.d(TAG, item.toString());
+//                int selected_option = item.getItemId();
+//
+//                if (selected_option == R.id.action_edit_profile){
+//                    Fragment fragment = new EditProfileFragment();
+//                    final String tag = fragment.getClass().toString();
+//                    getActivity().getFragmentManager()
+//                            .beginTransaction()
+//                            .addToBackStack(tag)
+//                            .replace(android.R.id.content, fragment, tag)
+//                            .commit();
+//                }
+//                return true;
+//            }
+//        });
         return layout;
     }
 //

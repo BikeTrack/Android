@@ -1,7 +1,7 @@
-package eu.biketrack.android.fragments;
+package eu.biketrack.android.settings.profile_tab;
 
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.WindowManager;
 import android.widget.EditText;

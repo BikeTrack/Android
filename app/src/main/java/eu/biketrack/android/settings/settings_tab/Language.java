@@ -1,4 +1,4 @@
-package eu.biketrack.android.settings;
+package eu.biketrack.android.settings.settings_tab;
 
 import android.content.Context;
 import android.content.SharedPreferences;

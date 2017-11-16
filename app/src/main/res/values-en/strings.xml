@@ -109,4 +109,8 @@
         <item>French</item>
     </string-array>
 
+    <string name="tab_text_1">Account</string>
+    <string name="tab_text_2">Emergency Contact</string>
+    <string name="tab_text_3">Settings</string>
+
 </resources>

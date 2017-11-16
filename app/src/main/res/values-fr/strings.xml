@@ -113,4 +113,8 @@
         <item>Anglais</item>
         <item>Francais</item>
     </string-array>
+
+    <string name="tab_text_1">Compte</string>
+    <string name="tab_text_2">Contact d'urgence</string>
+    <string name="tab_text_3">Paramètres</string>
 </resources>

@@ -1,4 +1,4 @@
-package eu.biketrack.android.fragments;
+package eu.biketrack.android.settings.settings_tab;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,7 +21,6 @@ import butterknife.OnClick;
 import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.settings.Language;
 
 
 public class LanguageFragment extends Fragment {
@@ -65,7 +64,7 @@ public class LanguageFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        listAdapter = new ArrayAdapter<String>(getContext(), R.layout.simplerow, langList);
+        listAdapter = new ArrayAdapter<String>(getActivity(), R.layout.simplerow, langList);
         if (langs_lv != null)
             langs_lv.setAdapter(listAdapter);
     }
@@ -92,6 +91,6 @@ public class LanguageFragment extends Fragment {
     }
 
     public void closeFragment(){
-        getActivity().getSupportFragmentManager().popBackStack();
+        getActivity().getFragmentManager().popBackStack();
     }
 }

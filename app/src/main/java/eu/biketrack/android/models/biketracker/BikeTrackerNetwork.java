@@ -184,8 +184,9 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
                     public void onNext(ReceiveTracker receiveTracker) {
                         Log.d(TAG, "onNext: " + receiveTracker.getTracker().toString());
                         bikeTrackerList.addPair(bike, receiveTracker.getTracker());
-                        if (bikeTrackerList.listener != null)
+                        if (bikeTrackerList.listener != null) {
                             bikeTrackerList.listener.listUpdated();
+                        }
                     }
                 });
     }

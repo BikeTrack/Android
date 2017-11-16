@@ -5,10 +5,8 @@ import android.util.Log;
 
 import java.util.Locale;
 
-import javax.inject.Inject;
-
 import eu.biketrack.android.session.LoginManagerModule;
-import eu.biketrack.android.settings.Language;
+import eu.biketrack.android.settings.settings_tab.Language;
 
 /**
  * Created by 42900 on 10/07/2017 for BikeTrack_Android.

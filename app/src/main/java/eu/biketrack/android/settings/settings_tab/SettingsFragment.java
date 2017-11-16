@@ -1,4 +1,5 @@
-package eu.biketrack.android.fragments;
+package eu.biketrack.android.settings.settings_tab;
+
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,7 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.bikes.Bikes;
+import eu.biketrack.android.settings.profile_tab.ProfileFragment;
 
 
 public class SettingsFragment extends Fragment {
