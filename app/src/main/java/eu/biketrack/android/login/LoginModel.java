@@ -2,6 +2,8 @@ package eu.biketrack.android.login;
 
 import android.util.Log;
 
+import java.util.concurrent.TimeUnit;
+
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_send.AuthUser;
@@ -72,6 +74,13 @@ public class LoginModel implements LoginMVP.Model {
             }
         };
          s = authenticateReceptionObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                 .timeout(5, TimeUnit.SECONDS)
+                 .doOnError(err -> {
+                     Log.d(TAG, "connection: Error !" , err);
+                     error = err;
+                     destroyIt();
+                 })
+                 .retry(2)
                 .subscribe(authenticateReceptionSubscriber);
     }
 
