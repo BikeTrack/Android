@@ -2,29 +2,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="eu.biketrack.android.login.Login"
     android:background="@color/background">
 
     <ImageView
-        android:id="@+id/img_bike_list_bg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxHeight="250dp"
-        android:layout_marginTop="-100dp"
-        android:src="@drawable/loginheader"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/login_email_textview"
+        android:src="@drawable/loginheader" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:src="@drawable/biketrack_logo"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_marginTop="35dp" />
 
     <EditText
@@ -33,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/img_bike_list_bg"
+        android:layout_above="@+id/login_password_textview"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
         android:maxLines="1"
@@ -49,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/login_email_textview"
+        android:layout_above="@+id/login_login_button"
         android:hint="@string/prompt_password"
         android:imeOptions="actionUnspecified"
         android:inputType="textPassword"
@@ -67,8 +58,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/login_password_textview"
-        android:layout_marginTop="30dp"
+        android:layout_above="@+id/login_facebook_button"
+        android:layout_marginTop="5dp"
         android:background="@color/inside"
         android:text="@string/action_sign_in"
         android:textColor="@color/background"
@@ -96,10 +87,10 @@
         android:id="@+id/login_facebook_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login_login_button"
+        android:layout_above="@+id/login_subscribe_button"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginLeft="20dp"

@@ -142,6 +142,11 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
             Log.d(TAG, "onNext: =>" + user);
             return Observable.from(user.getBikes());
         });
+        bikeIdObservable.isEmpty().doOnNext(aBoolean -> {
+            if (bikeTrackerList.listener != null && aBoolean) {
+                bikeTrackerList.listener.listUpdated();
+            }
+        }).subscribe();
         bikeIdObservable.forEach(s -> {
             Log.d(TAG, "getBikeArrayList: " + s);
             getBike(s, token)
@@ -173,6 +178,9 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
                 .subscribe(new Subscriber<ReceiveTracker>() {
                     @Override
                     public void onCompleted() {
+                        if (bikeTrackerList.listener != null) {
+                            bikeTrackerList.listener.listUpdated();
+                        }
                     }
 
                     @Override
@@ -184,9 +192,6 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
                     public void onNext(ReceiveTracker receiveTracker) {
                         Log.d(TAG, "onNext: " + receiveTracker.getTracker().toString());
                         bikeTrackerList.addPair(bike, receiveTracker.getTracker());
-                        if (bikeTrackerList.listener != null) {
-                            bikeTrackerList.listener.listUpdated();
-                        }
                     }
                 });
     }

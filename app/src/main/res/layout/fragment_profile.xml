@@ -11,14 +11,26 @@
         android:text="@string/profile_email_txt"
         android:textAllCaps="true"
         android:textStyle="italic"
-        android:textColor="@color/titles"/>
+        android:textColor="@color/titles"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"/>
 
     <TextView
         android:id="@+id/profile_email_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/interact_background"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -26,7 +38,13 @@
         android:text="@string/profile_lastname_txt"
         android:textAllCaps="true"
         android:textStyle="italic"
-        android:textColor="@color/titles"/>
+        android:textColor="@color/titles"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"/>
 
     <TextView
         android:id="@+id/profile_lastname_tv"
@@ -41,21 +59,42 @@
         android:text="@string/profile_firstname_txt"
         android:textAllCaps="true"
         android:textStyle="italic"
-        android:textColor="@color/titles"/>
+        android:textColor="@color/titles"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"/>
 
     <TextView
         android:id="@+id/profile_firstname_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/interact_background"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"/>
 
     <Button
         android:id="@+id/log_off_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/inside"
         android:text="@string/log_off_button_txt"
-        android:background="@color/interact_background"
-        android:textColor="@color/inside" />
+        android:textColor="@color/background"
+        android:shadowColor="@color/background"
+        android:textStyle="bold"
+        android:layout_marginTop="28dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"/>
 </LinearLayout>
 

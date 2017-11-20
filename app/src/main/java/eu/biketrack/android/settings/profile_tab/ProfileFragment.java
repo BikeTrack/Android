@@ -12,39 +12,38 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
 import eu.biketrack.android.api_connection.BiketrackService;
+import eu.biketrack.android.bikes.BikesMVP;
+import eu.biketrack.android.root.App;
 import eu.biketrack.android.session.Session;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements ProfileMVP.View{
     private static String TAG = "BIKETRACK - Profile";
-//    private CompositeDisposable _disposables;
-//    private Unbinder unbinder;
-//    private Session session;
-//    private BiketrackService biketrackService;
+    private Unbinder unbinder;
 
-//    @BindView(R.id.toolbar)
-//    Toolbar toolbar;
-//
-//    @BindView(R.id.profile_email_tv)
-//    TextView _email;
-//
-//    @BindView(R.id.profile_lastname_tv)
-//    TextView _lastname;
-//
-//    @BindView(R.id.profile_firstname_tv)
-//    TextView _firstname;
-//
-//    @BindView(R.id.bottom_navigation)
-//    BottomNavigationView bottomNavigationView;
+    @BindView(R.id.profile_email_tv)
+    TextView _email;
 
+    @BindView(R.id.profile_lastname_tv)
+    TextView _lastname;
+
+    @BindView(R.id.profile_firstname_tv)
+    TextView _firstname;
+
+    @Inject
+    ProfileMVP.Presenter presenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ((App) getActivity().getApplication()).getComponent().inject(this);
 //        session = Session.getInstance();
     }
 
@@ -53,7 +52,7 @@ public class ProfileFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_profile, container, false);
-//        unbinder = ButterKnife.bind(this, layout);
+        unbinder = ButterKnife.bind(this, layout);
 //        biketrackService = ApiConnectModule.createService();
 //        _disposables = new CompositeDisposable();
 
@@ -80,44 +79,33 @@ public class ProfileFragment extends Fragment {
         return layout;
     }
 //
-//    @Override
-//    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        bottomNavigationView.getMenu().getItem(0).setChecked(false);
-//        bottomNavigationView.getMenu().getItem(1).setChecked(false);
-//        bottomNavigationView.getMenu().getItem(2).setChecked(true);
-//        bottomNavigationView.setOnNavigationItemSelectedListener(
-//                new BottomNavigationView.OnNavigationItemSelectedListener() {
-//                    @Override
-//                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                        bottomNavigationView.getMenu().getItem(0).setChecked(false);
-//                        bottomNavigationView.getMenu().getItem(1).setChecked(false);
-//                        bottomNavigationView.getMenu().getItem(2).setChecked(false);
-//                        switch (item.getItemId()) {
-//                            case R.id.action_settings:
-//                                getActivity().getSupportFragmentManager().beginTransaction()
-//                                        .replace(android.R.id.content, new SettingsFragment(), this.toString())
-//                                        .commit();
-//                                break;
-//                            case R.id.action_bikes:
-//                                getActivity().getSupportFragmentManager().beginTransaction()
-//                                        .replace(android.R.id.content, new Bikes(), this.toString())
-//                                        .commit();
-//                                break;
-//                            case R.id.action_profile:
-//                                break;
-//                        }
-//                        return true;
-//                    }
-//                });
-//        getUser();
-//    }
-//
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//        unbinder.unbind();
-//    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.setView(this);
+    }
+
+    @Override
+    public void set_email(String _email) {
+        this._email.setText(_email);
+    }
+
+    @Override
+    public void set_lastname(String _lastname) {
+        this._lastname.setText(_lastname);
+    }
+
+    @Override
+    public void set_firstname(String _firstname) {
+        this._firstname.setText(_firstname);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 //
 //    private void getUser() {
 //        _disposables.add(

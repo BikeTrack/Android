@@ -24,8 +24,6 @@ public class SettingsFragment extends Fragment {
     private static String TAG = "BIKETRACK - Settings";
     private Unbinder unbinder;
 
-    @BindView(R.id.bottom_navigation)
-    BottomNavigationView bottomNavigationView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,39 +40,6 @@ public class SettingsFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_settings, container, false);
         unbinder = ButterKnife.bind(this, layout);
         return layout;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        bottomNavigationView.getMenu().getItem(0).setChecked(true);
-        bottomNavigationView.getMenu().getItem(1).setChecked(false);
-        bottomNavigationView.getMenu().getItem(2).setChecked(false);
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        bottomNavigationView.getMenu().getItem(0).setChecked(false);
-                        bottomNavigationView.getMenu().getItem(1).setChecked(false);
-                        bottomNavigationView.getMenu().getItem(2).setChecked(false);
-                        switch (item.getItemId()) {
-                            case R.id.action_settings:
-
-                                break;
-                            case R.id.action_bikes:
-//                                getActivity().getSupportFragmentManager().beginTransaction()
-//                                        .replace(android.R.id.content, new Bikes(), this.toString())
-//                                        .commit();
-                                break;
-                            case R.id.action_profile:
-                                getActivity().getSupportFragmentManager().beginTransaction()
-                                        .replace(android.R.id.content, new ProfileFragment(), this.toString())
-                                        .commit();
-                                break;
-                        }
-                        return true;
-                    }
-                });
     }
 
     @Override

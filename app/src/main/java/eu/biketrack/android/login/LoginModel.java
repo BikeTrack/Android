@@ -77,10 +77,13 @@ public class LoginModel implements LoginMVP.Model {
                  .timeout(5, TimeUnit.SECONDS)
                  .doOnError(err -> {
                      Log.d(TAG, "connection: Error !" , err);
+                 })
+                 .retry(2)
+                 .doOnError(err -> {
+                     Log.d(TAG, "connection: Error !" , err);
                      error = err;
                      destroyIt();
                  })
-                 .retry(2)
                 .subscribe(authenticateReceptionSubscriber);
     }
 
