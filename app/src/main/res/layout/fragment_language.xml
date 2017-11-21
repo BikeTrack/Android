@@ -12,15 +12,15 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/interact_background"
-            app:titleTextColor="@color/background"
-            app:title="@string/title_language"
-            app:theme="@style/AppTheme"
-            app:popupTheme="@style/Theme.AppCompat"/>
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/interact_background"-->
+            <!--app:titleTextColor="@color/background"-->
+            <!--app:title="@string/title_language"-->
+            <!--app:theme="@style/AppTheme"-->
+            <!--app:popupTheme="@style/Theme.AppCompat"/>-->
 
         <ListView
             android:id="@+id/listView_languages"
@@ -34,8 +34,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/button_language_clear_txt"
-        android:background="@color/interact_background"
-        android:textColor="@color/inside"
+        android:background="@color/inside"
+        android:textColor="@color/background"
+        android:shadowColor="@color/background"
+        android:textStyle="bold"
+        android:layout_marginTop="28dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         android:layout_gravity="bottom"/>
 
 

@@ -30,8 +30,8 @@ public class LanguageFragment extends Fragment {
     private ArrayList<String> langList;
     private ArrayAdapter<String> listAdapter ;
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+//    @BindView(R.id.toolbar)
+//    Toolbar toolbar;
     @BindView(R.id.listView_languages)
     ListView langs_lv;
 
@@ -49,15 +49,15 @@ public class LanguageFragment extends Fragment {
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_language, container, false);
         unbinder = ButterKnife.bind(this, layout);
-        if (toolbar != null) {
-            toolbar.setNavigationIcon(R.drawable.ic_close_white_24px);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    closeFragment();
-                }
-            });
-        }
+//        if (toolbar != null) {
+//            toolbar.setNavigationIcon(R.drawable.ic_close_white_24px);
+//            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    closeFragment();
+//                }
+//            });
+//        }
         return layout;
     }
 
