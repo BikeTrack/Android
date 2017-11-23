@@ -1,7 +1,6 @@
 package eu.biketrack.android.autologin;
 
 
-import eu.biketrack.android.models.User;
 import eu.biketrack.android.models.data_reception.ReceptUser;
 import rx.Observable;
 

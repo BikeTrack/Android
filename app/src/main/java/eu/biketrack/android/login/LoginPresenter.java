@@ -2,8 +2,6 @@ package eu.biketrack.android.login;
 
 import android.util.Log;
 
-import eu.biketrack.android.api_connection.BiketrackService;
-
 /**
  * Created by 42900 on 10/09/2017 for BikeTrack_Android.
  */

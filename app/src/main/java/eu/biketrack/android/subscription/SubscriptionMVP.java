@@ -1,7 +1,5 @@
 package eu.biketrack.android.subscription;
 
-import eu.biketrack.android.api_connection.BiketrackService;
-
 /**
  * Created by 42900 on 17/09/2017 for BikeTrack_Android.
  */

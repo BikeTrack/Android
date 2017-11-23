@@ -4,7 +4,6 @@ import android.util.Log;
 
 import eu.biketrack.android.models.data_reception.ReceptUser;
 import eu.biketrack.android.session.LoginManagerModule;
-import eu.biketrack.android.session.Session;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;

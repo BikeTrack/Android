@@ -4,7 +4,6 @@ import dagger.Module;
 import dagger.Provides;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.session.LoginManagerModule;
-import eu.biketrack.android.session.Session;
 
 /**
  * Created by 42900 on 10/07/2017 for BikeTrack_Android.

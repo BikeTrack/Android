@@ -3,7 +3,6 @@ package eu.biketrack.android.bikes;
 import dagger.Module;
 import dagger.Provides;
 import eu.biketrack.android.api_connection.BiketrackService;
-import eu.biketrack.android.models.biketracker.BikeTrackerList;
 import eu.biketrack.android.models.biketracker.BikeTrackerNetworkInterface;
 import eu.biketrack.android.session.LoginManagerModule;
 

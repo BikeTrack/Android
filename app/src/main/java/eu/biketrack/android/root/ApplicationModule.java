@@ -7,9 +7,6 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import eu.biketrack.android.api_connection.ApiConnectModule;
-import eu.biketrack.android.models.biketracker.BikeTrackerList;
-import eu.biketrack.android.session.LoginManagerModule;
 import eu.biketrack.android.session.Session;
 
 /**

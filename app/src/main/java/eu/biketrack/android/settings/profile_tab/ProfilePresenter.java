@@ -1,5 +1,6 @@
 package eu.biketrack.android.settings.profile_tab;
 
+
 /**
  * Created by 42900 on 17/11/2017 for BikeTrack_Android.
  */
@@ -19,7 +20,11 @@ public class ProfilePresenter implements ProfileMVP.Presenter{
     }
 
     public void getUserData(){
-        model.getUserData();
+        model.getUserData().doOnNext(receptUser -> {
+            view.set_email(receptUser.getUser().getMail());
+            view.set_lastname(receptUser.getUser().getLastname());
+            view.set_firstname(receptUser.getUser().getName());
+        }).subscribe();
     }
 
     @Override

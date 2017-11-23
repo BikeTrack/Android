@@ -42,7 +42,7 @@
         android:layout_marginTop="75dp"
         android:textSize="30dp"
         android:layout_centerHorizontal="true"
-
+        android:textColor="@color/inside"
         />
 
     <android.support.design.widget.FloatingActionButton

@@ -1,5 +1,8 @@
 package eu.biketrack.android.settings.profile_tab;
 
+import eu.biketrack.android.models.data_reception.ReceptUser;
+import rx.Observable;
+
 /**
  * Created by 42900 on 17/11/2017 for BikeTrack_Android.
  */
@@ -18,7 +21,7 @@ public interface ProfileMVP {
     }
 
     interface Model {
-        void getUserData();
+        Observable<ReceptUser> getUserData();
         void logoff();
     }
 }

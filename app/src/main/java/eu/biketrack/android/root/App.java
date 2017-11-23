@@ -6,9 +6,8 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
 import eu.biketrack.android.api_connection.ApiConnectModule;
-import eu.biketrack.android.initializer.InitializerModule;
 import eu.biketrack.android.autologin.AutoLoginModule;
-import eu.biketrack.android.models.biketracker.BikeTrackerListModule;
+import eu.biketrack.android.initializer.InitializerModule;
 
 /**
  * Created by 42900 on 10/07/2017 for BikeTrack_Android.

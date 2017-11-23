@@ -1,6 +1,5 @@
 package eu.biketrack.android.editbike;
 
-import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.models.data_send.SendBikeInfo;
 
 /**

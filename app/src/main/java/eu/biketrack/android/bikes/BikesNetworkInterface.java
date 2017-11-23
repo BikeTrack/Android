@@ -1,14 +1,8 @@
 package eu.biketrack.android.bikes;
 
-import android.support.v4.util.Pair;
-
-import java.util.ArrayList;
-
-import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.ReceiveBike;
 import eu.biketrack.android.models.data_reception.ReceiveTracker;
 import eu.biketrack.android.models.data_reception.ReceptUser;
-import eu.biketrack.android.models.data_reception.Tracker;
 import rx.Observable;
 
 /**

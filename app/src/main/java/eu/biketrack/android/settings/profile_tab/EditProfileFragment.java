@@ -9,7 +9,6 @@ import android.widget.EditText;
 import butterknife.BindView;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.api_connection.ApiConnectModule;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.models.User;
 import eu.biketrack.android.session.Session;

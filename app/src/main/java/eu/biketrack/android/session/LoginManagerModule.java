@@ -7,8 +7,6 @@ import android.util.Log;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import dagger.Module;
-
 /**
  * Created by 42900 on 21/06/2017 for BikeTrack_Android.
  */

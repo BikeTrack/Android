@@ -32,7 +32,7 @@
 
     <string name="empty_list">Il n\'y a pas de vélo</string>
 
-    <string name="percent_battery">pourcent</string>
+    <string name="percent_battery">%</string>
     <string name="title_bikes_list">Liste des vélos</string>
 
     <!-- Strings related to BikeEdit -->

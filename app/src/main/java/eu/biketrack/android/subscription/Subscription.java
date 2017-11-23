@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.zxing.common.StringUtils;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import javax.inject.Inject;

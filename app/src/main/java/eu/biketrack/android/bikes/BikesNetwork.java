@@ -3,8 +3,8 @@ package eu.biketrack.android.bikes;
 import android.util.Log;
 
 import eu.biketrack.android.api_connection.BiketrackService;
-import eu.biketrack.android.models.biketracker.BikeTrackerList;
 import eu.biketrack.android.models.User;
+import eu.biketrack.android.models.biketracker.BikeTrackerList;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.ReceiveBike;
 import eu.biketrack.android.models.data_reception.ReceiveTracker;

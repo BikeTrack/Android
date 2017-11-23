@@ -2,9 +2,6 @@ package eu.biketrack.android.subscription;
 
 import android.util.Log;
 
-import eu.biketrack.android.login.LoginModel;
-import eu.biketrack.android.login.LoginModule;
-import eu.biketrack.android.login.LoginNetwork;
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_reception.SignupReception;
 import eu.biketrack.android.models.data_send.AuthUser;

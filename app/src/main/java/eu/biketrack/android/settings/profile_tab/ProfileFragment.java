@@ -3,12 +3,8 @@ package eu.biketrack.android.settings.profile_tab;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -20,11 +16,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.api_connection.BiketrackService;
-import eu.biketrack.android.bikes.BikesMVP;
 import eu.biketrack.android.initializer.Initializer;
 import eu.biketrack.android.root.App;
-import eu.biketrack.android.session.Session;
 
 public class ProfileFragment extends Fragment implements ProfileMVP.View{
     private static String TAG = "BIKETRACK - Profile";
@@ -86,6 +79,7 @@ public class ProfileFragment extends Fragment implements ProfileMVP.View{
     public void onResume() {
         super.onResume();
         presenter.setView(this);
+        presenter.getUserData();
     }
 
     @Override

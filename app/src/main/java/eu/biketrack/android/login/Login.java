@@ -4,7 +4,6 @@ package eu.biketrack.android.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -61,8 +60,8 @@ public class Login extends Activity implements LoginMVP.View {
         setContentView(R.layout.fragment_login);
         ButterKnife.bind(this);
 
-        _email.setText("thisisatest@test.com");
-        _password.setText("azerty");
+//        _email.setText("thisisatest@test.com");
+//        _password.setText("azerty");
 
         callbackManager = CallbackManager.Factory.create();
         _facebook_button.setReadPermissions("email");
