@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 
 import javax.inject.Inject;
@@ -29,6 +31,8 @@ public class EditBike extends Activity implements EditBikeMVP.View{
 //    @BindView(R.id.bike_trackerid_edit) EditText _trackerid;
 //    @BindView(R.id.bike_brand_edit) EditText _brand;
 //    @BindView(R.id.search_brand_button) Button _button_search_brand;
+    @BindView(R.id.bike_delete_button)
+    Button button_delete_bike;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,9 +43,11 @@ public class EditBike extends Activity implements EditBikeMVP.View{
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         String bikeid = getIntent().getStringExtra("BikeId");
+        button_delete_bike.setVisibility(View.GONE);
         if (bikeid != null && !bikeid.isEmpty()) {
             tmp = BikeTrackerList.getInstance().getBikeByBikeId(bikeid);
             _name.setText(tmp.getName());
+            button_delete_bike.setVisibility(View.VISIBLE);
         }
 
        // biketrackService = ApiConnectModule.createService();
