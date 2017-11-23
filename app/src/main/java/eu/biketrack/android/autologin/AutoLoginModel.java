@@ -3,6 +3,7 @@ package eu.biketrack.android.autologin;
 import android.util.Log;
 
 import eu.biketrack.android.models.data_reception.ReceptUser;
+import eu.biketrack.android.session.LoginManagerModule;
 import eu.biketrack.android.session.Session;
 import rx.Subscriber;
 import rx.Subscription;
@@ -16,14 +17,14 @@ import rx.schedulers.Schedulers;
 public class AutoLoginModel implements AutoLoginMVP.Model{
     private static final String TAG = "AutoLoginModel";
     private AutoLoginNetworkInterface autoLoginNetworkInterface;
-    private Session session;
+    private LoginManagerModule loginManagerModule;
     private Throwable error = null;
     Subscription s;
     private AutoLoginMVP.Presenter presenter;
 
-    public AutoLoginModel(AutoLoginNetworkInterface autoLoginNetworkInterface, Session session) {
+    public AutoLoginModel(AutoLoginNetworkInterface autoLoginNetworkInterface, LoginManagerModule loginManagerModule) {
         this.autoLoginNetworkInterface = autoLoginNetworkInterface;
-        this.session = session;
+        this.loginManagerModule = loginManagerModule;
     }
 
     @Override
@@ -33,8 +34,13 @@ public class AutoLoginModel implements AutoLoginMVP.Model{
 
     @Override
     public void fillSession(String userId, String token) {
-        session.setToken(token);
-        session.setUserId(userId);
+        if (userId.equals(loginManagerModule.getUserId())){
+            loginManagerModule.storeToken(token);
+        } else {
+            error = new Throwable();
+        }
+//        session.setToken(token);
+//        session.setUserId(userId);
         Log.d(TAG, "fillSession: filled");
     }
 

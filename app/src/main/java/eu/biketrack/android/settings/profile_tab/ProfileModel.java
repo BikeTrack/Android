@@ -19,4 +19,10 @@ public class ProfileModel implements ProfileMVP.Model {
     public void getUserData() {
 
     }
+
+    @Override
+    public void logoff() {
+        loginManagerModule.clear();
+
+    }
 }

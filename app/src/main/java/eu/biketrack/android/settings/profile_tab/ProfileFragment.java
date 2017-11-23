@@ -1,5 +1,6 @@
 package eu.biketrack.android.settings.profile_tab;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -21,6 +22,7 @@ import butterknife.Unbinder;
 import eu.biketrack.android.R;
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.bikes.BikesMVP;
+import eu.biketrack.android.initializer.Initializer;
 import eu.biketrack.android.root.App;
 import eu.biketrack.android.session.Session;
 
@@ -136,13 +138,14 @@ public class ProfileFragment extends Fragment implements ProfileMVP.View{
 //        );
 //    }
 //
-//    @OnClick(R.id.log_off_button)
-//    public void logoff(){
+    @OnClick(R.id.log_off_button)
+    public void logoff(){
 //        session.clear();
 //        LoginManagerModule loginManager = LoginManagerModule.getInstance();
 //        loginManager.clear();
-//        Intent autologin_intent = new Intent(getActivity(), Initializer.class);
-//        startActivity(autologin_intent);
-//        getActivity().finish();
-//    }
+        presenter.logoff();
+        Intent autologin_intent = new Intent(getActivity(), Initializer.class);
+        autologin_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(autologin_intent);
+    }
 }

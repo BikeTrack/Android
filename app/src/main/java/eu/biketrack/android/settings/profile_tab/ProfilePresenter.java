@@ -21,4 +21,9 @@ public class ProfilePresenter implements ProfileMVP.Presenter{
     public void getUserData(){
         model.getUserData();
     }
+
+    @Override
+    public void logoff() {
+        model.logoff();
+    }
 }

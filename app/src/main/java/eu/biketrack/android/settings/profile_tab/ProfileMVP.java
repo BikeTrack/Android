@@ -14,9 +14,11 @@ public interface ProfileMVP {
     interface Presenter {
         void setView(ProfileMVP.View view);
         void getUserData();
+        void logoff();
     }
 
     interface Model {
         void getUserData();
+        void logoff();
     }
 }

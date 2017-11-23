@@ -3,6 +3,7 @@ package eu.biketrack.android.autologin;
 import dagger.Module;
 import dagger.Provides;
 import eu.biketrack.android.api_connection.BiketrackService;
+import eu.biketrack.android.session.LoginManagerModule;
 import eu.biketrack.android.session.Session;
 
 /**
@@ -17,8 +18,8 @@ public class AutoLoginModule {
     }
 
     @Provides
-    public AutoLoginMVP.Model provideAutoLoginModel(AutoLoginNetworkInterface autoLoginNetworkInterface, Session session){
-        return new AutoLoginModel(autoLoginNetworkInterface, session);
+    public AutoLoginMVP.Model provideAutoLoginModel(AutoLoginNetworkInterface autoLoginNetworkInterface, LoginManagerModule loginManagerModule){
+        return new AutoLoginModel(autoLoginNetworkInterface, loginManagerModule);
     }
 
     @Provides
