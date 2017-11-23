@@ -76,6 +76,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         Intent i = new Intent(getActivity(), EditBike.class);
         i.putExtra("BikeId", bikeTrackerList.getPair(position).first.getId());
         startActivity(i);
+        getActivity().finish();
     }
 
     @Override

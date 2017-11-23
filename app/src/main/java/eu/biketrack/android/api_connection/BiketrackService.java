@@ -11,6 +11,7 @@ import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.models.data_send.SendBikeUpdate;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -46,9 +47,9 @@ public interface BiketrackService {
     @PATCH("bike")
     Observable<ReceptAddBike> updateBike(@Header("x-access-token") String access_token, @Body SendBikeUpdate bike);
 
-//    @HTTP(method = "DELETE", path = "bike", hasBody = true)
-//    Observable<Response<ReceptAddBike>> deleteBike(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Body SendBike bike);
-//
+    @HTTP(method = "DELETE", path = "bike", hasBody = true)
+    Observable<ReceptAddBike> deleteBike(@Header("x-access-token") String access_token, @Body SendBike bike);
+
     @GET("bike/{bikeID}")
     Observable<ReceiveBike> getBike(@Path("bikeID") String bikeId, @Header("x-access-token") String access_token);
 

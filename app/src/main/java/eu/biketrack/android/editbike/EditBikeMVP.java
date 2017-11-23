@@ -16,10 +16,12 @@ public interface EditBikeMVP {
         void setView(EditBikeMVP.View view);
         void createBike(SendBikeInfo bike);
         void updateBike(String bikeId, SendBikeInfo bike);
+        void deleteBike(String bikeId, SendBikeInfo bike);
     }
 
     interface Model{
         void createBike(SendBikeInfo bike);
         void updateBike(String bikeId, SendBikeInfo bike);
+        void deleteBike(String bikeId, SendBikeInfo bike);
     }
 }

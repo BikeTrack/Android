@@ -1,8 +1,11 @@
 package eu.biketrack.android.editbike;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import eu.biketrack.android.R;
+import eu.biketrack.android.api_connection.Statics;
 import eu.biketrack.android.models.biketracker.BikeTrackerList;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_send.SendBike;
@@ -75,6 +79,23 @@ public class EditBike extends Activity implements EditBikeMVP.View{
     @Override
     public void close() {
         this.finish();
+    }
+
+    @OnClick(R.id.bike_delete_button)
+    public void deleteBike(){
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(R.string.alert_confirmation_delete_title)
+                .setMessage(R.string.alert_confirmation_delete_message)
+                .setPositiveButton(R.string.alert_confirmation_delete_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.deleteBike(tmp.getId(), null);
+                    }
+                })
+                .setNegativeButton(R.string.alert_confirmation_delete_no, null)
+                .show();
+
     }
 
     //    @Override

@@ -50,6 +50,31 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
         updateBike(new SendBikeUpdate(loginManagerModule.getUserId(), bikeId, bike));
     }
 
+    @Override
+    public void deleteBike(String bikeId, SendBikeInfo bike) {
+        biketrackService.deleteBike(loginManagerModule.getToken(), new SendBike(loginManagerModule.getUserId(),
+                bikeId, bike))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ReceptAddBike>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(ReceptAddBike receptAddBike) {
+                        if (bikeTrackerList.listener != null)
+                            bikeTrackerList.listener.bikeCreated();
+                    }
+                });
+    }
+
     private void updateBike(SendBikeUpdate bike){
         biketrackService.updateBike(loginManagerModule.getToken(), bike)
                 .subscribeOn(Schedulers.io())
@@ -171,7 +196,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
         });
     }
 
-    private void getTrackerFromId(Bike bike, String token){
+    private void getTrackerFromId(Bike bike, String token) {
         getTracker(bike.getTracker(), token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

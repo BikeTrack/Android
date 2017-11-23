@@ -18,7 +18,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_below="@id/toolbar">
         <TextView
@@ -111,5 +111,22 @@
             android:layout_marginEnd="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp" />
+
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/bike_delete_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/inside"
+        android:text="@string/delete_context_menu"
+        android:textColor="@color/background"
+        android:textStyle="bold"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"/>
 </RelativeLayout>

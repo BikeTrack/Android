@@ -57,4 +57,21 @@ public class EditBikePresenter implements EditBikeMVP.Presenter {
     public void closeView(){
         view.close();
     }
+
+    @Override
+    public void deleteBike(String bikeId, SendBikeInfo bike) {
+        BikeTrackerList b = BikeTrackerList.getInstance();
+        b.setBikeTrackerListListener(new BikeTrackerList.BikeTrackerListListener() {
+            @Override
+            public void listUpdated() {
+
+            }
+
+            @Override
+            public void bikeCreated() {
+                closeView();
+            }
+        });
+        model.deleteBike(bikeId, bike);
+    }
 }

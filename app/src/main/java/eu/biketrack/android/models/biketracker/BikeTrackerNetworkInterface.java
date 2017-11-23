@@ -10,4 +10,5 @@ public interface BikeTrackerNetworkInterface {
     void updateBikeList();
     void createBike(SendBikeInfo bike);
     void updateBike(String bikeId, SendBikeInfo bike);
+    void deleteBike(String bikeId, SendBikeInfo bike);
 }

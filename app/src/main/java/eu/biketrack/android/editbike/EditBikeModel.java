@@ -26,4 +26,9 @@ public class EditBikeModel implements EditBikeMVP.Model {
     public void updateBike(String bikeId, SendBikeInfo bike) {
         bikeTrackerNetworkInterface.updateBike(bikeId, bike);
     }
+
+    @Override
+    public void deleteBike(String bikeId, SendBikeInfo bike) {
+        bikeTrackerNetworkInterface.deleteBike(bikeId, bike);
+    }
 }
