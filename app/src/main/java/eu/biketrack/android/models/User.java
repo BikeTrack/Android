@@ -40,9 +40,9 @@ public class User {
     private String google;
 
 
-    @SerializedName("mail")
+    @SerializedName("email")
     @Expose
-    private String mail;
+    private String email;
 
     @SerializedName("name")
     @Expose
@@ -108,12 +108,12 @@ public class User {
         this.google = google;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {
@@ -142,7 +142,7 @@ public class User {
                 ", created='" + created + '\'' +
                 ", facebook='" + facebook + '\'' +
                 ", google='" + google + '\'' +
-                ", mail='" + mail + '\'' +
+                ", email='" + email + '\'' +
                 ", name='" + name + '\'' +
                 ", lastname='" + lastname + '\'' +
                 '}';

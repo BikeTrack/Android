@@ -28,7 +28,7 @@ public class EditBike extends Activity implements EditBikeMVP.View{
 
 //    @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.bike_name_edit) EditText _name;
-//    @BindView(R.id.bike_trackerid_edit) EditText _trackerid;
+    @BindView(R.id.bike_trackerid_edit) EditText _trackerid;
 //    @BindView(R.id.bike_brand_edit) EditText _brand;
 //    @BindView(R.id.search_brand_button) Button _button_search_brand;
     @BindView(R.id.bike_delete_button)
@@ -70,7 +70,7 @@ public class EditBike extends Activity implements EditBikeMVP.View{
 
     @OnClick(R.id.bike_save_button)
     public void saveBike(){
-        SendBikeInfo bike = new SendBikeInfo(_name.getText().toString(), "", "7462C");
+        SendBikeInfo bike = new SendBikeInfo(_name.getText().toString(), "", _trackerid.getText().toString());
         if (tmp == null)
             presenter.createBike(bike);
         else

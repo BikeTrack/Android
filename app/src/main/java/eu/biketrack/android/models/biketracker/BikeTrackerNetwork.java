@@ -1,18 +1,34 @@
 package eu.biketrack.android.models.biketracker;
 
+import android.content.Context;
 import android.util.Log;
+import android.widget.ImageView;
+
+import com.jakewharton.picasso.OkHttp3Downloader;
+import com.squareup.picasso.OkHttpDownloader;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
 
 import eu.biketrack.android.api_connection.BiketrackService;
+import eu.biketrack.android.api_connection.Statics;
 import eu.biketrack.android.models.User;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.ReceiveBike;
 import eu.biketrack.android.models.data_reception.ReceiveTracker;
 import eu.biketrack.android.models.data_reception.ReceptAddBike;
 import eu.biketrack.android.models.data_reception.ReceptUser;
+import eu.biketrack.android.models.data_reception.Tracker;
 import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.models.data_send.SendBikeInfo;
 import eu.biketrack.android.models.data_send.SendBikeUpdate;
 import eu.biketrack.android.session.LoginManagerModule;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -33,6 +49,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
         this.loginManagerModule = loginManagerModule;
         this.biketrackService = biketrackService;
         bikeTrackerList = BikeTrackerList.getInstance();
+        bikeTrackerList.setBikeTrackerNetworkInterface(this);
     }
 
     @Override
@@ -190,7 +207,8 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
                         @Override
                         public void onNext(ReceiveBike receiveBike) {
                             Log.d(TAG, "onNext: " + receiveBike.getBike().toString());
-                            getTrackerFromId(receiveBike.getBike(), token);
+                            getTestPicture(receiveBike.getBike(), token);
+                            //getTrackerFromId(receiveBike.getBike(), token);
                         }
                     });
         });
@@ -210,6 +228,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
 
                     @Override
                     public void onError(Throwable e) {
+                        bikeTrackerList.addPair(bike, null);
                         Log.e(TAG, "onError: ", e);
                     }
 
@@ -219,5 +238,46 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
                         bikeTrackerList.addPair(bike, receiveTracker.getTracker());
                     }
                 });
+    }
+
+    private void getTestPicture(Bike bike, String token) {
+        biketrackService.getTestPicture(token)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(error -> {
+                    Log.e(TAG, "onError: ", error);
+                })
+                .doOnNext(str -> {
+                    bike.setPicture(str);
+                    getTrackerFromId(bike, token);
+                })
+                .subscribe();
+
+
+    }
+
+    public void displayImage(String url, ImageView imageView){
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(new Interceptor() {
+                    @Override
+                    public Response intercept(Chain chain) throws IOException {
+                        Request request = chain.request();
+                        Request.Builder requestBuilder = request.newBuilder()
+                                .header("Authorization", Statics.TOKEN_API)
+                                .header("x-access-token", loginManagerModule.getToken());
+                        request = requestBuilder.build();
+                        return chain.proceed(request);
+                    }
+                })
+                .build();
+
+        Picasso picasso = new Picasso.Builder(loginManagerModule.getContext())
+                .downloader(new OkHttp3Downloader(client))
+                .build();
+        picasso.with(loginManagerModule.getContext())
+                .load(Statics.ROOT_API + url)
+                //.resize(50, 50)
+                .centerCrop()
+                .into(imageView);
     }
 }

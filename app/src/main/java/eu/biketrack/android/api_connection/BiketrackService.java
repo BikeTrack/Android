@@ -13,9 +13,11 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Streaming;
 import rx.Observable;
 
 /**
@@ -55,4 +57,8 @@ public interface BiketrackService {
 
     @GET("tracker/{trackerId}")
     Observable<ReceiveTracker> getTracker(@Path("trackerId") String trackerId, @Header("x-access-token") String access_token);
+
+    @Streaming
+    @GET("testPicture")
+    Observable<String> getTestPicture(@Header("x-access-token") String access_token);
 }

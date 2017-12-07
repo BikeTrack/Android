@@ -1,6 +1,10 @@
 package eu.biketrack.android.bikes;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +14,10 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import eu.biketrack.android.R;
+import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.models.biketracker.BikeTrackerList;
+import eu.biketrack.android.models.biketracker.BikeTrackerNetwork;
+import eu.biketrack.android.session.LoginManagerModule;
 
 import static eu.biketrack.android.api_connection.Statics.BATTERY_CRITICAL;
 import static eu.biketrack.android.api_connection.Statics.BATTERY_LOW;
@@ -70,8 +77,14 @@ public class RecyclerViewBikesAdapter extends RecyclerView.Adapter<RecyclerViewB
 
         holder.txtTitle.setText(bikeTrackerList.getBikeArrayList().get(position).first.getName());
 
+//        bikeTrackerList.getBikeTrackerNetworkInterface().displayImage("/testPicturePhoto", holder.imageView);
+//        holder.imageView.setImageResource(R.drawable.ic_logo_black);
+//        holder.imageView.setImageBitmap(bikeTrackerList.getBikeArrayList().get(position).first.getPicture());
+//        Log.d("sqd", "onBindViewHolder: " + bikeTrackerList.getBikeArrayList().get(position).first.getPicture());
+        byte[] decodedString = Base64.decode(bikeTrackerList.getBikeArrayList().get(position).first.getPicture(), Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        holder.imageView.setImageBitmap(decodedByte);
 
-        holder.imageView.setImageResource(R.drawable.ic_logo_black);
         if (bikeTrackerList.getBikeArrayList().get(position).second == null){
             holder.battery.setImageResource(R.drawable.ic_broken_link);
             return;

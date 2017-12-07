@@ -60,8 +60,8 @@ public class Login extends Activity implements LoginMVP.View {
         setContentView(R.layout.fragment_login);
         ButterKnife.bind(this);
 
-//        _email.setText("thisisatest@test.com");
-//        _password.setText("azerty");
+        _email.setText("thisisatest@test.com");
+        _password.setText("azerty");
 
         callbackManager = CallbackManager.Factory.create();
         _facebook_button.setReadPermissions("email");

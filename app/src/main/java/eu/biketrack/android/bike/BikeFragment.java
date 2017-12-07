@@ -1,9 +1,12 @@
 package eu.biketrack.android.bike;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +35,7 @@ import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.Location;
 import eu.biketrack.android.models.data_reception.Tracker;
 import eu.biketrack.android.session.Session;
+import rx.Observable;
 
 import static eu.biketrack.android.api_connection.Statics.BATTERY_CRITICAL;
 import static eu.biketrack.android.api_connection.Statics.BATTERY_LOW;
@@ -88,6 +92,10 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 
         _name.setText(bikeTrackerList.getPair(position).first.getName());
         tracker = bikeTrackerList.getPair(position).second;
+
+        byte[] decodedString = Base64.decode(bikeTrackerList.getBikeArrayList().get(position).first.getPicture(), Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        _bike_picture.setImageBitmap(decodedByte);
 
         try {
             if (tracker == null) {
@@ -265,25 +273,29 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 //        if (tracker.getLocations().size() > Statics.MAX_POINTS_DISPLAYED_ON_MAP){
 //            i = tracker.getLocations().size() - Statics.MAX_POINTS_DISPLAYED_ON_MAP;
 //        }
-        for (Location l : tracker.getLocations()){
+        try {
+            for (Location l : tracker.getLocations()){
 //            if (j >= Statics.MAX_POINTS_DISPLAYED_ON_MAP)
 //                break;
-            if (l.getCoordinates().get(1) != null && l.getCoordinates().get(0) != null) {
-                if (i == tracker.getLocations().size() - 1) {
-                    googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0)))
-                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-                    target = new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0));
+                if (l.getCoordinates().get(1) != null && l.getCoordinates().get(0) != null) {
+                    if (i == tracker.getLocations().size() - 1) {
+                        googleMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0)))
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+                        target = new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0));
 //                    if (_date_last_point != null)
 //                        _date_last_point.setText(l.getTimestamp());
-                } else {
-                    googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0))));
+                    } else {
+                        googleMap.addMarker(new MarkerOptions()
+                                .position(new LatLng(l.getCoordinates().get(1), l.getCoordinates().get(0))));
+                    }
                 }
-            }
-            ++i;
+                ++i;
 //            ++j;
+            }
+        } catch (Exception e){
         }
+
         googleMap.getUiSettings().setMyLocationButtonEnabled(false);
 //        if (ActivityCompat.checkSelfPermission(
 //                getActivity(),

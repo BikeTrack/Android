@@ -83,20 +83,32 @@
                 <!--android:textColor="@color/interact_background" />-->
         <!--</RelativeLayout>-->
 
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/bike_tracker_txt"-->
-            <!--android:textAllCaps="true"-->
-            <!--android:textStyle="italic"-->
-            <!--android:textColor="@color/titles"/>-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/bike_tracker_txt"
+            android:textAllCaps="true"
+            android:textStyle="italic"
+            android:textColor="@color/titles"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"/>
 
-        <!--<EditText-->
-            <!--android:id="@+id/bike_trackerid_edit"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="@color/interact_background"-->
-            <!--android:maxLines="1"/>-->
+        <EditText
+            android:id="@+id/bike_trackerid_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapCharacters"
+            android:textColor="@color/interact_background"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"/>
 
         <Button
             android:id="@+id/bike_save_button"

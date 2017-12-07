@@ -27,8 +27,8 @@ public class EditProfileFragment extends Fragment {
 //    Bitmap bitmap = null;
 //    File photo;
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+//    @BindView(R.id.toolbar)
+//    Toolbar toolbar;
 //    @BindView(R.id.tmp_img)
 //    ImageView image_tmp;
     @BindView(R.id.profile_email_edit)

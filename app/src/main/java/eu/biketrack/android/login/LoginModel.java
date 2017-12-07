@@ -66,6 +66,7 @@ public class LoginModel implements LoginMVP.Model {
             public void onNext(AuthenticateReception authenticateReception) {
                 Log.d(TAG, "connection: " + authenticateReception);
                 loginManagerModule.storeEmail(email);
+                loginManagerModule.storePassword(password);
                 loginManagerModule.storeToken(authenticateReception.getToken());
                 loginManagerModule.storeUserId(authenticateReception.getUserId());
                 error = null;

@@ -17,16 +17,19 @@ public class LoginManagerModule{
     private SharedPreferences sharedPreferences;
     private static final String KEY_EMAIL = "eu.biketrack.android.email";
     private static final String KEY_USERID = "eu.biketrack.android.userid";
+    private static final String KEY_PASSWORD = "eu.biketrack.android.password";
     private static final String KEY_TOKEN = "eu.biketrack.android.token";
 
     public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
     public static final String REGISTRATION_COMPLETE = "registrationComplete";
+    private Context context;
 
     @Inject
     public LoginManagerModule(Context context){
         if (sharedPreferences == null) {
             sharedPreferences = context.getSharedPreferences("eu.biketrack.android", Context.MODE_PRIVATE);
         }
+        this.context = context;
     }
 
     public void storeEmail(String email){
@@ -47,6 +50,14 @@ public class LoginManagerModule{
         return sharedPreferences.getString(KEY_USERID, null);
     }
 
+    public void storePassword(String password){
+        sharedPreferences.edit().putString(KEY_PASSWORD, password).apply();
+    }
+
+    public String getPassword(){
+        return sharedPreferences.getString(KEY_PASSWORD, null);
+    }
+
     public void storeToken(String token){
         sharedPreferences.edit().putString(KEY_TOKEN, token).apply();
         Log.d(TAG, "storeToken: " + token);
@@ -61,6 +72,8 @@ public class LoginManagerModule{
         Log.d(TAG, "cleared ");
     }
 
-
+    public Context getContext() {
+        return context;
+    }
 }
 

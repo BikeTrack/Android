@@ -10,9 +10,9 @@ import eu.biketrack.android.models.User;
  */
 
 public class UserUpdate {
-    @SerializedName("mail")
+    @SerializedName("email")
     @Expose
-    private String mail;
+    private String email;
 
     @SerializedName("name")
     @Expose
@@ -27,17 +27,17 @@ public class UserUpdate {
 //    private Img img;
 
     public UserUpdate(User user) {
-        this.mail = user.getMail();
+        this.email = user.getEmail();
         this.name = user.getName();
         this.lastname = user.getLastname();
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {
@@ -67,7 +67,7 @@ public class UserUpdate {
 //    @Override
 //    public String toString() {
 //        return "UserUpdate{" +
-//                "mail='" + mail + '\'' +
+//                "email='" + email + '\'' +
 //                ", name='" + name + '\'' +
 //                ", lastname='" + lastname + '\'' +
 //                ", img=" + img +

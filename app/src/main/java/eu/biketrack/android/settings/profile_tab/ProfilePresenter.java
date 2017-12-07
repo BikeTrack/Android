@@ -21,7 +21,7 @@ public class ProfilePresenter implements ProfileMVP.Presenter{
 
     public void getUserData(){
         model.getUserData().doOnNext(receptUser -> {
-            view.set_email(receptUser.getUser().getMail());
+            view.set_email(receptUser.getUser().getEmail());
             view.set_lastname(receptUser.getUser().getLastname());
             view.set_firstname(receptUser.getUser().getName());
         }).subscribe();

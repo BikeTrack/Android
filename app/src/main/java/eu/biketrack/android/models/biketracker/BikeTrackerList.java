@@ -19,7 +19,7 @@ import eu.biketrack.android.models.data_reception.Tracker;
 
  */
 public class BikeTrackerList {
-
+    private BikeTrackerNetworkInterface bikeTrackerNetworkInterface;
     public interface BikeTrackerListListener {
         void listUpdated();
         void bikeCreated();
@@ -98,5 +98,13 @@ public class BikeTrackerList {
             }
         });
 
+    }
+
+    public BikeTrackerNetworkInterface getBikeTrackerNetworkInterface() {
+        return bikeTrackerNetworkInterface;
+    }
+
+    public void setBikeTrackerNetworkInterface(BikeTrackerNetworkInterface bikeTrackerNetworkInterface) {
+        this.bikeTrackerNetworkInterface = bikeTrackerNetworkInterface;
     }
 }

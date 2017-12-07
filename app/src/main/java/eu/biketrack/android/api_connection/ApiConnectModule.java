@@ -14,6 +14,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * Created by adrienschricke on 17/09/2016 for Android.
@@ -49,6 +50,7 @@ public class ApiConnectModule {
                 .baseUrl(Statics.ROOT_API)
                 .client(client)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
