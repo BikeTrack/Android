@@ -27,7 +27,7 @@ import static eu.biketrack.android.api_connection.Statics.BATTERY_LOW;
  */
 
 public class RecyclerViewBikesAdapter extends RecyclerView.Adapter<RecyclerViewBikesAdapter.MyViewHolder> {
-
+    private static final String TAG = "RecyclerViewBikesAdapte";
     private BikeTrackerList bikeTrackerList;
 //    private ArrayList<Pair<Bike, Tracker>> bikes;
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -81,11 +81,19 @@ public class RecyclerViewBikesAdapter extends RecyclerView.Adapter<RecyclerViewB
 //        holder.imageView.setImageResource(R.drawable.ic_logo_black);
 //        holder.imageView.setImageBitmap(bikeTrackerList.getBikeArrayList().get(position).first.getPicture());
 //        Log.d("sqd", "onBindViewHolder: " + bikeTrackerList.getBikeArrayList().get(position).first.getPicture());
-        byte[] decodedString = Base64.decode(bikeTrackerList.getBikeArrayList().get(position).first.getPicture(), Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        holder.imageView.setImageBitmap(decodedByte);
+        try {
+            byte[] decodedString = Base64.decode(bikeTrackerList.getBikeArrayList().get(position).first.getPicture(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            holder.imageView.setImageBitmap(decodedByte);
+        } catch (Exception e){
+            Log.e(TAG, "onBindViewHolder: ",e );
+        }
 
         if (bikeTrackerList.getBikeArrayList().get(position).second == null){
+            holder.battery.setImageResource(R.drawable.ic_broken_link);
+            return;
+        }
+        else if (bikeTrackerList.getBikeArrayList().get(position).second.getId() == null){
             holder.battery.setImageResource(R.drawable.ic_broken_link);
             return;
         }

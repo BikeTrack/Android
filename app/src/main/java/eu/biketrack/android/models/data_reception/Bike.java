@@ -150,4 +150,15 @@ public class Bike implements Parcelable {
         dest.writeString(created);
         dest.writeString(picture);
     }
+
+    public void copy(Bike bike){
+        id = bike.getId();
+        brand = bike.getBrand();
+        name = bike.getName();
+        tracker = bike.getTracker();
+        v = bike.getV();
+        updated = bike.getUpdated();
+        created = bike.getCreated();
+        picture = bike.getPicture();
+    }
 }

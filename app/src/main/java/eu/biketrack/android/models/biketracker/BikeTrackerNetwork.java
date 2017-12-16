@@ -207,8 +207,9 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
                         @Override
                         public void onNext(ReceiveBike receiveBike) {
                             Log.d(TAG, "onNext: " + receiveBike.getBike().toString());
+                            bikeTrackerList.updateBike(receiveBike.getBike());
                             getTestPicture(receiveBike.getBike(), token);
-                            //getTrackerFromId(receiveBike.getBike(), token);
+                            getTrackerFromId(receiveBike.getBike(), token);
                         }
                     });
         });
@@ -228,28 +229,33 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
 
                     @Override
                     public void onError(Throwable e) {
-                        bikeTrackerList.addPair(bike, null);
+
                         Log.e(TAG, "onError: ", e);
                     }
 
                     @Override
                     public void onNext(ReceiveTracker receiveTracker) {
                         Log.d(TAG, "onNext: " + receiveTracker.getTracker().toString());
-                        bikeTrackerList.addPair(bike, receiveTracker.getTracker());
+                        bikeTrackerList.updateTracker(receiveTracker.getTracker());
                     }
                 });
     }
 
     private void getTestPicture(Bike bike, String token) {
-        biketrackService.getTestPicture(token)
+        biketrackService.getBikePicture(token, bike.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(error -> {
                     Log.e(TAG, "onError: ", error);
                 })
+                .onErrorResumeNext(throwable -> {
+                    return Observable.just(null);
+                })
                 .doOnNext(str -> {
-                    bike.setPicture(str);
-                    getTrackerFromId(bike, token);
+                    bikeTrackerList.updateBikePicture(bike.getId(), str);
+                })
+                .doOnCompleted(() -> {
+
                 })
                 .subscribe();
 

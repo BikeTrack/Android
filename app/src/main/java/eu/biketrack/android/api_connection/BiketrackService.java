@@ -61,4 +61,8 @@ public interface BiketrackService {
     @Streaming
     @GET("testPicture")
     Observable<String> getTestPicture(@Header("x-access-token") String access_token);
+
+    @Streaming
+    @GET("bikeGetPicture/{bikeId}")
+    Observable<String> getBikePicture(@Header("x-access-token") String access_token, @Path("bikeId") String biekId);
 }

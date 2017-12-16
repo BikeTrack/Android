@@ -1,6 +1,7 @@
 package eu.biketrack.android.models.biketracker;
 
 import android.support.v4.util.Pair;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,12 +51,52 @@ public class BikeTrackerList {
     }
 
     public void clear(){
-        bikeArrayList.clear();
+        //bikeArrayList.clear();
+        Log.d(TAG, bikeArrayList.toString());
     }
 
     public void addPair(Bike b, Tracker t){
         bikeArrayList.add(new Pair<>(b, t));
         sortList();
+    }
+
+    public void updateBike(Bike bike){
+        boolean found = false;
+        for (int i = 0; i < bikeArrayList.size(); i++){
+            if (bikeArrayList.get(i).first.getId().equals(bike.getId())){
+                bikeArrayList.get(i).first.copy(bike);
+                found = true;
+            }
+        }
+        if (!found){
+            addPair(bike, new Tracker());
+        }
+    }
+
+    public void updateTracker(Tracker tracker){
+        boolean found = false;
+        for (int i = 0; i < bikeArrayList.size(); i++){
+            if (bikeArrayList.get(i).first.getTracker().equals(tracker.getId())){
+                bikeArrayList.get(i).second.copy(tracker);
+                found = true;
+            }
+        }
+        if (!found){
+            Log.e(TAG, "updateTracker: Tracker not found");
+        }
+    }
+
+    public void updateBikePicture(String bikeId, String picture){
+        boolean found = false;
+        for (Pair<Bike, Tracker> p : bikeArrayList){
+            if (p.first.getId().equals(bikeId)){
+                p.first.setPicture(picture);
+                found = true;
+            }
+        }
+        if (!found){
+            Log.e(TAG, "updateBikePicture: Bike not found");
+        }
     }
 
     public int size(){

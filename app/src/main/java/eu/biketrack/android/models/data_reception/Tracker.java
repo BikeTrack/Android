@@ -101,4 +101,14 @@ public class Tracker {
     public int getCurrentRoundedBatteryPercentage(){
         return battery.get(battery.size() - 1).getPourcentage().intValue();
     }
+
+    public void copy(Tracker tracker){
+        id = tracker.getId();
+        v = tracker.getV();
+        locations = tracker.getLocations();
+        choc = tracker.getChoc();
+        battery = tracker.getBattery();
+        updated = tracker.getUpdated();
+        created = tracker.getCreated();
+    }
 }

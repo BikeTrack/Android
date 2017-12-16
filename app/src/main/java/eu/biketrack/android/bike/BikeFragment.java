@@ -93,9 +93,14 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         _name.setText(bikeTrackerList.getPair(position).first.getName());
         tracker = bikeTrackerList.getPair(position).second;
 
-        byte[] decodedString = Base64.decode(bikeTrackerList.getBikeArrayList().get(position).first.getPicture(), Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        _bike_picture.setImageBitmap(decodedByte);
+        try {
+            byte[] decodedString = Base64.decode(bikeTrackerList.getBikeArrayList().get(position).first.getPicture(), Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            _bike_picture.setImageBitmap(decodedByte);
+        } catch (Exception e){
+            Log.e(TAG, "onCreateView: ", e);
+        }
+
 
         try {
             if (tracker == null) {
