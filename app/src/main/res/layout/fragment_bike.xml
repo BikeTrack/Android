@@ -27,7 +27,7 @@
     -->
     <ImageView
         android:id="@+id/bike_picture"
-        android:src="@drawable/bike2"
+        android:src="@drawable/biketrack_logo"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
