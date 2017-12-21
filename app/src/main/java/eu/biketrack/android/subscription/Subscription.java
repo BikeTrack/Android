@@ -2,7 +2,10 @@ package eu.biketrack.android.subscription;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -26,6 +29,11 @@ import io.reactivex.Observable;
 
 public class Subscription extends Activity implements SubscriptionMVP.View{
     private static String TAG = "BIKETRACK - Subs";
+    private boolean canSub = false;
+    private boolean pwdMatch = false;
+    private boolean pwdWeak = false;
+    private boolean emailValid = false;
+
 
     @Inject
     SubscriptionMVP.Presenter presenter;
@@ -34,6 +42,8 @@ public class Subscription extends Activity implements SubscriptionMVP.View{
     @BindView(R.id.subscribtion_password_textview) EditText _password;
     @BindView(R.id.subscribtion_password_textview_repeat) EditText _password_repeat;
     @BindView((R.id.subscribtion_subscribe_button)) Button subscribe_button;
+    @BindView(R.id.subscribtion_coordinator_layout)
+    CoordinatorLayout coordinatorLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,30 +55,35 @@ public class Subscription extends Activity implements SubscriptionMVP.View{
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        subscribe_button.setEnabled(false);
+//        subscribe_button.setEnabled(false);
 
 
         Observable<Boolean> emailObservable = RxTextView.textChanges(_email)
-                .map(email -> email.toString().matches(Statics.REGEXP_EMAIL)).skip(1);
+                .map(email -> email.toString().matches(Statics.REGEXP_EMAIL))
+                .map(aBoolean -> emailValid = aBoolean);
 
 
         //Validate password field
-        Observable<CharSequence> passwordObservable = RxTextView.textChanges(_password).skip(1);
+        Observable<CharSequence> passwordObservable = RxTextView.textChanges(_password);
+        Observable<Boolean> securePasswordObservable = RxTextView.textChanges(_password).map(charSequence -> charSequence.length() >= 6)
+                .map(aBoolean -> pwdWeak = aBoolean);
 
 //Validate confirm password field
-        Observable<CharSequence> confirmPasswordObservable = RxTextView.textChanges(_password_repeat)
-                .skip(1);
+        Observable<CharSequence> confirmPasswordObservable = RxTextView.textChanges(_password_repeat);
 
 //Validate password matches field
         Observable<Boolean> passwordMatcherObservable = Observable.combineLatest(passwordObservable, confirmPasswordObservable,
-                (password, confirmPassword) -> password.toString().equals(confirmPassword.toString())).skip(1);
+                (password, confirmPassword) -> password.toString().equals(confirmPassword.toString()))
+                .map(aBoolean -> pwdMatch = aBoolean);
 
-        Observable.combineLatest(passwordMatcherObservable, emailObservable,
-                (passwordMatch, isEmailValid) -> passwordMatch && isEmailValid)
+        Observable.combineLatest(passwordMatcherObservable, emailObservable, securePasswordObservable,
+                (passwordMatch, isEmailValid, securePassword) ->
+                    passwordMatch && isEmailValid && securePassword)
                 .distinctUntilChanged()
                 .subscribe(valid -> {
                     Log.d(TAG, "onCreate: " + valid);
-                    subscribe_button.setEnabled(valid);
+                    canSub = valid;
+//                    subscribe_button.setEnabled(valid);
                 });
     }
 
@@ -80,7 +95,18 @@ public class Subscription extends Activity implements SubscriptionMVP.View{
 
     @OnClick(R.id.subscribtion_subscribe_button)
     public void subscribeButtonOnClick(){
-        presenter.subscriptionButtonClicked();
+        Resources res = getResources();
+        if (canSub)
+            presenter.subscriptionButtonClicked();
+        else{
+            if (!emailValid)
+                displayError(res.getString(R.string.error_check_email));
+            else if (!pwdMatch)
+                displayError(res.getString(R.string.error_check_password_and_repeat));
+            else if (!pwdWeak)
+                displayError(res.getString(R.string.error_check_password_secure));
+        }
+
     }
 
     @OnClick(R.id.subscribtion_login_button)
@@ -119,6 +145,6 @@ public class Subscription extends Activity implements SubscriptionMVP.View{
 
     @Override
     public void displayError(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG).show();
     }
 }
