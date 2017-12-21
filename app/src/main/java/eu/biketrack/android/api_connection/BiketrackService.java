@@ -9,6 +9,7 @@ import eu.biketrack.android.models.data_reception.SignupReception;
 import eu.biketrack.android.models.data_send.AuthUser;
 import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.models.data_send.SendBikeUpdate;
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
@@ -16,6 +17,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Streaming;
 import rx.Observable;
@@ -65,4 +67,8 @@ public interface BiketrackService {
     @Streaming
     @GET("bikeGetPicture/{bikeId}")
     Observable<String> getBikePicture(@Header("x-access-token") String access_token, @Path("bikeId") String biekId);
+
+    @POST("bikePostPicture")
+    @Multipart
+    Observable<ReceiveBike> uploadBikePicture(@Header("x-access-token") String access_token, @Part("bikeId") String bikeId, @Part MultipartBody.Part photo);
 }

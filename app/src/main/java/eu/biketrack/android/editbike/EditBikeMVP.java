@@ -1,5 +1,7 @@
 package eu.biketrack.android.editbike;
 
+import android.net.Uri;
+
 import eu.biketrack.android.models.data_send.SendBikeInfo;
 
 /**
@@ -16,11 +18,13 @@ public interface EditBikeMVP {
         void createBike(SendBikeInfo bike);
         void updateBike(String bikeId, SendBikeInfo bike);
         void deleteBike(String bikeId, SendBikeInfo bike);
+        void uploadBikePhoto(String uri, String bikeId);
     }
 
     interface Model{
         void createBike(SendBikeInfo bike);
         void updateBike(String bikeId, SendBikeInfo bike);
         void deleteBike(String bikeId, SendBikeInfo bike);
+        void uploadBikePhoto(String uri, String bikeId);
     }
 }

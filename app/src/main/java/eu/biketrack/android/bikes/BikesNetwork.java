@@ -57,7 +57,7 @@ public class BikesNetwork implements BikesNetworkInterface{
 
     private void updateList(String userId, String token){
         Log.d(TAG, "getBikeArrayList: " + userId + " / " + token);
-        bikeTrackerList.clear();
+//        bikeTrackerList.clear();
 
 
         getUser(userId ,token)

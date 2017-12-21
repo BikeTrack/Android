@@ -51,7 +51,7 @@ public class BikeTrackerList {
     }
 
     public void clear(){
-        //bikeArrayList.clear();
+        bikeArrayList.clear();
         Log.d(TAG, bikeArrayList.toString());
     }
 

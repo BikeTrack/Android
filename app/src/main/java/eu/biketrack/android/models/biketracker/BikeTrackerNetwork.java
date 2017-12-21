@@ -1,16 +1,13 @@
 package eu.biketrack.android.models.biketracker;
 
-import android.content.Context;
 import android.util.Log;
 import android.widget.ImageView;
 
 import com.jakewharton.picasso.OkHttp3Downloader;
-import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
+import java.io.File;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.api_connection.Statics;
@@ -20,14 +17,16 @@ import eu.biketrack.android.models.data_reception.ReceiveBike;
 import eu.biketrack.android.models.data_reception.ReceiveTracker;
 import eu.biketrack.android.models.data_reception.ReceptAddBike;
 import eu.biketrack.android.models.data_reception.ReceptUser;
-import eu.biketrack.android.models.data_reception.Tracker;
 import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.models.data_send.SendBikeInfo;
 import eu.biketrack.android.models.data_send.SendBikeUpdate;
 import eu.biketrack.android.session.LoginManagerModule;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import rx.Observable;
 import rx.Subscriber;
@@ -86,6 +85,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
 
                     @Override
                     public void onNext(ReceptAddBike receptAddBike) {
+                        bikeTrackerList.clear();
                         if (bikeTrackerList.listener != null)
                             bikeTrackerList.listener.bikeCreated();
                     }
@@ -154,7 +154,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
 
     private void getUserBikes(String userId, String token){
         Log.d(TAG, "getBikeArrayList: " + userId + " / " + token);
-        bikeTrackerList.clear();
+//        bikeTrackerList.clear();
 
 
         getUser(userId ,token)
@@ -208,7 +208,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
                         public void onNext(ReceiveBike receiveBike) {
                             Log.d(TAG, "onNext: " + receiveBike.getBike().toString());
                             bikeTrackerList.updateBike(receiveBike.getBike());
-                            getTestPicture(receiveBike.getBike(), token);
+                            getBikePicture(receiveBike.getBike(), token);
                             getTrackerFromId(receiveBike.getBike(), token);
                         }
                     });
@@ -241,7 +241,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
                 });
     }
 
-    private void getTestPicture(Bike bike, String token) {
+    private void getBikePicture(Bike bike, String token) {
         biketrackService.getBikePicture(token, bike.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -252,7 +252,11 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
                     return Observable.just(null);
                 })
                 .doOnNext(str -> {
+                    Log.d(TAG, "getBikePicture: Image du vélo : " + str);
                     bikeTrackerList.updateBikePicture(bike.getId(), str);
+                    if (bikeTrackerList.listener != null)
+                        bikeTrackerList.listener.bikeCreated();
+
                 })
                 .doOnCompleted(() -> {
 
@@ -285,5 +289,36 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
                 //.resize(50, 50)
                 .centerCrop()
                 .into(imageView);
+    }
+
+    @Override
+    public void uploadBikePicture(String picture, String bikeId) {
+        Log.d(TAG, "uploadBikePicture: pict = " + picture + " // bikeId = " + bikeId);
+        try {
+            File tmp = new File(picture);
+            MultipartBody.Part filePart = MultipartBody.Part.
+                    createFormData("photoBike", tmp.getName(), RequestBody.create(MediaType.parse("image/*"), tmp));
+            biketrackService.uploadBikePicture(loginManagerModule.getToken(), bikeId, filePart)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnError(error -> {
+                        Log.e(TAG, "onError: ", error);
+                    })
+                    .onErrorResumeNext(throwable -> {
+                        return Observable.just(null);
+                    })
+                    .doOnNext( receiveBike -> {
+                        if (receiveBike != null)
+                            bikeTrackerList.updateBike(receiveBike.getBike());
+                        Log.d(TAG, "uploadBikePicture: upload fini");
+                    })
+                    .doOnCompleted(() -> {
+
+                    })
+                    .subscribe();
+        } catch (Exception e){
+            Log.e(TAG, "uploadBikePicture: ", e);
+        }
+
     }
 }

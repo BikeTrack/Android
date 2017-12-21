@@ -39,7 +39,7 @@ public class BikesModel implements BikesMVP.Model {
 
             @Override
             public void bikeCreated() {
-
+                updateDone();
             }
         });
         bikeTrackerNetworkInterface.updateBikeList();

@@ -74,7 +74,7 @@
     <string name="menu_text_profile">Profile</string>
 
 
-    <string name="alert_confirmation_brand_title">Do you want to selec this brand ?</string>
+    <string name="alert_confirmation_brand_title">Do you want to select this brand ?</string>
     <!--<string name="alert_confirmation_brand_message">La suppression est définitive</string>-->
     <string name="alert_confirmation_brand_yes">Confirm</string>
     <string name="alert_confirmation_brand_no">Cancel</string>
@@ -96,8 +96,8 @@
     <string name="bike_error_name_or_brand_empty">Name and brand cannot be both empty</string>
     <string name="bike_error_trackerid_empty">Tracker cannot empty</string>
 
-    <string name="user_error_lastname_empty">Lastname cannot empty</string>
-    <string name="user_error_firstname_empty">Firstname cannot empty</string>
+    <string name="user_error_lastname_empty">Lastname cannot be empty</string>
+    <string name="user_error_firstname_empty">Firstname cannot be empty</string>
 
     <string name="user_saved">Account saved</string>
     <string name="user_already_created">This address is already used.</string>
@@ -559,6 +559,6 @@
     <string name="title_activity_settings_tab">SettingsTab</string>
 
     <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="selectImage">Select a picture</string>
 
 </resources>

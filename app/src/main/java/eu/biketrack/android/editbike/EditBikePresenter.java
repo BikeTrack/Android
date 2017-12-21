@@ -1,5 +1,7 @@
 package eu.biketrack.android.editbike;
 
+import android.net.Uri;
+
 import eu.biketrack.android.models.biketracker.BikeTrackerList;
 import eu.biketrack.android.models.data_send.SendBikeInfo;
 
@@ -73,5 +75,10 @@ public class EditBikePresenter implements EditBikeMVP.Presenter {
             }
         });
         model.deleteBike(bikeId, bike);
+    }
+
+    @Override
+    public void uploadBikePhoto(String uri, String bikeId) {
+        model.uploadBikePhoto(uri, bikeId);
     }
 }

@@ -82,11 +82,13 @@ public class RecyclerViewBikesAdapter extends RecyclerView.Adapter<RecyclerViewB
 //        holder.imageView.setImageBitmap(bikeTrackerList.getBikeArrayList().get(position).first.getPicture());
 //        Log.d("sqd", "onBindViewHolder: " + bikeTrackerList.getBikeArrayList().get(position).first.getPicture());
         try {
+            Log.d(TAG, "onBindViewHolder: " + bikeTrackerList.getBikeArrayList().get(position).first.getPicture());
             byte[] decodedString = Base64.decode(bikeTrackerList.getBikeArrayList().get(position).first.getPicture(), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             holder.imageView.setImageBitmap(decodedByte);
         } catch (Exception e){
-            Log.e(TAG, "onBindViewHolder: ",e );
+            Log.e(TAG, "onBindViewHolder: Problem with bitmap");
+//            Log.e(TAG, "onBindViewHolder: ",e );
         }
 
         if (bikeTrackerList.getBikeArrayList().get(position).second == null){
