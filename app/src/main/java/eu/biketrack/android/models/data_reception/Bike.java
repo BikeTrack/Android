@@ -24,6 +24,12 @@ public class Bike implements Parcelable {
     @SerializedName("__v")
     @Expose
     private Integer v;
+    @SerializedName("bill")
+    @Expose
+    private String bill;
+    @SerializedName("serial")
+    @Expose
+    private String serial;
     @SerializedName("updated")
     @Expose
     private String updated;
@@ -51,6 +57,8 @@ public class Bike implements Parcelable {
         name = in.readString();
         tracker = in.readString();
         v = in.readInt();
+        bill = in.readString();
+        serial = in.readString();
         updated = in.readString();
         created = in.readString();
         picture = in.readString();
@@ -96,6 +104,22 @@ public class Bike implements Parcelable {
         this.v = v;
     }
 
+    public String getBill() {
+        return bill;
+    }
+
+    public void setBill(String bill) {
+        this.bill = bill;
+    }
+
+    public String getSerial() {
+        return serial;
+    }
+
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
+
     public String getUpdated() {
         return updated;
     }
@@ -128,6 +152,8 @@ public class Bike implements Parcelable {
                 ", name='" + name + '\'' +
                 ", tracker='" + tracker + '\'' +
                 ", v=" + v +
+                ", bill='" + bill + '\'' +
+                ", serial='" + serial + '\'' +
                 ", updated='" + updated + '\'' +
                 ", created='" + created + '\'' +
                 ", picture='" + picture + '\'' +
@@ -146,6 +172,8 @@ public class Bike implements Parcelable {
         dest.writeString(name);
         dest.writeString(tracker);
         dest.writeInt(v);
+        dest.writeString(bill);
+        dest.writeString(serial);
         dest.writeString(updated);
         dest.writeString(created);
         dest.writeString(picture);
@@ -157,6 +185,8 @@ public class Bike implements Parcelable {
         name = bike.getName();
         tracker = bike.getTracker();
         v = bike.getV();
+        bill = bike.getBill();
+        serial = bike.getSerial();
         updated = bike.getUpdated();
         created = bike.getCreated();
         picture = bike.getPicture();

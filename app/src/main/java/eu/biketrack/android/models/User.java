@@ -27,9 +27,9 @@ public class User {
     @Expose
     private String created;
 
-//    @SerializedName("dob")
-//    @Expose
-//    private String dob;
+    @SerializedName("dob")
+    @Expose
+    private String dob;
 
     @SerializedName("facebook")
     @Expose
@@ -92,6 +92,14 @@ public class User {
         this.created = created;
     }
 
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
     public String getFacebook() {
         return facebook;
     }
@@ -140,6 +148,7 @@ public class User {
                 ", bikes=" + bikes +
                 ", updated='" + updated + '\'' +
                 ", created='" + created + '\'' +
+                ", dob='" + dob + '\'' +
                 ", facebook='" + facebook + '\'' +
                 ", google='" + google + '\'' +
                 ", email='" + email + '\'' +
