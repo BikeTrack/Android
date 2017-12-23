@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="eu.biketrack.beta.fragments.BrandFragment"
+    tools:context="eu.biketrack.android.fragments.BrandFragment"
     android:background="@color/background">
 
     <android.support.v7.widget.Toolbar

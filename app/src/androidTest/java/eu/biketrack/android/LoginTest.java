@@ -1,4 +1,4 @@
-package eu.biketrack.beta;
+package eu.biketrack.android;
 
 import android.support.test.filters.SmallTest;
 import android.support.test.runner.AndroidJUnit4;
@@ -12,8 +12,8 @@ import org.junit.runner.RunWith;
 
 import java.util.concurrent.Callable;
 
-import eu.biketrack.beta.api_connection.ApiConnect;
-import eu.biketrack.beta.api_connection.BiketrackService;
+import eu.biketrack.android.api_connection.ApiConnect;
+import eu.biketrack.android.api_connection.BiketrackService;
 import io.reactivex.Scheduler;
 import io.reactivex.android.plugins.RxAndroidPlugins;
 import io.reactivex.disposables.CompositeDisposable;
