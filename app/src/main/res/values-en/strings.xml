@@ -32,6 +32,9 @@
 
     <string name="empty_list">There is no bike here !</string>
 
+    <string name="percent_battery">%</string>
+    <string name="title_bikes_list">Bikes list</string>
+
     <!-- Strings related to BikeEdit -->
     <string name="bike_name_txt">Name</string>
     <string name="bike_brand_txt">Brand</string>
@@ -105,5 +108,9 @@
         <item>English</item>
         <item>French</item>
     </string-array>
+
+    <string name="tab_text_1">Account</string>
+    <string name="tab_text_2">Emergency Contact</string>
+    <string name="tab_text_3">Settings</string>
 
 </resources>

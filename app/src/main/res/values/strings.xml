@@ -2,6 +2,7 @@
     <string name="app_name" translatable="false">BikeTrack Beta</string>
     <!-- Strings related to Facebook -->
     <string name="facebook_app_id" translatable="false">580553822151900</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb580553822151900</string>
     <!-- Strings related to Google -->
     <string name="google_android_map_api_key" translatable="false">AIzaSyCWaWLfc9VShCwMhz1yj689mxZc5sL57dk</string>
 
@@ -38,6 +39,9 @@
 
     <string name="empty_list">There is no bike here !</string>
 
+    <string name="percent_battery">%</string>
+    <string name="title_bikes_list">Bikes list</string>
+
     <!-- Strings related to BikeEdit -->
     <string name="bike_name_txt">Name</string>
     <string name="bike_brand_txt">Brand</string>
@@ -70,7 +74,7 @@
     <string name="menu_text_profile">Profile</string>
 
 
-    <string name="alert_confirmation_brand_title">Do you want to selec this brand ?</string>
+    <string name="alert_confirmation_brand_title">Do you want to select this brand ?</string>
     <!--<string name="alert_confirmation_brand_message">La suppression est définitive</string>-->
     <string name="alert_confirmation_brand_yes">Confirm</string>
     <string name="alert_confirmation_brand_no">Cancel</string>
@@ -92,8 +96,8 @@
     <string name="bike_error_name_or_brand_empty">Name and brand cannot be both empty</string>
     <string name="bike_error_trackerid_empty">Tracker cannot empty</string>
 
-    <string name="user_error_lastname_empty">Lastname cannot empty</string>
-    <string name="user_error_firstname_empty">Firstname cannot empty</string>
+    <string name="user_error_lastname_empty">Lastname cannot be empty</string>
+    <string name="user_error_firstname_empty">Firstname cannot be empty</string>
 
     <string name="user_saved">Account saved</string>
     <string name="user_already_created">This address is already used.</string>
@@ -540,7 +544,21 @@
         <item>Zullo</item>
     </string-array>
 
+
+    <string name="tab_text_1">Account</string>
+    <string name="tab_text_2">Emergency Contact</string>
+    <string name="tab_text_3">Settings</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_settings_tab">SettingsTab</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="selectImage">Select a picture</string>
 
 </resources>

@@ -2,77 +2,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="eu.biketrack.android.fragments.EditBikeFragment"
+    tools:context="eu.biketrack.android.editbike.EditBike"
     android:background="@color/background">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/interact_background"
-        app:titleTextColor="@color/background"
-        app:theme="@style/AppTheme"
-        app:popupTheme="@style/Theme.AppCompat"/>
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/interact_background"-->
+        <!--app:titleTextColor="@color/background"-->
+        <!--app:theme="@style/AppTheme"-->
+        <!--app:popupTheme="@style/Theme.AppCompat"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_below="@id/toolbar">
+        <ImageView
+            android:id="@+id/image_to_upload"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+
+        <Button
+            android:id="@+id/button_selectImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/inside"
+            android:text="@string/selectImage"
+            android:textColor="@color/background"
+            android:textStyle="bold"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/bike_name_txt"
             android:textAllCaps="true"
             android:textStyle="italic"
-            android:textColor="@color/titles"/>
+            android:textColor="@color/titles"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"/>
 
         <EditText
             android:id="@+id/bike_name_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/interact_background"
             android:maxLines="1"
-            />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/bike_brand_txt"
-            android:textAllCaps="true"
-            android:textStyle="italic"
-            android:textColor="@color/titles"/>
-
-        <RelativeLayout
-            android:id="@+id/RelativeLayout01" android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/search_brand_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:background="@color/interact_background"
-                android:textColor="@color/inside"
-                android:text="Search" />
-
-            <EditText
-                android:id="@+id/bike_brand_edit"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/search_brand_button"
-                android:layout_toStartOf="@id/search_brand_button"
-                android:inputType="none"
-                android:maxLines="1"
-                android:ellipsize="start"
-                android:textColor="@color/interact_background" />
-        </RelativeLayout>
+            android:textAlignment="center"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -80,21 +69,55 @@
             android:text="@string/bike_tracker_txt"
             android:textAllCaps="true"
             android:textStyle="italic"
-            android:textColor="@color/titles"/>
+            android:textColor="@color/titles"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"/>
 
         <EditText
             android:id="@+id/bike_trackerid_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textCapCharacters"
             android:textColor="@color/interact_background"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"/>
 
         <Button
             android:id="@+id/bike_save_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/bike_save_button_txt"
-            android:background="@color/interact_background"
-            android:textColor="@color/inside" />
+            android:background="@color/inside"
+            android:textColor="@color/background"
+            android:textStyle="bold"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp" />
+
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/bike_delete_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/inside"
+        android:text="@string/delete_context_menu"
+        android:textColor="@color/background"
+        android:textStyle="bold"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"/>
 </RelativeLayout>

@@ -1,71 +1,109 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="eu.biketrack.android.fragments.SubscriptionFragment"
-    android:background="@color/background">
+    tools:context="eu.biketrack.android.subscription.Subscription"
+    android:background="@color/background"
+    android:id="@+id/subscribtion_coordinator_layout">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/img_bike_list_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/interact_background"
-        app:titleTextColor="@color/background"
-        app:title="@string/title_subscribe"
-        app:theme="@style/AppTheme"
-        app:popupTheme="@style/Theme.AppCompat"/>
+        android:src="@drawable/signupheader"
+        android:layout_marginTop="-100dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/subscribtion_email_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/img_bike_list_bg"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"/>
 
     <EditText
         android:id="@+id/subscribtion_password_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/subscribtion_email_textview"
+        android:layout_marginTop="14dp"
         android:hint="@string/prompt_password"
-        android:imeActionId="@+id/login"
         android:imeOptions="actionUnspecified"
         android:inputType="textPassword"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"/>
 
     <EditText
         android:id="@+id/subscribtion_password_textview_repeat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/subscribtion_password_textview"
+        android:layout_marginTop="14dp"
         android:hint="@string/prompt_password"
-        android:imeActionId="@+id/login"
         android:imeOptions="actionUnspecified"
         android:inputType="textPassword"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"/>
 
     <Button
         android:id="@+id/subscribtion_subscribe_button"
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="65dp"
+        android:background="@color/inside"
         android:text="@string/action_subscribe"
+        android:textColor="@color/background"
         android:textStyle="bold"
-        android:background="@color/interact_background"
-        android:textColor="@color/inside"/>
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"/>
 
     <Button
         android:id="@+id/subscribtion_login_button"
-        style="?android:textAppearanceSmall"
-        android:layout_width="match_parent"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_alignEnd="@+id/subscribtion_subscribe_button"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/subscribtion_subscribe_button"
+        android:background="@color/background"
+        android:shadowColor="@color/background"
         android:text="@string/action_sign_in"
-        android:textStyle="bold"
-        android:background="@color/interact_background"
-        android:textColor="@color/inside"/>
+        android:textColor="@color/inside"
+        android:textStyle="bold" />
 
-
-</LinearLayout>
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

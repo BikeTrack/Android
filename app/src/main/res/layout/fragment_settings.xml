@@ -1,45 +1,24 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
-    tools:context="eu.biketrack.android.fragments.SettingsFragment">
-
-    <LinearLayout
+    android:orientation="vertical"
+    tools:context="eu.biketrack.android.settings.settings_tab.SettingsFragment">
+    <Button
+        android:id="@+id/button_open_language"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/interact_background"
-            app:titleTextColor="@color/background"
-            app:title="@string/title_settings"
-            app:theme="@style/AppTheme"
-            app:popupTheme="@style/Theme.AppCompat"/>
-
-        <Button
-            android:id="@+id/button_open_language"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/button_open_language_txt"
-            android:background="@color/interact_background"
-            android:textColor="@color/inside"
-            android:layout_marginTop="10sp"
-            />
-
-    </LinearLayout>
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:itemBackground="@color/interact_background"
-        app:itemIconTint="@drawable/nav_item_color_state"
-        app:itemTextColor="@drawable/nav_item_color_state"
-        app:menu="@menu/main_menu" />
-</FrameLayout>
+        android:text="@string/button_open_language_txt"
+        android:background="@color/inside"
+        android:textColor="@color/background"
+        android:textStyle="bold"
+        android:layout_marginTop="28dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        />
+</LinearLayout>
