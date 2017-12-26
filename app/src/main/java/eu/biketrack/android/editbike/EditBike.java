@@ -7,11 +7,8 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
@@ -21,10 +18,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-
-import com.google.android.gms.common.images.ImageManager;
-
-import java.io.FileDescriptor;
 
 import javax.inject.Inject;
 
@@ -36,7 +29,7 @@ import eu.biketrack.android.models.biketracker.BikeTrackerList;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_send.SendBikeInfo;
 import eu.biketrack.android.root.App;
-import utils.PictureManager;
+import eu.biketrack.android.utils.PictureManager;
 
 public class EditBike extends Activity implements EditBikeMVP.View {
     private static final String TAG = "EditBike";

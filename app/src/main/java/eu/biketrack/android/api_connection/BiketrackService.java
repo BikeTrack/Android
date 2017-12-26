@@ -6,11 +6,13 @@ import eu.biketrack.android.models.data_reception.ReceiveTracker;
 import eu.biketrack.android.models.data_reception.ReceptAddBike;
 import eu.biketrack.android.models.data_reception.ReceptDeleteUser;
 import eu.biketrack.android.models.data_reception.ReceptUser;
+import eu.biketrack.android.models.data_reception.ReceptUserUpdate;
 import eu.biketrack.android.models.data_reception.SignupReception;
 import eu.biketrack.android.models.data_send.AuthUser;
 import eu.biketrack.android.models.data_send.DeleteUser;
 import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.models.data_send.SendBikeUpdate;
+import eu.biketrack.android.models.data_send.SendUserUpdate;
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -36,10 +38,10 @@ public interface BiketrackService {
 
     @GET("profile/{userID}")
     Observable<ReceptUser> getUser(@Header("x-access-token") String token, @Path("userID") String userid);
-//
-//    @PATCH("profile")
-//    Observable<Response<ReceptUserUpdate>> updateUser(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Body SendUserUpdate sendUserUpdate);
-//
+
+    @PATCH("profile")
+    Observable<ReceptUserUpdate> updateUser(@Header("x-access-token") String access_token, @Body SendUserUpdate sendUserUpdate);
+
 //    @Multipart
 //    @PATCH("profile")
 //    Observable<ReceptUserUpdate> uploadProfilePhoto(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Part MultipartBody.Part image, @Part("contentType") String contentType);

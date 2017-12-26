@@ -74,14 +74,15 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/fab"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="end|bottom"-->
-        <!--android:layout_margin="@dimen/fab_margin"-->
-        <!--app:layout_anchor="@+id/appbar"-->
-        <!--app:layout_anchorGravity="right|center"-->
-        <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/settings_floating_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginEnd="25dp"
+        app:layout_anchor="@+id/appbar"
+        app:layout_anchorGravity="right|center"
+        app:srcCompat="@drawable/edit_icon" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -22,14 +22,15 @@ public class UserUpdate {
     @Expose
     private String lastname;
 
-//    @SerializedName("img")
-//    @Expose
-//    private Img img;
+    @SerializedName("dob")
+    @Expose
+    private String dob;
 
     public UserUpdate(User user) {
         this.email = user.getEmail();
         this.name = user.getName();
         this.lastname = user.getLastname();
+        this.dob = user.getDob();
     }
 
     public String getEmail() {
@@ -56,21 +57,21 @@ public class UserUpdate {
         this.lastname = lastname;
     }
 
-//    public Img getImg() {
-//        return img;
-//    }
-//
-//    public void setImg(Img img) {
-//        this.img = img;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "UserUpdate{" +
-//                "email='" + email + '\'' +
-//                ", name='" + name + '\'' +
-//                ", lastname='" + lastname + '\'' +
-//                ", img=" + img +
-//                '}';
-//    }
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
+
+    @Override
+    public String toString() {
+        return "UserUpdate{" +
+                "email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", dob='" + dob + '\'' +
+                '}';
+    }
 }

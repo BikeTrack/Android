@@ -19,6 +19,7 @@ import eu.biketrack.android.models.biketracker.BikeTrackerListModule;
 import eu.biketrack.android.models.biketracker.BikeTrackerNetworkInterface;
 import eu.biketrack.android.session.LoginManagerModule;
 import eu.biketrack.android.session.Session;
+import eu.biketrack.android.settings.profile_tab.EditProfileFragment;
 import eu.biketrack.android.settings.profile_tab.ProfileFragment;
 import eu.biketrack.android.settings.profile_tab.ProfileModule;
 import eu.biketrack.android.subscription.Subscription;
@@ -53,6 +54,7 @@ public interface ApplicationComponent {
     void inject(BikeTrackerNetworkInterface bikeTrackerNetworkInterface);
     void inject(EditBike target);
     void inject(ProfileFragment target);
+    void inject(EditProfileFragment target);
 
 
 

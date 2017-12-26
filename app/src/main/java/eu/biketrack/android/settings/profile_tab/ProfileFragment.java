@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -50,29 +51,6 @@ public class ProfileFragment extends Fragment implements ProfileMVP.View{
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_profile, container, false);
         unbinder = ButterKnife.bind(this, layout);
-//        biketrackService = ApiConnectModule.createService();
-//        _disposables = new CompositeDisposable();
-
-//        toolbar.inflateMenu(R.menu.profile_menu);
-//
-//        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                Log.d(TAG, item.toString());
-//                int selected_option = item.getItemId();
-//
-//                if (selected_option == R.id.action_edit_profile){
-//                    Fragment fragment = new EditProfileFragment();
-//                    final String tag = fragment.getClass().toString();
-//                    getActivity().getFragmentManager()
-//                            .beginTransaction()
-//                            .addToBackStack(tag)
-//                            .replace(android.R.id.content, fragment, tag)
-//                            .commit();
-//                }
-//                return true;
-//            }
-//        });
         return layout;
     }
 //
@@ -81,6 +59,7 @@ public class ProfileFragment extends Fragment implements ProfileMVP.View{
     public void onResume() {
         super.onResume();
         presenter.setView(this);
+        presenter.setResources(getResources());
         presenter.getUserData();
     }
 
@@ -100,47 +79,23 @@ public class ProfileFragment extends Fragment implements ProfileMVP.View{
     }
 
     @Override
+    public void set_dob(String _dob) {
+
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
-//
-//    private void getUser() {
-//        _disposables.add(
-//                biketrackService.getUser(Statics.TOKEN_API, session.getToken(), session.getUserId())
-//                        .subscribeOn(Schedulers.newThread())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribeWith(new DisposableObserver<ReceptUser>() {
-//
-//                            @Override
-//                            public void onComplete(){
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable e) {
-//                                Toast.makeText(getActivity(), R.string.network_error, Toast.LENGTH_SHORT).show();
-//                            }
-//
-//                            @Override
-//                            public void onNext(ReceptUser receptUser) {
-//                                if (_email != null)
-//                                    _email.setText(receptUser.getUser().getMail());
-//                                if (_lastname != null)
-//                                    _lastname.setText(receptUser.getUser().getLastname());
-//                                if (_firstname != null)
-//                                    _firstname.setText(receptUser.getUser().getName());
-//                            }
-//                        })
-//        );
-//    }
-//
+
     @OnClick(R.id.log_off_button)
     public void logoff(){
         presenter.logoff();
     }
 
     @Override
-    public void goToLoginView(){
+    public void close(){
         Intent autologin_intent = new Intent(getActivity(), Initializer.class);
         autologin_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(autologin_intent);
@@ -160,5 +115,30 @@ public class ProfileFragment extends Fragment implements ProfileMVP.View{
                 })
                 .setNegativeButton(R.string.alert_confirmation_delete_account_no, null)
                 .show();
+    }
+
+    @Override
+    public String get_email() {
+        return _email.getText().toString();
+    }
+
+    @Override
+    public String get_lastname() {
+        return _lastname.getText().toString();
+    }
+
+    @Override
+    public String get_firstname() {
+        return _firstname.getText().toString();
+    }
+
+    @Override
+    public String get_dob() {
+        return null;
+    }
+
+    @Override
+    public void displayMessage(String message){
+        Snackbar.make(this.getView(), message, Snackbar.LENGTH_LONG).show();
     }
 }

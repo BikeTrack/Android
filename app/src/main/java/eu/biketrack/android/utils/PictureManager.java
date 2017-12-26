@@ -1,17 +1,14 @@
-package utils;
+package eu.biketrack.android.utils;
 
 import android.content.ContentResolver;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.util.Log;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileDescriptor;
 
 /**
  * Created by 42900 on 16/12/2017 for BikeTrack_Android.

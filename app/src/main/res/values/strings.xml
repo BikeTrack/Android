@@ -94,7 +94,7 @@
     <string name="button_language_clear_txt">Reset Language</string>
 
     <string name="bike_error_name_or_brand_empty">Name and brand cannot be both empty</string>
-    <string name="bike_error_trackerid_empty">Tracker cannot empty</string>
+    <string name="bike_error_trackerid_empty">Tracker cannot be empty</string>
 
     <string name="user_error_lastname_empty">Lastname cannot be empty</string>
     <string name="user_error_firstname_empty">Firstname cannot be empty</string>

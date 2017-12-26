@@ -6,15 +6,15 @@
     android:orientation="vertical"
     tools:context="eu.biketrack.android.settings.profile_tab.EditProfileFragment"
     android:background="@color/background">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/interact_background"
-        app:titleTextColor="@color/background"
-        app:title="@string/title_profile_edit"
-        app:theme="@style/AppTheme"
-        app:popupTheme="@style/Theme.AppCompat"/>
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/interact_background"-->
+        <!--app:titleTextColor="@color/background"-->
+        <!--app:title="@string/title_profile_edit"-->
+        <!--app:theme="@style/AppTheme"-->
+        <!--app:popupTheme="@style/Theme.AppCompat"/>-->
 
     <!--<ImageView-->
         <!--android:id="@+id/tmp_img"-->
@@ -86,12 +86,12 @@
         android:textColor="@color/inside"
         android:layout_marginTop="20dp"/>
 
-    <Button
-        android:id="@+id/delete_account_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/delete_account_button_txt"
-        android:background="@color/interact_background"
-        android:textColor="@color/inside"
-        android:layout_marginTop="20dp"/>
+    <!--<Button-->
+        <!--android:id="@+id/delete_account_button"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/delete_account_button_txt"-->
+        <!--android:background="@color/interact_background"-->
+        <!--android:textColor="@color/inside"-->
+        <!--android:layout_marginTop="20dp"/>-->
 </LinearLayout>

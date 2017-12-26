@@ -3,9 +3,13 @@ package eu.biketrack.android.settings.profile_tab;
 import android.util.Log;
 
 import eu.biketrack.android.api_connection.BiketrackService;
+import eu.biketrack.android.models.User;
 import eu.biketrack.android.models.data_reception.ReceptDeleteUser;
 import eu.biketrack.android.models.data_reception.ReceptUser;
+import eu.biketrack.android.models.data_reception.ReceptUserUpdate;
 import eu.biketrack.android.models.data_send.DeleteUser;
+import eu.biketrack.android.models.data_send.SendUserUpdate;
+import eu.biketrack.android.models.data_send.UserUpdate;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -39,6 +43,16 @@ public class ProfileNetwork implements ProfileNetworkInterface {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(error -> {
                     Log.e(TAG, "deleteUser: ", error);
+                });
+    }
+
+    @Override
+    public Observable<ReceptUserUpdate> saveUserData(User user, String token) {
+        return biketrackService.updateUser(token, new SendUserUpdate(user.getId(), new UserUpdate(user)))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(error -> {
+                    Log.e(TAG, "saveUserData: ", error);
                 });
     }
 }
