@@ -1,9 +1,11 @@
 package eu.biketrack.android.settings.profile_tab;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -134,12 +136,29 @@ public class ProfileFragment extends Fragment implements ProfileMVP.View{
 //
     @OnClick(R.id.log_off_button)
     public void logoff(){
-//        session.clear();
-//        LoginManagerModule loginManager = LoginManagerModule.getInstance();
-//        loginManager.clear();
         presenter.logoff();
+    }
+
+    @Override
+    public void goToLoginView(){
         Intent autologin_intent = new Intent(getActivity(), Initializer.class);
         autologin_intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(autologin_intent);
+    }
+
+    @OnClick(R.id.delete_account_button)
+    public void confirmDeleteAccount(){
+        new AlertDialog.Builder(this.getContext())
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(R.string.alert_confirmation_delete_account_title)
+                .setMessage(R.string.alert_confirmation_delete_account_message)
+                .setPositiveButton(R.string.alert_confirmation_delete_account_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.deleteAccount();
+                    }
+                })
+                .setNegativeButton(R.string.alert_confirmation_delete_account_no, null)
+                .show();
     }
 }

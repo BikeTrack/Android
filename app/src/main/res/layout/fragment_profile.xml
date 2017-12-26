@@ -102,5 +102,22 @@
         android:layout_marginStart="20dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"/>
+
+    <Button
+        android:id="@+id/delete_account_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/inside"
+        android:text="@string/delete_account_button_txt"
+        android:textColor="@color/background"
+        android:shadowColor="@color/background"
+        android:textStyle="bold"
+        android:layout_marginTop="28dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"/>
 </LinearLayout>
 

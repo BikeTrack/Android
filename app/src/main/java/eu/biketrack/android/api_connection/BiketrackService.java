@@ -4,9 +4,11 @@ import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_reception.ReceiveBike;
 import eu.biketrack.android.models.data_reception.ReceiveTracker;
 import eu.biketrack.android.models.data_reception.ReceptAddBike;
+import eu.biketrack.android.models.data_reception.ReceptDeleteUser;
 import eu.biketrack.android.models.data_reception.ReceptUser;
 import eu.biketrack.android.models.data_reception.SignupReception;
 import eu.biketrack.android.models.data_send.AuthUser;
+import eu.biketrack.android.models.data_send.DeleteUser;
 import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.models.data_send.SendBikeUpdate;
 import okhttp3.MultipartBody;
@@ -42,9 +44,9 @@ public interface BiketrackService {
 //    @PATCH("profile")
 //    Observable<ReceptUserUpdate> uploadProfilePhoto(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Part MultipartBody.Part image, @Part("contentType") String contentType);
 //
-//    @HTTP(method = "DELETE", path = "profile", hasBody = true)
-//    Observable<Response<ReceptDeleteUser>> deleteUser(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Body DeleteUser user);
-//
+    @HTTP(method = "DELETE", path = "profile", hasBody = true)
+    Observable<ReceptDeleteUser> deleteUser(@Header("x-access-token") String access_token, @Body DeleteUser user);
+
     @POST("bike")
     Observable<ReceptAddBike> addBike(@Header("x-access-token") String access_token, @Body SendBike bike);
 

@@ -1,5 +1,6 @@
 package eu.biketrack.android.settings.profile_tab;
 
+import eu.biketrack.android.models.data_reception.ReceptDeleteUser;
 import eu.biketrack.android.models.data_reception.ReceptUser;
 import eu.biketrack.android.session.LoginManagerModule;
 import rx.Observable;
@@ -25,5 +26,10 @@ public class ProfileModel implements ProfileMVP.Model {
     @Override
     public void logoff() {
         loginManagerModule.clear();
+    }
+
+    @Override
+    public Observable<ReceptDeleteUser> deleteAccount() {
+        return profileNetworkInterface.deleteUser(loginManagerModule.getUserId(), loginManagerModule.getToken());
     }
 }

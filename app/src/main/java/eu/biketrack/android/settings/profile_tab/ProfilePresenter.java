@@ -30,5 +30,16 @@ public class ProfilePresenter implements ProfileMVP.Presenter{
     @Override
     public void logoff() {
         model.logoff();
+        view.goToLoginView();
+    }
+
+    @Override
+    public void deleteAccount() {
+        model.deleteAccount()
+                .doOnNext(receptDeleteUser -> {
+                    logoff();
+                    view.goToLoginView();
+                })
+                .subscribe();
     }
 }

@@ -1,5 +1,6 @@
 package eu.biketrack.android.settings.profile_tab;
 
+import eu.biketrack.android.models.data_reception.ReceptDeleteUser;
 import eu.biketrack.android.models.data_reception.ReceptUser;
 import rx.Observable;
 
@@ -9,4 +10,5 @@ import rx.Observable;
 
 public interface ProfileNetworkInterface {
     Observable<ReceptUser> getUser(String userId, String token);
+    Observable<ReceptDeleteUser> deleteUser(String userId, String token);
 }
