@@ -32,4 +32,8 @@ public class BikesPresenter implements BikesMVP.Presenter {
         view.setProgressBar(false);
     }
 
+    @Override
+    public void clearBikes() {
+        model.clearBikes();
+    }
 }

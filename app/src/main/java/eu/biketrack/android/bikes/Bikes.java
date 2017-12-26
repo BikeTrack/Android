@@ -98,6 +98,7 @@ public class Bikes extends Activity implements BikesMVP.View{
     protected void onResume() {
         super.onResume();
         presenter.setView(this);
+        presenter.clearBikes();
         presenter.getBikes();
 //        if (list != null) {
 //            list.setEmptyView(emptyText);

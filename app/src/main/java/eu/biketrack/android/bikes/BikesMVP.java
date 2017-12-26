@@ -13,6 +13,7 @@ public interface BikesMVP {
     interface Presenter {
         void setView(BikesMVP.View view);
         void getBikes();
+        void clearBikes();
         void viewUpdate();
     }
 
@@ -22,5 +23,6 @@ public interface BikesMVP {
 //        void setBikeArrayList(ArrayList<android.support.v4.util.Pair<Bike, Tracker>> list);
         Throwable getError();
         void updateDone();
+        void clearBikes();
     }
 }

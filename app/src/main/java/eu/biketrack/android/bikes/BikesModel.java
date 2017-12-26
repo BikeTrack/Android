@@ -60,4 +60,9 @@ public class BikesModel implements BikesMVP.Model {
     public Throwable getError() {
         return null;
     }
+
+    @Override
+    public void clearBikes() {
+        BikeTrackerList.getInstance().clear();
+    }
 }
