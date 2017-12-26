@@ -1,5 +1,6 @@
 package eu.biketrack.android.settings.settings_tab;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import butterknife.OnClick;
 import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
+import eu.biketrack.android.bikes.Bikes;
 
 
 public class LanguageFragment extends Fragment {
@@ -90,6 +92,8 @@ public class LanguageFragment extends Fragment {
     }
 
     public void closeFragment(){
-        getActivity().getFragmentManager().popBackStack();
+        Intent intent = new Intent(getActivity().getApplicationContext(), Bikes.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }
