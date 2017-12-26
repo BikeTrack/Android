@@ -88,6 +88,7 @@ public class RecyclerViewBikesAdapter extends RecyclerView.Adapter<RecyclerViewB
             holder.imageView.setImageBitmap(decodedByte);
         } catch (Exception e){
             Log.e(TAG, "onBindViewHolder: Problem with bitmap");
+            holder.imageView.setImageResource(R.drawable.biketrack_logo);
 //            Log.e(TAG, "onBindViewHolder: ",e );
         }
 
