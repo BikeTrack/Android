@@ -25,6 +25,5 @@ public class ProfileModel implements ProfileMVP.Model {
     @Override
     public void logoff() {
         loginManagerModule.clear();
-
     }
 }

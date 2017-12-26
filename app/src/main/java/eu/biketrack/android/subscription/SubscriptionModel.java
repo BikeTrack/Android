@@ -85,6 +85,7 @@ public class SubscriptionModel implements SubscriptionMVP.Model {
             public void onNext(AuthenticateReception authenticateReception) {
                 Log.d(TAG, "connection: " + authenticateReception);
                 loginManagerModule.storeEmail(authUser.getEmail());
+                loginManagerModule.storePassword(authUser.getPassword());
                 loginManagerModule.storeToken(authenticateReception.getToken());
                 loginManagerModule.storeUserId(authenticateReception.getUserId());
                 error = null;

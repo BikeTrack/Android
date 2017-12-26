@@ -2,7 +2,11 @@ package eu.biketrack.android.autologin;
 
 import android.util.Log;
 
+import java.util.concurrent.TimeUnit;
+
+import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_reception.ReceptUser;
+import eu.biketrack.android.models.data_send.AuthUser;
 import eu.biketrack.android.session.LoginManagerModule;
 import rx.Subscriber;
 import rx.Subscription;
@@ -38,38 +42,43 @@ public class AutoLoginModel implements AutoLoginMVP.Model{
         } else {
             error = new Throwable();
         }
-//        session.setToken(token);
-//        session.setUserId(userId);
-        Log.d(TAG, "fillSession: filled");
     }
 
     @Override
-    public void getUserFromNetwork(String userId, String token) {
+    public void connect() {
         Log.d(TAG, "getUserFromNetwork");
-        Subscriber<ReceptUser> receptUserSubscriber = new Subscriber<ReceptUser>() {
-            @Override
-            public void onCompleted() {
-                Log.d(TAG, "onCompleted");
-            }
 
-            @Override
-            public void onError(Throwable e) {
-                Log.e(TAG, "onError: ", e);
-                error = e;
-                destroyIt();
-            }
-
-            @Override
-            public void onNext(ReceptUser receptUser) {
-                fillSession(userId, token);
-                destroyIt();
-            }
-        };
-
-        s = autoLoginNetworkInterface.getUser(userId, token)
+        AuthUser authUser = new AuthUser(loginManagerModule.getEmail(), loginManagerModule.getPassword());
+        s = autoLoginNetworkInterface.connect(authUser)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(receptUserSubscriber);
+                .timeout(5, TimeUnit.SECONDS)
+                .doOnError(err -> {
+                    Log.d(TAG, "connection: Error !" , err);
+                })
+                .retry(2)
+                .doOnError(err -> {
+                    Log.d(TAG, "connection: Error !" , err);
+                    error = err;
+                    destroyIt();
+                })
+                .subscribe(new Subscriber<AuthenticateReception>() {
+                    @Override
+                    public void onCompleted() {
+                        destroyIt();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        error = e;
+                        Log.e(TAG, "onError: ", e);
+                    }
+
+                    @Override
+                    public void onNext(AuthenticateReception authenticateReception) {
+                        fillSession(authenticateReception.getUserId(), authenticateReception.getToken());
+                    }
+                });
 
     }
 

@@ -37,8 +37,8 @@ public class AutoLoginPresenter implements AutoLoginMVP.Presenter {
     @Override
     public void tryConnection() {
         view.displayProgressBar(true);
-        if (loginManagerModule.getToken() != null && loginManagerModule.getUserId() != null){
-            model.getUserFromNetwork(loginManagerModule.getUserId(), loginManagerModule.getToken());
+        if (loginManagerModule.getEmail() != null && loginManagerModule.getPassword() != null){
+            model.connect();
         } else {
             view.displayProgressBar(false);
             view.openLogin();

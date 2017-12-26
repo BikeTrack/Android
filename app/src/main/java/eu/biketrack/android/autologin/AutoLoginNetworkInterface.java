@@ -1,7 +1,9 @@
 package eu.biketrack.android.autologin;
 
 
+import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_reception.ReceptUser;
+import eu.biketrack.android.models.data_send.AuthUser;
 import rx.Observable;
 
 /**
@@ -10,5 +12,5 @@ import rx.Observable;
 
 public interface AutoLoginNetworkInterface {
 
-    Observable<ReceptUser> getUser(String userId, String token);
+    Observable<AuthenticateReception> connect(AuthUser authUsers);
 }

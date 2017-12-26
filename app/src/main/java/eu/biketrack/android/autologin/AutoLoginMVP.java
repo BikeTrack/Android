@@ -26,7 +26,7 @@ public interface AutoLoginMVP {
     interface Model {
         void setPresenter(AutoLoginMVP.Presenter presenter);
         void fillSession(String userId, String token);
-        void getUserFromNetwork(String userId, String token);
+        void connect();
         Throwable getError();
 
     }
