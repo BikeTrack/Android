@@ -75,4 +75,6 @@ public interface BiketrackService {
     @POST("bikePostPicture")
     @Multipart
     Observable<ReceiveBike> uploadBikePicture(@Header("x-access-token") String access_token, @Part("bikeId") String bikeId, @Part MultipartBody.Part photo);
+
+
 }

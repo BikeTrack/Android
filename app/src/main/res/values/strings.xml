@@ -564,4 +564,7 @@
     <string name="access_disk">Access picture permission</string>
     <string name="access_disk_message">If you don\'t allow us to see your pictures, we will not be able to associate a picture to you bike</string>
     <string name="ok">OK</string>
+
+    <string name="bad_picture">Bad File</string>
+    <string name="bad_picture_message">Be sure to select a picture on your device and not from the cloud.</string>
 </resources>

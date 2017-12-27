@@ -126,6 +126,14 @@ public class EditBike extends Activity implements EditBikeMVP.View {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         selectedImagePath = PictureManager.onActivityResult(this, requestCode, resultCode, data, imageToUpload);
+        if (selectedImagePath == null){
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(R.string.bad_picture)
+                    .setMessage(R.string.bad_picture_message)
+                    .setPositiveButton(R.string.ok, null)
+                    .show();
+        }
     }
 
     @Override

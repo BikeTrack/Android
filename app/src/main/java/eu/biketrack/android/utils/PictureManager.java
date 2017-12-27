@@ -26,8 +26,14 @@ import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.InputStream;
+import java.util.concurrent.ExecutionException;
 
 import eu.biketrack.android.R;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by 42900 on 16/12/2017 for BikeTrack_Android.
@@ -89,10 +95,18 @@ public class PictureManager {
     }
 
     public static String getRealPath(Context context, Uri uri) {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-            return getRealPathFromURI_API19(context, uri);
-        else
-            return getRealPathFromURI_API11to18(context, uri);
+        try {
+            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+                return getRealPathFromURI_API19(context, uri);
+            else
+                return getRealPathFromURI_API11to18(context, uri);
+        } catch (Exception e){
+            Log.e(TAG, "getRealPath: ", e);
+            try {
+                return getRealPathFromURI_BelowAPI11(context, uri);
+            } catch (Exception e1){}
+            return null;
+        }
     }
 
     @SuppressLint("NewApi")
@@ -163,15 +177,16 @@ public class PictureManager {
         if (resultCode == activity.RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
                 Uri selectedImageUri = data.getData();
-                selectedImagePath = PictureManager.getRealPath(activity, selectedImageUri);
-                Log.d(TAG, "onActivityResult: " + selectedImageUri.getPath());
-                Log.d(TAG, "onActivityResult: " + selectedImagePath);
-                PictureManager pictureManager = new PictureManager(selectedImageUri);
-                if (imageView != null)
-                    imageView.setImageBitmap(pictureManager.getBitmap(activity.getContentResolver()));
-                Log.d(TAG, "size image -> " + pictureManager.getSize());
+                    selectedImagePath = PictureManager.getRealPath(activity, selectedImageUri);
+                    Log.d(TAG, "onActivityResult: " + selectedImageUri.getPath());
+                    Log.d(TAG, "onActivityResult: " + selectedImagePath);
+                    PictureManager pictureManager = new PictureManager(selectedImageUri);
+                    if (imageView != null)
+                        imageView.setImageBitmap(pictureManager.getBitmap(activity.getContentResolver()));
+                    Log.d(TAG, "size image -> " + pictureManager.getSize());
             }
         }
+        Log.d(TAG, "onActivityResult: selectedImagePath= " + selectedImagePath);
         return selectedImagePath;
     }
 
