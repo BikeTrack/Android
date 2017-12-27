@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -34,7 +35,7 @@ import eu.biketrack.android.utils.PictureManager;
 public class EditBike extends Activity implements EditBikeMVP.View {
     private static final String TAG = "EditBike";
     private Bike tmp = null;
-    private static final int SELECT_PICTURE = 1;
+
     private String selectedImagePath;
 
 
@@ -49,6 +50,8 @@ public class EditBike extends Activity implements EditBikeMVP.View {
     Button button_delete_bike;
     @BindView(R.id.image_to_upload)
     ImageView imageToUpload;
+    @BindView(R.id.button_selectImage)
+    Button buttonSelectImage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +68,12 @@ public class EditBike extends Activity implements EditBikeMVP.View {
             _name.setText(tmp.getName());
             _trackerid.setText(tmp.getTracker());
             button_delete_bike.setVisibility(View.VISIBLE);
+        } else {
+            imageToUpload.setVisibility(View.GONE);
+            buttonSelectImage.setVisibility(View.GONE);
         }
+
+        PictureManager.requestStoragePermission(this);
     }
 
     @Override
@@ -80,9 +88,11 @@ public class EditBike extends Activity implements EditBikeMVP.View {
         if (tmp == null)
             presenter.createBike(bike);
         else{
-            Log.d(TAG, "saveBike: " +selectedImagePath);
-            presenter.uploadBikePhoto(selectedImagePath, tmp.getId());
-            //presenter.updateBike(tmp.getId(), bike);
+            if (selectedImagePath != null) {
+                Log.d(TAG, "saveBike: " + selectedImagePath);
+                presenter.uploadBikePhoto(selectedImagePath, tmp.getId());
+            }
+            presenter.updateBike(tmp.getId(), bike);
         }
 
     }
@@ -109,96 +119,24 @@ public class EditBike extends Activity implements EditBikeMVP.View {
 
     }
 
-@OnClick(R.id.button_selectImage)
-public void selectImage(){
-    Intent intent = new Intent();
-//    intent.setType("image/jpg");
-//    intent.setType("image/png");
-    intent.setType("image/*");
-    intent.setAction(Intent.ACTION_GET_CONTENT);
-    startActivityForResult(Intent.createChooser(intent,
-            "Select Picture"), SELECT_PICTURE);
-}
+    @OnClick(R.id.button_selectImage)
+    public void selectImage(){
+        PictureManager.selectPicture(this);
+    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            if (requestCode == SELECT_PICTURE) {
-                Uri selectedImageUri = data.getData();
-                selectedImagePath = getRealPathFromURI_API19(this, selectedImageUri);//getPath(selectedImageUri);
-                Log.d(TAG, "onActivityResult: " + selectedImageUri.getPath());
-                Log.d(TAG, "onActivityResult: " + selectedImagePath);
-                PictureManager pictureManager = new PictureManager(selectedImageUri);
-                this.imageToUpload.setImageBitmap(pictureManager.getBitmap(this.getContentResolver()));
-                Log.d(TAG, "size image -> " + pictureManager.getSize());
-
-            }
-        }
+        selectedImagePath = PictureManager.onActivityResult(this, requestCode, resultCode, data, imageToUpload);
     }
 
-    /**
-     * helper to retrieve the path of an image URI
-     */
-    public String getPath(Uri uri) {
-        // just some safety built in
-        if( uri == null ) {
-            // TODO perform some logging or show user feedback
-            return null;
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Boolean ret = PictureManager.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+        if (!ret){
+            buttonSelectImage.setVisibility(View.GONE);
+            imageToUpload.setVisibility(View.GONE);
+        } else{
+            buttonSelectImage.setVisibility(View.VISIBLE);
+            imageToUpload.setVisibility(View.VISIBLE);
         }
-        // try to retrieve the image from the media store first
-        // this will only work for images selected from gallery
-        String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(uri, projection, null, null, null);
-        if( cursor != null ){
-            int column_index = cursor
-                    .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            String path = cursor.getString(column_index);
-            cursor.close();
-            return path;
-        }
-        // this is our fallback here
-        return uri.getPath();
     }
-    public static String getRealPathFromURI_API11to18(Context context, Uri contentUri) {
-        String[] proj = { MediaStore.Images.Media.DATA };
-        String result = null;
-
-        CursorLoader cursorLoader = new CursorLoader(
-                context,
-                contentUri, proj, null, null, null);
-        Cursor cursor = cursorLoader.loadInBackground();
-
-        if(cursor != null){
-            int column_index =
-                    cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            result = cursor.getString(column_index);
-        }
-        return result;
-    }
-    @SuppressLint("NewApi")
-    public static String getRealPathFromURI_API19(Context context, Uri uri){
-        String filePath = "";
-        String wholeID = DocumentsContract.getDocumentId(uri);
-
-        // Split at colon, use second item in the array
-        String id = wholeID.split(":")[1];
-
-        String[] column = { MediaStore.Images.Media.DATA };
-
-        // where id is equal to
-        String sel = MediaStore.Images.Media._ID + "=?";
-
-        Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                column, sel, new String[]{ id }, null);
-
-        int columnIndex = cursor.getColumnIndex(column[0]);
-
-        if (cursor.moveToFirst()) {
-            filePath = cursor.getString(columnIndex);
-        }
-        cursor.close();
-        return filePath;
-    }
-
 }

@@ -561,4 +561,7 @@
     <string name="action_settings">Settings</string>
     <string name="selectImage">Select a picture</string>
 
+    <string name="access_disk">Access picture permission</string>
+    <string name="access_disk_message">If you don\'t allow us to see your pictures, we will not be able to associate a picture to you bike</string>
+    <string name="ok">OK</string>
 </resources>
