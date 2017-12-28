@@ -44,7 +44,7 @@ public class LoginModel implements LoginMVP.Model {
 //    }
 
     @Override
-    public void connection(String email, String password) {
+    public void connection(String email, String password, boolean rememberme) {
         AuthUser authUser = new AuthUser(email, password);
 
         Observable<AuthenticateReception> authenticateReceptionObservable = loginNetworkInterface.connection(authUser);
@@ -66,6 +66,7 @@ public class LoginModel implements LoginMVP.Model {
             public void onNext(AuthenticateReception authenticateReception) {
                 Log.d(TAG, "connection: " + authenticateReception);
                 loginManagerModule.storeEmail(email);
+                loginManagerModule.storeRememberMe(rememberme);
                 loginManagerModule.storePassword(password);
                 loginManagerModule.storeToken(authenticateReception.getToken());
                 loginManagerModule.storeUserId(authenticateReception.getUserId());

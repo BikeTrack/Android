@@ -22,7 +22,7 @@ public class SubscriptionPresenter implements SubscriptionMVP.Presenter {
     @Override
     public void subscriptionButtonClicked() {
         if (checkPassword(view.getUserPassword(), view.getUserRepeatPassword()))
-            model.subscription(view.getUserEmail(), view.getUserPassword());
+            model.subscription(view.getUserEmail(), view.getUserPassword(), view.getRememberMe());
         else{
             view.displayError("msg tmp : mdps differents");
         }

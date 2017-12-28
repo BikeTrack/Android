@@ -9,6 +9,7 @@ public interface LoginMVP {
     interface View{
         String getUserEmail();
         String getUserPassword();
+        boolean getRememberMe();
         void close();
         void openSubscribe();
         void loading(boolean loading);
@@ -25,7 +26,7 @@ public interface LoginMVP {
     interface Model {
         void setPresenter(LoginMVP.Presenter presenter);
 //        void setBiketrackService(BiketrackService biketrackService);
-        void connection(String email, String password);
+        void connection(String email, String password, boolean rememberme);
         Throwable getError();
     }
 }

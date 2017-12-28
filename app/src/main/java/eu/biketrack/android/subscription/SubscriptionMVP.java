@@ -9,6 +9,7 @@ public interface SubscriptionMVP {
         String getUserEmail();
         String getUserPassword();
         String getUserRepeatPassword();
+        boolean getRememberMe();
         void close();
         void openLogin();
         void displayError(String message);
@@ -24,7 +25,7 @@ public interface SubscriptionMVP {
 
     interface Model {
         void setPresenter(SubscriptionMVP.Presenter presenter);
-        void subscription(String email, String password);
+        void subscription(String email, String password, boolean rememberme);
         Throwable getError();
     }
 }

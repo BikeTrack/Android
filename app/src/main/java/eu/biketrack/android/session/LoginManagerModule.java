@@ -19,6 +19,7 @@ public class LoginManagerModule{
     private static final String KEY_USERID = "eu.biketrack.android.userid";
     private static final String KEY_PASSWORD = "eu.biketrack.android.password";
     private static final String KEY_TOKEN = "eu.biketrack.android.token";
+    private static final String KEY_REMEMBERME = "eu.biketrack.android.rememberme";
 
     public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
     public static final String REGISTRATION_COMPLETE = "registrationComplete";
@@ -61,6 +62,15 @@ public class LoginManagerModule{
     public void storeToken(String token){
         sharedPreferences.edit().putString(KEY_TOKEN, token).apply();
         Log.d(TAG, "storeToken: " + token);
+    }
+
+    public boolean getRememberMe(){
+        return sharedPreferences.getBoolean(KEY_REMEMBERME, false);
+    }
+
+    public void storeRememberMe(boolean rememberme){
+        sharedPreferences.edit().putBoolean(KEY_REMEMBERME, rememberme).apply();
+        Log.d(TAG, "storeRememberMe: " + rememberme);
     }
 
     public String getToken(){

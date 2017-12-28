@@ -4,6 +4,7 @@ package eu.biketrack.android.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -52,7 +53,8 @@ public class Login extends Activity implements LoginMVP.View {
     ProgressBar progressBar;
     @BindView(R.id.login_login_button)
     Button loginButton;
-
+    @BindView(R.id.login_remember_me)
+    AppCompatCheckBox rememberMe;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -141,6 +143,11 @@ public class Login extends Activity implements LoginMVP.View {
     @Override
     public String getUserPassword() {
         return _password.getText().toString();
+    }
+
+    @Override
+    public boolean getRememberMe(){
+        return rememberMe.isChecked();
     }
 
     @Override

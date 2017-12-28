@@ -42,6 +42,8 @@ public class AutoLoginModel implements AutoLoginMVP.Model{
         } else {
             error = new Throwable();
         }
+        if (!loginManagerModule.getRememberMe())
+            loginManagerModule.storePassword(null);
     }
 
     @Override

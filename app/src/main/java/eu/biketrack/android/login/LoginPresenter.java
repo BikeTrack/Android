@@ -23,7 +23,7 @@ public class LoginPresenter implements LoginMVP.Presenter {
 
     @Override
     public void connexionButtonClicked() {
-        model.connection(view.getUserEmail(), view.getUserPassword());
+        model.connection(view.getUserEmail(), view.getUserPassword(), view.getRememberMe());
         view.loading(true);
     }
 

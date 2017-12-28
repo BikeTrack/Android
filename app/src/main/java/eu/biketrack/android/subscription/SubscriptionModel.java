@@ -37,7 +37,7 @@ public class SubscriptionModel implements SubscriptionMVP.Model {
 
 
     @Override
-    public void subscription(String email, String password) {
+    public void subscription(String email, String password, boolean rememberme) {
         AuthUser authUser = new AuthUser(email, password);
         loginDone = false;
         Observable<SignupReception> signupReceptionObservable = subscriptionNetworkInterface.signup(authUser);
@@ -57,7 +57,7 @@ public class SubscriptionModel implements SubscriptionMVP.Model {
             @Override
             public void onNext(SignupReception signupReception) {
                 if (signupReception.getSuccess()) {
-                    connection(authUser);
+                    connection(authUser, rememberme);
                 }
                 error = null;
             }
@@ -66,7 +66,7 @@ public class SubscriptionModel implements SubscriptionMVP.Model {
                 .subscribe(signupReceptionSubscriber);
     }
 
-    private void connection(AuthUser authUser){
+    private void connection(AuthUser authUser, boolean rememberme){
         Observable<AuthenticateReception> authenticateReceptionObservable = subscriptionNetworkInterface.connection(authUser);
         Subscriber<AuthenticateReception> authenticateReceptionSubscriber = new Subscriber<AuthenticateReception>() {
             @Override
@@ -85,6 +85,7 @@ public class SubscriptionModel implements SubscriptionMVP.Model {
             public void onNext(AuthenticateReception authenticateReception) {
                 Log.d(TAG, "connection: " + authenticateReception);
                 loginManagerModule.storeEmail(authUser.getEmail());
+                loginManagerModule.storeRememberMe(rememberme);
                 loginManagerModule.storePassword(authUser.getPassword());
                 loginManagerModule.storeToken(authenticateReception.getToken());
                 loginManagerModule.storeUserId(authenticateReception.getUserId());

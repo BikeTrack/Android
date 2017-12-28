@@ -6,6 +6,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -42,8 +43,8 @@ public class Subscription extends Activity implements SubscriptionMVP.View{
     @BindView(R.id.subscribtion_password_textview) EditText _password;
     @BindView(R.id.subscribtion_password_textview_repeat) EditText _password_repeat;
     @BindView((R.id.subscribtion_subscribe_button)) Button subscribe_button;
-    @BindView(R.id.subscribtion_coordinator_layout)
-    CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.subscribtion_coordinator_layout) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.subscribtion_remember_me) AppCompatCheckBox rememberMe;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -127,6 +128,11 @@ public class Subscription extends Activity implements SubscriptionMVP.View{
     @Override
     public String getUserRepeatPassword() {
         return _password_repeat.getText().toString();
+    }
+
+    @Override
+    public boolean getRememberMe(){
+        return rememberMe.isChecked();
     }
 
     @Override
