@@ -13,27 +13,29 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.InputStream;
-import java.util.concurrent.ExecutionException;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import eu.biketrack.android.R;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
+
+import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
+import static android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
 
 /**
  * Created by 42900 on 16/12/2017 for BikeTrack_Android.
@@ -42,10 +44,13 @@ import okhttp3.RequestBody;
 public class PictureManager {
     private static final int STORAGE_PERMISSION_CODE = 123;
     private static final int SELECT_PICTURE = 1;
+    private static final int REQUEST_IMAGE_CAPTURE = 2;
     private static final String TAG = "PictureManager";
     private Uri uri;
     private Bitmap bitmap;
     byte[] imageInByte;
+    private static Uri createdByCameraUri = null;
+    private static String createdByCameraPath = null;
 
     public PictureManager(Uri uri) {
         this.uri = uri;
@@ -163,6 +168,31 @@ public class PictureManager {
         return cursor.getString(column_index);
     }
 
+    public static void openCamera(Activity activity){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile(activity);
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                createdByCameraPath = photoFile.getPath();
+                createdByCameraUri = FileProvider.getUriForFile(activity,
+                        "eu.biketrack.android.fileprovider",
+                        photoFile);
+                activity.grantUriPermission("eu.biketrack.android.utils", createdByCameraUri,  FLAG_GRANT_READ_URI_PERMISSION | FLAG_GRANT_WRITE_URI_PERMISSION);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, createdByCameraUri);
+
+                activity.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        }
+    }
+
     public static void selectPicture(Activity activity) {
         Intent intent = new Intent();
 //    intent.setType("image/jpg");
@@ -177,17 +207,51 @@ public class PictureManager {
         if (resultCode == activity.RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
                 Uri selectedImageUri = data.getData();
-                    selectedImagePath = PictureManager.getRealPath(activity, selectedImageUri);
-                    Log.d(TAG, "onActivityResult: " + selectedImageUri.getPath());
-                    Log.d(TAG, "onActivityResult: " + selectedImagePath);
-                    PictureManager pictureManager = new PictureManager(selectedImageUri);
+                selectedImagePath = PictureManager.getRealPath(activity, selectedImageUri);
+                PictureManager pictureManager = new PictureManager(selectedImageUri);
+                if (imageView != null)
+                    imageView.setImageBitmap(pictureManager.getBitmap(activity.getContentResolver()));
+            }
+            if (requestCode == REQUEST_IMAGE_CAPTURE){
+//                Log.d(TAG, "onActivityResult: " + data);
+//                Bundle extras = data.getExtras();
+//                Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+                try {
+                    selectedImagePath = createdByCameraPath;
+                    galleryAddPic(activity, selectedImagePath);
                     if (imageView != null)
-                        imageView.setImageBitmap(pictureManager.getBitmap(activity.getContentResolver()));
-                    Log.d(TAG, "size image -> " + pictureManager.getSize());
+                        imageView.setImageURI(createdByCameraUri);
+                } catch (Exception e){
+                    Log.e(TAG, "onActivityResult: ", e);
+                }
             }
         }
         Log.d(TAG, "onActivityResult: selectedImagePath= " + selectedImagePath);
         return selectedImagePath;
+    }
+
+    private static File createImageFile(Activity activity) throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        return image;
+    }
+
+    private static void galleryAddPic(Activity activity, String path) {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(path);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        activity.sendBroadcast(mediaScanIntent);
     }
 
     //Requesting permission

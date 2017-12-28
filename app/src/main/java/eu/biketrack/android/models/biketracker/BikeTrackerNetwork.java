@@ -296,6 +296,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
         Log.d(TAG, "uploadBikePicture: pict = " + picture + " // bikeId = " + bikeId);
         try {
             File tmp = new File(picture);
+            Log.d(TAG, "uploadBikePicture: " + tmp);
             MultipartBody.Part filePart = MultipartBody.Part.
                     createFormData("photoBike", tmp.getName(), RequestBody.create(MediaType.parse("image/*"), tmp));
             biketrackService.uploadBikePicture(loginManagerModule.getToken(), bikeId, filePart)

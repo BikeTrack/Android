@@ -121,7 +121,8 @@ public class EditBike extends Activity implements EditBikeMVP.View {
 
     @OnClick(R.id.button_selectImage)
     public void selectImage(){
-        PictureManager.selectPicture(this);
+        PictureManager.openCamera(this);
+        //PictureManager.selectPicture(this);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
