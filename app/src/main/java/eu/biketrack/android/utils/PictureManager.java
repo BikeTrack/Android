@@ -195,8 +195,6 @@ public class PictureManager {
 
     public static void selectPicture(Activity activity) {
         Intent intent = new Intent();
-//    intent.setType("image/jpg");
-//    intent.setType("image/png");
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         activity.startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
@@ -213,10 +211,6 @@ public class PictureManager {
                     imageView.setImageBitmap(pictureManager.getBitmap(activity.getContentResolver()));
             }
             if (requestCode == REQUEST_IMAGE_CAPTURE){
-//                Log.d(TAG, "onActivityResult: " + data);
-//                Bundle extras = data.getExtras();
-//                Bitmap imageBitmap = (Bitmap) extras.get("data");
-
                 try {
                     selectedImagePath = createdByCameraPath;
                     galleryAddPic(activity, selectedImagePath);
