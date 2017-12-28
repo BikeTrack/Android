@@ -81,4 +81,9 @@ public class EditBikePresenter implements EditBikeMVP.Presenter {
     public void uploadBikePhoto(String uri, String bikeId) {
         model.uploadBikePhoto(uri, bikeId);
     }
+
+    @Override
+    public void uploadBikeBill(String uri, String bikeId) {
+        model.uploadBikeBill(uri, bikeId);
+    }
 }

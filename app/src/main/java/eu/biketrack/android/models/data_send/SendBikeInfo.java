@@ -21,10 +21,15 @@ public class SendBikeInfo {
     @Expose
     private String tracker;
 
-    public SendBikeInfo(String name, String brand, String tracker) {
+    @SerializedName("serial")
+    @Expose
+    private String serial;
+
+    public SendBikeInfo(String name, String brand, String tracker, String serial) {
         this.name = name;
         this.brand = brand;
         this.tracker = tracker;
+        this.serial = serial;
     }
 
     public String getName() {
@@ -51,12 +56,21 @@ public class SendBikeInfo {
         this.tracker = tracker;
     }
 
+    public String getSerial() {
+        return serial;
+    }
+
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
+
     @Override
     public String toString() {
         return "SendBikeInfo{" +
                 "name='" + name + '\'' +
                 ", brand='" + brand + '\'' +
                 ", tracker='" + tracker + '\'' +
+                ", serial='" + serial + '\'' +
                 '}';
     }
 }

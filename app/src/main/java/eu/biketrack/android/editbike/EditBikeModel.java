@@ -38,4 +38,9 @@ public class EditBikeModel implements EditBikeMVP.Model {
     public void uploadBikePhoto(String uri, String bikeId) {
         bikeTrackerNetworkInterface.uploadBikePicture(uri, bikeId);
     }
+
+    @Override
+    public void uploadBikeBill(String uri, String bikeId) {
+        bikeTrackerNetworkInterface.uploadBikeBill(uri, bikeId);
+    }
 }

@@ -46,6 +46,7 @@
     <string name="bike_name_txt">Name</string>
     <string name="bike_brand_txt">Brand</string>
     <string name="bike_tracker_txt">Tracker ID</string>
+    <string name="bike_serial_txt">Serial Number</string>
     <string name="bike_save_button_txt">Save</string>
 
     <string name="title_activity_maps">Map</string>
@@ -559,7 +560,8 @@
     <string name="title_activity_settings_tab">SettingsTab</string>
 
     <string name="action_settings">Settings</string>
-    <string name="selectImage">Select a picture</string>
+    <string name="selectImage">Gallery</string>
+    <string name="takeImage">Camera</string>
 
     <string name="access_disk">Access picture permission</string>
     <string name="access_disk_message">If you don\'t allow us to see your pictures, we will not be able to associate a picture to you bike</string>
@@ -569,4 +571,5 @@
     <string name="bad_picture_message">Be sure to select a picture on your device and not from the cloud.</string>
 
     <string name="rememberme">Remember me</string>
+    <string name="bill_txt">Bill</string>
 </resources>

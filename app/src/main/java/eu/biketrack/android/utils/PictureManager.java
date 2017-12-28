@@ -43,8 +43,6 @@ import static android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
 
 public class PictureManager {
     private static final int STORAGE_PERMISSION_CODE = 123;
-    private static final int SELECT_PICTURE = 1;
-    private static final int REQUEST_IMAGE_CAPTURE = 2;
     private static final String TAG = "PictureManager";
     private Uri uri;
     private Bitmap bitmap;
@@ -168,7 +166,7 @@ public class PictureManager {
         return cursor.getString(column_index);
     }
 
-    public static void openCamera(Activity activity){
+    public static void openCamera(Activity activity, int request){
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
@@ -188,29 +186,29 @@ public class PictureManager {
                 activity.grantUriPermission("eu.biketrack.android.utils", createdByCameraUri,  FLAG_GRANT_READ_URI_PERMISSION | FLAG_GRANT_WRITE_URI_PERMISSION);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, createdByCameraUri);
 
-                activity.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                activity.startActivityForResult(takePictureIntent, request);
             }
         }
     }
 
-    public static void selectPicture(Activity activity) {
+    public static void selectPicture(Activity activity, int request) {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        activity.startActivityForResult(Intent.createChooser(intent, "Select Picture"), SELECT_PICTURE);
+        activity.startActivityForResult(Intent.createChooser(intent, "Select Picture"), request);
     }
 
-    public static String onActivityResult(Activity activity, int requestCode, int resultCode, Intent data, ImageView imageView) {
+    public static String onActivityResult(Activity activity, int requestCode, int resultCode, Intent data, ImageView imageView, int rqselect, int rqcapture) {
         String selectedImagePath = null;
         if (resultCode == activity.RESULT_OK) {
-            if (requestCode == SELECT_PICTURE) {
+            if (requestCode == rqselect) {
                 Uri selectedImageUri = data.getData();
                 selectedImagePath = PictureManager.getRealPath(activity, selectedImageUri);
                 PictureManager pictureManager = new PictureManager(selectedImageUri);
                 if (imageView != null)
                     imageView.setImageBitmap(pictureManager.getBitmap(activity.getContentResolver()));
             }
-            if (requestCode == REQUEST_IMAGE_CAPTURE){
+            if (requestCode == rqcapture){
                 try {
                     selectedImagePath = createdByCameraPath;
                     galleryAddPic(activity, selectedImagePath);

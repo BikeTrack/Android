@@ -74,11 +74,18 @@ public interface BiketrackService {
 
     @Streaming
     @GET("bikeGetPicture/{bikeId}")
-    Observable<String> getBikePicture(@Header("x-access-token") String access_token, @Path("bikeId") String biekId);
+    Observable<String> getBikePicture(@Header("x-access-token") String access_token, @Path("bikeId") String bikeId);
 
     @POST("bikePostPicture")
     @Multipart
     Observable<ReceiveBike> uploadBikePicture(@Header("x-access-token") String access_token, @Part("bikeId") String bikeId, @Part MultipartBody.Part photo);
 
+    @Streaming
+    @GET("bikeGetBill/{bikeId}")
+    Observable<String> getBikeBill(@Header("x-access-token") String access_token, @Path("bikeId") String bikeId);
+
+    @POST("bikePostBill")
+    @Multipart
+    Observable<ReceiveBike> uploadBikeBill(@Header("x-access-token") String access_token, @Part("bikeId") String bikeId, @Part MultipartBody.Part photo);
 
 }

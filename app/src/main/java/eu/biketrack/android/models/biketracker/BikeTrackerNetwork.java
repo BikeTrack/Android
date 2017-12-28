@@ -322,4 +322,35 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
         }
 
     }
+
+    @Override
+    public void uploadBikeBill(String picture, String bikeId) {
+        Log.d(TAG, "uploadBikeBill: pict = " + picture + " // bikeId = " + bikeId);
+        try {
+            File tmp = new File(picture);
+            Log.d(TAG, "uploadBikeBill: " + tmp);
+            MultipartBody.Part filePart = MultipartBody.Part.
+                    createFormData("photoBike", tmp.getName(), RequestBody.create(MediaType.parse("image/*"), tmp));
+            biketrackService.uploadBikeBill(loginManagerModule.getToken(), bikeId, filePart)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnError(error -> {
+                        Log.e(TAG, "onError: ", error);
+                    })
+                    .onErrorResumeNext(throwable -> {
+                        return Observable.just(null);
+                    })
+                    .doOnNext( receiveBike -> {
+                        if (receiveBike != null)
+                            bikeTrackerList.updateBike(receiveBike.getBike());
+                        Log.d(TAG, "uploadBikeBill: upload fini");
+                    })
+                    .doOnCompleted(() -> {
+
+                    })
+                    .subscribe();
+        } catch (Exception e){
+            Log.e(TAG, "uploadBikeBill: ", e);
+        }
+    }
 }
