@@ -23,7 +23,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
+    <!--android:hardwareAccelerated="false"-->
+    <!--android:largeHeap="true"-->
+
     <application
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
         android:name=".root.App"
         android:allowBackup="true"
         android:icon="@mipmap/biketrack"

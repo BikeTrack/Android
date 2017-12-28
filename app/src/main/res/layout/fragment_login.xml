@@ -9,8 +9,10 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="-100dp"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
         android:layout_above="@id/login_email_textview"
+        android:layout_marginBottom="20dp"
         android:src="@drawable/loginheader" />
 
     <ImageView
@@ -33,7 +35,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"/>
+        android:layout_marginStart="20dp" />
 
     <EditText
         android:id="@+id/login_password_textview"
@@ -79,9 +81,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/login_facebook_button"
         android:background="@color/background"
+        android:shadowColor="@color/background"
         android:text="@string/action_subscribe"
         android:textColor="@color/inside"
-        android:shadowColor="@color/background"
         android:textStyle="bold" />
 
     <com.facebook.login.widget.LoginButton
@@ -107,5 +109,15 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
+
+    <android.support.v7.widget.AppCompatCheckBox
+        android:id="@+id/login_remember_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rememberme"
+        android:layout_alignBaseline="@+id/login_subscribe_button"
+        android:layout_alignBottom="@+id/login_subscribe_button"
+        android:layout_alignLeft="@+id/login_facebook_button"
+        android:layout_alignStart="@+id/login_facebook_button" />
 
 </RelativeLayout>

@@ -77,13 +77,11 @@ public class RecyclerViewBikesAdapter extends RecyclerView.Adapter<RecyclerViewB
 
         holder.txtTitle.setText(bikeTrackerList.getBikeArrayList().get(position).first.getName());
 
-//        bikeTrackerList.getBikeTrackerNetworkInterface().displayImage("/testPicturePhoto", holder.imageView);
-//        holder.imageView.setImageResource(R.drawable.ic_logo_black);
-//        holder.imageView.setImageBitmap(bikeTrackerList.getBikeArrayList().get(position).first.getPicture());
-//        Log.d("sqd", "onBindViewHolder: " + bikeTrackerList.getBikeArrayList().get(position).first.getPicture());
         try {
             Log.d(TAG, "onBindViewHolder: " + bikeTrackerList.getBikeArrayList().get(position).first.getPicture());
             byte[] decodedString = Base64.decode(bikeTrackerList.getBikeArrayList().get(position).first.getPicture(), Base64.DEFAULT);
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 2;
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             holder.imageView.setImageBitmap(decodedByte);
         } catch (Exception e){
