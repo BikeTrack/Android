@@ -9,6 +9,9 @@ import android.util.Log;
 public class LoginPresenter implements LoginMVP.Presenter {
     private LoginMVP.View view;
     private LoginMVP.Model model;
+    private boolean connectionByFacebook = false;
+    private String fbemail;
+    private String fbtoken;
 
     public LoginPresenter(LoginMVP.Model model) {
         this.model = model;
@@ -33,6 +36,10 @@ public class LoginPresenter implements LoginMVP.Presenter {
         if(model.getError() == null)
             view.close();
         else {
+            if (model.getError().getMessage().equals("HTTP 401 Unauthorized") && connectionByFacebook){
+                model.subscriptionByFacebook(fbemail, fbtoken);
+                connectionByFacebook = false;
+            }
             view.loading(false);
         }
     }
@@ -40,5 +47,13 @@ public class LoginPresenter implements LoginMVP.Presenter {
     @Override
     public void goToSubscribe() {
         view.openSubscribe();
+    }
+
+    @Override
+    public void facebookClicked(String email, String token) {
+        connectionByFacebook = true;
+        model.connection(email, token, true);
+        fbemail = email;
+        fbtoken = token;
     }
 }

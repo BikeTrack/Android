@@ -2,7 +2,9 @@ package eu.biketrack.android.login;
 
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
+import eu.biketrack.android.models.data_reception.SignupReception;
 import eu.biketrack.android.models.data_send.AuthUser;
+import eu.biketrack.android.models.data_send.AuthUserFB;
 import rx.Observable;
 
 /**
@@ -21,5 +23,10 @@ public class LoginNetwork implements LoginNetworkInterface{
     public Observable<AuthenticateReception> connection(AuthUser authUser) {
         Observable<AuthenticateReception> authenticateReceptionObservable =  biketrackService.connectUser(authUser);
         return authenticateReceptionObservable;
+    }
+
+    @Override
+    public Observable<SignupReception> signupFb(AuthUserFB authUser) {
+        return biketrackService.createUserFB(authUser);
     }
 }

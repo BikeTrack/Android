@@ -6,7 +6,9 @@ import java.util.concurrent.TimeUnit;
 
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
+import eu.biketrack.android.models.data_reception.SignupReception;
 import eu.biketrack.android.models.data_send.AuthUser;
+import eu.biketrack.android.models.data_send.AuthUserFB;
 import eu.biketrack.android.session.LoginManagerModule;
 import rx.Observable;
 import rx.Subscriber;
@@ -24,9 +26,10 @@ public class LoginModel implements LoginMVP.Model {
     private LoginNetworkInterface loginNetworkInterface;
     private LoginManagerModule loginManagerModule;
     private Throwable error = null;
-//    private boolean completed = false;
+    //    private boolean completed = false;
     private LoginMVP.Presenter presenter;
     private Subscription s;
+    private boolean alreadytried = false;
 
     public LoginModel(LoginNetworkInterface loginNetworkInterface, LoginManagerModule loginManagerModule) {
         this.loginNetworkInterface = loginNetworkInterface;
@@ -75,17 +78,17 @@ public class LoginModel implements LoginMVP.Model {
                 destroyIt();
             }
         };
-         s = authenticateReceptionObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                 .timeout(5, TimeUnit.SECONDS)
-                 .doOnError(err -> {
-                     Log.d(TAG, "connection: Error !" , err);
-                 })
-                 .retry(2)
-                 .doOnError(err -> {
-                     Log.d(TAG, "connection: Error !" , err);
-                     error = err;
-                     destroyIt();
-                 })
+        s = authenticateReceptionObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .timeout(5, TimeUnit.SECONDS)
+                .doOnError(err -> {
+                    Log.d(TAG, "connection: Error !" , err);
+                })
+                .retry(2)
+                .doOnError(err -> {
+                    Log.d(TAG, "connection: Error !" , err);
+                    error = err;
+                    destroyIt();
+                })
                 .subscribe(authenticateReceptionSubscriber);
     }
 
@@ -100,4 +103,40 @@ public class LoginModel implements LoginMVP.Model {
         presenter.viewAfterConnection();
     }
 
+    @Override
+    public void subscriptionByFacebook(String fbemail, String fbtoken) {
+        loginNetworkInterface.signupFb(new AuthUserFB(fbtoken))
+                .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .timeout(5, TimeUnit.SECONDS)
+                .doOnError(err -> {
+                    Log.d(TAG, "subscriptionByFacebook: Error !" , err);
+                })
+                .retry(2)
+                .doOnError(err -> {
+                    Log.d(TAG, "subscriptionByFacebook: Error !" , err);
+                    error = err;
+                    destroyIt();
+                }).subscribe(new Subscriber<SignupReception>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG, "onError: ", e);
+                error = e;
+                alreadytried = true;
+                this.unsubscribe();
+            }
+
+            @Override
+            public void onNext(SignupReception signupReception) {
+                if (!alreadytried) {
+                    connection(fbemail, fbtoken, true);
+                    alreadytried = true;
+                }
+            }
+        });
+    }
 }

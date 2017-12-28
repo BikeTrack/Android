@@ -89,6 +89,13 @@ public class Login extends Activity implements LoginMVP.View {
                                     GraphResponse response) {
                                 Log.d(TAG, object.toString());
                                 Log.d(TAG, response.toString());
+                                try {
+                                    String email = object.getString("email");
+                                    presenter.facebookClicked(email, loginResult.getAccessToken().getToken());
+                                } catch (Exception e){
+                                    Log.e(TAG, "onCompleted: ", e);
+                                }
+
                             }
                         });
                 Bundle parameters = new Bundle();

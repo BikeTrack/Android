@@ -20,13 +20,14 @@ public interface LoginMVP {
         void connexionButtonClicked();
         void viewAfterConnection();
         void goToSubscribe();
-
+        void facebookClicked(String email, String token);
     }
 
     interface Model {
         void setPresenter(LoginMVP.Presenter presenter);
 //        void setBiketrackService(BiketrackService biketrackService);
         void connection(String email, String password, boolean rememberme);
+        void subscriptionByFacebook(String fbemail, String fbtoken);
         Throwable getError();
     }
 }

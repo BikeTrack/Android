@@ -1,7 +1,9 @@
 package eu.biketrack.android.login;
 
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
+import eu.biketrack.android.models.data_reception.SignupReception;
 import eu.biketrack.android.models.data_send.AuthUser;
+import eu.biketrack.android.models.data_send.AuthUserFB;
 import rx.Observable;
 
 /**
@@ -10,4 +12,6 @@ import rx.Observable;
 
 public interface LoginNetworkInterface {
     Observable<AuthenticateReception> connection(AuthUser authUser);
+    Observable<SignupReception> signupFb(AuthUserFB authUser);
+
 }
