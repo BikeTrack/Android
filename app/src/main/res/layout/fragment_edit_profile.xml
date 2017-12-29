@@ -9,7 +9,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:maxLines="1"
         android:text="@string/profile_email_txt"
+        android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/titles"
         android:textStyle="italic" />
@@ -18,13 +24,23 @@
         android:id="@+id/profile_email_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
         android:ellipsize="start"
-        android:textColor="@color/interact_background" />
+        android:textAlignment="center" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:maxLines="1"
         android:text="@string/profile_lastname_txt"
+        android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/titles"
         android:textStyle="italic" />
@@ -33,13 +49,24 @@
         android:id="@+id/profile_lastname_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
         android:ellipsize="start"
-        android:textColor="@color/interact_background" />
+        android:inputType="textCapCharacters"
+        android:textAlignment="center" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:maxLines="1"
         android:text="@string/profile_firstname_txt"
+        android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/titles"
         android:textStyle="italic" />
@@ -48,24 +75,27 @@
         android:id="@+id/profile_firstname_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
         android:ellipsize="start"
-        android:textColor="@color/interact_background" />
+        android:inputType="textCapCharacters"
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/save_account_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@color/interact_background"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/inside"
         android:text="@string/save_account_button_txt"
-        android:textColor="@color/inside" />
+        android:textColor="@color/background"
+        android:textStyle="bold" />
 
-    <!--<Button-->
-    <!--android:id="@+id/delete_account_button"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="@string/delete_account_button_txt"-->
-    <!--android:background="@color/interact_background"-->
-    <!--android:textColor="@color/inside"-->
-    <!--android:layout_marginTop="20dp"/>-->
 </LinearLayout>

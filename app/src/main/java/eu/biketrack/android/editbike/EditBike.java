@@ -65,7 +65,7 @@ public class EditBike extends Activity implements EditBikeMVP.View {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((App) getApplication()).getComponent().inject(this);
-        setContentView(R.layout.fragment_edit_bike);
+        setContentView(R.layout.activity_edit_bike);
         ButterKnife.bind(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         String bikeid = getIntent().getStringExtra("BikeId");
