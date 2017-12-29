@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -108,13 +109,16 @@ public class Bikes extends Activity implements BikesMVP.View {
     public void displayBikes() {
 //        adapter = new CustomListAdapter(this, BikeTrackerList.getInstance().getBikeArrayList());
 //        list.setAdapter(adapter);
-        if (mAdapter == null) {
-            mAdapter = new RecyclerViewBikesAdapter();
-            mRecyclerView.setAdapter(mAdapter);
-        } else {
-            mAdapter.notifyDataSetChanged();
+        try {
+            if (mAdapter == null) {
+                mAdapter = new RecyclerViewBikesAdapter();
+                mRecyclerView.setAdapter(mAdapter);
+            } else {
+                mAdapter.notifyDataSetChanged();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "displayBikes: ", e);
         }
-
         if (swipeRefreshLayout.isRefreshing())
             swipeRefreshLayout.setRefreshing(false);
     }
