@@ -3,18 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="eu.biketrack.android.bikes.Bikes"
-    android:background="@color/background">
+    android:background="@color/background"
+    tools:context="eu.biketrack.android.bikes.Bikes">
 
     <ImageView
         android:id="@+id/img_bike_list_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/listheader"
-        android:layout_marginTop="-100dp"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="-100dp"
+        android:src="@drawable/listheader" />
 
     <Button
         android:id="@+id/bikes_param_button"
@@ -29,31 +29,32 @@
         android:adjustViewBounds="false"
         android:background="@drawable/parameters_icon"
         android:cropToPadding="false" />
+
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="38sp"
-        android:textColor="@color/background"
-        android:text="@string/title_bikes_list"
-        android:textAlignment="center"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="59dp" />
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="59dp"
+        android:text="@string/title_bikes_list"
+        android:textAlignment="center"
+        android:textColor="@color/background"
+        android:textSize="38sp" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/bikesSwipeRefresh"
 
-        android:layout_below="@id/img_bike_list_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/img_bike_list_bg">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/listView_bikes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
@@ -64,19 +65,19 @@
         android:layout_above="@+id/bikesSwipeRefresh"
         android:layout_toLeftOf="@+id/bikes_param_button"
         android:layout_toStartOf="@+id/bikes_param_button"
-        app:srcCompat="@drawable/ic_add_white_24px"
-        app:backgroundTint="@color/inside" />
+        app:backgroundTint="@color/inside"
+        app:srcCompat="@drawable/ic_add_white_24px" />
 
     <!--<TextView-->
-        <!--android:id="@+id/emptylist_txt"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:gravity="center"-->
-        <!--android:text="@string/empty_list"-->
-        <!--android:textAlignment="center"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true" />-->
+    <!--android:id="@+id/emptylist_txt"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:gravity="center"-->
+    <!--android:text="@string/empty_list"-->
+    <!--android:textAlignment="center"-->
+    <!--android:layout_alignParentTop="true"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_alignParentStart="true" />-->
 
 
     <ProgressBar
@@ -84,11 +85,11 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="64dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="64dp" />
 
 
 </RelativeLayout>

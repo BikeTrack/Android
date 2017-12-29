@@ -2,17 +2,15 @@ package eu.biketrack.android.settings.profile_tab;
 
 
 import android.content.res.Resources;
-import android.util.Log;
 
 import eu.biketrack.android.R;
 import eu.biketrack.android.models.User;
-import rx.Observable;
 
 /**
  * Created by 42900 on 17/11/2017 for BikeTrack_Android.
  */
 
-public class ProfilePresenter implements ProfileMVP.Presenter{
+public class ProfilePresenter implements ProfileMVP.Presenter {
     private static final String TAG = "ProfilePresenter";
     private Resources res;
     private User currentUser;
@@ -33,7 +31,7 @@ public class ProfilePresenter implements ProfileMVP.Presenter{
         res = ressources;
     }
 
-    public void getUserData(){
+    public void getUserData() {
         model.getUserData().doOnNext(receptUser -> {
             currentUser = receptUser.getUser();
             view.set_email(receptUser.getUser().getEmail());
@@ -61,7 +59,7 @@ public class ProfilePresenter implements ProfileMVP.Presenter{
     @Override
     public void saveUserData() {
         User tmp = currentUser;
-        if (view.get_email().isEmpty()){
+        if (view.get_email().isEmpty()) {
             view.displayMessage(res.getString(R.string.error_check_email));
             return;
         }
@@ -81,7 +79,7 @@ public class ProfilePresenter implements ProfileMVP.Presenter{
                 .subscribe();
     }
 
-    private void onError(){
+    private void onError() {
         view.displayMessage("Error");
         view.set_email(currentUser.getEmail());
         view.set_lastname(currentUser.getLastname());

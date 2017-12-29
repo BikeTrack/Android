@@ -44,57 +44,14 @@ import static android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
 public class PictureManager {
     private static final int STORAGE_PERMISSION_CODE = 123;
     private static final String TAG = "PictureManager";
-    private Uri uri;
-    private Bitmap bitmap;
-    byte[] imageInByte;
     private static Uri createdByCameraUri = null;
     private static String createdByCameraPath = null;
+    byte[] imageInByte;
+    private Uri uri;
+    private Bitmap bitmap;
 
     public PictureManager(Uri uri) {
         this.uri = uri;
-    }
-
-    public Bitmap getBitmap(ContentResolver contentResolver) {
-        if (bitmap == null) {
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri);
-            } catch (Exception e) {
-                Log.e(TAG, "getBitmap: ", e);
-            }
-        }
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        imageInByte = stream.toByteArray();
-        return bitmap;
-    }
-
-    public Uri getUri() {
-        return uri;
-    }
-
-    public String getPath() {
-        return uri.getPath();
-    }
-
-    public long getSize() {
-        if (bitmap == null) return 0;
-        return imageInByte.length;
-    }
-
-    public Bitmap compress() {
-        if (getSize() > 20971520) { // si superieur a 20Mo
-            int compressLevel = 1;
-            for (int i = 2; i < 20; i++) {
-                if (getSize() / i <= 20971520) {
-                    compressLevel = i;
-                    break;
-                }
-            }
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inSampleSize = compressLevel;
-            return BitmapFactory.decodeStream(new ByteArrayInputStream(imageInByte), null, options);
-        }
-        return bitmap; // inferieur donc retourné non compressé
     }
 
     public static String getRealPath(Context context, Uri uri) {
@@ -103,11 +60,12 @@ public class PictureManager {
                 return getRealPathFromURI_API19(context, uri);
             else
                 return getRealPathFromURI_API11to18(context, uri);
-        } catch (Exception e){
+        } catch (Exception e) {
             Log.e(TAG, "getRealPath: ", e);
             try {
                 return getRealPathFromURI_BelowAPI11(context, uri);
-            } catch (Exception e1){}
+            } catch (Exception e1) {
+            }
             return null;
         }
     }
@@ -137,7 +95,6 @@ public class PictureManager {
         return filePath;
     }
 
-
     @SuppressLint("NewApi")
     private static String getRealPathFromURI_API11to18(Context context, Uri contentUri) {
         String[] proj = {MediaStore.Images.Media.DATA};
@@ -166,7 +123,7 @@ public class PictureManager {
         return cursor.getString(column_index);
     }
 
-    public static void openCamera(Activity activity, int request){
+    public static void openCamera(Activity activity, int request) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {
@@ -183,7 +140,7 @@ public class PictureManager {
                 createdByCameraUri = FileProvider.getUriForFile(activity,
                         "eu.biketrack.android.fileprovider",
                         photoFile);
-                activity.grantUriPermission("eu.biketrack.android.utils", createdByCameraUri,  FLAG_GRANT_READ_URI_PERMISSION | FLAG_GRANT_WRITE_URI_PERMISSION);
+                activity.grantUriPermission("eu.biketrack.android.utils", createdByCameraUri, FLAG_GRANT_READ_URI_PERMISSION | FLAG_GRANT_WRITE_URI_PERMISSION);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, createdByCameraUri);
 
                 activity.startActivityForResult(takePictureIntent, request);
@@ -200,7 +157,7 @@ public class PictureManager {
 
     public static String onActivityResult(Activity activity, int requestCode, int resultCode, Intent data, ImageView imageView, int rqselect, int rqcapture) {
         String selectedImagePath = null;
-        if (resultCode == activity.RESULT_OK) {
+        if (resultCode == Activity.RESULT_OK) {
             if (requestCode == rqselect) {
                 Uri selectedImageUri = data.getData();
                 selectedImagePath = PictureManager.getRealPath(activity, selectedImageUri);
@@ -208,13 +165,13 @@ public class PictureManager {
                 if (imageView != null)
                     imageView.setImageBitmap(pictureManager.getBitmap(activity.getContentResolver()));
             }
-            if (requestCode == rqcapture){
+            if (requestCode == rqcapture) {
                 try {
                     selectedImagePath = createdByCameraPath;
                     galleryAddPic(activity, selectedImagePath);
                     if (imageView != null)
                         imageView.setImageURI(createdByCameraUri);
-                } catch (Exception e){
+                } catch (Exception e) {
                     Log.e(TAG, "onActivityResult: ", e);
                 }
             }
@@ -270,7 +227,6 @@ public class PictureManager {
         }
     }
 
-
     //This method will be called when the user will tap on allow or deny
     public static boolean onRequestPermissionsResult(Activity activity, int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
@@ -278,16 +234,55 @@ public class PictureManager {
         if (requestCode == STORAGE_PERMISSION_CODE) {
 
             //If permission is granted
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //Displaying a toast
+            //Displaying a toast
 //                Toast.makeText(activity, "Permission granted now you can read the storage", Toast.LENGTH_LONG).show();
-                return true;
-            } else {
-                //Displaying another toast if permission is not granted
+//Displaying another toast if permission is not granted
 //                Toast.makeText(activity, "Oops you just denied the permission", Toast.LENGTH_LONG).show();
-                return false;
-            }
+            return grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
         }
         return false;
+    }
+
+    public Bitmap getBitmap(ContentResolver contentResolver) {
+        if (bitmap == null) {
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri);
+            } catch (Exception e) {
+                Log.e(TAG, "getBitmap: ", e);
+            }
+        }
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        imageInByte = stream.toByteArray();
+        return bitmap;
+    }
+
+    public Uri getUri() {
+        return uri;
+    }
+
+    public String getPath() {
+        return uri.getPath();
+    }
+
+    public long getSize() {
+        if (bitmap == null) return 0;
+        return imageInByte.length;
+    }
+
+    public Bitmap compress() {
+        if (getSize() > 20971520) { // si superieur a 20Mo
+            int compressLevel = 1;
+            for (int i = 2; i < 20; i++) {
+                if (getSize() / i <= 20971520) {
+                    compressLevel = i;
+                    break;
+                }
+            }
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = compressLevel;
+            return BitmapFactory.decodeStream(new ByteArrayInputStream(imageInByte), null, options);
+        }
+        return bitmap; // inferieur donc retourné non compressé
     }
 }

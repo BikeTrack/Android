@@ -18,21 +18,21 @@ import rx.schedulers.Schedulers;
  * Created by 42900 on 28/09/2017 for BikeTrack_Android.
  */
 
-public class BikesNetwork implements BikesNetworkInterface{
+public class BikesNetwork implements BikesNetworkInterface {
     private static final String TAG = "BikesNetwork";
     private BiketrackService biketrackService;
     private Observable<User> userObservable;
     private BikeTrackerList bikeTrackerList;
     private BikesMVP.Model model;
 
-    @Override
-    public void setModel(BikesMVP.Model model) {
-        this.model = model;
-    }
-
     public BikesNetwork(BiketrackService biketrackService) {
         this.biketrackService = biketrackService;
         bikeTrackerList = BikeTrackerList.getInstance();
+    }
+
+    @Override
+    public void setModel(BikesMVP.Model model) {
+        this.model = model;
     }
 
     @Override
@@ -55,17 +55,17 @@ public class BikesNetwork implements BikesNetworkInterface{
         updateList(userId, token);
     }
 
-    private void updateList(String userId, String token){
+    private void updateList(String userId, String token) {
         Log.d(TAG, "getBikeArrayList: " + userId + " / " + token);
 //        bikeTrackerList.clear();
 
 
-        getUser(userId ,token)
+        getUser(userId, token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ReceptUser>() {
                     @Override
-                    public void onCompleted(){
+                    public void onCompleted() {
                     }
 
                     @Override
@@ -75,14 +75,14 @@ public class BikesNetwork implements BikesNetworkInterface{
 
                     @Override
                     public void onNext(ReceptUser receptUser) {
-                        userObservable = userObservable.just(receptUser.getUser());
+                        userObservable = Observable.just(receptUser.getUser());
                         Log.d(TAG, "onNext: " + receptUser.getUser());
                         getBikes(token);
                     }
                 });
     }
 
-    private void getBikes(String token){
+    private void getBikes(String token) {
         Observable<String> bikeIdObservable = userObservable.flatMap(user -> {
             Log.d(TAG, "onNext: =>" + user);
             return Observable.from(user.getBikes());
@@ -111,7 +111,7 @@ public class BikesNetwork implements BikesNetworkInterface{
         });
     }
 
-    private void getTrackerFromId(Bike bike, String token){
+    private void getTrackerFromId(Bike bike, String token) {
         getTracker(bike.getTracker(), token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

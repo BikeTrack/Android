@@ -5,7 +5,6 @@ import android.util.Log;
 import java.util.concurrent.TimeUnit;
 
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
-import eu.biketrack.android.models.data_reception.ReceptUser;
 import eu.biketrack.android.models.data_send.AuthUser;
 import eu.biketrack.android.session.LoginManagerModule;
 import rx.Subscriber;
@@ -17,12 +16,12 @@ import rx.schedulers.Schedulers;
  * Created by 42900 on 10/07/2017 for BikeTrack_Android.
  */
 
-public class AutoLoginModel implements AutoLoginMVP.Model{
+public class AutoLoginModel implements AutoLoginMVP.Model {
     private static final String TAG = "AutoLoginModel";
+    Subscription s;
     private AutoLoginNetworkInterface autoLoginNetworkInterface;
     private LoginManagerModule loginManagerModule;
     private Throwable error = null;
-    Subscription s;
     private AutoLoginMVP.Presenter presenter;
 
     public AutoLoginModel(AutoLoginNetworkInterface autoLoginNetworkInterface, LoginManagerModule loginManagerModule) {
@@ -31,13 +30,13 @@ public class AutoLoginModel implements AutoLoginMVP.Model{
     }
 
     @Override
-    public void setPresenter(AutoLoginMVP.Presenter presenter){
+    public void setPresenter(AutoLoginMVP.Presenter presenter) {
         this.presenter = presenter;
     }
 
     @Override
     public void fillSession(String userId, String token) {
-        if (userId.equals(loginManagerModule.getUserId())){
+        if (userId.equals(loginManagerModule.getUserId())) {
             loginManagerModule.storeToken(token);
         } else {
             error = new Throwable();
@@ -56,11 +55,11 @@ public class AutoLoginModel implements AutoLoginMVP.Model{
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(5, TimeUnit.SECONDS)
                 .doOnError(err -> {
-                    Log.d(TAG, "connection: Error !" , err);
+                    Log.d(TAG, "connection: Error !", err);
                 })
                 .retry(2)
                 .doOnError(err -> {
-                    Log.d(TAG, "connection: Error !" , err);
+                    Log.d(TAG, "connection: Error !", err);
                     error = err;
                     destroyIt();
                 })
@@ -89,7 +88,7 @@ public class AutoLoginModel implements AutoLoginMVP.Model{
         return error;
     }
 
-    private void destroyIt(){
+    private void destroyIt() {
         if (!s.isUnsubscribed())
             s.unsubscribe();
         presenter.viewAfterGettingUser();

@@ -18,23 +18,20 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
-import eu.biketrack.android.models.User;
 import eu.biketrack.android.root.App;
 
 
-public class EditProfileFragment extends Fragment implements ProfileMVP.View{
+public class EditProfileFragment extends Fragment implements ProfileMVP.View {
     private static String TAG = "BIKETRACK - EditProfile";
-    private Unbinder unbinder;
-
     @BindView(R.id.profile_email_edit)
     EditText _email;
     @BindView(R.id.profile_lastname_edit)
     EditText _lastname;
     @BindView(R.id.profile_firstname_edit)
     EditText _firstname;
-
     @Inject
     ProfileMVP.Presenter presenter;
+    private Unbinder unbinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -68,32 +65,12 @@ public class EditProfileFragment extends Fragment implements ProfileMVP.View{
     }
 
     @Override
-    public void set_email(String _email) {
-        this._email.setText(_email);
-    }
-
-    @Override
-    public void set_lastname(String _lastname) {
-        this._lastname.setText(_lastname);
-    }
-
-    @Override
-    public void set_firstname(String _firstname) {
-        this._firstname.setText(_firstname);
-    }
-
-    @Override
-    public void set_dob(String _dob) {
-
-    }
-
-    @Override
     public void close() {
 
     }
 
     @OnClick(R.id.save_account_button)
-    public void saveAccount(){
+    public void saveAccount() {
         presenter.saveUserData();
     }
 
@@ -103,8 +80,18 @@ public class EditProfileFragment extends Fragment implements ProfileMVP.View{
     }
 
     @Override
+    public void set_email(String _email) {
+        this._email.setText(_email);
+    }
+
+    @Override
     public String get_lastname() {
         return _lastname.getText().toString();
+    }
+
+    @Override
+    public void set_lastname(String _lastname) {
+        this._lastname.setText(_lastname);
     }
 
     @Override
@@ -113,12 +100,22 @@ public class EditProfileFragment extends Fragment implements ProfileMVP.View{
     }
 
     @Override
+    public void set_firstname(String _firstname) {
+        this._firstname.setText(_firstname);
+    }
+
+    @Override
     public String get_dob() {
         return null;
     }
 
     @Override
-    public void displayMessage(String message){
+    public void set_dob(String _dob) {
+
+    }
+
+    @Override
+    public void displayMessage(String message) {
         if (this.getView() != null)
             Snackbar.make(this.getView(), message, Snackbar.LENGTH_LONG).show();
         else

@@ -48,18 +48,28 @@ import eu.biketrack.android.subscription.SubscriptionModule;
 public interface ApplicationComponent {
 
     void inject(ApiConnectModule target);
-    void inject(BikeTrack target);
-    void inject(Initializer target);
-    void inject(AutoLogin target);
-    void inject(Login target);
-    void inject(Subscription target);
-    void inject(Bikes target);
-    void inject(BikeTrackerNetworkInterface bikeTrackerNetworkInterface);
-    void inject(EditBike target);
-    void inject(ProfileFragment target);
-    void inject(EditProfileFragment target);
-    void inject(Bill target);
 
+    void inject(BikeTrack target);
+
+    void inject(Initializer target);
+
+    void inject(AutoLogin target);
+
+    void inject(Login target);
+
+    void inject(Subscription target);
+
+    void inject(Bikes target);
+
+    void inject(BikeTrackerNetworkInterface bikeTrackerNetworkInterface);
+
+    void inject(EditBike target);
+
+    void inject(ProfileFragment target);
+
+    void inject(EditProfileFragment target);
+
+    void inject(Bill target);
 
 
     LoginManagerModule getLoginManagerModule();

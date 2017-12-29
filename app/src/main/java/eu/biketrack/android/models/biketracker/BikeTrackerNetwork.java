@@ -41,7 +41,7 @@ import rx.schedulers.Schedulers;
  * Created by 42900 on 27/10/2017 for BikeTrack_Android.
  */
 
-public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
+public class BikeTrackerNetwork implements BikeTrackerNetworkInterface {
     private static final String TAG = "BikeTrackerNetwork";
     BiketrackService biketrackService;
     LoginManagerModule loginManagerModule;
@@ -96,7 +96,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
                 });
     }
 
-    private void updateBike(SendBikeUpdate bike){
+    private void updateBike(SendBikeUpdate bike) {
         biketrackService.updateBike(loginManagerModule.getToken(), bike)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -120,7 +120,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
                 });
     }
 
-    private void addBike(SendBike bike){
+    private void addBike(SendBike bike) {
         biketrackService.addBike(loginManagerModule.getToken(), bike)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -156,17 +156,17 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
         return biketrackService.getTracker(tracker, token);
     }
 
-    private void getUserBikes(String userId, String token){
+    private void getUserBikes(String userId, String token) {
         Log.d(TAG, "getBikeArrayList: " + userId + " / " + token);
 //        bikeTrackerList.clear();
 
 
-        getUser(userId ,token)
+        getUser(userId, token)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<ReceptUser>() {
                     @Override
-                    public void onCompleted(){
+                    public void onCompleted() {
                     }
 
                     @Override
@@ -176,14 +176,14 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
 
                     @Override
                     public void onNext(ReceptUser receptUser) {
-                        userObservable = userObservable.just(receptUser.getUser());
+                        userObservable = Observable.just(receptUser.getUser());
                         Log.d(TAG, "onNext: " + receptUser.getUser());
                         getBikes(token);
                     }
                 });
     }
 
-    private void getBikes(String token){
+    private void getBikes(String token) {
         Observable<String> bikeIdObservable = userObservable.flatMap(user -> {
             Log.d(TAG, "onNext: =>" + user);
             return Observable.from(user.getBikes());
@@ -271,7 +271,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
 
     }
 
-    public void displayImage(String url, ImageView imageView){
+    public void displayImage(String url, ImageView imageView) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new Interceptor() {
                     @Override
@@ -289,7 +289,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
         Picasso picasso = new Picasso.Builder(loginManagerModule.getContext())
                 .downloader(new OkHttp3Downloader(client))
                 .build();
-        picasso.with(loginManagerModule.getContext())
+        Picasso.with(loginManagerModule.getContext())
                 .load(Statics.ROOT_API + url)
                 //.resize(50, 50)
                 .centerCrop()
@@ -313,7 +313,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
                     .onErrorResumeNext(throwable -> {
                         return Observable.just(null);
                     })
-                    .doOnNext( receiveBike -> {
+                    .doOnNext(receiveBike -> {
                         if (receiveBike != null)
                             bikeTrackerList.updateBike(receiveBike.getBike());
                         Log.d(TAG, "uploadBikePicture: upload fini");
@@ -322,7 +322,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
 
                     })
                     .subscribe();
-        } catch (Exception e){
+        } catch (Exception e) {
             Log.e(TAG, "uploadBikePicture: ", e);
         }
 
@@ -345,7 +345,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
                     .onErrorResumeNext(throwable -> {
                         return Observable.just(null);
                     })
-                    .doOnNext( receiveBike -> {
+                    .doOnNext(receiveBike -> {
                         if (receiveBike != null)
                             bikeTrackerList.updateBike(receiveBike.getBike());
                         Log.d(TAG, "uploadBikeBill: upload fini");
@@ -354,14 +354,14 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
 
                     })
                     .subscribe();
-        } catch (Exception e){
+        } catch (Exception e) {
             Log.e(TAG, "uploadBikeBill: ", e);
         }
     }
 
     @Override
     public void downloadBikeBill(String bikeId) {
-        biketrackService.getBikeBill(loginManagerModule.getToken(),bikeId)
+        biketrackService.getBikeBill(loginManagerModule.getToken(), bikeId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(20, TimeUnit.SECONDS)
@@ -382,12 +382,14 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
                 .doOnCompleted(() -> {
 
                 })
-                .subscribe(s -> {},
+                .subscribe(s -> {
+                        },
                         throwable -> {
                             Log.e(TAG, "downloadBikeBill: ", throwable);
                             bikeTrackerList.listener.updatePicture(null);
                         },
-                        () -> {});
+                        () -> {
+                        });
 
     }
 }

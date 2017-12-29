@@ -11,13 +11,13 @@ import eu.biketrack.android.session.LoginManagerModule;
 @Module
 public class BillModule {
     @Provides
-    public BillMVP.Presenter provideBikesPresenter(BillMVP.Model model){
+    public BillMVP.Presenter provideBikesPresenter(BillMVP.Model model) {
         return new BillPresenter(model);
     }
 
     @Provides
     public BillMVP.Model provideBikesModel(LoginManagerModule loginManagerModule,
-                                               BikeTrackerNetworkInterface bikeTrackerNetworkInterface){
+                                           BikeTrackerNetworkInterface bikeTrackerNetworkInterface) {
         return new BillModel(loginManagerModule, bikeTrackerNetworkInterface);
     }
 }

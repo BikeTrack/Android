@@ -11,5 +11,6 @@ import rx.Observable;
 
 public interface SubscriptionNetworkInterface {
     Observable<SignupReception> signup(AuthUser authUser);
+
     Observable<AuthenticateReception> connection(AuthUser authUser);
 }

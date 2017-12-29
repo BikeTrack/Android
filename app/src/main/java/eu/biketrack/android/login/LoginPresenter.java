@@ -7,6 +7,7 @@ import android.util.Log;
  */
 
 public class LoginPresenter implements LoginMVP.Presenter {
+    private static final String TAG = "LoginPresenter";
     private LoginMVP.View view;
     private LoginMVP.Model model;
     private boolean connectionByFacebook = false;
@@ -17,7 +18,6 @@ public class LoginPresenter implements LoginMVP.Presenter {
         this.model = model;
         this.model.setPresenter(this);
     }
-    private static final String TAG = "LoginPresenter";
 
     @Override
     public void setView(LoginMVP.View view) {
@@ -31,12 +31,12 @@ public class LoginPresenter implements LoginMVP.Presenter {
     }
 
     @Override
-    public void viewAfterConnection(){
+    public void viewAfterConnection() {
         Log.d(TAG, "viewAfterConnection: ");
-        if(model.getError() == null)
+        if (model.getError() == null)
             view.close();
         else {
-            if (model.getError().getMessage().equals("HTTP 401 Unauthorized") && connectionByFacebook){
+            if (model.getError().getMessage().equals("HTTP 401 Unauthorized") && connectionByFacebook) {
                 model.subscriptionByFacebook(fbemail, fbtoken);
                 connectionByFacebook = false;
             }

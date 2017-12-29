@@ -5,20 +5,20 @@
     android:background="@color/background"
     android:orientation="vertical"
     tools:context="eu.biketrack.android.settings.settings_tab.SettingsFragment">
+
     <Button
         android:id="@+id/button_open_language"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_open_language_txt"
-        android:background="@color/inside"
-        android:textColor="@color/background"
-        android:textStyle="bold"
-        android:layout_marginTop="28dp"
-        android:layout_marginRight="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginStart="20dp"
-        android:paddingTop="15dp"
+        android:layout_marginTop="28dp"
+        android:background="@color/inside"
         android:paddingBottom="15dp"
-        />
+        android:paddingTop="15dp"
+        android:text="@string/button_open_language_txt"
+        android:textColor="@color/background"
+        android:textStyle="bold" />
 </LinearLayout>

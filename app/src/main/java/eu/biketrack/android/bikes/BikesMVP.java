@@ -5,24 +5,32 @@ package eu.biketrack.android.bikes;
  */
 
 public interface BikesMVP {
-    interface View{
+    interface View {
         void setProgressBar(boolean visible);
+
         void displayBikes();
     }
 
     interface Presenter {
         void setView(BikesMVP.View view);
+
         void getBikes();
+
         void clearBikes();
+
         void viewUpdate();
     }
 
     interface Model {
         void setPresenter(BikesMVP.Presenter presenter);
+
         void getBikes();
-//        void setBikeArrayList(ArrayList<android.support.v4.util.Pair<Bike, Tracker>> list);
+
+        //        void setBikeArrayList(ArrayList<android.support.v4.util.Pair<Bike, Tracker>> list);
         Throwable getError();
+
         void updateDone();
+
         void clearBikes();
     }
 }

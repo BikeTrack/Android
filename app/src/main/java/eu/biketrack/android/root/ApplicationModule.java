@@ -24,16 +24,20 @@ public class ApplicationModule {
         if (session == null) this.session = new Session();
     }
 
-    public void SessionModule(Session session){this.session = session;}
+    public void SessionModule(Session session) {
+        this.session = session;
+    }
 
     @Provides
     @Singleton
-    public Context provideContext(){
+    public Context provideContext() {
         return application;
     }
 
     @Provides
     @Singleton
-    public Session provideSession(){return session;}
+    public Session provideSession() {
+        return session;
+    }
 
 }

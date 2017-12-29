@@ -6,28 +6,40 @@ package eu.biketrack.android.login;
 
 public interface LoginMVP {
 
-    interface View{
+    interface View {
         String getUserEmail();
+
         String getUserPassword();
+
         boolean getRememberMe();
+
         void close();
+
         void openSubscribe();
+
         void loading(boolean loading);
     }
 
-    interface Presenter{
+    interface Presenter {
         void setView(LoginMVP.View view);
+
         void connexionButtonClicked();
+
         void viewAfterConnection();
+
         void goToSubscribe();
+
         void facebookClicked(String email, String token);
     }
 
     interface Model {
         void setPresenter(LoginMVP.Presenter presenter);
-//        void setBiketrackService(BiketrackService biketrackService);
+
+        //        void setBiketrackService(BiketrackService biketrackService);
         void connection(String email, String password, boolean rememberme);
+
         void subscriptionByFacebook(String fbemail, String fbtoken);
+
         Throwable getError();
     }
 }

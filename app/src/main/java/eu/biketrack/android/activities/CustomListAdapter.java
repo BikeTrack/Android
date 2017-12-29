@@ -36,7 +36,7 @@ public class CustomListAdapter extends ArrayAdapter<Pair<Bike, Tracker>> {
 
     @NonNull
     public View getView(int position, View view, @NonNull ViewGroup parent) {
-        LayoutInflater inflater=context.getLayoutInflater();
+        LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.listbike, null, true);
 
         TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
@@ -47,21 +47,20 @@ public class CustomListAdapter extends ArrayAdapter<Pair<Bike, Tracker>> {
 
 
         imageView.setImageResource(R.drawable.ic_logo_black);
-        if (battery == null){
+        if (battery == null) {
             return rowView;
-        } else if (bikes.get(position).second == null){
+        } else if (bikes.get(position).second == null) {
             battery.setImageResource(R.drawable.ic_broken_link);
             return rowView;
-        }
-        else if (bikes.get(position).second.getBattery().get(bikes.get(position).second.getBattery().size() - 1) == null){
+        } else if (bikes.get(position).second.getBattery().get(bikes.get(position).second.getBattery().size() - 1) == null) {
             battery.setImageResource(R.drawable.ic_broken_link);
             return rowView;
         }
 
 
-        if (bikes.get(position).second.getBattery().get(bikes.get(position).second.getBattery().size() - 1).getPourcentage() < BATTERY_CRITICAL){
+        if (bikes.get(position).second.getBattery().get(bikes.get(position).second.getBattery().size() - 1).getPourcentage() < BATTERY_CRITICAL) {
             battery.setImageResource(R.drawable.ic_battery_critical);
-        } else if (bikes.get(position).second.getBattery().get(bikes.get(position).second.getBattery().size() - 1).getPourcentage() < BATTERY_LOW){
+        } else if (bikes.get(position).second.getBattery().get(bikes.get(position).second.getBattery().size() - 1).getPourcentage() < BATTERY_LOW) {
             battery.setImageResource(R.drawable.ic_battery_low);
         } else {
             battery.setImageResource(R.drawable.ic_battery_full);

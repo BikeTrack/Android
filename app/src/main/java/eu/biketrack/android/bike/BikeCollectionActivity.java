@@ -21,7 +21,7 @@ public class BikeCollectionActivity extends FragmentActivity {
         int position = 0;
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
-            if(extras == null) {
+            if (extras == null) {
                 position = 0;
             } else {
                 position = extras.getInt("position");

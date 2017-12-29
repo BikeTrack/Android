@@ -11,8 +11,12 @@ import rx.Observable;
 
 public interface BikesNetworkInterface {
     void setModel(BikesMVP.Model model);
+
     void getBikeArrayList(String user, String token);
+
     Observable<ReceptUser> getUser(String userId, String token);
+
     Observable<ReceiveBike> getBike(String bike, String token);
+
     Observable<ReceiveTracker> getTracker(String tracker, String token);
 }

@@ -12,17 +12,17 @@ import eu.biketrack.android.session.LoginManagerModule;
 @Module
 public class AutoLoginModule {
     @Provides
-    public AutoLoginMVP.Presenter provideAutoLoginPresenter(AutoLoginMVP.Model model){
+    public AutoLoginMVP.Presenter provideAutoLoginPresenter(AutoLoginMVP.Model model) {
         return new AutoLoginPresenter(model);
     }
 
     @Provides
-    public AutoLoginMVP.Model provideAutoLoginModel(AutoLoginNetworkInterface autoLoginNetworkInterface, LoginManagerModule loginManagerModule){
+    public AutoLoginMVP.Model provideAutoLoginModel(AutoLoginNetworkInterface autoLoginNetworkInterface, LoginManagerModule loginManagerModule) {
         return new AutoLoginModel(autoLoginNetworkInterface, loginManagerModule);
     }
 
     @Provides
-    public AutoLoginNetworkInterface provideAutoLoginNetworkInterface(BiketrackService biketrackService){
+    public AutoLoginNetworkInterface provideAutoLoginNetworkInterface(BiketrackService biketrackService) {
         return new AutoLoginNetwork(biketrackService);
     }
 }

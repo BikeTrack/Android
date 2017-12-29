@@ -12,6 +12,7 @@ import rx.Observable;
 
 public interface LoginNetworkInterface {
     Observable<AuthenticateReception> connection(AuthUser authUser);
+
     Observable<SignupReception> signupFb(AuthUserFB authUser);
 
 }

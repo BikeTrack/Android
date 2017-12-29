@@ -26,15 +26,14 @@ import eu.biketrack.android.bikes.Bikes;
 
 public class LanguageFragment extends Fragment {
     private static String TAG = "BIKETRACK - Lang";
-    private Unbinder unbinder;
-    private String[] langs;
-    private ArrayList<String> langList;
-    private ArrayAdapter<String> listAdapter ;
-
-//    @BindView(R.id.toolbar)
+    //    @BindView(R.id.toolbar)
 //    Toolbar toolbar;
     @BindView(R.id.listView_languages)
     ListView langs_lv;
+    private Unbinder unbinder;
+    private String[] langs;
+    private ArrayList<String> langList;
+    private ArrayAdapter<String> listAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +76,7 @@ public class LanguageFragment extends Fragment {
     }
 
     @OnItemClick(R.id.listView_languages)
-    public void itemClicked(int position){
+    public void itemClicked(int position) {
         if (position == 0)
             Language.changeLanguage(getActivity().getApplicationContext(), new Locale("en"));
         else if (position == 1)
@@ -86,12 +85,12 @@ public class LanguageFragment extends Fragment {
     }
 
     @OnClick(R.id.button_language_clear)
-    public void resetLanguage(){
+    public void resetLanguage() {
         Language.clearLanguage(getActivity().getApplicationContext());
         closeFragment();
     }
 
-    public void closeFragment(){
+    public void closeFragment() {
         Intent intent = new Intent(getActivity().getApplicationContext(), Bikes.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

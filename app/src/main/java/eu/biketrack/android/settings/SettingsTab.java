@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
@@ -22,14 +21,13 @@ import eu.biketrack.android.settings.settings_tab.SettingsFragment;
 
 public class SettingsTab extends FragmentActivity {
     private static final String TAG = "SettingsTab";
-    private SectionsPagerAdapter mSectionsPagerAdapter;
-
+    @BindView(R.id.settings_floating_button)
+    public FloatingActionButton settingsFloatingButton;
     @BindView(R.id.container)
     ViewPager mViewPager;
     @BindView(R.id.tabs)
     TabLayout tabLayout;
-    @BindView(R.id.settings_floating_button)
-    public FloatingActionButton settingsFloatingButton;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +58,11 @@ public class SettingsTab extends FragmentActivity {
         });
 
 
-
         settingsFloatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: " + mViewPager.getCurrentItem());
-                switch (mViewPager.getCurrentItem()){
+                switch (mViewPager.getCurrentItem()) {
                     case 0:
                         openEditProfileFragment();
                         break;
@@ -80,7 +77,7 @@ public class SettingsTab extends FragmentActivity {
         });
     }
 
-    private void openEditProfileFragment(){
+    private void openEditProfileFragment() {
         Fragment fragment = new EditProfileFragment();
         final String tag = fragment.getClass().toString();
         getSupportFragmentManager()
@@ -90,9 +87,9 @@ public class SettingsTab extends FragmentActivity {
                 .commit();
     }
 
-    protected void settingsFloatingButtonVisibility(int position){
+    protected void settingsFloatingButtonVisibility(int position) {
         Log.d(TAG, "settingsFloatingButtonVisibility: page =" + position);
-        switch (position){
+        switch (position) {
             case 0:
                 settingsFloatingButton.setVisibility(View.VISIBLE);
                 break;
@@ -114,6 +111,7 @@ public class SettingsTab extends FragmentActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         private int currentPage = 0;
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -134,7 +132,7 @@ public class SettingsTab extends FragmentActivity {
             }
         }
 
-        public int getCurrentPage(){
+        public int getCurrentPage() {
             return currentPage;
         }
 

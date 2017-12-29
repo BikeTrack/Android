@@ -5,27 +5,39 @@ package eu.biketrack.android.subscription;
  */
 
 public interface SubscriptionMVP {
-    interface View{
+    interface View {
         String getUserEmail();
+
         String getUserPassword();
+
         String getUserRepeatPassword();
+
         boolean getRememberMe();
+
         void close();
+
         void openLogin();
+
         void displayError(String message);
     }
 
-    interface Presenter{
+    interface Presenter {
         void setView(SubscriptionMVP.View view);
+
         void subscriptionButtonClicked();
+
         void loginButtonClicked();
+
         void viewAfterSubscription(boolean loginDone);
+
         void goToLogin();
     }
 
     interface Model {
         void setPresenter(SubscriptionMVP.Presenter presenter);
+
         void subscription(String email, String password, boolean rememberme);
+
         Throwable getError();
     }
 }

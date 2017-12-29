@@ -8,10 +8,11 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
@@ -28,23 +29,28 @@ import eu.biketrack.android.root.App;
 import io.reactivex.Observable;
 
 
-public class Subscription extends Activity implements SubscriptionMVP.View{
+public class Subscription extends Activity implements SubscriptionMVP.View {
     private static String TAG = "BIKETRACK - Subs";
+    @Inject
+    SubscriptionMVP.Presenter presenter;
+    @BindView(R.id.subscribtion_email_textview)
+    EditText _email;
+    @BindView(R.id.subscribtion_password_textview)
+    EditText _password;
+    @BindView(R.id.subscribtion_password_textview_repeat)
+    EditText _password_repeat;
+    @BindView((R.id.subscribtion_subscribe_button))
+    Button subscribe_button;
+    @BindView(R.id.subscribtion_coordinator_layout)
+    CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.subscribtion_remember_me)
+    AppCompatCheckBox rememberMe;
+    @BindView(R.id.subscribtion_progressBar)
+    ProgressBar progressBar;
     private boolean canSub = false;
     private boolean pwdMatch = false;
     private boolean pwdWeak = false;
     private boolean emailValid = false;
-
-
-    @Inject
-    SubscriptionMVP.Presenter presenter;
-
-    @BindView(R.id.subscribtion_email_textview) EditText _email;
-    @BindView(R.id.subscribtion_password_textview) EditText _password;
-    @BindView(R.id.subscribtion_password_textview_repeat) EditText _password_repeat;
-    @BindView((R.id.subscribtion_subscribe_button)) Button subscribe_button;
-    @BindView(R.id.subscribtion_coordinator_layout) CoordinatorLayout coordinatorLayout;
-    @BindView(R.id.subscribtion_remember_me) AppCompatCheckBox rememberMe;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +61,7 @@ public class Subscription extends Activity implements SubscriptionMVP.View{
         ((App) getApplication()).getComponent().inject(this);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-
+        progressBar.setVisibility(View.GONE);
 //        subscribe_button.setEnabled(false);
 
 
@@ -79,7 +85,7 @@ public class Subscription extends Activity implements SubscriptionMVP.View{
 
         Observable.combineLatest(passwordMatcherObservable, emailObservable, securePasswordObservable,
                 (passwordMatch, isEmailValid, securePassword) ->
-                    passwordMatch && isEmailValid && securePassword)
+                        passwordMatch && isEmailValid && securePassword)
                 .distinctUntilChanged()
                 .subscribe(valid -> {
                     Log.d(TAG, "onCreate: " + valid);
@@ -95,11 +101,12 @@ public class Subscription extends Activity implements SubscriptionMVP.View{
     }
 
     @OnClick(R.id.subscribtion_subscribe_button)
-    public void subscribeButtonOnClick(){
+    public void subscribeButtonOnClick() {
         Resources res = getResources();
-        if (canSub)
+        if (canSub) {
+            progressBar.setVisibility(View.VISIBLE);
             presenter.subscriptionButtonClicked();
-        else{
+        } else {
             if (!emailValid)
                 displayError(res.getString(R.string.error_check_email));
             else if (!pwdMatch)
@@ -111,7 +118,7 @@ public class Subscription extends Activity implements SubscriptionMVP.View{
     }
 
     @OnClick(R.id.subscribtion_login_button)
-    public void loginButtonOnClick(){
+    public void loginButtonOnClick() {
         presenter.loginButtonClicked();
     }
 
@@ -131,7 +138,7 @@ public class Subscription extends Activity implements SubscriptionMVP.View{
     }
 
     @Override
-    public boolean getRememberMe(){
+    public boolean getRememberMe() {
         return rememberMe.isChecked();
     }
 
@@ -151,6 +158,7 @@ public class Subscription extends Activity implements SubscriptionMVP.View{
 
     @Override
     public void displayError(String message) {
+        progressBar.setVisibility(View.GONE);
         Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG).show();
     }
 }

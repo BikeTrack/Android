@@ -12,72 +12,71 @@ import javax.inject.Singleton;
  */
 
 @Singleton
-public class LoginManagerModule{
+public class LoginManagerModule {
+    public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
+    public static final String REGISTRATION_COMPLETE = "registrationComplete";
     private static final String TAG = "LoginManagerModule";
-    private SharedPreferences sharedPreferences;
     private static final String KEY_EMAIL = "eu.biketrack.android.email";
     private static final String KEY_USERID = "eu.biketrack.android.userid";
     private static final String KEY_PASSWORD = "eu.biketrack.android.password";
     private static final String KEY_TOKEN = "eu.biketrack.android.token";
     private static final String KEY_REMEMBERME = "eu.biketrack.android.rememberme";
-
-    public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
-    public static final String REGISTRATION_COMPLETE = "registrationComplete";
+    private SharedPreferences sharedPreferences;
     private Context context;
 
     @Inject
-    public LoginManagerModule(Context context){
+    public LoginManagerModule(Context context) {
         if (sharedPreferences == null) {
             sharedPreferences = context.getSharedPreferences("eu.biketrack.android", Context.MODE_PRIVATE);
         }
         this.context = context;
     }
 
-    public void storeEmail(String email){
+    public void storeEmail(String email) {
         sharedPreferences.edit().putString(KEY_EMAIL, email).apply();
         Log.d(TAG, "storeEmail: " + email);
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return sharedPreferences.getString(KEY_EMAIL, null);
     }
 
-    public void storeUserId(String userId){
+    public void storeUserId(String userId) {
         sharedPreferences.edit().putString(KEY_USERID, userId).apply();
         Log.d(TAG, "storeUserId: " + userId);
     }
 
-    public String getUserId(){
+    public String getUserId() {
         return sharedPreferences.getString(KEY_USERID, null);
     }
 
-    public void storePassword(String password){
+    public void storePassword(String password) {
         sharedPreferences.edit().putString(KEY_PASSWORD, password).apply();
     }
 
-    public String getPassword(){
+    public String getPassword() {
         return sharedPreferences.getString(KEY_PASSWORD, null);
     }
 
-    public void storeToken(String token){
+    public void storeToken(String token) {
         sharedPreferences.edit().putString(KEY_TOKEN, token).apply();
         Log.d(TAG, "storeToken: " + token);
     }
 
-    public boolean getRememberMe(){
+    public boolean getRememberMe() {
         return sharedPreferences.getBoolean(KEY_REMEMBERME, false);
     }
 
-    public void storeRememberMe(boolean rememberme){
+    public void storeRememberMe(boolean rememberme) {
         sharedPreferences.edit().putBoolean(KEY_REMEMBERME, rememberme).apply();
         Log.d(TAG, "storeRememberMe: " + rememberme);
     }
 
-    public String getToken(){
+    public String getToken() {
         return sharedPreferences.getString(KEY_TOKEN, null);
     }
 
-    public void clear(){
+    public void clear() {
         sharedPreferences.edit().clear().apply();
         Log.d(TAG, "cleared ");
     }

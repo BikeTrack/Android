@@ -9,6 +9,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class Bike implements Parcelable {
 
+    public static final Parcelable.Creator<Bike> CREATOR = new Parcelable.Creator<Bike>() {
+        public Bike createFromParcel(Parcel in) {
+            return new Bike(in);
+        }
+
+        public Bike[] newArray(int size) {
+            return new Bike[size];
+        }
+    };
     @SerializedName("_id")
     @Expose
     private String id;
@@ -40,18 +49,7 @@ public class Bike implements Parcelable {
     @Expose
     private String picture;
 
-
-    public static final Parcelable.Creator<Bike> CREATOR = new Parcelable.Creator<Bike>() {
-        public Bike createFromParcel(Parcel in) {
-            return new Bike(in);
-        }
-
-        public Bike[] newArray(int size) {
-            return new Bike[size];
-        }
-    };
-
-    private Bike(Parcel in){
+    private Bike(Parcel in) {
         id = in.readString();
         brand = in.readString();
         name = in.readString();
@@ -179,7 +177,7 @@ public class Bike implements Parcelable {
         dest.writeString(picture);
     }
 
-    public void copy(Bike bike){
+    public void copy(Bike bike) {
         id = bike.getId();
         brand = bike.getBrand();
         name = bike.getName();

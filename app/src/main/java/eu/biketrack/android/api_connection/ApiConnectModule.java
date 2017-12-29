@@ -25,7 +25,7 @@ public class ApiConnectModule {
     private static final String TAG = "ApiConnectModule";
 
     @Provides
-    public static OkHttpClient provideClient(){
+    public static OkHttpClient provideClient() {
 
         Log.d(TAG, "provideClient");
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -44,7 +44,7 @@ public class ApiConnectModule {
     }
 
     @Provides
-    public static Retrofit provideRetrofit(OkHttpClient client){
+    public static Retrofit provideRetrofit(OkHttpClient client) {
         Log.d(TAG, "provideRetrofit");
         return new Retrofit.Builder()
                 .baseUrl(Statics.ROOT_API)
@@ -56,7 +56,7 @@ public class ApiConnectModule {
     }
 
     @Provides
-    public static BiketrackService provideApiService(){
+    public static BiketrackService provideApiService() {
         Log.d(TAG, "provideApiService: provideAPIService");
         return provideRetrofit(provideClient()).create(BiketrackService.class);
     }

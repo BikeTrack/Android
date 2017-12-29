@@ -18,19 +18,18 @@ import eu.biketrack.android.models.BrandSelected;
 
 public class BrandFragment extends Fragment {
     private static String TAG = "BIKETRACK - Brand";
-    private Unbinder unbinder;
-    private String[] brands;
-    private ArrayList<String> brandList;
-    private ArrayAdapter<String> listAdapter ;
-//    private Disposable _disposable_search;
-    private BrandSelected brandSelected;
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.listView_brands)
     ListView brands_lv;
     @BindView(R.id.search_bar_brand)
     TextView search;
+    private Unbinder unbinder;
+    private String[] brands;
+    private ArrayList<String> brandList;
+    private ArrayAdapter<String> listAdapter;
+    //    private Disposable _disposable_search;
+    private BrandSelected brandSelected;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

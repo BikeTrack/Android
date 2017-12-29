@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="eu.biketrack.android.initializer.Initializer"
-    android:background="@color/background">
+    android:background="@color/background"
+    tools:context="eu.biketrack.android.initializer.Initializer">
 
     <include layout="@layout/fragment_auto_login" />
 

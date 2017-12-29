@@ -6,14 +6,13 @@ package eu.biketrack.android.models;
 
 public class BrandSelected {
     private static final BrandSelected ourInstance = new BrandSelected();
-
-    static BrandSelected getInstance() {
-        return ourInstance;
-    }
-
     private String brand;
 
     private BrandSelected() {
+    }
+
+    static BrandSelected getInstance() {
+        return ourInstance;
     }
 
     public static BrandSelected getOurInstance() {
@@ -28,7 +27,7 @@ public class BrandSelected {
         this.brand = brand;
     }
 
-    public void clear(){
+    public void clear() {
         this.brand = null;
     }
 }

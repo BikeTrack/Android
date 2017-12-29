@@ -7,24 +7,33 @@ import eu.biketrack.android.models.data_send.SendBikeInfo;
  */
 
 public interface EditBikeMVP {
-    interface View{
+    interface View {
         void close();
     }
 
-    interface Presenter{
+    interface Presenter {
         void setView(EditBikeMVP.View view);
+
         void createBike(SendBikeInfo bike);
+
         void updateBike(String bikeId, SendBikeInfo bike);
+
         void deleteBike(String bikeId, SendBikeInfo bike);
+
         void uploadBikePhoto(String uri, String bikeId);
+
         void uploadBikeBill(String uri, String bikeId);
     }
 
-    interface Model{
+    interface Model {
         void createBike(SendBikeInfo bike);
+
         void updateBike(String bikeId, SendBikeInfo bike);
+
         void deleteBike(String bikeId, SendBikeInfo bike);
+
         void uploadBikePhoto(String uri, String bikeId);
+
         void uploadBikeBill(String uri, String bikeId);
     }
 }

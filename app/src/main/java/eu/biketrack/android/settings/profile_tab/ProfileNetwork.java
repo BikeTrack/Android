@@ -27,7 +27,7 @@ public class ProfileNetwork implements ProfileNetworkInterface {
     }
 
     @Override
-    public  Observable<ReceptUser> getUser(String userId, String token) {
+    public Observable<ReceptUser> getUser(String userId, String token) {
         return biketrackService.getUser(token, userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

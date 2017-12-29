@@ -8,6 +8,7 @@ import eu.biketrack.android.session.Session;
  */
 
 public class AutoLoginPresenter implements AutoLoginMVP.Presenter {
+    private static final String TAG = "AutoLoginPresenter";
     private AutoLoginMVP.View view;
     private AutoLoginMVP.Model model;
     private Session session;
@@ -17,7 +18,6 @@ public class AutoLoginPresenter implements AutoLoginMVP.Presenter {
         this.model = model;
         this.model.setPresenter(this);
     }
-    private static final String TAG = "AutoLoginPresenter";
 
     @Override
     public void setView(AutoLoginMVP.View view) {
@@ -37,7 +37,7 @@ public class AutoLoginPresenter implements AutoLoginMVP.Presenter {
     @Override
     public void tryConnection() {
         view.displayProgressBar(true);
-        if (loginManagerModule.getEmail() != null && loginManagerModule.getPassword() != null){
+        if (loginManagerModule.getEmail() != null && loginManagerModule.getPassword() != null) {
             model.connect();
         } else {
             view.displayProgressBar(false);
@@ -47,7 +47,7 @@ public class AutoLoginPresenter implements AutoLoginMVP.Presenter {
     }
 
     @Override
-    public void viewAfterGettingUser(){
+    public void viewAfterGettingUser() {
         view.displayProgressBar(true);
         if (model.getError() == null) {
             view.displayProgressBar(false);

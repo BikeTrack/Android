@@ -35,12 +35,8 @@ import eu.biketrack.android.subscription.Subscription;
 
 public class Login extends Activity implements LoginMVP.View {
     private static final String TAG = "Login";
-    private CallbackManager  callbackManager;
-
     @Inject
     LoginMVP.Presenter presenter;
-
-
     //    @BindView(R.id.toolbar)
 //    Toolbar toolbar;
     @BindView(R.id.login_email_textview)
@@ -55,11 +51,12 @@ public class Login extends Activity implements LoginMVP.View {
     Button loginButton;
     @BindView(R.id.login_remember_me)
     AppCompatCheckBox rememberMe;
+    private CallbackManager callbackManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_login);
+        setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
         _email.setText("thisisatest@test.com");
@@ -92,7 +89,7 @@ public class Login extends Activity implements LoginMVP.View {
                                 try {
                                     String email = object.getString("email");
                                     presenter.facebookClicked(email, loginResult.getAccessToken().getToken());
-                                } catch (Exception e){
+                                } catch (Exception e) {
                                     Log.e(TAG, "onCompleted: ", e);
                                 }
 
@@ -140,7 +137,9 @@ public class Login extends Activity implements LoginMVP.View {
     }
 
     @OnClick(R.id.login_subscribe_button)
-    public void subscribeButtonOnClick(){presenter.goToSubscribe();}
+    public void subscribeButtonOnClick() {
+        presenter.goToSubscribe();
+    }
 
     @Override
     public String getUserEmail() {
@@ -153,7 +152,7 @@ public class Login extends Activity implements LoginMVP.View {
     }
 
     @Override
-    public boolean getRememberMe(){
+    public boolean getRememberMe() {
         return rememberMe.isChecked();
     }
 
@@ -173,7 +172,7 @@ public class Login extends Activity implements LoginMVP.View {
 
     @Override
     public void loading(boolean loading) {
-        if (loading){
+        if (loading) {
             loginButton.setClickable(false);
             progressBar.setVisibility(View.VISIBLE);
         } else {

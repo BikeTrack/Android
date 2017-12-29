@@ -10,7 +10,7 @@ import eu.biketrack.android.R;
 import eu.biketrack.android.autologin.AutoLogin;
 import eu.biketrack.android.root.App;
 
-public class Initializer extends Activity implements InitializerMVP.View{
+public class Initializer extends Activity implements InitializerMVP.View {
     private static final String TAG = "Initializer";
 
     @Inject
@@ -33,9 +33,8 @@ public class Initializer extends Activity implements InitializerMVP.View{
     }
 
 
-
     @Override
-    public void openAutoLoginFragment(){
+    public void openAutoLoginFragment() {
 //        getSupportFragmentManager().beginTransaction()
 //                .replace(android.R.id.content, new AutoLogin(), this.toString())
 //                .commit();

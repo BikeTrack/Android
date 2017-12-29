@@ -14,6 +14,7 @@ package eu.biketrack.android.notifications;
   See the License for the specific language governing permissions and
   limitations under the License.
  */
+
 import android.app.IntentService;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -79,7 +80,7 @@ public class RegistrationIntentService extends IntentService {
 
     /**
      * Persist registration to third-party servers.
-     *
+     * <p>
      * Modify this method to associate the user's GCM registration token with any server-side account
      * maintained by your application.
      *

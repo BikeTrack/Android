@@ -10,7 +10,7 @@ import rx.Observable;
  * Created by 42900 on 17/09/2017 for BikeTrack_Android.
  */
 
-public class SubscriptionNetwork implements SubscriptionNetworkInterface{
+public class SubscriptionNetwork implements SubscriptionNetworkInterface {
 
     private BiketrackService biketrackService;
 

@@ -19,16 +19,14 @@ import eu.biketrack.android.session.LoginManagerModule;
 import eu.biketrack.android.session.Session;
 
 
-public class AutoLogin extends Activity implements AutoLoginMVP.View{
+public class AutoLogin extends Activity implements AutoLoginMVP.View {
     private static final String TAG = "AutoLogin";
-    @Inject
-    AutoLoginMVP.Presenter presenter;
-
     @Inject
     public Session session;
     @Inject
     public LoginManagerModule loginManagerModule;
-
+    @Inject
+    AutoLoginMVP.Presenter presenter;
     @BindView(R.id.progressBar_autologin)
     ProgressBar pg_bar;
 
@@ -148,7 +146,7 @@ public class AutoLogin extends Activity implements AutoLoginMVP.View{
                 pg_bar.setVisibility(View.VISIBLE);
             else
                 pg_bar.setVisibility(View.GONE);
-        } catch (Exception e){
+        } catch (Exception e) {
             Log.e(TAG, "displayProgressBar: ", e);
         }
     }

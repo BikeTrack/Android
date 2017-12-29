@@ -1,7 +1,5 @@
 package eu.biketrack.android.editbike;
 
-import android.net.Uri;
-
 import eu.biketrack.android.models.biketracker.BikeTrackerNetworkInterface;
 import eu.biketrack.android.models.data_send.SendBikeInfo;
 import eu.biketrack.android.session.LoginManagerModule;

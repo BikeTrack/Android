@@ -11,7 +11,7 @@ import eu.biketrack.android.session.LoginManagerModule;
 @Module
 public class BikeTrackerListModule {
     @Provides
-    public BikeTrackerNetworkInterface provideBikeTrackerNetworkInterface(LoginManagerModule loginManagerModule, BiketrackService biketrackService){
+    public BikeTrackerNetworkInterface provideBikeTrackerNetworkInterface(LoginManagerModule loginManagerModule, BiketrackService biketrackService) {
         return new BikeTrackerNetwork(loginManagerModule, biketrackService);
     }
 }

@@ -2,96 +2,95 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background"
     android:orientation="vertical"
-    tools:context="eu.biketrack.android.settings.profile_tab.EditProfileFragment"
-    android:background="@color/background">
+    tools:context="eu.biketrack.android.settings.profile_tab.EditProfileFragment">
     <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@color/interact_background"-->
-        <!--app:titleTextColor="@color/background"-->
-        <!--app:title="@string/title_profile_edit"-->
-        <!--app:theme="@style/AppTheme"-->
-        <!--app:popupTheme="@style/Theme.AppCompat"/>-->
+    <!--android:id="@+id/toolbar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/interact_background"-->
+    <!--app:titleTextColor="@color/background"-->
+    <!--app:title="@string/title_profile_edit"-->
+    <!--app:theme="@style/AppTheme"-->
+    <!--app:popupTheme="@style/Theme.AppCompat"/>-->
 
     <!--<ImageView-->
-        <!--android:id="@+id/tmp_img"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="100sp"-->
-        <!--android:src="@drawable/ic_logo_black"-->
-        <!--android:scaleType="fitCenter" />-->
+    <!--android:id="@+id/tmp_img"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="100sp"-->
+    <!--android:src="@drawable/ic_logo_black"-->
+    <!--android:scaleType="fitCenter" />-->
 
     <!--<Button-->
-        <!--android:id="@+id/upload_picture"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Selectionner une photo"-->
-        <!--android:background="@color/interact_background"-->
-        <!--android:textColor="@color/inside"-->
-        <!--android:layout_marginTop="20dp"/>-->
+    <!--android:id="@+id/upload_picture"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="Selectionner une photo"-->
+    <!--android:background="@color/interact_background"-->
+    <!--android:textColor="@color/inside"-->
+    <!--android:layout_marginTop="20dp"/>-->
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/profile_email_txt"
         android:textAllCaps="true"
-        android:textStyle="italic"
-        android:textColor="@color/titles"/>
+        android:textColor="@color/titles"
+        android:textStyle="italic" />
 
     <EditText
         android:id="@+id/profile_email_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/interact_background"
-        android:ellipsize="start" />
+        android:ellipsize="start"
+        android:textColor="@color/interact_background" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/profile_lastname_txt"
         android:textAllCaps="true"
-        android:textStyle="italic"
-        android:textColor="@color/titles"/>
+        android:textColor="@color/titles"
+        android:textStyle="italic" />
 
     <EditText
         android:id="@+id/profile_lastname_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/interact_background"
-        android:ellipsize="start"/>
+        android:ellipsize="start"
+        android:textColor="@color/interact_background" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/profile_firstname_txt"
         android:textAllCaps="true"
-        android:textStyle="italic"
-        android:textColor="@color/titles"/>
+        android:textColor="@color/titles"
+        android:textStyle="italic" />
 
     <EditText
         android:id="@+id/profile_firstname_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/interact_background"
-        android:ellipsize="start" />
+        android:ellipsize="start"
+        android:textColor="@color/interact_background" />
 
     <Button
         android:id="@+id/save_account_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/save_account_button_txt"
+        android:layout_marginTop="20dp"
         android:background="@color/interact_background"
-        android:textColor="@color/inside"
-        android:layout_marginTop="20dp"/>
+        android:text="@string/save_account_button_txt"
+        android:textColor="@color/inside" />
 
     <!--<Button-->
-        <!--android:id="@+id/delete_account_button"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/delete_account_button_txt"-->
-        <!--android:background="@color/interact_background"-->
-        <!--android:textColor="@color/inside"-->
-        <!--android:layout_marginTop="20dp"/>-->
+    <!--android:id="@+id/delete_account_button"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/delete_account_button_txt"-->
+    <!--android:background="@color/interact_background"-->
+    <!--android:textColor="@color/inside"-->
+    <!--android:layout_marginTop="20dp"/>-->
 </LinearLayout>

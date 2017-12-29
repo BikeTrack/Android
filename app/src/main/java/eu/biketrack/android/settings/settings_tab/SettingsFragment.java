@@ -45,7 +45,7 @@ public class SettingsFragment extends Fragment {
 
 
     @OnClick(R.id.button_open_language)
-    public void openLanguage(){
+    public void openLanguage() {
         Fragment fragment = new LanguageFragment();
         final String tag = fragment.getClass().toString();
         getActivity().getSupportFragmentManager()

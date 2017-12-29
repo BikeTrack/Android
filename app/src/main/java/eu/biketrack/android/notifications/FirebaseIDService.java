@@ -1,8 +1,5 @@
 package eu.biketrack.android.notifications;
 
-import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -23,7 +20,7 @@ public class FirebaseIDService extends FirebaseInstanceIdService {
 
     /**
      * Persist token to third-party servers.
-     *
+     * <p>
      * Modify this method to associate the user's FCM InstanceID token with any server-side account
      * maintained by your application.
      *

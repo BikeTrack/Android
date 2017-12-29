@@ -9,24 +9,33 @@ import eu.biketrack.android.session.Session;
 
 public interface AutoLoginMVP {
 
-    interface View{
+    interface View {
         void displayProgressBar(boolean display);
+
         void openLogin();
+
         void openBikes();
     }
 
-    interface Presenter{
+    interface Presenter {
         void setView(AutoLoginMVP.View view);
+
         void setSession(Session session);
+
         void setLoginManager(LoginManagerModule loginManagerModule);
+
         void tryConnection();
+
         void viewAfterGettingUser();
     }
 
     interface Model {
         void setPresenter(AutoLoginMVP.Presenter presenter);
+
         void fillSession(String userId, String token);
+
         void connect();
+
         Throwable getError();
 
     }

@@ -27,7 +27,8 @@ public class EditBikePresenter implements EditBikeMVP.Presenter {
         BikeTrackerList b = BikeTrackerList.getInstance();
         b.setBikeTrackerListListener(new BikeTrackerList.BikeTrackerListListener() {
             @Override
-            public void listUpdated() {}
+            public void listUpdated() {
+            }
 
             @Override
             public void bikeCreated() {
@@ -64,7 +65,7 @@ public class EditBikePresenter implements EditBikeMVP.Presenter {
         model.updateBike(bikeId, bike);
     }
 
-    public void closeView(){
+    public void closeView() {
         view.close();
     }
 
@@ -73,7 +74,8 @@ public class EditBikePresenter implements EditBikeMVP.Presenter {
         BikeTrackerList b = BikeTrackerList.getInstance();
         b.setBikeTrackerListListener(new BikeTrackerList.BikeTrackerListListener() {
             @Override
-            public void listUpdated() {}
+            public void listUpdated() {
+            }
 
             @Override
             public void bikeCreated() {

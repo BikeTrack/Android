@@ -46,7 +46,7 @@ public interface BiketrackService {
     @PATCH("profile")
     Observable<ReceptUserUpdate> updateUser(@Header("x-access-token") String access_token, @Body SendUserUpdate sendUserUpdate);
 
-//    @Multipart
+    //    @Multipart
 //    @PATCH("profile")
 //    Observable<ReceptUserUpdate> uploadProfilePhoto(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Part MultipartBody.Part image, @Part("contentType") String contentType);
 //

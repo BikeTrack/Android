@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -27,20 +26,13 @@ import eu.biketrack.android.root.App;
 import eu.biketrack.android.utils.PictureManager;
 
 public class EditBike extends Activity implements EditBikeMVP.View {
-    private static final String TAG = "EditBike";
-    private Bike tmp = null;
     public static final int SELECT_PICTURE_BIKE = 1;
     public static final int REQUEST_IMAGE_CAPTURE_BIKE = 2;
     public static final int SELECT_PICTURE_BILL = 3;
     public static final int REQUEST_IMAGE_CAPTURE_BILL = 4;
-
-    private String selectedImagePathBike;
-    private String selectedImagePathBill;
-
-
+    private static final String TAG = "EditBike";
     @Inject
     public EditBikeMVP.Presenter presenter;
-
     @BindView(R.id.bike_name_edit)
     EditText _name;
     @BindView(R.id.bike_trackerid_edit)
@@ -49,7 +41,6 @@ public class EditBike extends Activity implements EditBikeMVP.View {
     EditText _serial;
     @BindView(R.id.bike_delete_button)
     Button button_delete_bike;
-
     @BindView(R.id.tv_bike)
     TextView tv_bike;
     @BindView(R.id.image_to_upload)
@@ -58,7 +49,6 @@ public class EditBike extends Activity implements EditBikeMVP.View {
     Button buttonSelectBike;
     @BindView(R.id.button_captureBike)
     Button buttonCaptureBike;
-
     @BindView(R.id.tv_bill)
     TextView tv_bill;
     @BindView(R.id.bill_to_upload)
@@ -67,6 +57,9 @@ public class EditBike extends Activity implements EditBikeMVP.View {
     Button buttonSelectBill;
     @BindView(R.id.button_captureBill)
     Button buttonCaptureBill;
+    private Bike tmp = null;
+    private String selectedImagePathBike;
+    private String selectedImagePathBill;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -118,11 +111,11 @@ public class EditBike extends Activity implements EditBikeMVP.View {
         SendBikeInfo bike = new SendBikeInfo(_name.getText().toString(), "", _trackerid.getText().toString(), _serial.getText().toString());
         if (tmp == null)
             presenter.createBike(bike);
-        else{
+        else {
             if (selectedImagePathBike != null) {
                 presenter.uploadBikePhoto(selectedImagePathBike, tmp.getId());
             }
-            if (selectedImagePathBill != null){
+            if (selectedImagePathBill != null) {
                 presenter.uploadBikeBill(selectedImagePathBill, tmp.getId());
             }
             presenter.updateBike(tmp.getId(), bike);
@@ -153,22 +146,22 @@ public class EditBike extends Activity implements EditBikeMVP.View {
     }
 
     @OnClick(R.id.button_selectBike)
-    public void selectBike(){
+    public void selectBike() {
         PictureManager.selectPicture(this, SELECT_PICTURE_BIKE);
     }
 
     @OnClick(R.id.button_captureBike)
-    public void captureBike(){
+    public void captureBike() {
         PictureManager.openCamera(this, REQUEST_IMAGE_CAPTURE_BIKE);
     }
 
     @OnClick(R.id.button_selectBill)
-    public void selectBill(){
+    public void selectBill() {
         PictureManager.selectPicture(this, SELECT_PICTURE_BILL);
     }
 
     @OnClick(R.id.button_captureBill)
-    public void captureBill(){
+    public void captureBill() {
         PictureManager.openCamera(this, REQUEST_IMAGE_CAPTURE_BILL);
     }
 
@@ -200,7 +193,7 @@ public class EditBike extends Activity implements EditBikeMVP.View {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         Boolean ret = PictureManager.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
-        if (!ret){
+        if (!ret) {
             tv_bill.setVisibility(View.GONE);
             tv_bike.setVisibility(View.GONE);
             imageToUpload.setVisibility(View.GONE);
@@ -209,7 +202,7 @@ public class EditBike extends Activity implements EditBikeMVP.View {
             billToUpload.setVisibility(View.GONE);
             buttonSelectBill.setVisibility(View.GONE);
             buttonCaptureBill.setVisibility(View.GONE);
-        } else{
+        } else {
             tv_bill.setVisibility(View.VISIBLE);
             tv_bike.setVisibility(View.VISIBLE);
             imageToUpload.setVisibility(View.VISIBLE);

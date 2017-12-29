@@ -1,7 +1,5 @@
 package eu.biketrack.android.bill;
 
-import android.graphics.Bitmap;
-
 import eu.biketrack.android.models.biketracker.BikeTrackerNetworkInterface;
 import eu.biketrack.android.session.LoginManagerModule;
 

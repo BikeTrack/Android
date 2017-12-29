@@ -66,7 +66,7 @@ public class SubscriptionModel implements SubscriptionMVP.Model {
                 .subscribe(signupReceptionSubscriber);
     }
 
-    private void connection(AuthUser authUser, boolean rememberme){
+    private void connection(AuthUser authUser, boolean rememberme) {
         Observable<AuthenticateReception> authenticateReceptionObservable = subscriptionNetworkInterface.connection(authUser);
         Subscriber<AuthenticateReception> authenticateReceptionSubscriber = new Subscriber<AuthenticateReception>() {
             @Override
@@ -103,7 +103,7 @@ public class SubscriptionModel implements SubscriptionMVP.Model {
         return error;
     }
 
-    private void destroyIt(){
+    private void destroyIt() {
         if (!s.isUnsubscribed())
             s.unsubscribe();
         if (!s1.isUnsubscribed())

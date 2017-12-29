@@ -21,14 +21,14 @@ public class InitializerModel implements InitializerMVP.Model {
     }
 
     @Override
-    public void language(Context context){
+    public void language(Context context) {
         if (Language.getCurrentLanguage(context) != null)
             Language.changeLanguage(context, new Locale(Language.getCurrentLanguage(context)));
         Log.d(TAG, "language: set");
     }
 
     @Override
-    public void initLoginManager(Context context){
+    public void initLoginManager(Context context) {
         //loginManagerModule.clear();
         Log.d(TAG, "initLoginManager: initialized");
     }

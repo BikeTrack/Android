@@ -37,14 +37,29 @@ import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.Location;
 import eu.biketrack.android.models.data_reception.Tracker;
 import eu.biketrack.android.session.Session;
-import rx.Observable;
 
 import static eu.biketrack.android.api_connection.Statics.BATTERY_CRITICAL;
 import static eu.biketrack.android.api_connection.Statics.BATTERY_LOW;
 
 public class BikeFragment extends Fragment implements OnMapReadyCallback {
-    private static String TAG = "BIKETRACK - Bike";
     public static final String ARG_BIKE = "BIKE";
+    private static final int REQUEST_LOCATION = 1;
+    private static String TAG = "BIKETRACK - Bike";
+    //    @BindView(R.id.toolbar)
+//    Toolbar toolbar;
+    @BindView(R.id.bike_picture)
+    ImageView _bike_picture;
+    @BindView(R.id.bike_name_tv)
+    TextView _name;
+    @BindView(R.id.map)
+    MapView mapView;
+    //    @BindView(R.id.date_last_point) TextView _date_last_point;
+    @BindView(R.id.battery_percent)
+    TextView _battery_percent;
+    @BindView(R.id.battery)
+    ImageView _battery;
+    @BindView(R.id.goToBillButton)
+    ImageButton goToBillButton;
     private Unbinder unbinder;
     private Session session;
     private Bike bike;
@@ -53,19 +68,6 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
     // private BiketrackService biketrackService;
 //    private CompositeDisposable _disposables;
     private Tracker tracker;
-
-    private static final int REQUEST_LOCATION = 1;
-
-//    @BindView(R.id.toolbar)
-//    Toolbar toolbar;
-    @BindView(R.id.bike_picture)
-    ImageView _bike_picture;
-    @BindView(R.id.bike_name_tv) TextView _name;
-    @BindView(R.id.map) MapView mapView;
-//    @BindView(R.id.date_last_point) TextView _date_last_point;
-    @BindView(R.id.battery_percent) TextView _battery_percent;
-    @BindView(R.id.battery) ImageView _battery;
-    @BindView(R.id.goToBillButton) ImageButton goToBillButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,7 +81,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @OnClick(R.id.floatin_update_bike)
-    public void updateBike(){
+    public void updateBike() {
         Intent i = new Intent(getActivity(), EditBike.class);
         i.putExtra("BikeId", bikeTrackerList.getPair(position).first.getId());
         startActivity(i);
@@ -100,7 +102,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
             byte[] decodedString = Base64.decode(bikeTrackerList.getBikeArrayList().get(position).first.getPicture(), Base64.DEFAULT);
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
             _bike_picture.setImageBitmap(decodedByte);
-        } catch (Exception e){
+        } catch (Exception e) {
             Log.e(TAG, "onCreateView: ", e);
         }
 
@@ -122,7 +124,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                 _battery.setImageResource(R.drawable.ic_battery_full);
             }
             _battery_percent.setText(String.valueOf(tracker.getCurrentRoundedBatteryPercentage()));
-        } catch (Exception e){
+        } catch (Exception e) {
             Log.e(TAG, "onCreateView: ", e);
         }
         if (mapView != null)
@@ -205,6 +207,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 //        getBike();
         return layout;
     }
+
     //
 //    private void setDatas(){
 //        if (_name != null)
@@ -250,6 +253,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         super.onDestroyView();
         unbinder.unbind();
     }
+
     //
     @Override
     public void onResume() {
@@ -272,6 +276,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
             mapView.onLowMemory();
         super.onLowMemory();
     }
+
     //
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -282,7 +287,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 //            i = tracker.getLocations().size() - Statics.MAX_POINTS_DISPLAYED_ON_MAP;
 //        }
         try {
-            for (Location l : tracker.getLocations()){
+            for (Location l : tracker.getLocations()) {
 //            if (j >= Statics.MAX_POINTS_DISPLAYED_ON_MAP)
 //                break;
                 if (l.getCoordinates().get(1) != null && l.getCoordinates().get(0) != null) {
@@ -301,7 +306,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                 ++i;
 //            ++j;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
         }
 
         googleMap.getUiSettings().setMyLocationButtonEnabled(false);
@@ -317,7 +322,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         MapsInitializer.initialize(this.getActivity());
         if (target == null)
-            target = new LatLng(0.0,0.0);
+            target = new LatLng(0.0, 0.0);
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(target, 15.0f);
         googleMap.moveCamera(cameraUpdate);
     }
@@ -395,7 +400,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 //    }
 
     @OnClick(R.id.goToBillButton)
-    public void openBill(){
+    public void openBill() {
         Intent i = new Intent(getActivity(), Bill.class);
         i.putExtra("BikeId", bikeTrackerList.getPair(position).first.getId());
         startActivity(i);

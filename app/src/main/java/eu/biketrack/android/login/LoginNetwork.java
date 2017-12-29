@@ -11,7 +11,7 @@ import rx.Observable;
  * Created by 42900 on 10/09/2017 for BikeTrack_Android.
  */
 
-public class LoginNetwork implements LoginNetworkInterface{
+public class LoginNetwork implements LoginNetworkInterface {
     private static final String TAG = "LoginNetwork";
     private BiketrackService biketrackService;
 
@@ -21,7 +21,7 @@ public class LoginNetwork implements LoginNetworkInterface{
 
     @Override
     public Observable<AuthenticateReception> connection(AuthUser authUser) {
-        Observable<AuthenticateReception> authenticateReceptionObservable =  biketrackService.connectUser(authUser);
+        Observable<AuthenticateReception> authenticateReceptionObservable = biketrackService.connectUser(authUser);
         return authenticateReceptionObservable;
     }
 

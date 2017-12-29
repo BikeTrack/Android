@@ -12,17 +12,17 @@ import eu.biketrack.android.session.LoginManagerModule;
 @Module
 public class LoginModule {
     @Provides
-    public LoginMVP.Presenter provideLoginPresenter(LoginMVP.Model model){
+    public LoginMVP.Presenter provideLoginPresenter(LoginMVP.Model model) {
         return new LoginPresenter(model);
     }
 
     @Provides
-    public LoginMVP.Model provideLoginModel(LoginNetworkInterface loginNetworkInterface, LoginManagerModule loginManagerModule){
+    public LoginMVP.Model provideLoginModel(LoginNetworkInterface loginNetworkInterface, LoginManagerModule loginManagerModule) {
         return new LoginModel(loginNetworkInterface, loginManagerModule);
     }
 
     @Provides
-    public LoginNetworkInterface provideLoginNetworkInterface(BiketrackService biketrackService){
+    public LoginNetworkInterface provideLoginNetworkInterface(BiketrackService biketrackService) {
         return new LoginNetwork(biketrackService);
     }
 }

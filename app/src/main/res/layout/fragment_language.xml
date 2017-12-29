@@ -2,48 +2,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical"
-    tools:context="eu.biketrack.android.settings.settings_tab.LanguageFragment"
-    android:background="@color/background">
+    tools:context="eu.biketrack.android.settings.settings_tab.LanguageFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
 
         <!--<android.support.v7.widget.Toolbar-->
-            <!--android:id="@+id/toolbar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@color/interact_background"-->
-            <!--app:titleTextColor="@color/background"-->
-            <!--app:title="@string/title_language"-->
-            <!--app:theme="@style/AppTheme"-->
-            <!--app:popupTheme="@style/Theme.AppCompat"/>-->
+        <!--android:id="@+id/toolbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/interact_background"-->
+        <!--app:titleTextColor="@color/background"-->
+        <!--app:title="@string/title_language"-->
+        <!--app:theme="@style/AppTheme"-->
+        <!--app:popupTheme="@style/Theme.AppCompat"/>-->
 
         <ListView
             android:id="@+id/listView_languages"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background"/>
+            android:background="@color/background" />
     </LinearLayout>
 
     <Button
         android:id="@+id/button_language_clear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_language_clear_txt"
-        android:background="@color/inside"
-        android:textColor="@color/background"
-        android:shadowColor="@color/background"
-        android:textStyle="bold"
-        android:layout_marginTop="28dp"
-        android:layout_marginRight="20dp"
+        android:layout_gravity="bottom"
         android:layout_marginEnd="20dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginStart="20dp"
-        android:layout_gravity="bottom"/>
+        android:layout_marginTop="28dp"
+        android:background="@color/inside"
+        android:shadowColor="@color/background"
+        android:text="@string/button_language_clear_txt"
+        android:textColor="@color/background"
+        android:textStyle="bold" />
 
 
 </FrameLayout>

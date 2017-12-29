@@ -7,18 +7,21 @@ import android.graphics.Bitmap;
  */
 
 public class BillMVP {
-    interface View{
+    interface View {
         void close();
+
         void progressBarVisibility(boolean visible);
+
         void setBitmap(Bitmap bitmap);
     }
 
-    interface Presenter{
+    interface Presenter {
         void setView(BillMVP.View view);
+
         void loadBill(String bikeId);
     }
 
-    interface Model{
+    interface Model {
         void loadBill(String bikeId);
     }
 }

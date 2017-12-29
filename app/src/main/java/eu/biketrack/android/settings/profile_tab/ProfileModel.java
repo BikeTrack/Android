@@ -21,7 +21,7 @@ public class ProfileModel implements ProfileMVP.Model {
     }
 
     @Override
-    public  Observable<ReceptUser> getUserData() {
+    public Observable<ReceptUser> getUserData() {
         return profileNetworkInterface.getUser(loginManagerModule.getUserId(), loginManagerModule.getToken());
     }
 

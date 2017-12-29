@@ -1,8 +1,8 @@
 package eu.biketrack.android.bill;
 
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -15,14 +15,13 @@ import eu.biketrack.android.R;
 import eu.biketrack.android.root.App;
 
 public class Bill extends AppCompatActivity implements BillMVP.View {
-    private String bikeId = null;
+    @Inject
+    public BillMVP.Presenter presenter;
     @BindView(R.id.billProgressBar)
     ProgressBar billProgressBar;
     @BindView(R.id.billImage)
     ImageView billImage;
-
-    @Inject
-    public BillMVP.Presenter presenter;
+    private String bikeId = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -20,7 +20,7 @@ import eu.biketrack.android.editbike.EditBike;
 import eu.biketrack.android.root.App;
 import eu.biketrack.android.settings.SettingsTab;
 
-public class Bikes extends Activity implements BikesMVP.View{
+public class Bikes extends Activity implements BikesMVP.View {
 
     private static String TAG = "BIKETRACK - Bikes";
 
@@ -54,7 +54,6 @@ public class Bikes extends Activity implements BikesMVP.View{
 //    BottomNavigationView bottomNavigationView;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +61,6 @@ public class Bikes extends Activity implements BikesMVP.View{
         setContentView(R.layout.fragment_bikes);
         ButterKnife.bind(this);
         //registerForContextMenu(list);
-
-
 
 
         pg_bar.setVisibility(View.GONE);
@@ -75,7 +72,8 @@ public class Bikes extends Activity implements BikesMVP.View{
 
         mRecyclerView.addOnItemTouchListener(
                 new RecyclerViewItemClickListener(this.getApplicationContext(), new RecyclerViewItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
+                    @Override
+                    public void onItemClick(View view, int position) {
                         Intent i = new Intent(getApplicationContext(), BikeCollectionActivity.class);
                         i.putExtra("position", position);
                         startActivity(i);
@@ -121,7 +119,7 @@ public class Bikes extends Activity implements BikesMVP.View{
             swipeRefreshLayout.setRefreshing(false);
     }
 
-    public void setProgressBar(boolean visible){
+    public void setProgressBar(boolean visible) {
         if (visible)
             swipeRefreshLayout.setRefreshing(true);
         else
@@ -129,13 +127,13 @@ public class Bikes extends Activity implements BikesMVP.View{
     }
 
     @OnClick(R.id.floatin_add_bike)
-    public void addBike(){
+    public void addBike() {
         Intent i = new Intent(this, EditBike.class);
         startActivity(i);
     }
 
     @OnClick(R.id.bikes_param_button)
-    public void openParams(){
+    public void openParams() {
         Intent i = new Intent(this, SettingsTab.class);
         startActivity(i);
 //        finish();

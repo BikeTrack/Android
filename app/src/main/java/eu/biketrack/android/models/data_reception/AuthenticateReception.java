@@ -11,8 +11,17 @@ import com.google.gson.annotations.SerializedName;
  */
 
 
-public class AuthenticateReception implements Parcelable{
+public class AuthenticateReception implements Parcelable {
 
+    public static final Parcelable.Creator<AuthenticateReception> CREATOR = new Parcelable.Creator<AuthenticateReception>() {
+        public AuthenticateReception createFromParcel(Parcel in) {
+            return new AuthenticateReception(in);
+        }
+
+        public AuthenticateReception[] newArray(int size) {
+            return new AuthenticateReception[size];
+        }
+    };
     @SerializedName("success")
     @Expose
     private Boolean success;
@@ -26,17 +35,7 @@ public class AuthenticateReception implements Parcelable{
     @Expose
     private String message;
 
-    public static final Parcelable.Creator<AuthenticateReception> CREATOR = new Parcelable.Creator<AuthenticateReception>() {
-        public AuthenticateReception createFromParcel(Parcel in) {
-            return new AuthenticateReception(in);
-        }
-
-        public AuthenticateReception[] newArray(int size) {
-            return new AuthenticateReception[size];
-        }
-    };
-
-    private AuthenticateReception(Parcel in){
+    private AuthenticateReception(Parcel in) {
         token = in.readString();
         userId = in.readString();
     }

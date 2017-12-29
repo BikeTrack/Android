@@ -4,7 +4,6 @@ import eu.biketrack.android.models.User;
 import eu.biketrack.android.models.data_reception.ReceptDeleteUser;
 import eu.biketrack.android.models.data_reception.ReceptUser;
 import eu.biketrack.android.models.data_reception.ReceptUserUpdate;
-import eu.biketrack.android.models.data_send.UserUpdate;
 import rx.Observable;
 
 /**
@@ -13,6 +12,8 @@ import rx.Observable;
 
 public interface ProfileNetworkInterface {
     Observable<ReceptUser> getUser(String userId, String token);
+
     Observable<ReceptDeleteUser> deleteUser(String userId, String token);
+
     Observable<ReceptUserUpdate> saveUserData(User user, String token);
 }

@@ -6,7 +6,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.util.DisplayMetrics;
-import android.util.Log;
 
 import java.util.Locale;
 
@@ -22,7 +21,7 @@ public class Language {
 //Locale.getDefault().getDisplayLanguage();
 //Locale current = getResources().getConfiguration().locale;
 
-    public static void changeLanguage(Context context, Locale newLocale){
+    public static void changeLanguage(Context context, Locale newLocale) {
         if (getDefaultLocale(context) == null)
             setDefaultLocale(context);
         Resources resources = context.getResources();
@@ -49,12 +48,12 @@ public class Language {
         return sharedPreferences.getString(KEY_DEFAULT, null);
     }
 
-    public static String getCurrentLanguage(Context context){
+    public static String getCurrentLanguage(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("eu.biketrack.android", Context.MODE_PRIVATE);
         return sharedPreferences.getString(KEY_LANGUAGE, null);
     }
 
-    public static void clearLanguage(Context context){
+    public static void clearLanguage(Context context) {
         Locale newLocale = new Locale(getDefaultLocale(context));
         Resources resources = context.getResources();
         Configuration configuration = resources.getConfiguration();

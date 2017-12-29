@@ -37,7 +37,7 @@ public class LoginModel implements LoginMVP.Model {
     }
 
     @Override
-    public void setPresenter(LoginMVP.Presenter presenter){
+    public void setPresenter(LoginMVP.Presenter presenter) {
         this.presenter = presenter;
     }
 
@@ -81,11 +81,11 @@ public class LoginModel implements LoginMVP.Model {
         s = authenticateReceptionObservable.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .timeout(5, TimeUnit.SECONDS)
                 .doOnError(err -> {
-                    Log.d(TAG, "connection: Error !" , err);
+                    Log.d(TAG, "connection: Error !", err);
                 })
                 .retry(2)
                 .doOnError(err -> {
-                    Log.d(TAG, "connection: Error !" , err);
+                    Log.d(TAG, "connection: Error !", err);
                     error = err;
                     destroyIt();
                 })
@@ -97,7 +97,7 @@ public class LoginModel implements LoginMVP.Model {
         return error;
     }
 
-    private void destroyIt(){
+    private void destroyIt() {
         if (!s.isUnsubscribed())
             s.unsubscribe();
         presenter.viewAfterConnection();
@@ -109,11 +109,11 @@ public class LoginModel implements LoginMVP.Model {
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .timeout(5, TimeUnit.SECONDS)
                 .doOnError(err -> {
-                    Log.d(TAG, "subscriptionByFacebook: Error !" , err);
+                    Log.d(TAG, "subscriptionByFacebook: Error !", err);
                 })
                 .retry(2)
                 .doOnError(err -> {
-                    Log.d(TAG, "subscriptionByFacebook: Error !" , err);
+                    Log.d(TAG, "subscriptionByFacebook: Error !", err);
                     error = err;
                     destroyIt();
                 }).subscribe(new Subscriber<SignupReception>() {

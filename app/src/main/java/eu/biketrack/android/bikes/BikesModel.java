@@ -30,7 +30,7 @@ public class BikesModel implements BikesMVP.Model {
         this.presenter = presenter;
     }
 
-    public void getBikes(){
+    public void getBikes() {
         //bikesNetworkInterface.getBikeArrayList(loginManagerModule.getUserId(), loginManagerModule.getToken());
         BikeTrackerList bikeTrackerList = BikeTrackerList.getInstance();
         bikeTrackerList.setBikeTrackerListListener(new BikeTrackerList.BikeTrackerListListener() {
