@@ -21,6 +21,18 @@
         <!--app:title="@string/title_language"-->
         <!--app:theme="@style/AppTheme"-->
         <!--app:popupTheme="@style/Theme.AppCompat"/>-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginStart="20dp"
+            android:maxLines="1"
+            android:text="@string/select_language"
+            android:textAllCaps="true"
+            android:textColor="@color/inside"
+            android:textStyle="italic" />
 
         <ListView
             android:id="@+id/listView_languages"

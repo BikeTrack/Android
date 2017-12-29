@@ -5,119 +5,130 @@
     android:orientation="vertical"
     tools:context="eu.biketrack.android.settings.profile_tab.ProfileFragment">
 
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="20dp"
-        android:maxLines="1"
-        android:text="@string/profile_email_txt"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/titles"
-        android:textStyle="italic" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/profile_email_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="20dp"
-        android:maxLines="1"
-        android:textAlignment="center"
-        android:textColor="@color/inside"
-        android:textSize="20sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="20dp"
-        android:maxLines="1"
-        android:text="@string/profile_lastname_txt"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/titles"
-        android:textStyle="italic" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginStart="20dp"
+                android:maxLines="1"
+                android:text="@string/profile_email_txt"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/titles"
+                android:textStyle="italic" />
 
-    <TextView
-        android:id="@+id/profile_lastname_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="20dp"
-        android:maxLines="1"
-        android:textAlignment="center"
-        android:textColor="@color/inside"
-        android:textSize="20sp" />
+            <TextView
+                android:id="@+id/profile_email_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginStart="20dp"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:textColor="@color/inside"
+                android:textSize="20sp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="20dp"
-        android:maxLines="1"
-        android:text="@string/profile_firstname_txt"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/titles"
-        android:textStyle="italic" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginStart="20dp"
+                android:maxLines="1"
+                android:text="@string/profile_lastname_txt"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/titles"
+                android:textStyle="italic" />
 
-    <TextView
-        android:id="@+id/profile_firstname_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="20dp"
-        android:maxLines="1"
-        android:textAlignment="center"
-        android:textColor="@color/inside"
-        android:textSize="20sp" />
+            <TextView
+                android:id="@+id/profile_lastname_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginStart="20dp"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:textColor="@color/inside"
+                android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/log_off_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="28dp"
-        android:background="@color/inside"
-        android:paddingBottom="15dp"
-        android:paddingTop="15dp"
-        android:shadowColor="@color/background"
-        android:text="@string/log_off_button_txt"
-        android:textColor="@color/background"
-        android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginStart="20dp"
+                android:maxLines="1"
+                android:text="@string/profile_firstname_txt"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/titles"
+                android:textStyle="italic" />
 
-    <Button
-        android:id="@+id/delete_account_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="28dp"
-        android:background="@color/inside"
-        android:paddingBottom="15dp"
-        android:paddingTop="15dp"
-        android:shadowColor="@color/background"
-        android:text="@string/delete_account_button_txt"
-        android:textColor="@color/background"
-        android:textStyle="bold" />
+            <TextView
+                android:id="@+id/profile_firstname_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginStart="20dp"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:textColor="@color/inside"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/log_off_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="28dp"
+                android:background="@color/inside"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:shadowColor="@color/background"
+                android:text="@string/log_off_button_txt"
+                android:textColor="@color/background"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/delete_account_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="28dp"
+                android:background="@color/inside"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:shadowColor="@color/background"
+                android:text="@string/delete_account_button_txt"
+                android:textColor="@color/background"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
 
