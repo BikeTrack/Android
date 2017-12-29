@@ -139,7 +139,19 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".bill.Bill"></activity>
+        <activity android:name=".bill.Bill" />
+
+        <service android:name=".notifications.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".notifications.FirebaseIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

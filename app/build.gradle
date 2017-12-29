@@ -103,16 +103,20 @@ dependencies {
     compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
 
     /* AUTHENTIFICATION / LOGIN */
-    compile group: 'com.google.android.gms', name: 'play-services-auth', version: '11.4.2'
+    compile group: 'com.google.android.gms', name: 'play-services-auth', version: '11.8.0'
     compile 'com.facebook.android:facebook-android-sdk:4.27.0'
 
     /* GOOGLE MAP*/
-    compile group: 'com.google.firebase', name: 'firebase-ads', version: '11.4.2'
-    compile group: 'com.google.android.gms', name: 'play-services-maps', version: '11.4.2'
-    compile group: 'com.google.android.gms', name: 'play-services-gcm', version: '11.4.2'
+    compile group: 'com.google.firebase', name: 'firebase-ads', version: '11.8.0'
+    compile group: 'com.google.android.gms', name: 'play-services-maps', version: '11.8.0'
+    compile group: 'com.google.android.gms', name: 'play-services-gcm', version: '11.8.0'
 
     /* PICTURES */
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+
+
+    compile 'com.google.firebase:firebase-core:11.8.0'
+    compile 'com.google.firebase:firebase-messaging:11.8.0'
 }
 apply plugin: 'com.google.gms.google-services'
