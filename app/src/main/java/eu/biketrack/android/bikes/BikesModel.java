@@ -1,5 +1,7 @@
 package eu.biketrack.android.bikes;
 
+import android.graphics.Bitmap;
+
 import eu.biketrack.android.models.biketracker.BikeTrackerList;
 import eu.biketrack.android.models.biketracker.BikeTrackerNetworkInterface;
 import eu.biketrack.android.session.LoginManagerModule;
@@ -40,6 +42,11 @@ public class BikesModel implements BikesMVP.Model {
             @Override
             public void bikeCreated() {
                 updateDone();
+            }
+
+            @Override
+            public void updatePicture(Bitmap pict) {
+
             }
         });
         bikeTrackerNetworkInterface.updateBikeList();

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import eu.biketrack.android.R;
+import eu.biketrack.android.bill.Bill;
 import eu.biketrack.android.editbike.EditBike;
 import eu.biketrack.android.models.biketracker.BikeTrackerList;
 import eu.biketrack.android.models.data_reception.Bike;
@@ -63,6 +65,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 //    @BindView(R.id.date_last_point) TextView _date_last_point;
     @BindView(R.id.battery_percent) TextView _battery_percent;
     @BindView(R.id.battery) ImageView _battery;
+    @BindView(R.id.goToBillButton) ImageButton goToBillButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -390,4 +393,12 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 //    public void closeFragment(){
 //        getActivity().getSupportFragmentManager().popBackStack();
 //    }
+
+    @OnClick(R.id.goToBillButton)
+    public void openBill(){
+        Intent i = new Intent(getActivity(), Bill.class);
+        i.putExtra("BikeId", bikeTrackerList.getPair(position).first.getId());
+        startActivity(i);
+        getActivity().finish();
+    }
 }

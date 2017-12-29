@@ -1,5 +1,6 @@
 package eu.biketrack.android.models.biketracker;
 
+import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 import eu.biketrack.android.models.data_send.SendBikeInfo;
@@ -17,4 +18,6 @@ public interface BikeTrackerNetworkInterface {
 
     void uploadBikePicture(String picture, String bikeId);
     void uploadBikeBill(String picture, String bikeId);
+
+    void downloadBikeBill(String bikeId);
 }

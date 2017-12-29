@@ -86,7 +86,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     compile "com.squareup.retrofit2:converter-scalars:$retrofitVersion"
 
-
     //http logging
     compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
 

@@ -25,25 +25,41 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
     -->
+    <ImageButton
+        android:id="@+id/goToBillButton"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignEnd="@+id/floatin_update_bike"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/floatin_update_bike"
+        android:layout_marginTop="7dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/biketrack_logo" />
+
     <ImageView
         android:id="@+id/bike_picture"
         android:src="@drawable/biketrack_logo"
-        android:layout_width="150dp"
+        android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
-
+        android:scaleType="centerInside"
         />
 
     <TextView
         android:id="@+id/bike_name_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="75dp"
-        android:textSize="30dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp"
+        android:textAlignment="center"
+        android:textAllCaps="true"
         android:textColor="@color/inside"
-        />
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatin_update_bike"

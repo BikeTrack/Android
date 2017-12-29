@@ -1,5 +1,8 @@
 package eu.biketrack.android.models.biketracker;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -8,6 +11,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.api_connection.Statics;
@@ -245,6 +249,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
         biketrackService.getBikePicture(token, bike.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .timeout(20, TimeUnit.SECONDS)
                 .doOnError(error -> {
                     Log.e(TAG, "onError: ", error);
                 })
@@ -330,7 +335,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
             File tmp = new File(picture);
             Log.d(TAG, "uploadBikeBill: " + tmp);
             MultipartBody.Part filePart = MultipartBody.Part.
-                    createFormData("photoBike", tmp.getName(), RequestBody.create(MediaType.parse("image/*"), tmp));
+                    createFormData("photoBill", tmp.getName(), RequestBody.create(MediaType.parse("image/*"), tmp));
             biketrackService.uploadBikeBill(loginManagerModule.getToken(), bikeId, filePart)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -352,5 +357,37 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface{
         } catch (Exception e){
             Log.e(TAG, "uploadBikeBill: ", e);
         }
+    }
+
+    @Override
+    public void downloadBikeBill(String bikeId) {
+        biketrackService.getBikeBill(loginManagerModule.getToken(),bikeId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .timeout(20, TimeUnit.SECONDS)
+                .doOnError(error -> {
+                    Log.e(TAG, "onError: ", error);
+                })
+                .onErrorResumeNext(throwable -> {
+                    return Observable.just(null);
+                })
+                .doOnNext(str -> {
+                    if (bikeTrackerList.listener != null) {
+                        byte[] decodedString = Base64.decode(str, Base64.DEFAULT);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        bikeTrackerList.listener.updatePicture(decodedByte);
+                    }
+
+                })
+                .doOnCompleted(() -> {
+
+                })
+                .subscribe(s -> {},
+                        throwable -> {
+                            Log.e(TAG, "downloadBikeBill: ", throwable);
+                            bikeTrackerList.listener.updatePicture(null);
+                        },
+                        () -> {});
+
     }
 }

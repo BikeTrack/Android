@@ -120,8 +120,9 @@ public class EditBike extends Activity implements EditBikeMVP.View {
             presenter.createBike(bike);
         else{
             if (selectedImagePathBike != null) {
-                Log.d(TAG, "saveBike: " + selectedImagePathBike);
                 presenter.uploadBikePhoto(selectedImagePathBike, tmp.getId());
+            }
+            if (selectedImagePathBill != null){
                 presenter.uploadBikeBill(selectedImagePathBill, tmp.getId());
             }
             presenter.updateBike(tmp.getId(), bike);

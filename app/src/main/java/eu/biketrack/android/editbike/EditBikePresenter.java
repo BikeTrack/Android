@@ -1,6 +1,6 @@
 package eu.biketrack.android.editbike;
 
-import android.net.Uri;
+import android.graphics.Bitmap;
 
 import eu.biketrack.android.models.biketracker.BikeTrackerList;
 import eu.biketrack.android.models.data_send.SendBikeInfo;
@@ -27,13 +27,16 @@ public class EditBikePresenter implements EditBikeMVP.Presenter {
         BikeTrackerList b = BikeTrackerList.getInstance();
         b.setBikeTrackerListListener(new BikeTrackerList.BikeTrackerListListener() {
             @Override
-            public void listUpdated() {
-
-            }
+            public void listUpdated() {}
 
             @Override
             public void bikeCreated() {
                 closeView();
+            }
+
+            @Override
+            public void updatePicture(Bitmap pict) {
+
             }
         });
         model.createBike(bike);
@@ -52,6 +55,11 @@ public class EditBikePresenter implements EditBikeMVP.Presenter {
             public void bikeCreated() {
                 closeView();
             }
+
+            @Override
+            public void updatePicture(Bitmap pict) {
+
+            }
         });
         model.updateBike(bikeId, bike);
     }
@@ -65,13 +73,16 @@ public class EditBikePresenter implements EditBikeMVP.Presenter {
         BikeTrackerList b = BikeTrackerList.getInstance();
         b.setBikeTrackerListListener(new BikeTrackerList.BikeTrackerListListener() {
             @Override
-            public void listUpdated() {
-
-            }
+            public void listUpdated() {}
 
             @Override
             public void bikeCreated() {
                 closeView();
+            }
+
+            @Override
+            public void updatePicture(Bitmap pict) {
+
             }
         });
         model.deleteBike(bikeId, bike);

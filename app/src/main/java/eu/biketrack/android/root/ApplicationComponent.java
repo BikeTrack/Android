@@ -9,6 +9,8 @@ import eu.biketrack.android.autologin.AutoLogin;
 import eu.biketrack.android.autologin.AutoLoginModule;
 import eu.biketrack.android.bikes.Bikes;
 import eu.biketrack.android.bikes.BikesModule;
+import eu.biketrack.android.bill.Bill;
+import eu.biketrack.android.bill.BillModule;
 import eu.biketrack.android.editbike.EditBike;
 import eu.biketrack.android.editbike.EditBikeModule;
 import eu.biketrack.android.initializer.Initializer;
@@ -40,7 +42,8 @@ import eu.biketrack.android.subscription.SubscriptionModule;
         BikesModule.class,
         BikeTrackerListModule.class,
         EditBikeModule.class,
-        ProfileModule.class
+        ProfileModule.class,
+        BillModule.class
 })
 public interface ApplicationComponent {
 
@@ -55,6 +58,7 @@ public interface ApplicationComponent {
     void inject(EditBike target);
     void inject(ProfileFragment target);
     void inject(EditProfileFragment target);
+    void inject(Bill target);
 
 
 

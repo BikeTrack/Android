@@ -23,16 +23,15 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
-    <!--android:hardwareAccelerated="false"-->
-    <!--android:largeHeap="true"-->
-
+    <!-- android:hardwareAccelerated="false" -->
+    <!-- android:largeHeap="true" -->
     <application
-        android:hardwareAccelerated="false"
-        android:largeHeap="true"
         android:name=".root.App"
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/biketrack"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
@@ -103,13 +102,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan|adjustResize" />
-
         <activity
             android:name=".settings.SettingsTab"
             android:label="@string/title_activity_settings_tab"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan|adjustResize"/>
-
+            android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
             android:name=".activities.BikeTrack"
             android:screenOrientation="portrait"
@@ -142,6 +139,7 @@
             android:enabled="true"
             android:exported="false" />
 
+        <activity android:name=".bill.Bill"></activity>
     </application>
 
 </manifest>

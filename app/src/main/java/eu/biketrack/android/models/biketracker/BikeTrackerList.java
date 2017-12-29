@@ -1,5 +1,6 @@
 package eu.biketrack.android.models.biketracker;
 
+import android.graphics.Bitmap;
 import android.support.v4.util.Pair;
 import android.util.Log;
 
@@ -15,15 +16,14 @@ import eu.biketrack.android.models.data_reception.Tracker;
  * Created by 42900 on 14/10/2017 for BikeTrack_Android.
  */
 /*
-
     Ajouter interface + classe pour update les données.
-
  */
 public class BikeTrackerList {
     private BikeTrackerNetworkInterface bikeTrackerNetworkInterface;
     public interface BikeTrackerListListener {
         void listUpdated();
         void bikeCreated();
+        void updatePicture(Bitmap pict);
     }
 
     private static final String TAG = "BikeTrackerList";
