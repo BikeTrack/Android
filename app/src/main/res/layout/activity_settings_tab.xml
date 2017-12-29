@@ -13,17 +13,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background"
-        android:paddingTop="@dimen/appbar_padding_top"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-100dp"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 android:src="@drawable/settingsheader" />
 
             <TextView
@@ -38,6 +38,17 @@
                 android:textAlignment="center"
                 android:textColor="@color/background"
                 android:textSize="38sp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/settings_floating_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="13dp"
+                android:layout_marginRight="13dp"
+                app:srcCompat="@drawable/edit_icon" />
 
         </RelativeLayout>
 
@@ -76,15 +87,5 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/settings_floating_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginTop="200dp"
-        app:layout_anchor="@+id/appbar"
-        app:layout_anchorGravity="right|center"
-        app:srcCompat="@drawable/edit_icon" />
 
 </android.support.design.widget.CoordinatorLayout>
