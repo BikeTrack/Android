@@ -30,6 +30,8 @@ public class ProfileFragment extends Fragment implements ProfileMVP.View {
     TextView _lastname;
     @BindView(R.id.profile_firstname_tv)
     TextView _firstname;
+    @BindView(R.id.profile_dob_tv)
+    TextView _dob;
     @Inject
     ProfileMVP.Presenter presenter;
     private Unbinder unbinder;
@@ -125,12 +127,12 @@ public class ProfileFragment extends Fragment implements ProfileMVP.View {
 
     @Override
     public String get_dob() {
-        return null;
+        return this._dob.getText().toString();
     }
 
     @Override
     public void set_dob(String _dob) {
-
+        this._dob.setText(_dob);
     }
 
     @Override

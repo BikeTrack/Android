@@ -95,6 +95,33 @@
                 android:textColor="@color/inside"
                 android:textSize="20sp" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginStart="20dp"
+                android:maxLines="1"
+                android:text="@string/profile_dob_txt"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/titles"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/profile_dob_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginStart="20dp"
+                android:maxLines="1"
+                android:textAlignment="center"
+                android:textColor="@color/inside"
+                android:textSize="20sp" />
+
             <Button
                 android:id="@+id/log_off_button"
                 android:layout_width="match_parent"

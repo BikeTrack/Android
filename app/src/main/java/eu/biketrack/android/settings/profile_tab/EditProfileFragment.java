@@ -1,5 +1,6 @@
 package eu.biketrack.android.settings.profile_tab;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -8,8 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 import javax.inject.Inject;
 
@@ -21,7 +26,7 @@ import eu.biketrack.android.R;
 import eu.biketrack.android.root.App;
 
 
-public class EditProfileFragment extends Fragment implements ProfileMVP.View {
+public class EditProfileFragment extends Fragment implements ProfileMVP.View, DatePickerDialog.OnDateSetListener {
     private static String TAG = "BIKETRACK - EditProfile";
     @BindView(R.id.profile_email_edit)
     EditText _email;
@@ -29,8 +34,12 @@ public class EditProfileFragment extends Fragment implements ProfileMVP.View {
     EditText _lastname;
     @BindView(R.id.profile_firstname_edit)
     EditText _firstname;
+    @BindView(R.id.profile_dob_edit)
+    TextView datePicker;
     @Inject
     ProfileMVP.Presenter presenter;
+    private DatePickerDialog datePickerDialog;
+    private String dob = "";
     private Unbinder unbinder;
 
     @Override
@@ -39,6 +48,8 @@ public class EditProfileFragment extends Fragment implements ProfileMVP.View {
         ((App) getActivity().getApplication()).getComponent().inject(this);
         getActivity().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        Calendar currentTime = Calendar.getInstance();
+        datePickerDialog = new DatePickerDialog(getContext(), this, currentTime.get(Calendar.YEAR), currentTime.get(Calendar.MONTH), currentTime.get(Calendar.DAY_OF_MONTH));
     }
 
     @Override
@@ -106,12 +117,12 @@ public class EditProfileFragment extends Fragment implements ProfileMVP.View {
 
     @Override
     public String get_dob() {
-        return null;
+        return dob;
     }
 
     @Override
     public void set_dob(String _dob) {
-
+        dob = _dob;
     }
 
     @Override
@@ -120,5 +131,15 @@ public class EditProfileFragment extends Fragment implements ProfileMVP.View {
             Snackbar.make(this.getView(), message, Snackbar.LENGTH_LONG).show();
         else
             Toast.makeText(this.getContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    @OnClick(R.id.profile_dob_edit)
+    public void selectDate() {
+        datePickerDialog.show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        dob = dayOfMonth + "/" + (month + 1) + "/" + year;
     }
 }

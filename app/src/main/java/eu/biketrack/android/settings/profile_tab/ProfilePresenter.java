@@ -37,6 +37,7 @@ public class ProfilePresenter implements ProfileMVP.Presenter {
             view.set_email(receptUser.getUser().getEmail());
             view.set_lastname(receptUser.getUser().getLastname());
             view.set_firstname(receptUser.getUser().getName());
+            view.set_dob(receptUser.getUser().getDob());
         }).subscribe();
     }
 
