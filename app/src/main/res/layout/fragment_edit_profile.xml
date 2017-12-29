@@ -5,31 +5,6 @@
     android:background="@color/background"
     android:orientation="vertical"
     tools:context="eu.biketrack.android.settings.profile_tab.EditProfileFragment">
-    <!--<android.support.v7.widget.Toolbar-->
-    <!--android:id="@+id/toolbar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:background="@color/interact_background"-->
-    <!--app:titleTextColor="@color/background"-->
-    <!--app:title="@string/title_profile_edit"-->
-    <!--app:theme="@style/AppTheme"-->
-    <!--app:popupTheme="@style/Theme.AppCompat"/>-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/tmp_img"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="100sp"-->
-    <!--android:src="@drawable/ic_logo_black"-->
-    <!--android:scaleType="fitCenter" />-->
-
-    <!--<Button-->
-    <!--android:id="@+id/upload_picture"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Selectionner une photo"-->
-    <!--android:background="@color/interact_background"-->
-    <!--android:textColor="@color/inside"-->
-    <!--android:layout_marginTop="20dp"/>-->
 
     <TextView
         android:layout_width="match_parent"
