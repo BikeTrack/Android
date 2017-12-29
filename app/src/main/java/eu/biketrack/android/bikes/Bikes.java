@@ -58,7 +58,7 @@ public class Bikes extends Activity implements BikesMVP.View {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((App) getApplication()).getComponent().inject(this);
-        setContentView(R.layout.fragment_bikes);
+        setContentView(R.layout.activity_bikes);
         ButterKnife.bind(this);
         //registerForContextMenu(list);
 
@@ -148,7 +148,7 @@ public class Bikes extends Activity implements BikesMVP.View {
 
     //    @Override
 //    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        View layout = inflater.inflate(R.layout.fragment_bikes, container, false);
+//        View layout = inflater.inflate(R.layout.activity_bikes, container, false);
 //        unbinder = ButterKnife.bind(this, layout);
 //        if (list != null)
 //            list.setEmptyView(emptyText);
