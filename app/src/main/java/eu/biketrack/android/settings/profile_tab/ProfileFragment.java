@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ public class ProfileFragment extends Fragment implements ProfileMVP.View {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ((App) getActivity().getApplication()).getComponent().inject(this);
-//        session = Session.getInstance();
+
     }
 
     @Override
@@ -56,10 +57,13 @@ public class ProfileFragment extends Fragment implements ProfileMVP.View {
     @Override
     public void onResume() {
         super.onResume();
+        Log.d(TAG, "onResume: OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
         presenter.setView(this);
         presenter.setResources(getResources());
         presenter.getUserData();
     }
+
+
 
     @Override
     public void onDestroyView() {
@@ -138,5 +142,10 @@ public class ProfileFragment extends Fragment implements ProfileMVP.View {
     @Override
     public void displayMessage(String message) {
         Snackbar.make(this.getView(), message, Snackbar.LENGTH_LONG).show();
+    }
+
+    public void update(){
+        Log.d(TAG, "updaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaate: ");
+        presenter.getUserData();
     }
 }

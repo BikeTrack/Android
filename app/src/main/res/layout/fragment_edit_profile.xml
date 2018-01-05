@@ -63,7 +63,6 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginStart="20dp"
                 android:ellipsize="start"
-                android:inputType="textCapCharacters"
                 android:textAlignment="center" />
 
             <TextView
@@ -89,7 +88,6 @@
                 android:layout_marginRight="20dp"
                 android:layout_marginStart="20dp"
                 android:ellipsize="start"
-                android:inputType="textCapCharacters"
                 android:textAlignment="center" />
 
             <TextView

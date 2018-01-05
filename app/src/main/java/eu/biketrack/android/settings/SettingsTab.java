@@ -30,6 +30,20 @@ public class SettingsTab extends FragmentActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     @Override
+    protected void onResume() {
+        Log.d(TAG, "onResume: LAAAAAAAAAAAAAA CAAAAAAAAAAAAAA RESUME ");
+        try {
+            super.onResume();
+            Fragment f = ((SectionsPagerAdapter) mViewPager.getAdapter()).getCurrentFragment();
+            f.onResume();
+        }catch (Exception e){
+            Log.e(TAG, "onResume: ", e);
+        }
+    }
+
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_tab);
@@ -49,6 +63,12 @@ public class SettingsTab extends FragmentActivity {
             @Override
             public void onPageSelected(int position) {
                 settingsFloatingButtonVisibility(position);
+                try {
+                    Fragment f = ((SectionsPagerAdapter) mViewPager.getAdapter()).getCurrentFragment();
+                    f.onResume();
+                }catch (Exception e){
+                    Log.e(TAG, "onPageSelected: ", e);
+                }
             }
 
             @Override
@@ -68,13 +88,28 @@ public class SettingsTab extends FragmentActivity {
                         break;
                     case 1:
                         break;
-                    case 2:
-                        break;
+//                    case 2:
+//                        break;
                     default:
                         break;
                 }
             }
         });
+    }
+
+    @Override
+    public void onContentChanged() {
+        super.onContentChanged();
+        Log.d(TAG, "onContentChangeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeed: ");
+        try {
+            mViewPager.setCurrentItem(0);
+            Fragment f = ((SectionsPagerAdapter) mViewPager.getAdapter()).getProfileFragment();
+            Log.d(TAG, "onContentChanged: " + f);
+            f.onResume();
+        }catch (Exception e){
+            Log.e(TAG, "onContentChanged: ", e);
+        }
+
     }
 
     private void openEditProfileFragment() {
@@ -87,16 +122,18 @@ public class SettingsTab extends FragmentActivity {
                 .commit();
     }
 
+
+
     protected void settingsFloatingButtonVisibility(int position) {
         Log.d(TAG, "settingsFloatingButtonVisibility: page =" + position);
         switch (position) {
             case 0:
                 settingsFloatingButton.setVisibility(View.VISIBLE);
                 break;
+//            case 1:
+//                settingsFloatingButton.setVisibility(View.GONE);
+//                break;
             case 1:
-                settingsFloatingButton.setVisibility(View.GONE);
-                break;
-            case 2:
                 settingsFloatingButton.setVisibility(View.GONE);
                 break;
             default:
@@ -111,6 +148,9 @@ public class SettingsTab extends FragmentActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         private int currentPage = 0;
+        private ProfileFragment profileFragment = null;
+//        private EmergencyFragment emergencyFragment = null;
+        private SettingsFragment settingsFragment = null;
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -121,14 +161,18 @@ public class SettingsTab extends FragmentActivity {
             currentPage = position;
             switch (position) {
                 case 0:
-                    return new ProfileFragment();
+                    this.profileFragment = new ProfileFragment();
+                    return this.profileFragment;
+//                case 1:
+//                    this.emergencyFragment = new EmergencyFragment();
+//                    return this.emergencyFragment;
                 case 1:
-                    return new EmergencyFragment();
-                case 2:
-                    return new SettingsFragment();
+                    this.settingsFragment = new SettingsFragment();
+                    return this.settingsFragment;
                 default:
                     currentPage = 0;
-                    return new ProfileFragment(); //au cas ou ...
+                    this.profileFragment = new ProfileFragment();
+                    return this.profileFragment;
             }
         }
 
@@ -136,9 +180,24 @@ public class SettingsTab extends FragmentActivity {
             return currentPage;
         }
 
+        public Fragment getCurrentFragment(){
+            if( getCurrentPage() == 0)
+                return this.profileFragment;
+//            else if (getCurrentPage() == 1)
+//                return this.emergencyFragment;
+            else if (getCurrentPage() == 1)
+                return this.settingsFragment;
+            else
+                return null;
+        }
+
+        public ProfileFragment getProfileFragment() {
+            return profileFragment;
+        }
+
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
     }
 }
