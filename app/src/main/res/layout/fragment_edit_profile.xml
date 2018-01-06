@@ -8,7 +8,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -104,20 +105,40 @@
                 android:textColor="@color/titles"
                 android:textStyle="italic" />
 
-            <Button
-                android:id="@+id/profile_dob_edit"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/inside"
-                android:text="select date"
-                android:textColor="@color/background"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/profile_dobt_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="1"
+                    android:ellipsize="start"
+                    android:focusable="false"
+                    android:text="##/##/####"
+                    android:textAlignment="center" />
+
+                <ImageButton
+                    android:id="@+id/profile_dob_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="2"
+                    android:background="@color/inside"
+                    android:src="@android:drawable/ic_menu_my_calendar"
+                    android:textColor="@color/background"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/save_account_button"

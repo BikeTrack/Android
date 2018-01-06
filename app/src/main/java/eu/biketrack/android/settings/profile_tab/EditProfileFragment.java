@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -35,8 +34,10 @@ public class EditProfileFragment extends Fragment implements ProfileMVP.View, Da
     EditText _lastname;
     @BindView(R.id.profile_firstname_edit)
     EditText _firstname;
-    @BindView(R.id.profile_dob_edit)
-    TextView datePicker;
+    //    @BindView(R.id.profile_dob_edit)
+//    TextView datePicker;
+    @BindView(R.id.profile_dobt_edit)
+    EditText dob_text;
     @Inject
     ProfileMVP.Presenter presenter;
     private DatePickerDialog datePickerDialog;
@@ -125,6 +126,13 @@ public class EditProfileFragment extends Fragment implements ProfileMVP.View, Da
     @Override
     public void set_dob(String _dob) {
         dob = _dob;
+        try {
+            String[] td = dob.split("/|-");
+            datePickerDialog.updateDate(Integer.parseInt(td[2]), Integer.parseInt(td[1]) - 1, Integer.parseInt(td[0]));
+        } catch (Exception e) {
+            Log.e(TAG, "set_dob: ", e);
+        }
+        dob_text.setText(dob);
     }
 
     @Override
@@ -142,6 +150,17 @@ public class EditProfileFragment extends Fragment implements ProfileMVP.View, Da
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        dob = dayOfMonth + "/" + (month + 1) + "/" + year;
+        String d;
+        String m;
+        if (dayOfMonth < 10)
+            d = "0" + dayOfMonth;
+        else
+            d = "" + dayOfMonth;
+        if (month + 1 < 10)
+            m = "0" + (month + 1);
+        else
+            m = "" + (month + 1);
+        dob = d + "/" + m + "/" + year;
+        dob_text.setText(dob);
     }
 }
