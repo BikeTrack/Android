@@ -14,7 +14,6 @@ import android.view.View;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import eu.biketrack.android.R;
-import eu.biketrack.android.settings.emergency_tab.EmergencyFragment;
 import eu.biketrack.android.settings.profile_tab.EditProfileFragment;
 import eu.biketrack.android.settings.profile_tab.ProfileFragment;
 import eu.biketrack.android.settings.settings_tab.SettingsFragment;
@@ -31,7 +30,6 @@ public class SettingsTab extends FragmentActivity {
 
     @Override
     protected void onResume() {
-        Log.d(TAG, "onResume: LAAAAAAAAAAAAAA CAAAAAAAAAAAAAA RESUME ");
         try {
             super.onResume();
             Fragment f = ((SectionsPagerAdapter) mViewPager.getAdapter()).getCurrentFragment();
@@ -100,7 +98,6 @@ public class SettingsTab extends FragmentActivity {
     @Override
     public void onContentChanged() {
         super.onContentChanged();
-        Log.d(TAG, "onContentChangeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeed: ");
         try {
             mViewPager.setCurrentItem(0);
             Fragment f = ((SectionsPagerAdapter) mViewPager.getAdapter()).getProfileFragment();

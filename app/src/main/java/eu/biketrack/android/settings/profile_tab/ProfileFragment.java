@@ -7,11 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -57,7 +57,6 @@ public class ProfileFragment extends Fragment implements ProfileMVP.View {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
         presenter.setView(this);
         presenter.setResources(getResources());
         presenter.getUserData();
@@ -141,11 +140,13 @@ public class ProfileFragment extends Fragment implements ProfileMVP.View {
 
     @Override
     public void displayMessage(String message) {
-        Snackbar.make(this.getView(), message, Snackbar.LENGTH_LONG).show();
+        if (this.getView() != null)
+            Snackbar.make(this.getView(), message, Snackbar.LENGTH_LONG).show();
+        else
+            Toast.makeText(this.getContext(), message, Toast.LENGTH_LONG).show();
     }
 
     public void update(){
-        Log.d(TAG, "updaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaate: ");
         presenter.getUserData();
     }
 }
