@@ -37,6 +37,9 @@ public class ProfileModel implements ProfileMVP.Model {
 
     @Override
     public Observable<ReceptUserUpdate> saveUserData(User user) {
-        return profileNetworkInterface.saveUserData(user, loginManagerModule.getToken());
+        return profileNetworkInterface.saveUserData(user, loginManagerModule.getToken())
+                .doOnNext(receptUserUpdate -> {
+                    loginManagerModule.storeEmail(user.getEmail());
+                });
     }
 }
