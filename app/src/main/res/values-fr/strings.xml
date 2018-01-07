@@ -100,7 +100,7 @@
 
     <string name="network_error">Outch, il y a un problème</string>
 
-    <string name="user_unauthorized">Connexion non authorisée. Verifiez votre email et votre mot de passe.</string>
+    <string name="user_unauthorized">Connexion non autorisée. Verifiez votre email et votre mot de passe.</string>
     <string name="user_not_found">Vous n\'ètes pas inscris. Inscrivez-vous maintenant !</string>
 
     <string name="bike_created">Votre vélo est maintenant créé</string>
@@ -115,4 +115,26 @@
     <string name="tab_text_1">Compte</string>
     <string name="tab_text_2">Contact d\'urgence</string>
     <string name="tab_text_3">Paramètres</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_settings">Paramètres</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_settings_tab">SettingsTab</string>
+
+    <string name="action_settings">Paramètres</string>
+    <string name="selectImage">Gallerie</string>
+    <string name="takeImage">Photo</string>
+
+    <string name="access_disk">Permission d\'accéder aux photos</string>
+    <string name="access_disk_message">Si vous ne nous permettez pas d\accéder aux photos, vous ne pourrez pas en associer a vos vélos</string>
+    <string name="ok">OK</string>
+
+    <string name="bad_picture">Mauvais fichier</string>
+    <string name="bad_picture_message">Soyez sur de prendre une photo dans la gallerie pour éviter les problèmes.</string>
+
+    <string name="rememberme">Se rappeler de moi</string>
+    <string name="bill_txt">Facture</string>
+    <string name="select_language">Selectionnez votre langue</string>
 </resources>
