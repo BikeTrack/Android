@@ -25,6 +25,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.concurrent.TimeUnit;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -35,8 +37,15 @@ import eu.biketrack.android.editbike.EditBike;
 import eu.biketrack.android.models.biketracker.BikeTrackerList;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_reception.Location;
+import eu.biketrack.android.models.data_reception.ReceiveTracker;
 import eu.biketrack.android.models.data_reception.Tracker;
+import eu.biketrack.android.session.LoginManagerModule;
 import eu.biketrack.android.session.Session;
+import rx.Observable;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static eu.biketrack.android.api_connection.Statics.BATTERY_CRITICAL;
 import static eu.biketrack.android.api_connection.Statics.BATTERY_LOW;
@@ -64,10 +73,12 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
     private Session session;
     private Bike bike;
     private BikeTrackerList bikeTrackerList = BikeTrackerList.getInstance();
+    private LoginManagerModule loginManagerModule;
     private int position;
     // private BiketrackService biketrackService;
 //    private CompositeDisposable _disposables;
     private Tracker tracker;
+    private Subscription inter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,6 +89,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 //        session = Session.getInstance();
 //        bike = bundle.getParcelable("BIKE");
         position = bundle.getInt(ARG_BIKE);
+        loginManagerModule = bikeTrackerList.getBikeTrackerNetworkInterface().getLoginManagerModule();
     }
 
     @OnClick(R.id.floatin_update_bike)
@@ -105,6 +117,38 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         } catch (Exception e) {
             Log.e(TAG, "onCreateView: ", e);
         }
+
+        bikeTrackerList.getBikeTrackerNetworkInterface().displayImage(loginManagerModule.getToken(),
+                bikeTrackerList.getPair(position).first.getId(),
+                _bike_picture);
+
+        inter = Observable.interval(30, TimeUnit.SECONDS)
+                .subscribe(aLong -> {
+                            bikeTrackerList.getBikeTrackerNetworkInterface()
+                                    .getTracker(tracker.getId(), loginManagerModule.getToken())
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new Subscriber<ReceiveTracker>() {
+                                        @Override
+                                        public void onCompleted() {
+                                        }
+
+                                        @Override
+                                        public void onError(Throwable e) {
+                                            Log.e(TAG, "onError: ", e);
+                                        }
+
+                                        @Override
+                                        public void onNext(ReceiveTracker receiveTracker) {
+                                            tracker = receiveTracker.getTracker();
+                                            if (mapView != null)
+                                                mapView.getMapAsync(BikeFragment.this);
+                                        }
+                                    });
+                        },
+                        throwable -> Log.e(TAG, "onCreateView: ", throwable),
+                        () -> {
+                        });
 
 
         try {
@@ -251,6 +295,12 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         if (mapView != null)
             mapView.onDestroy();
         super.onDestroyView();
+        try {
+            if (!inter.isUnsubscribed())
+                inter.unsubscribe();
+        } catch (Exception e) {
+            Log.e(TAG, "onDestroyView: ", e);
+        }
         unbinder.unbind();
     }
 
@@ -280,6 +330,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
     //
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        Log.d(TAG, "onMapReady: ");
         LatLng target = null;
         int i = 0;
 //        int j = 0;
