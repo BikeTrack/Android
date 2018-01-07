@@ -29,7 +29,7 @@ public class ApiConnectModule {
 
         Log.d(TAG, "provideClient");
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         return new OkHttpClient.Builder().addInterceptor(interceptor).addInterceptor(new Interceptor() {
             @Override

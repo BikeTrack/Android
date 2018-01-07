@@ -13,6 +13,7 @@ import eu.biketrack.android.models.data_send.AuthUserFB;
 import eu.biketrack.android.models.data_send.DeleteUser;
 import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.models.data_send.SendBikeUpdate;
+import eu.biketrack.android.models.data_send.SendUserTokenAndroid;
 import eu.biketrack.android.models.data_send.SendUserUpdate;
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
@@ -46,10 +47,9 @@ public interface BiketrackService {
     @PATCH("profile")
     Observable<ReceptUserUpdate> updateUser(@Header("x-access-token") String access_token, @Body SendUserUpdate sendUserUpdate);
 
-    //    @Multipart
-//    @PATCH("profile")
-//    Observable<ReceptUserUpdate> uploadProfilePhoto(@Header("Authorization") String token, @Header("x-access-token") String access_token, @Part MultipartBody.Part image, @Part("contentType") String contentType);
-//
+    @PATCH("profile")
+    Observable<ReceptUserUpdate> updateUserToken(@Header("x-access-token") String access_token, @Body SendUserTokenAndroid sendUserUpdate);
+
     @HTTP(method = "DELETE", path = "profile", hasBody = true)
     Observable<ReceptDeleteUser> deleteUser(@Header("x-access-token") String access_token, @Body DeleteUser user);
 
