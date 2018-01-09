@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -30,7 +31,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Log.d(TAG, "Title: " + remoteMessage.getNotification().getTitle());
             Log.d(TAG, "Data: " + remoteMessage.getData());
             Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
-            sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
+            sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody(), remoteMessage);
         } catch (Exception e) {
             Log.e(TAG, "onMessageReceived: ", e);
         }
@@ -38,9 +39,22 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     }
 
-    private void sendNotification(String messageTitle, String messageBody) {
+    private void sendNotification(String messageTitle, String messageBody, RemoteMessage remoteMessage) {
         Intent intent = new Intent(this, BikeTrack.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        try {
+
+            Bundle bundle = new Bundle();
+            bundle.putString("latitude", remoteMessage.getData().get("latitude"));
+            bundle.putString("longitude", remoteMessage.getData().get("longitude"));
+            bundle.putString("tarckerId", remoteMessage.getData().get("tarckerId"));
+            bundle.putString("type", remoteMessage.getData().get("type"));
+            intent.putExtras(bundle);
+        } catch (Exception e) {
+            Log.e(TAG, "sendNotification: ", e);
+        }
+
+
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* request code */, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         long[] pattern = {500, 500, 500, 500, 500};

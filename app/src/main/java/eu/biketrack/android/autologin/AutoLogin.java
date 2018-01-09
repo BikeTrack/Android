@@ -36,6 +36,7 @@ public class AutoLogin extends Activity implements AutoLoginMVP.View {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_auto_login);
         ButterKnife.bind(this);
+        ((App) getApplication()).getComponent().inject(this);
 //        Log.d(TAG, "oncreate");
 //        biketrackService = ApiConnectModule.createService();
 //        _disposables = new CompositeDisposable();
@@ -44,7 +45,16 @@ public class AutoLogin extends Activity implements AutoLoginMVP.View {
 //        loginManagerModule.init(this.getContext());
 //        session = Session.getInstance();
 
-        ((App) getApplication()).getComponent().inject(this);
+
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                String value = getIntent().getExtras().getString(key);
+                Log.d(TAG, "Key: " + key + " Value: " + value);
+            }
+        } else
+            Log.d(TAG, "onCreate: " + getIntent().getExtras());
+
+
     }
 
     @Override

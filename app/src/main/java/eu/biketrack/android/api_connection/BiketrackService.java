@@ -10,6 +10,7 @@ import eu.biketrack.android.models.data_reception.ReceptUserUpdate;
 import eu.biketrack.android.models.data_reception.SignupReception;
 import eu.biketrack.android.models.data_send.AuthUser;
 import eu.biketrack.android.models.data_send.AuthUserFB;
+import eu.biketrack.android.models.data_send.CancelEmergency;
 import eu.biketrack.android.models.data_send.DeleteUser;
 import eu.biketrack.android.models.data_send.SendBike;
 import eu.biketrack.android.models.data_send.SendBikeUpdate;
@@ -88,4 +89,6 @@ public interface BiketrackService {
     @Multipart
     Observable<ReceiveBike> uploadBikeBill(@Header("x-access-token") String access_token, @Part("bikeId") String bikeId, @Part MultipartBody.Part photo);
 
+    @POST("stillAlive")
+    Observable<SignupReception> cancelEmergency(@Body CancelEmergency cancelEmergency);
 }
