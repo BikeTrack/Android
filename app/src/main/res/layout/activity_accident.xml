@@ -9,17 +9,39 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Un accident a été détecté, devons nous prévenir les secours ?" />
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/notif_emergency_msg"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/accident_button_yes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Oui" />
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/inside"
+        android:text="@string/notif_emergency_yes"
+        android:textColor="@color/background"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/accident_button_no"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Non" />
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/inside"
+        android:text="@string/notif_emergency_no"
+        android:textColor="@color/background"
+        android:textStyle="bold" />
 </LinearLayout>

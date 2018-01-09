@@ -136,4 +136,7 @@
     <string name="bill_txt">Bill</string>
     <string name="select_language">Select your language</string>
 
+    <string name="notif_emergency_msg">An accident as been detected ? Should we call someone ?</string>
+    <string name="notif_emergency_yes">Yes</string>
+    <string name="notif_emergency_no">No, I\'m OK</string>
 </resources>

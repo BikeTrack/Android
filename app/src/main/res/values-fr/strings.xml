@@ -137,4 +137,8 @@
     <string name="rememberme">Se rappeler de moi</string>
     <string name="bill_txt">Facture</string>
     <string name="select_language">Selectionnez votre langue</string>
+
+    <string name="notif_emergency_msg">Un accident a été détecté, devons nous appeler les secours ?</string>
+    <string name="notif_emergency_yes">Oui</string>
+    <string name="notif_emergency_no">Non, je vais bien!</string>
 </resources>
