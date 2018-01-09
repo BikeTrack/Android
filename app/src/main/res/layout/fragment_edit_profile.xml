@@ -6,6 +6,11 @@
     android:orientation="vertical"
     tools:context="eu.biketrack.android.settings.profile_tab.EditProfileFragment">
 
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimaryDark" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

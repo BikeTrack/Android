@@ -154,7 +154,9 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".accident.AccidentActivity"></activity>
+        <activity
+            android:name=".accident.AccidentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
