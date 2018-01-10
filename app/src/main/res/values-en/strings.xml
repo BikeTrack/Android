@@ -141,4 +141,9 @@
     <string name="notif_emergency_no">No, I\'m OK</string>
 
     <string name="bill_bitmap_null">There is nothing to display here. Have you ever upload a bll for this bike?</string>
+
+    <string name="title_notif_accident_canceled">Emergency canceled</string>
+    <string name="msg_notif_accident_canceled">We will not call for help.</string>
+    <string name="error_title_notif_accident_canceled">Emergency not canceled</string>
+    <string name="error_msg_notif_accident_canceled">We can\'t stop the call</string>
 </resources>

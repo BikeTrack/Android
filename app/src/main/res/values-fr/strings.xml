@@ -143,4 +143,9 @@
     <string name="notif_emergency_no">Non, je vais bien!</string>
 
     <string name="bill_bitmap_null">Il n\'y a rien a afficher ici. Avez-vous déjà lié une facture a ce vélo ?</string>
+
+    <string name="title_notif_accident_canceled">Appel d\'urgence annulé</string>
+    <string name="msg_notif_accident_canceled">Nous n\'appelerons personne.</string>
+    <string name="error_title_notif_accident_canceled">Impossible d\'annuler l\'appel d\'urgence</string>
+    <string name="error_msg_notif_accident_canceled">On ne peut pas annuler cet appel.</string>
 </resources>

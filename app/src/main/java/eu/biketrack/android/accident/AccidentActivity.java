@@ -33,11 +33,11 @@ public class AccidentActivity extends AppCompatActivity {
         }
         Log.d(TAG, "onCreate: trackerId = " + trackerId);
     }
-//
-//    @OnClick(R.id.accident_button_yes)
-//    public void accidentYes(){
-//
-//    }
+
+    @OnClick(R.id.accident_button_yes)
+    public void accidentYes() {
+        finish();
+    }
 
     @OnClick(R.id.accident_button_no)
     public void accidentNo() {
@@ -53,8 +53,8 @@ public class AccidentActivity extends AppCompatActivity {
                                 Log.d(TAG, "accidentNo: accident canceled");
                                 new AlertDialog.Builder(this)
                                         .setIcon(android.R.drawable.ic_dialog_info)
-                                        .setTitle("Emergency canceled")
-                                        .setMessage("Nous n'appelerons pas les secours")
+                                        .setTitle(getResources().getString(R.string.title_notif_accident_canceled))
+                                        .setMessage(getResources().getString(R.string.msg_notif_accident_canceled))
                                         .setOnDismissListener(dialog -> {
                                             finish();
                                         })
@@ -64,8 +64,8 @@ public class AccidentActivity extends AppCompatActivity {
                                 Log.e(TAG, "accidentNo: ", throwable);
                                 new AlertDialog.Builder(this)
                                         .setIcon(android.R.drawable.ic_dialog_info)
-                                        .setTitle("Emergency not canceled")
-                                        .setMessage("Un problème est survenu. Nous ne sommes pas en mesures d'annuler l'urgence")
+                                        .setTitle(getResources().getString(R.string.error_title_notif_accident_canceled))
+                                        .setMessage(getResources().getString(R.string.error_msg_notif_accident_canceled))
                                         .show();
                             },
                             () -> {
