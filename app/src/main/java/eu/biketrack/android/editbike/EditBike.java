@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -23,6 +24,7 @@ import eu.biketrack.android.models.biketracker.BikeTrackerList;
 import eu.biketrack.android.models.data_reception.Bike;
 import eu.biketrack.android.models.data_send.SendBikeInfo;
 import eu.biketrack.android.root.App;
+import eu.biketrack.android.utils.ErrorManager;
 import eu.biketrack.android.utils.PictureManager;
 
 public class EditBike extends Activity implements EditBikeMVP.View {
@@ -212,5 +214,11 @@ public class EditBike extends Activity implements EditBikeMVP.View {
             buttonSelectBill.setVisibility(View.VISIBLE);
             buttonCaptureBill.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void displayError(Throwable throwable) {
+        ErrorManager errorManager = new ErrorManager(this, getResources());
+        Toast.makeText(this, errorManager.getMessageFromThrowable(throwable), Toast.LENGTH_LONG).show();
     }
 }

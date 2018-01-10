@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
@@ -159,6 +159,6 @@ public class Subscription extends Activity implements SubscriptionMVP.View {
     @Override
     public void displayError(String message) {
         progressBar.setVisibility(View.GONE);
-        Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG).show();
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

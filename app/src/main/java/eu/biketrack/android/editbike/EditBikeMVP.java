@@ -9,6 +9,8 @@ import eu.biketrack.android.models.data_send.SendBikeInfo;
 public interface EditBikeMVP {
     interface View {
         void close();
+
+        void displayError(Throwable throwable);
     }
 
     interface Presenter {

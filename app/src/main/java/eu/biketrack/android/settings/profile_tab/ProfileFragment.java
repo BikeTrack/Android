@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -140,10 +139,7 @@ public class ProfileFragment extends Fragment implements ProfileMVP.View {
 
     @Override
     public void displayMessage(String message) {
-        if (this.getView() != null)
-            Snackbar.make(this.getView(), message, Snackbar.LENGTH_LONG).show();
-        else
-            Toast.makeText(this.getContext(), message, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getContext(), message, Toast.LENGTH_LONG).show();
     }
 
     public void update(){

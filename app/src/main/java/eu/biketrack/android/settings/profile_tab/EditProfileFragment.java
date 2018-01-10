@@ -3,7 +3,6 @@ package eu.biketrack.android.settings.profile_tab;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -137,10 +136,7 @@ public class EditProfileFragment extends Fragment implements ProfileMVP.View, Da
 
     @Override
     public void displayMessage(String message) {
-        if (this.getView() != null)
-            Snackbar.make(this.getView(), message, Snackbar.LENGTH_LONG).show();
-        else
-            Toast.makeText(this.getContext(), message, Toast.LENGTH_LONG).show();
+        Toast.makeText(this.getContext(), message, Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.profile_dob_edit)

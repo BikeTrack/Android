@@ -39,6 +39,11 @@ public class EditBikePresenter implements EditBikeMVP.Presenter {
             public void updatePicture(Bitmap pict) {
 
             }
+
+            @Override
+            public void onError(Throwable throwable) {
+                view.displayError(throwable);
+            }
         });
         model.createBike(bike);
     }
@@ -60,6 +65,11 @@ public class EditBikePresenter implements EditBikeMVP.Presenter {
             @Override
             public void updatePicture(Bitmap pict) {
 
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                view.displayError(throwable);
             }
         });
         model.updateBike(bikeId, bike);
@@ -85,6 +95,11 @@ public class EditBikePresenter implements EditBikeMVP.Presenter {
             @Override
             public void updatePicture(Bitmap pict) {
 
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                view.displayError(throwable);
             }
         });
         model.deleteBike(bikeId, bike);

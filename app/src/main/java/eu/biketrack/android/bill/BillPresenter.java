@@ -43,6 +43,11 @@ public class BillPresenter implements BillMVP.Presenter {
                     view.displayBitmapNull();
                 view.progressBarVisibility(false);
             }
+
+            @Override
+            public void onError(Throwable throwable) {
+
+            }
         });
         model.loadBill(bikeId);
     }

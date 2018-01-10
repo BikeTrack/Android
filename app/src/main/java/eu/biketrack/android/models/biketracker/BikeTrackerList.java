@@ -148,5 +148,7 @@ public class BikeTrackerList {
         void bikeCreated();
 
         void updatePicture(Bitmap pict);
+
+        void onError(Throwable throwable);
     }
 }

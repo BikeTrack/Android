@@ -48,6 +48,11 @@ public class BikesModel implements BikesMVP.Model {
             public void updatePicture(Bitmap pict) {
 
             }
+
+            @Override
+            public void onError(Throwable throwable) {
+
+            }
         });
         bikeTrackerNetworkInterface.updateBikeList();
     }
