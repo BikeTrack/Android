@@ -19,6 +19,8 @@ public interface SubscriptionMVP {
         void openLogin();
 
         void displayError(String message);
+
+        void displayError(Throwable throwable);
     }
 
     interface Presenter {

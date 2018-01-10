@@ -51,7 +51,7 @@ public class SubscriptionModel implements SubscriptionMVP.Model {
             public void onError(Throwable e) {
                 Log.e(TAG, "onError: ", e);
                 error = e;
-                this.unsubscribe();
+                destroyIt();
             }
 
             @Override
@@ -78,7 +78,7 @@ public class SubscriptionModel implements SubscriptionMVP.Model {
             public void onError(Throwable e) {
                 Log.e(TAG, "onError: ", e);
                 error = e;
-                this.unsubscribe();
+                destroyIt();
             }
 
             @Override
@@ -104,11 +104,12 @@ public class SubscriptionModel implements SubscriptionMVP.Model {
     }
 
     private void destroyIt() {
-        if (!s.isUnsubscribed())
-            s.unsubscribe();
-        if (!s1.isUnsubscribed())
-            s1.unsubscribe();
-        if (error == null)
-            presenter.viewAfterSubscription(loginDone);
+        if (s != null)
+            if (!s.isUnsubscribed())
+                s.unsubscribe();
+        if (s1 != null)
+            if (!s1.isUnsubscribed())
+                s1.unsubscribe();
+        presenter.viewAfterSubscription(loginDone);
     }
 }

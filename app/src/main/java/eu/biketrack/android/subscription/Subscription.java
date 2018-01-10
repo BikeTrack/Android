@@ -26,6 +26,7 @@ import eu.biketrack.android.api_connection.Statics;
 import eu.biketrack.android.autologin.AutoLogin;
 import eu.biketrack.android.login.Login;
 import eu.biketrack.android.root.App;
+import eu.biketrack.android.utils.ErrorManager;
 import io.reactivex.Observable;
 
 
@@ -159,6 +160,16 @@ public class Subscription extends Activity implements SubscriptionMVP.View {
     @Override
     public void displayError(String message) {
         progressBar.setVisibility(View.GONE);
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        if (message.equals("!=mdp"))
+            Toast.makeText(this, R.string.error_check_password_and_repeat, Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void displayError(Throwable throwable) {
+        progressBar.setVisibility(View.GONE);
+        ErrorManager errorManager = new ErrorManager(this, getResources());
+        Toast.makeText(this, errorManager.getMessageFromThrowable(throwable), Toast.LENGTH_LONG).show();
     }
 }

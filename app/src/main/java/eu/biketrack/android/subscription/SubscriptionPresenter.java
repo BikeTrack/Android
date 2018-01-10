@@ -24,7 +24,7 @@ public class SubscriptionPresenter implements SubscriptionMVP.Presenter {
         if (checkPassword(view.getUserPassword(), view.getUserRepeatPassword()))
             model.subscription(view.getUserEmail(), view.getUserPassword(), view.getRememberMe());
         else {
-            view.displayError("msg tmp : mdps differents");
+            view.displayError("!=mdp");
         }
     }
 
@@ -39,10 +39,10 @@ public class SubscriptionPresenter implements SubscriptionMVP.Presenter {
 
     @Override
     public void viewAfterSubscription(boolean loginDone) {
-        if (loginDone) {
+        if (model.getError() == null) {
             view.close();
         } else {
-            view.displayError("msg tmp : erreur lors du login, connexion manuelle requise");
+            view.displayError(model.getError());
         }
     }
 

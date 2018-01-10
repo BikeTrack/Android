@@ -111,18 +111,23 @@ public class EditBike extends Activity implements EditBikeMVP.View {
     @OnClick(R.id.bike_save_button)
     public void saveBike() {
         SendBikeInfo bike = new SendBikeInfo(_name.getText().toString(), "", _trackerid.getText().toString(), _serial.getText().toString());
-        if (tmp == null)
-            presenter.createBike(bike);
-        else {
-            if (selectedImagePathBike != null) {
-                presenter.uploadBikePhoto(selectedImagePathBike, tmp.getId());
+        if (bike.getName().equals("")) {
+            Toast.makeText(this, getResources().getText(R.string.bike_error_name_or_brand_empty), Toast.LENGTH_LONG).show();
+        } else if (bike.getTracker().equals("")) {
+            Toast.makeText(this, getResources().getText(R.string.bike_error_trackerid_empty), Toast.LENGTH_LONG).show();
+        } else {
+            if (tmp == null)
+                presenter.createBike(bike);
+            else {
+                if (selectedImagePathBike != null) {
+                    presenter.uploadBikePhoto(selectedImagePathBike, tmp.getId());
+                }
+                if (selectedImagePathBill != null) {
+                    presenter.uploadBikeBill(selectedImagePathBill, tmp.getId());
+                }
+                presenter.updateBike(tmp.getId(), bike);
             }
-            if (selectedImagePathBill != null) {
-                presenter.uploadBikeBill(selectedImagePathBill, tmp.getId());
-            }
-            presenter.updateBike(tmp.getId(), bike);
         }
-
     }
 
     @Override

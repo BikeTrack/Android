@@ -4,8 +4,9 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
 
-import com.google.gson.Gson;
+import org.json.JSONObject;
 
+import eu.biketrack.android.R;
 import retrofit2.HttpException;
 
 /**
@@ -26,8 +27,17 @@ public class ErrorManager {
         String tmp = null;
         if (throwable instanceof HttpException){
             try{
-                Log.d(TAG, "getMessageFromThrowable: " +((HttpException)throwable).response().raw().body().toString());
-                tmp = ((HttpException)throwable).response().body().toString();
+                JSONObject jObjError = new JSONObject(((HttpException) throwable).response().errorBody().string());
+                Log.d(TAG, "getMessageFromThrowable: " + jObjError.toString());
+                tmp = jObjError.getString("message");
+                if (tmp.equals("email || password blank"))
+                    tmp = resources.getString(R.string.user_not_found);
+                else if (tmp.equals("Authentication failed. User not found."))
+                    tmp = resources.getString(R.string.user_unauthorized);
+                else if (tmp.equals("Authentication failed. Wrong password."))
+                    tmp = resources.getString(R.string.error_incorrect_password);
+                else if (tmp.equals("User already in the DB"))
+                    tmp = resources.getString(R.string.user_already_created);
             } catch (Exception e){
                 Log.e(TAG, "getMessageFromThrowable: ", e);
             }

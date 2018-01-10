@@ -95,7 +95,7 @@
     <string name="button_open_language_txt">Languages</string>
     <string name="button_language_clear_txt">Reset Language</string>
 
-    <string name="bike_error_name_or_brand_empty">Name and brand cannot be both empty</string>
+    <string name="bike_error_name_or_brand_empty">Name cannot be empty</string>
     <string name="bike_error_trackerid_empty">Tracker cannot be empty</string>
 
     <string name="user_error_lastname_empty">Lastname cannot be empty</string>
@@ -104,7 +104,7 @@
     <string name="user_saved">Account saved</string>
     <string name="user_already_created">This address is already used.</string>
 
-    <string name="network_error">A network error as occurred.</string>
+    <string name="network_error">Outch! There is a problem.</string>
 
     <string name="user_unauthorized">Connection unauthorized. Verify your email and password.</string>
     <string name="user_not_found">You are not in our database, you should create an account</string>

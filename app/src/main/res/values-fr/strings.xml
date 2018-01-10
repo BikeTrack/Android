@@ -89,7 +89,7 @@
     <string name="button_open_language_txt">Langues</string>
     <string name="button_language_clear_txt">Remettre a zéro</string>
 
-    <string name="bike_error_name_or_brand_empty">Le nom et la marque ne peuvent pas être tous les deux vides</string>
+    <string name="bike_error_name_or_brand_empty">Le nom du velo ne peut pas être vide</string>
     <string name="bike_error_trackerid_empty">L\'identifiant du tracker ne peut pas être vide</string>
 
     <string name="user_error_lastname_empty">Le nom de famille ne peut pas être vide</string>

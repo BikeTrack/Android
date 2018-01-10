@@ -81,7 +81,7 @@ public class ProfilePresenter implements ProfileMVP.Presenter {
     }
 
     private void onError() {
-        view.displayMessage("Error");
+        view.displayMessage(res.getString(R.string.network_error));
         view.set_email(currentUser.getEmail());
         view.set_lastname(currentUser.getLastname());
         view.set_firstname(currentUser.getName());

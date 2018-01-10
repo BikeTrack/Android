@@ -80,7 +80,8 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        if (bikeTrackerList.listener != null)
+                            bikeTrackerList.listener.onError(e);
                     }
 
                     @Override
@@ -104,7 +105,8 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        if (bikeTrackerList.listener != null)
+                            bikeTrackerList.listener.onError(e);
                     }
 
                     @Override
@@ -128,7 +130,8 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        if (bikeTrackerList.listener != null)
+                            bikeTrackerList.listener.onError(e);
                     }
 
                     @Override
