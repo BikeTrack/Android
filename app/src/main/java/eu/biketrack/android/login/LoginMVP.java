@@ -18,6 +18,8 @@ public interface LoginMVP {
         void openSubscribe();
 
         void loading(boolean loading);
+
+        public void displayError(Throwable throwable);
     }
 
     interface Presenter {

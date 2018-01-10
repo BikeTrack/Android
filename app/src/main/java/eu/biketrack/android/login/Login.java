@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -31,6 +32,7 @@ import eu.biketrack.android.R;
 import eu.biketrack.android.autologin.AutoLogin;
 import eu.biketrack.android.root.App;
 import eu.biketrack.android.subscription.Subscription;
+import eu.biketrack.android.utils.ErrorManager;
 
 
 public class Login extends Activity implements LoginMVP.View {
@@ -179,5 +181,11 @@ public class Login extends Activity implements LoginMVP.View {
             loginButton.setClickable(true);
             progressBar.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void displayError(Throwable throwable){
+        ErrorManager errorManager = new ErrorManager(this, getResources());
+        Toast.makeText(this, errorManager.getMessageFromThrowable(throwable), Toast.LENGTH_LONG).show();
     }
 }

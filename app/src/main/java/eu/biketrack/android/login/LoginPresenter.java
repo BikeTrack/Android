@@ -41,6 +41,11 @@ public class LoginPresenter implements LoginMVP.Presenter {
                 model.subscriptionByFacebook(fbemail, fbtoken);
                 connectionByFacebook = false;
             }
+            else
+                view.displayError(model.getError());
+//            } else if (model.getError().getMessage().contains("Failed to connect")){
+//                view.displayMessage("Problème de connexion internet. Vérifiez votre réseau.");
+//            }
             view.loading(false);
         }
     }
