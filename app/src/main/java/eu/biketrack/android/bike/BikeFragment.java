@@ -138,7 +138,6 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                                         @Override
                                         public void onError(Throwable e) {
                                             Log.e(TAG, "onError: ", e);
-
                                             Toast.makeText(getActivity(), errorManager.getMessageFromThrowable(e), Toast.LENGTH_LONG).show();
                                         }
 
@@ -148,11 +147,11 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                                             if (mapView != null)
                                                 mapView.getMapAsync(BikeFragment.this);
                                         }
-                                    });
+                                    }).unsubscribe();
                         },
                         throwable -> {
                             Log.e(TAG, "onCreateView: ", throwable);
-                            Toast.makeText(getActivity(), errorManager.getMessageFromThrowable(throwable), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getActivity(), errorManager.getMessageFromThrowable(throwable), Toast.LENGTH_LONG).show();
                         },
                         () -> {
                         });

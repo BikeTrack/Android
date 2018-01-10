@@ -1,5 +1,7 @@
 package eu.biketrack.android.settings.profile_tab;
 
+import com.facebook.login.LoginManager;
+
 import eu.biketrack.android.models.User;
 import eu.biketrack.android.models.data_reception.ReceptDeleteUser;
 import eu.biketrack.android.models.data_reception.ReceptUser;
@@ -27,6 +29,7 @@ public class ProfileModel implements ProfileMVP.Model {
 
     @Override
     public void logoff() {
+        LoginManager.getInstance().logOut();
         loginManagerModule.clear();
     }
 
