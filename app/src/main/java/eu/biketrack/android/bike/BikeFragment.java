@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -41,6 +42,7 @@ import eu.biketrack.android.models.data_reception.ReceiveTracker;
 import eu.biketrack.android.models.data_reception.Tracker;
 import eu.biketrack.android.session.LoginManagerModule;
 import eu.biketrack.android.session.Session;
+import eu.biketrack.android.utils.ErrorManager;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -106,7 +108,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_bike, container, false);
         unbinder = ButterKnife.bind(this, layout);
-
+        ErrorManager errorManager = new ErrorManager(this.getContext(), getResources());
         _name.setText(bikeTrackerList.getPair(position).first.getName());
         tracker = bikeTrackerList.getPair(position).second;
 
@@ -136,6 +138,8 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                                         @Override
                                         public void onError(Throwable e) {
                                             Log.e(TAG, "onError: ", e);
+
+                                            Toast.makeText(getActivity(), errorManager.getMessageFromThrowable(e), Toast.LENGTH_LONG).show();
                                         }
 
                                         @Override
@@ -146,7 +150,10 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                                         }
                                     });
                         },
-                        throwable -> Log.e(TAG, "onCreateView: ", throwable),
+                        throwable -> {
+                            Log.e(TAG, "onCreateView: ", throwable);
+                            Toast.makeText(getActivity(), errorManager.getMessageFromThrowable(throwable), Toast.LENGTH_LONG).show();
+                        },
                         () -> {
                         });
 

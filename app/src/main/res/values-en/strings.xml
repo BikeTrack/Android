@@ -139,4 +139,6 @@
     <string name="notif_emergency_msg">An accident as been detected ? Should we call someone ?</string>
     <string name="notif_emergency_yes">Yes</string>
     <string name="notif_emergency_no">No, I\'m OK</string>
+
+    <string name="bill_bitmap_null">There is nothing to display here. Have you ever upload a bll for this bike?</string>
 </resources>

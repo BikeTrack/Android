@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -13,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import eu.biketrack.android.R;
 import eu.biketrack.android.root.App;
+import eu.biketrack.android.utils.ErrorManager;
 
 public class Bill extends AppCompatActivity implements BillMVP.View {
     @Inject
@@ -53,5 +55,11 @@ public class Bill extends AppCompatActivity implements BillMVP.View {
     @Override
     public void setBitmap(Bitmap bitmap) {
         billImage.setImageBitmap(bitmap);
+    }
+
+    @Override
+    public void displayBitmapNull() {
+        ErrorManager errorManager = new ErrorManager(this, getResources());
+        Toast.makeText(this, R.string.bill_bitmap_null, Toast.LENGTH_LONG).show();
     }
 }

@@ -141,4 +141,6 @@
     <string name="notif_emergency_msg">Un accident a été détecté, devons nous appeler les secours ?</string>
     <string name="notif_emergency_yes">Oui</string>
     <string name="notif_emergency_no">Non, je vais bien!</string>
+
+    <string name="bill_bitmap_null">Il n\'y a rien a afficher ici. Avez-vous déjà lié une facture a ce vélo ?</string>
 </resources>

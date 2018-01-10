@@ -375,9 +375,11 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface {
                 })
                 .doOnNext(str -> {
                     if (bikeTrackerList.listener != null) {
-                        byte[] decodedString = Base64.decode(str, Base64.DEFAULT);
-                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                        bikeTrackerList.listener.updatePicture(decodedByte);
+                        if (str != null && !"".equals(str)) {
+                            byte[] decodedString = Base64.decode(str, Base64.DEFAULT);
+                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                            bikeTrackerList.listener.updatePicture(decodedByte);
+                        } else bikeTrackerList.listener.updatePicture(null);
                     }
 
                 })

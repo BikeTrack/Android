@@ -13,6 +13,8 @@ public class BillMVP {
         void progressBarVisibility(boolean visible);
 
         void setBitmap(Bitmap bitmap);
+
+        void displayBitmapNull();
     }
 
     interface Presenter {

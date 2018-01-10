@@ -26,6 +26,7 @@ public class ErrorManager {
         String tmp = null;
         if (throwable instanceof HttpException){
             try{
+                Log.d(TAG, "getMessageFromThrowable: " +((HttpException)throwable).response().raw().body().toString());
                 tmp = ((HttpException)throwable).response().body().toString();
             } catch (Exception e){
                 Log.e(TAG, "getMessageFromThrowable: ", e);

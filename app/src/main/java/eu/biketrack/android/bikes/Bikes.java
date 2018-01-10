@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -20,6 +21,7 @@ import eu.biketrack.android.bike.BikeCollectionActivity;
 import eu.biketrack.android.editbike.EditBike;
 import eu.biketrack.android.root.App;
 import eu.biketrack.android.settings.SettingsTab;
+import eu.biketrack.android.utils.ErrorManager;
 
 public class Bikes extends Activity implements BikesMVP.View {
 
@@ -54,7 +56,7 @@ public class Bikes extends Activity implements BikesMVP.View {
 //    @BindView(R.id.bottom_navigation)
 //    BottomNavigationView bottomNavigationView;
 
-
+    private ErrorManager errorManager;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +65,7 @@ public class Bikes extends Activity implements BikesMVP.View {
         ButterKnife.bind(this);
         //registerForContextMenu(list);
 
-
+        errorManager = new ErrorManager(this, getResources());
         pg_bar.setVisibility(View.GONE);
 
 
@@ -118,6 +120,7 @@ public class Bikes extends Activity implements BikesMVP.View {
             }
         } catch (Exception e) {
             Log.e(TAG, "displayBikes: ", e);
+            Toast.makeText(this, errorManager.getMessageFromThrowable(e), Toast.LENGTH_LONG).show();
         }
         if (swipeRefreshLayout.isRefreshing())
             swipeRefreshLayout.setRefreshing(false);
