@@ -8,7 +8,6 @@ import eu.biketrack.android.api_connection.BiketrackService;
 import eu.biketrack.android.models.data_reception.AuthenticateReception;
 import eu.biketrack.android.models.data_reception.SignupReception;
 import eu.biketrack.android.models.data_send.AuthUser;
-import eu.biketrack.android.models.data_send.AuthUserFB;
 import eu.biketrack.android.session.LoginManagerModule;
 import rx.Observable;
 import rx.Subscriber;
@@ -105,7 +104,7 @@ public class LoginModel implements LoginMVP.Model {
 
     @Override
     public void subscriptionByFacebook(String fbemail, String fbtoken) {
-        loginNetworkInterface.signupFb(new AuthUserFB(fbtoken))
+        loginNetworkInterface.signupFb(new AuthUser(fbemail, fbtoken))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .timeout(5, TimeUnit.SECONDS)
                 .doOnError(err -> {

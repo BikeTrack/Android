@@ -9,7 +9,6 @@ import eu.biketrack.android.models.data_reception.ReceptUser;
 import eu.biketrack.android.models.data_reception.ReceptUserUpdate;
 import eu.biketrack.android.models.data_reception.SignupReception;
 import eu.biketrack.android.models.data_send.AuthUser;
-import eu.biketrack.android.models.data_send.AuthUserFB;
 import eu.biketrack.android.models.data_send.CancelEmergency;
 import eu.biketrack.android.models.data_send.DeleteUser;
 import eu.biketrack.android.models.data_send.SendBike;
@@ -33,8 +32,8 @@ import rx.Observable;
  * Created by adrienschricke on 17/09/2016 for Android.
  */
 public interface BiketrackService {
-    @POST("signupFb")
-    Observable<SignupReception> createUserFB(@Body AuthUserFB user);
+    @POST("signup")
+    Observable<SignupReception> createUserFB(@Body AuthUser user);
 
     @POST("signup")
     Observable<SignupReception> createUser(@Body AuthUser user);

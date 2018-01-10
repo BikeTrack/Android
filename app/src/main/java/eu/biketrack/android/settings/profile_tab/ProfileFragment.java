@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -71,6 +73,7 @@ public class ProfileFragment extends Fragment implements ProfileMVP.View {
 
     @OnClick(R.id.log_off_button)
     public void logoff() {
+        LoginManager.getInstance().logOut();
         presenter.logoff();
     }
 
