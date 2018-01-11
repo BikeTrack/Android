@@ -186,7 +186,8 @@
                 android:adjustViewBounds="true"
                 android:maxHeight="150dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_bike_no_picture" />
+                android:src="@drawable/bill"
+                android:tint="@color/cardview_dark_background" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
