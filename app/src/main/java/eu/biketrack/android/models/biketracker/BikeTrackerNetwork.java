@@ -172,7 +172,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "onError: ", e);
+                        Log.e(TAG, "getUserBikes onError: ", e);
                     }
 
                     @Override
@@ -206,7 +206,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface {
 
                         @Override
                         public void onError(Throwable e) {
-                            Log.e(TAG, "onError: ", e);
+                            Log.e(TAG, "getBikes onError: ", e);
                         }
 
                         @Override
@@ -235,7 +235,7 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface {
                     @Override
                     public void onError(Throwable e) {
 
-                        Log.e(TAG, "onError: ", e);
+                        Log.e(TAG, "getTrackerFromId onError: ", e);
                     }
 
                     @Override
@@ -247,58 +247,75 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface {
     }
 
     private void getBikePicture(Bike bike, String token) {
-        biketrackService.getBikePicture(token, bike.getId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .timeout(20, TimeUnit.SECONDS)
-                .doOnError(error -> {
-                    Log.e(TAG, "onError: ", error);
-                })
-                .onErrorResumeNext(throwable -> {
-                    return Observable.just(null);
-                })
-                .doOnNext(str -> {
-                    Log.d(TAG, "getBikePicture: Image du vélo : " + str);
-                    bikeTrackerList.updateBikePicture(bike.getId(), str);
-                    if (bikeTrackerList.listener != null)
-                        bikeTrackerList.listener.bikeCreated();
+        try {
+            biketrackService.getBikePicture(token, bike.getId())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .timeout(30, TimeUnit.SECONDS)
+                    .doOnError(error -> {
+                        Log.e(TAG, "getBikePicture onError: ", error);
+                    })
+                    .onErrorResumeNext(throwable -> {
+                        return Observable.just(null);
+                    })
+                    .doOnNext(str -> {
+                        Log.d(TAG, "getBikePicture: Image du vélo : " + str);
+                        bikeTrackerList.updateBikePicture(bike.getId(), str);
+                        if (bikeTrackerList.listener != null)
+                            bikeTrackerList.listener.bikeCreated();
 
-                })
-                .doOnCompleted(() -> {
+                    })
+                    .doOnCompleted(() -> {
 
-                })
-                .subscribe();
+                    })
+                    .subscribe(s -> {
+                            },
+                            throwable -> {
+                            },
+                            () -> {
+                            });
+        } catch (Exception e) {
 
+        }
 
     }
 
     @Override
     public void displayImage(String token, String id, ImageView imageView) {
-        biketrackService.getBikePicture(token, id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .timeout(20, TimeUnit.SECONDS)
-                .doOnError(error -> {
-                    Log.e(TAG, "onError: ", error);
-                })
-                .onErrorResumeNext(throwable -> {
-                    return Observable.just(null);
-                })
-                .doOnNext(str -> {
-                    if (str != null) {
-                        try {
-                            byte[] decodedString = Base64.decode(str, Base64.DEFAULT);
-                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                            imageView.setImageBitmap(decodedByte);
-                        } catch (Exception e) {
-                            Log.e(TAG, "onCreateView: ", e);
+        try {
+            biketrackService.getBikePicture(token, id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .timeout(20, TimeUnit.SECONDS)
+                    .doOnError(error -> {
+                        Log.e(TAG, "displayImage onError: ", error);
+                    })
+                    .onErrorResumeNext(throwable -> {
+                        return Observable.just(null);
+                    })
+                    .doOnNext(str -> {
+                        if (str != null) {
+                            try {
+                                byte[] decodedString = Base64.decode(str, Base64.DEFAULT);
+                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                                imageView.setImageBitmap(decodedByte);
+                            } catch (Exception e) {
+                                Log.e(TAG, "onCreateView: ", e);
+                            }
                         }
-                    }
-                })
-                .doOnCompleted(() -> {
+                    })
+                    .doOnCompleted(() -> {
 
-                })
-                .subscribe();
+                    })
+                    .subscribe(s -> {
+                            },
+                            throwable -> {
+                            },
+                            () -> {
+                            });
+        } catch (Exception e) {
+
+        }
     }
 
     @Override
@@ -312,8 +329,13 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface {
             biketrackService.uploadBikePicture(loginManagerModule.getToken(), bikeId, filePart)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
+                    .timeout(30, TimeUnit.SECONDS)
+                    .doOnError(err -> {
+                        Log.d(TAG, "uploadBikePicture: Error !", err);
+                    })
+                    .retry(2)
                     .doOnError(error -> {
-                        Log.e(TAG, "onError: ", error);
+                        Log.e(TAG, "uploadBikePicture: ", error);
                     })
                     .onErrorResumeNext(throwable -> {
                         return Observable.just(null);
@@ -326,7 +348,12 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface {
                     .doOnCompleted(() -> {
 
                     })
-                    .subscribe();
+                    .subscribe(s -> {
+                            },
+                            throwable -> {
+                            },
+                            () -> {
+                            });
         } catch (Exception e) {
             Log.e(TAG, "uploadBikePicture: ", e);
         }
@@ -344,8 +371,13 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface {
             biketrackService.uploadBikeBill(loginManagerModule.getToken(), bikeId, filePart)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
+                    .timeout(30, TimeUnit.SECONDS)
+                    .doOnError(err -> {
+                        Log.d(TAG, "uploadBikeBill: Error !", err);
+                    })
+                    .retry(2)
                     .doOnError(error -> {
-                        Log.e(TAG, "onError: ", error);
+                        Log.e(TAG, "onError: uploadBikeBill ", error);
                     })
                     .onErrorResumeNext(throwable -> {
                         return Observable.just(null);
@@ -358,7 +390,12 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface {
                     .doOnCompleted(() -> {
 
                     })
-                    .subscribe();
+                    .subscribe(s -> {
+                            },
+                            throwable -> {
+                            },
+                            () -> {
+                            });
         } catch (Exception e) {
             Log.e(TAG, "uploadBikeBill: ", e);
         }
@@ -366,37 +403,40 @@ public class BikeTrackerNetwork implements BikeTrackerNetworkInterface {
 
     @Override
     public void downloadBikeBill(String bikeId) {
-        biketrackService.getBikeBill(loginManagerModule.getToken(), bikeId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .timeout(20, TimeUnit.SECONDS)
-                .doOnError(error -> {
-                    Log.e(TAG, "onError: ", error);
-                })
-                .onErrorResumeNext(throwable -> {
-                    return Observable.just(null);
-                })
-                .doOnNext(str -> {
-                    if (bikeTrackerList.listener != null) {
-                        if (str != null && !"".equals(str)) {
-                            byte[] decodedString = Base64.decode(str, Base64.DEFAULT);
-                            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                            bikeTrackerList.listener.updatePicture(decodedByte);
-                        } else bikeTrackerList.listener.updatePicture(null);
-                    }
+        try {
+            biketrackService.getBikeBill(loginManagerModule.getToken(), bikeId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .timeout(20, TimeUnit.SECONDS)
+                    .doOnError(error -> {
+                        Log.e(TAG, "downloadBikeBill onError: ", error);
+                    })
+                    .onErrorResumeNext(throwable -> {
+                        return Observable.just(null);
+                    })
+                    .doOnNext(str -> {
+                        if (bikeTrackerList.listener != null) {
+                            if (str != null && !"".equals(str)) {
+                                byte[] decodedString = Base64.decode(str, Base64.DEFAULT);
+                                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                                bikeTrackerList.listener.updatePicture(decodedByte);
+                            } else bikeTrackerList.listener.updatePicture(null);
+                        }
 
-                })
-                .doOnCompleted(() -> {
+                    })
+                    .doOnCompleted(() -> {
 
-                })
-                .subscribe(s -> {
-                        },
-                        throwable -> {
-                            Log.e(TAG, "downloadBikeBill: ", throwable);
-                            bikeTrackerList.listener.updatePicture(null);
-                        },
-                        () -> {
-                        });
+                    })
+                    .subscribe(s -> {
+                            },
+                            throwable -> {
+                                Log.e(TAG, "downloadBikeBill: ", throwable);
+                                bikeTrackerList.listener.updatePicture(null);
+                            },
+                            () -> {
+                            });
+        } catch (Exception e) {
 
+        }
     }
 }

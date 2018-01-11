@@ -39,8 +39,10 @@ public class BillPresenter implements BillMVP.Presenter {
             public void updatePicture(Bitmap pict) {
                 if (pict != null)
                     view.setBitmap(pict);
-                else
+                else {
                     view.displayBitmapNull();
+                    view.close();
+                }
                 view.progressBarVisibility(false);
             }
 

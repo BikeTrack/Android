@@ -81,6 +81,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 //    private CompositeDisposable _disposables;
     private Tracker tracker;
     private Subscription inter;
+    private Subscription letoken;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,7 +109,7 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_bike, container, false);
         unbinder = ButterKnife.bind(this, layout);
-        ErrorManager errorManager = new ErrorManager(this.getContext(), getResources());
+
         _name.setText(bikeTrackerList.getPair(position).first.getName());
         tracker = bikeTrackerList.getPair(position).second;
 
@@ -120,41 +121,14 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
             Log.e(TAG, "onCreateView: ", e);
         }
 
-        bikeTrackerList.getBikeTrackerNetworkInterface().displayImage(loginManagerModule.getToken(),
-                bikeTrackerList.getPair(position).first.getId(),
-                _bike_picture);
+        try {
+            bikeTrackerList.getBikeTrackerNetworkInterface().displayImage(loginManagerModule.getToken(),
+                    bikeTrackerList.getPair(position).first.getId(),
+                    _bike_picture);
+        } catch (Exception e) {
 
-        inter = Observable.interval(30, TimeUnit.SECONDS)
-                .subscribe(aLong -> {
-                            bikeTrackerList.getBikeTrackerNetworkInterface()
-                                    .getTracker(tracker.getId(), loginManagerModule.getToken())
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe(new Subscriber<ReceiveTracker>() {
-                                        @Override
-                                        public void onCompleted() {
-                                        }
+        }
 
-                                        @Override
-                                        public void onError(Throwable e) {
-                                            Log.e(TAG, "onError: ", e);
-                                            Toast.makeText(getActivity(), errorManager.getMessageFromThrowable(e), Toast.LENGTH_LONG).show();
-                                        }
-
-                                        @Override
-                                        public void onNext(ReceiveTracker receiveTracker) {
-                                            tracker = receiveTracker.getTracker();
-                                            if (mapView != null)
-                                                mapView.getMapAsync(BikeFragment.this);
-                                        }
-                                    }).unsubscribe();
-                        },
-                        throwable -> {
-                            Log.e(TAG, "onCreateView: ", throwable);
-                            //Toast.makeText(getActivity(), errorManager.getMessageFromThrowable(throwable), Toast.LENGTH_LONG).show();
-                        },
-                        () -> {
-                        });
 
 
         try {
@@ -177,9 +151,12 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         } catch (Exception e) {
             Log.e(TAG, "onCreateView: ", e);
         }
-        if (mapView != null)
-            mapView.getMapAsync(BikeFragment.this);
+        try {
+            if (mapView != null)
+                mapView.getMapAsync(BikeFragment.this);
+        } catch (Exception e) {
 
+        }
 
 //        if (toolbar != null) {
 //            toolbar.inflateMenu(R.menu.bike_menu);
@@ -252,8 +229,13 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
 //                }
 //            });
 //        }
-        if (mapView != null)
-            mapView.onCreate(savedInstanceState);
+        try {
+            if (mapView != null)
+                mapView.onCreate(savedInstanceState);
+
+        } catch (Exception e) {
+
+        }
 //        getBike();
         return layout;
     }
@@ -304,6 +286,8 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         try {
             if (!inter.isUnsubscribed())
                 inter.unsubscribe();
+            if (!letoken.isUnsubscribed())
+                letoken.unsubscribe();
         } catch (Exception e) {
             Log.e(TAG, "onDestroyView: ", e);
         }
@@ -317,6 +301,42 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
             mapView.onResume();
 //        getCoordinates();
         super.onResume();
+        try {
+            inter = Observable.interval(30, TimeUnit.SECONDS)
+                    .subscribe(aLong -> {
+                                letoken = bikeTrackerList.getBikeTrackerNetworkInterface()
+                                        .getTracker(tracker.getId(), loginManagerModule.getToken())
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(new Subscriber<ReceiveTracker>() {
+                                            @Override
+                                            public void onCompleted() {
+                                            }
+
+                                            @Override
+                                            public void onError(Throwable e) {
+                                                Log.e(TAG, "onError: ", e);
+                                                ErrorManager errorManager = new ErrorManager(getContext(), getResources());
+                                                Toast.makeText(getActivity(), errorManager.getMessageFromThrowable(e), Toast.LENGTH_LONG).show();
+                                            }
+
+                                            @Override
+                                            public void onNext(ReceiveTracker receiveTracker) {
+                                                tracker = receiveTracker.getTracker();
+                                                if (mapView != null)
+                                                    mapView.getMapAsync(BikeFragment.this);
+                                            }
+                                        });
+                            },
+                            throwable -> {
+                                Log.e(TAG, "onCreateView: ", throwable);
+                                //Toast.makeText(getActivity(), errorManager.getMessageFromThrowable(throwable), Toast.LENGTH_LONG).show();
+                            },
+                            () -> {
+                            });
+        } catch (Exception e) {
+
+        }
     }
 
     @Override
@@ -324,6 +344,14 @@ public class BikeFragment extends Fragment implements OnMapReadyCallback {
         super.onPause();
         if (mapView != null)
             mapView.onPause();
+        try {
+            if (!inter.isUnsubscribed())
+                inter.unsubscribe();
+            if (!letoken.isUnsubscribed())
+                letoken.unsubscribe();
+        } catch (Exception e) {
+            Log.e(TAG, "onPause: ", e);
+        }
     }
 
     @Override

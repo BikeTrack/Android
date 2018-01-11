@@ -209,7 +209,7 @@ public class EditBike extends Activity implements EditBikeMVP.View {
             billToUpload.setVisibility(View.GONE);
             buttonSelectBill.setVisibility(View.GONE);
             buttonCaptureBill.setVisibility(View.GONE);
-        } else {
+        } else if (tmp != null) {
             tv_bill.setVisibility(View.VISIBLE);
             tv_bike.setVisibility(View.VISIBLE);
             imageToUpload.setVisibility(View.VISIBLE);
