@@ -103,8 +103,8 @@ public class LoginModel implements LoginMVP.Model {
     }
 
     @Override
-    public void subscriptionByFacebook(String fbemail, String fbtoken) {
-        loginNetworkInterface.signupFb(new AuthUser(fbemail, fbtoken))
+    public void subscriptionByFacebook(String fbemail, String fbtoken, String name, String first_name, String birthday) {
+        loginNetworkInterface.signupFb(new AuthUser(fbemail, fbtoken, first_name, name, birthday))
                 .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .timeout(5, TimeUnit.SECONDS)
                 .doOnError(err -> {

@@ -19,7 +19,7 @@ public interface LoginMVP {
 
         void loading(boolean loading);
 
-        public void displayError(Throwable throwable);
+        void displayError(Throwable throwable);
     }
 
     interface Presenter {
@@ -31,7 +31,7 @@ public interface LoginMVP {
 
         void goToSubscribe();
 
-        void facebookClicked(String email, String token);
+        void facebookClicked(String email, String token, String name, String first_name, String birthday);
     }
 
     interface Model {
@@ -40,7 +40,7 @@ public interface LoginMVP {
         //        void setBiketrackService(BiketrackService biketrackService);
         void connection(String email, String password, boolean rememberme);
 
-        void subscriptionByFacebook(String fbemail, String fbtoken);
+        void subscriptionByFacebook(String fbemail, String fbtoken, String name, String first_name, String birthday);
 
         Throwable getError();
     }

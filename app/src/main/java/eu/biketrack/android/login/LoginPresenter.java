@@ -13,6 +13,9 @@ public class LoginPresenter implements LoginMVP.Presenter {
     private boolean connectionByFacebook = false;
     private String fbemail;
     private String fbtoken;
+    private String name;
+    private String first_name;
+    private String birthday;
 
     public LoginPresenter(LoginMVP.Model model) {
         this.model = model;
@@ -38,7 +41,7 @@ public class LoginPresenter implements LoginMVP.Presenter {
         }
         else {
             if (model.getError().getMessage().equals("HTTP 401 Unauthorized") && connectionByFacebook) {
-                model.subscriptionByFacebook(fbemail, fbtoken);
+                model.subscriptionByFacebook(fbemail, fbtoken, name, first_name, birthday);
                 connectionByFacebook = false;
             }
             else
@@ -56,10 +59,14 @@ public class LoginPresenter implements LoginMVP.Presenter {
     }
 
     @Override
-    public void facebookClicked(String email, String token) {
+    public void facebookClicked(String email, String token, String name, String first_name, String birthday) {
         connectionByFacebook = true;
         model.connection(email, token, true);
         fbemail = email;
         fbtoken = token;
+        this.name = name;
+        this.first_name = first_name;
+        this.birthday = birthday;
     }
+
 }

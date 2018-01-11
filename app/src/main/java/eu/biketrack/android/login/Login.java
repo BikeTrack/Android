@@ -91,8 +91,10 @@ public class Login extends Activity implements LoginMVP.View {
                                 try {
                                     String email = object.getString("email");
                                     String id = object.getString("id");
+                                    String name = object.getString("last_name");
+                                    String first_name = object.getString("first_name");
                                     Log.d(TAG, "onCompleted: " + email);
-                                    presenter.facebookClicked(email, id);
+                                    presenter.facebookClicked(email, id, name, first_name, null);
                                 } catch (Exception e) {
                                     Log.e(TAG, "onCompleted: ", e);
                                 }
