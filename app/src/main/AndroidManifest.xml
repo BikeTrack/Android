@@ -105,6 +105,7 @@
         <activity
             android:name=".settings.SettingsTab"
             android:label="@string/title_activity_settings_tab"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
@@ -156,6 +157,7 @@
 
         <activity
             android:name=".accident.AccidentActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
