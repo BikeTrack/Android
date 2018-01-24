@@ -37,6 +37,9 @@ public class EditProfileFragment extends Fragment implements ProfileMVP.View, Da
 //    TextView datePicker;
     @BindView(R.id.profile_dobt_edit)
     EditText dob_text;
+    @BindView(R.id.profile_alertMail_edit)
+    EditText alertMail;
+
     @Inject
     ProfileMVP.Presenter presenter;
     private DatePickerDialog datePickerDialog;
@@ -158,5 +161,15 @@ public class EditProfileFragment extends Fragment implements ProfileMVP.View, Da
             m = "" + (month + 1);
         dob = d + "/" + m + "/" + year;
         dob_text.setText(dob);
+    }
+
+    @Override
+    public String getAlertMail() {
+        return alertMail.getText().toString();
+    }
+
+    @Override
+    public void setAlertMail(String alertMail) {
+        this.alertMail.setText(alertMail);
     }
 }

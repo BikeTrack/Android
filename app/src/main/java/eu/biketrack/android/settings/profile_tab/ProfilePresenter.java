@@ -38,6 +38,7 @@ public class ProfilePresenter implements ProfileMVP.Presenter {
             view.set_lastname(receptUser.getUser().getLastname());
             view.set_firstname(receptUser.getUser().getName());
             view.set_dob(receptUser.getUser().getDob());
+            view.setAlertMail(receptUser.getUser().getAlertMail());
         }).subscribe();
     }
 
@@ -68,6 +69,7 @@ public class ProfilePresenter implements ProfileMVP.Presenter {
         tmp.setName(view.get_firstname());
         tmp.setLastname(view.get_lastname());
         tmp.setDob(view.get_dob());
+        tmp.setAlertMail(view.getAlertMail());
         model.saveUserData(tmp)
                 .doOnNext(receptUserUpdate -> {
                     if (receptUserUpdate != null) {
@@ -86,5 +88,6 @@ public class ProfilePresenter implements ProfileMVP.Presenter {
         view.set_lastname(currentUser.getLastname());
         view.set_firstname(currentUser.getName());
         view.set_dob(currentUser.getDob());
+        view.setAlertMail(currentUser.getAlertMail());
     }
 }

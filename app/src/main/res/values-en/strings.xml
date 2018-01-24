@@ -146,4 +146,6 @@
     <string name="msg_notif_accident_canceled">We will not call for help.</string>
     <string name="error_title_notif_accident_canceled">Emergency not canceled</string>
     <string name="error_msg_notif_accident_canceled">We can\'t stop the call</string>
+
+    <string name="profile_alertMail_txt">Emergency Email</string>
 </resources>

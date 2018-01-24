@@ -56,6 +56,11 @@ public class User {
     @Expose
     private String notifToken;
 
+    @SerializedName("alertMail")
+    @Expose
+    private String alertMail;
+
+
     public String getId() {
         return id;
     }
@@ -152,6 +157,14 @@ public class User {
         this.notifToken = notifToken;
     }
 
+    public String getAlertMail() {
+        return alertMail;
+    }
+
+    public void setAlertMail(String alertMail) {
+        this.alertMail = alertMail;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -167,6 +180,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", notifToken='" + notifToken + '\'' +
+                ", alertMail='" + alertMail + '\'' +
                 '}';
     }
 }

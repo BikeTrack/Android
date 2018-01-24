@@ -26,11 +26,17 @@ public class UserUpdate {
     @Expose
     private String dob;
 
+    @SerializedName("alertMail")
+    @Expose
+    private String alertMail;
+
+
     public UserUpdate(User user) {
         this.email = user.getEmail();
         this.name = user.getName();
         this.lastname = user.getLastname();
         this.dob = user.getDob();
+        this.alertMail = user.getAlertMail();
     }
 
     public String getEmail() {
@@ -65,6 +71,14 @@ public class UserUpdate {
         this.dob = dob;
     }
 
+    public String getAlertMail() {
+        return alertMail;
+    }
+
+    public void setAlertMail(String alertMail) {
+        this.alertMail = alertMail;
+    }
+
     @Override
     public String toString() {
         return "UserUpdate{" +
@@ -72,6 +86,7 @@ public class UserUpdate {
                 ", name='" + name + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", dob='" + dob + '\'' +
+                ", alertMail='" + alertMail + '\'' +
                 '}';
     }
 }

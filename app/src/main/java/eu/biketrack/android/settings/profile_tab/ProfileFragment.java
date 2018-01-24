@@ -32,6 +32,8 @@ public class ProfileFragment extends Fragment implements ProfileMVP.View {
     TextView _firstname;
     @BindView(R.id.profile_dob_tv)
     TextView _dob;
+    @BindView(R.id.profile_alertMail_tv)
+    TextView alertMail;
     @Inject
     ProfileMVP.Presenter presenter;
     private Unbinder unbinder;
@@ -144,5 +146,15 @@ public class ProfileFragment extends Fragment implements ProfileMVP.View {
 
     public void update(){
         presenter.getUserData();
+    }
+
+    @Override
+    public String getAlertMail() {
+        return alertMail.getText().toString();
+    }
+
+    @Override
+    public void setAlertMail(String alertMail) {
+            this.alertMail.setText(alertMail);
     }
 }

@@ -30,6 +30,10 @@ public interface ProfileMVP {
 
         void set_dob(String _dob);
 
+        String getAlertMail();
+
+        void setAlertMail(String alertMail);
+
         void close();
 
         void displayMessage(String message);

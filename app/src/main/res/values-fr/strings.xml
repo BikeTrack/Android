@@ -148,4 +148,6 @@
     <string name="msg_notif_accident_canceled">Nous n\'appelerons personne.</string>
     <string name="error_title_notif_accident_canceled">Impossible d\'annuler l\'appel d\'urgence</string>
     <string name="error_msg_notif_accident_canceled">On ne peut pas annuler cet appel.</string>
+
+    <string name="profile_alertMail_txt">Email de contact d\'urgence</string>
 </resources>
